@@ -18,6 +18,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui-&gt;setupUi(this);
     setupUI();
+
+    // Live Preview Setup
+    previewScene = new PreviewScene(this);
+    previewView = new PreviewView(previewScene, this);
+    previewWidget = new QWidget(this);
+    previewWidget-&gt;setLayout(new QVBoxLayout());
+    previewWidget-&gt;layout()-&gt;addWidget(previewView);
+    ui-&gt;verticalLayout-&gt;insertWidget(1, previewWidget);
     
     parallelMgr = new ParallelManager(this);
     queueMgr = new QueueManager(this);
@@ -56,6 +64,14 @@ void MainWindow::setupUI() {
 
 void MainWindow::setupConnections() {
     connect(ui-&gt;addTaskButton, &amp;QPushButton::clicked, this, &amp;MainWindow::on_addTaskButton_clicked);
+    
+    // Preview integration with QueueManager and ParallelManager
+    connect(queueMgr, &amp;QueueManager::taskStatusChanged, this, [this](TransferTask*, TaskStatus) {
+        previewScene-&gt;setQueueInfo(queueMgr-&gt;getTasks().size(), parallelMgr-&gt;activeThreads());
+    });
+    connect(parallelMgr, &amp;ParallelManager::progressUpdated, previewScene, &amp;PreviewScene::updateSpeedGraph);
+    // Assume ParallelManager emits progressUpdated(double speed)
+    // Similar for chunk flow, ETA
     
     // Drag drop for MainWindow and children
     setAcceptDrops(true);

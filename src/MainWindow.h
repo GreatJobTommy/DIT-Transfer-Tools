@@ -13,11 +13,13 @@
 #include &quot;ParallelManager.h&quot;
 #include &quot;AddTaskDialog.h&quot;
 #include &quot;QueueManager.h&quot;
+#include &quot;PreviewScene.h&quot;
 #include &quot;DriveMonitor.h&quot;
 #include &quot;HashManager.h&quot;
 #include &quot;ProgressTracker.h&quot;
 #include &lt;QProgressBar&gt;
 #include &lt;QLabel&gt;
+#include &lt;QWidget&gt;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -54,6 +56,9 @@ private:
     QLabel *speedLabel;
     QLabel *etaLabel;
     QSlider *threadSlider;
+    PreviewScene *previewScene;
+    PreviewView *previewView;
+    QWidget *previewWidget;
     
     void setupUI();
     void setupConnections();
