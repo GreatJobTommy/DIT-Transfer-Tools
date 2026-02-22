@@ -1,8 +1,8 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include &lt;QObject&gt;
-#include &lt;QQueue&gt;
+#include <QObject>
+#include <QQueue>
 #include "TransferTask.h"
 
 class TransferQueue : public QObject {
@@ -17,7 +17,7 @@ signals:
     void queueProgress(double percentage);
 
 private:
-    QQueue&lt;TransferTask*&gt; m_queue;
+    QQueue<TransferTask*> m_queue;
 };
 
 #endif

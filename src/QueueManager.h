@@ -1,11 +1,11 @@
 #ifndef QUEUEMANAGER_H
 #define QUEUEMANAGER_H
 
-#include &lt;QObject&gt;
-#include &lt;QQueue&gt;
-#include &lt;QThreadPool&gt;
-#include &lt;QMutex&gt;
-#include &lt;QWaitCondition&gt;
+#include <QObject>
+#include <QQueue>
+#include <QThreadPool>
+#include <QMutex>
+#include <QWaitCondition>
 
 #include "ErrorManager.h"
 
@@ -35,7 +35,7 @@ public:
     void startNextTask();
     void pauseAll();
     void resumeAll();
-    QList&lt;TransferTask*&gt; getTasks() const;
+    QList<TransferTask*> getTasks() const;
     int getMaxParallel() const;
     void setMaxParallel(int max);
 
@@ -50,8 +50,8 @@ private slots:
     void onTaskFinished();
 
 private:
-    QQueue&lt;TransferTask*&gt; m_pendingQueue;
-    QList&lt;TransferTask*&gt; m_activeTasks;
+    QQueue<TransferTask*> m_pendingQueue;
+    QList<TransferTask*> m_activeTasks;
     mutable QMutex m_mutex;
     QWaitCondition m_condition;
     QThreadPool m_threadPool;

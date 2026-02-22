@@ -8,21 +8,21 @@
 ****************************************************************************/
 
 #include &quot;DriveMonitor.h&quot;
-#include &lt;QProcess&gt;
-#include &lt;QDir&gt;
-#include &lt;QDebug&gt;
-#include &lt;QStandardPaths&gt;
-#include &lt;QSysInfo&gt;
+#include <QProcess>
+#include <QDir>
+#include <QDebug>
+#include <QStandardPaths>
+#include <QSysInfo>
 
 DriveMonitor::DriveMonitor(QObject *parent)
     : QObject(parent)
     , m_pollTimer(new QTimer(this))
     , m_watcher(new QFileSystemWatcher(this))
 {
-    connect(m_pollTimer, &amp;QTimer::timeout, this, &amp;DriveMonitor::checkDrivesPoll);
-    connect(m_watcher, &amp;QFileSystemWatcher::directoryChanged, this, &amp;DriveMonitor::onWatcherChange);
+    connect(m_pollTimer, &QTimer::timeout, this, &DriveMonitor::checkDrivesPoll);
+    connect(m_watcher, &QFileSystemWatcher::directoryChanged, this, &DriveMonitor::onWatcherChange);
     
-    m_pollTimer-&gt;start(5000);  // 5s fallback poll
+    m_pollTimer->start(5000);  // 5s fallback poll
     scanDrives();  // Initial scan
 }
 
@@ -34,13 +34,13 @@ DriveMonitor::~DriveMonitor()
 void DriveMonitor::scanDrives()
 {
     // Primary: QStorageInfo (cross-platform)
-    QList&lt;QStorageInfo&gt; volumes = QStorageInfo::mountedVolumes();
+    QList<QStorageInfo> volumes = QStorageInfo::mountedVolumes();
     QStringList newDrives;
     
-    for (const QStorageInfo &amp;info : volumes) {
-        if (info.isReady() &amp;&amp; info.rootPath() != &quot;/&quot; &amp;&amp; isRemovableDrive(info)) {
+    for (const QStorageInfo &info : volumes) {
+        if (info.isReady() && info.rootPath() != &quot;/&quot; && isRemovableDrive(info)) {
             QString path = info.rootPath();
-            newDrives &lt;&lt; path;
+            newDrives << path;
             if (!m_knownDrives.contains(path)) {
                 addDrive(path);
             }
@@ -58,22 +58,22 @@ void DriveMonitor::scanDrives()
     emit drivesChanged(newDrives);
 }
 
-bool DriveMonitor::isRemovableDrive(const QStorageInfo &amp;info) const
+bool DriveMonitor::isRemovableDrive(const QStorageInfo &info) const
 {
     // USB/Removable heuristics
     QString device = info.device();
     if (device.contains(&quot;usb&quot;, Qt::CaseInsensitive) || 
         device.contains(&quot;sd&quot;, Qt::CaseInsensitive) ||
-        info.bytesTotal() &lt; 2LL * 1024 * 1024 * 1024 * 1024) {  // &lt; 2TB likely removable
+        info.bytesTotal() < 2LL * 1024 * 1024 * 1024 * 1024) {  // < 2TB likely removable
         return true;
     }
     return false;
 }
 
-void DriveMonitor::addDrive(const QString &amp;path)
+void DriveMonitor::addDrive(const QString &path)
 {
     m_knownDrives.insert(path);
-    m_watcher-&gt;addPath(path);  // Real-time watch
+    m_watcher->addPath(path);  // Real-time watch
     m_lastFiles[path] = !QDir(path).entryList(QDir::Files).isEmpty();  // Check if had files
     emit driveConnected(path);
     
@@ -81,9 +81,9 @@ void DriveMonitor::addDrive(const QString &amp;path)
     // Note: QueueManager integration via MainWindow signals
 }
 
-void DriveMonitor::removeDrive(const QString &amp;path)
+void DriveMonitor::removeDrive(const QString &path)
 {
-    m_watcher-&gt;removePath(path);
+    m_watcher->removePath(path);
     emit driveDisconnected(path);
     
     // Auto-pause
@@ -95,10 +95,10 @@ void DriveMonitor::checkDrivesPoll()
     scanDrives();  // Poll triggers full scan
 }
 
-void DriveMonitor::onWatcherChange(const QString &amp;path)
+void DriveMonitor::onWatcherChange(const QString &path)
 {
-    qDebug() &lt;&lt; &quot;Watcher:&quot; &lt;&lt; path;
-    QTimer::singleShot(100, this, &amp;DriveMonitor::scanDrives);  // Debounce
+    qDebug() << &quot;Watcher:&quot; << path;
+    QTimer::singleShot(100, this, &DriveMonitor::scanDrives);  // Debounce
 }
 
 void DriveMonitor::onStorageChanged()
@@ -116,10 +116,10 @@ QStringList DriveMonitor::getFallbackDrives() const
     p.waitForFinished(1000);
     QString out = p.readAllStandardOutput();
     QStringList lines = out.split(&apos;\n&apos;);
-    for (const QString &amp;line : lines) {
-        if (line.contains(&quot;/media&quot;) &amp;&amp; !line.contains(&quot;tmpfs&quot;)) {
+    for (const QString &line : lines) {
+        if (line.contains(&quot;/media&quot;) && !line.contains(&quot;tmpfs&quot;)) {
             QStringList parts = line.split(QRegExp(&quot;\\s+&quot;));
-            if (parts.size() &gt; 5) drives &lt;&lt; parts[5].trimmed();
+            if (parts.size() > 5) drives << parts[5].trimmed();
         }
     }
 #elif defined(Q_OS_WIN)
@@ -132,9 +132,9 @@ QStringList DriveMonitor::getFallbackDrives() const
     return drives;
 }
 
-bool DriveMonitor::isDriveWatched(const QString &amp;path) const
+bool DriveMonitor::isDriveWatched(const QString &path) const
 {
-    return m_watcher-&gt;files().contains(path) || m_watcher-&gt;directories().contains(path);
+    return m_watcher->files().contains(path) || m_watcher->directories().contains(path);
 }
 
 // EOF
