@@ -15,6 +15,7 @@
 #include &lt;QFileSystemWatcher&gt;
 #include &lt;QStorageInfo&gt;
 #include &lt;QStringList&gt;
+#include "ErrorManager.h"
 
 class DriveMonitor : public QObject
 {

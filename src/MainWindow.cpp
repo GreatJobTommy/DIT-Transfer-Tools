@@ -1,5 +1,5 @@
-#include &quot;MainWindow.h&quot;
-#include &quot;ui_MainWindow.h&quot;
+#include "MainWindow.h"
+#include "ui_MainWindow.h"
 #include &lt;QFileDialog&gt;
 #include &lt;QSettings&gt;
 #include &lt;QDebug&gt;
@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     queueMgr = new QueueManager(this);
     driveMon = new DriveMonitor(this);
     hashMgr = new HashManager(this);
+    errorMgr = new ErrorManager(this);
     
     setupConnections();
     loadSettings();
@@ -27,8 +28,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(driveMon, &amp;DriveMonitor::driveDisconnected, queueMgr, &amp;QueueManager::pauseAll);
     connect(driveMon, &amp;DriveMonitor::driveConnected, queueMgr, &amp;QueueManager::resumeAll);
     connect(driveMon, &amp;DriveMonitor::drivesChanged, this, [this](const QStringList &amp;drives){
-        ui-&gt;statusBar()-&gt;showMessage(QString(&quot;Drives: %1&quot;).arg(drives.join(&quot;, &quot;)), 2000);
+        ui-&gt;statusBar()-&gt;showMessage(QString("Drives: %1").arg(drives.join(", ")), 2000);
     });
+    connect(errorMgr, &amp;ErrorManager::errorOccurred, this, &amp;MainWindow::onErrorOccurred);
+}
+
+void MainWindow::onErrorOccurred(ErrorCategory cat, const QString&amp; message) {
+    errorMgr-&gt;showUserDialog(cat, message);
 }
 
 MainWindow::~MainWindow()

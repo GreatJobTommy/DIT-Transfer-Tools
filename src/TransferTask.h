@@ -37,7 +37,7 @@ signals:
     void statusChanged(TaskStatus status);
     void finished(bool success);
     void verified(bool ok);
-    void errorOccurred(const QString &amp;error);
+    void errorOccurred(ErrorCategory cat, const QString &amp;error);
 
 private:
     QString m_source;
