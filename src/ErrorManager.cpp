@@ -2,9 +2,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
-
 ErrorManager::ErrorManager(QObject *parent) : QObject(parent) {}
-
 QString ErrorManager::categoryToString(ErrorCategory cat) {
     switch (cat) {
     case ErrorCategory::DiskFull: return "Disk Full";
@@ -15,8 +13,7 @@ QString ErrorManager::categoryToString(ErrorCategory cat) {
     default: return "Unknown Error";
     }
 }
-
-ErrorCategory ErrorManager::stringToCategory(const QString&amp; str) {
+ErrorCategory ErrorManager::stringToCategory(const QString& str) {
     if (str == "Disk Full") return ErrorCategory::DiskFull;
     if (str == "Task Failed") return ErrorCategory::TaskFail;
     if (str == "Drive Unmounted") return ErrorCategory::DriveUnmount;
@@ -24,23 +21,20 @@ ErrorCategory ErrorManager::stringToCategory(const QString&amp; str) {
     if (str == "Hash Mismatch") return ErrorCategory::HashMismatch;
     return ErrorCategory::Unknown;
 }
-
 bool ErrorManager::retryLogic(int attempt, int maxRetries) {
     if (attempt >= maxRetries) return false;
     qDebug() << "Retry attempt" << (attempt + 1) << "of" << maxRetries;
     return true;
 }
-
-void ErrorManager::logError(ErrorCategory cat, const QString&amp; message) {
+void ErrorManager::logError(ErrorCategory cat, const QString& message) {
     QFile logFile("errors.log");
     if (logFile.open(QIODevice::Append | QIODevice::Text)) {
-        QTextStream out(&amp;logFile);
+        QTextStream out(&logFile);
         out << QTime::currentTime().toString() << " [" << categoryToString(cat) << "] " << message << "\n";
         logFile.close();
     }
 }
-
-bool ErrorManager::handleError(ErrorCategory cat, const QString&amp; message, int maxRetries) {
+bool ErrorManager::handleError(ErrorCategory cat, const QString& message, int maxRetries) {
     logError(cat, message);
     int attempt = 0;
     while (retryLogic(attempt, maxRetries)) {
@@ -56,8 +50,7 @@ bool ErrorManager::handleError(ErrorCategory cat, const QString&amp; message, in
     showUserDialog(cat, message);
     return false;
 }
-
-void ErrorManager::showUserDialog(ErrorCategory cat, const QString&amp; message) {
+void ErrorManager::showUserDialog(ErrorCategory cat, const QString& message) {
     QString title = "Error: " + categoryToString(cat);
     QMessageBox::critical(nullptr, title, message);
 }

@@ -1,21 +1,18 @@
 #include "PreviewScene.h"
 #include <QDebug>
 #include <QLinearGradient>
-
 PreviewScene::PreviewScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     m_animationTimer = new QTimer(this);
-    connect(m_animationTimer, &amp;QTimer::timeout, this, &amp;PreviewScene::animationTimerTick);
+    connect(m_animationTimer, &QTimer::timeout, this, &PreviewScene::animationTimerTick);
     m_animationTimer->start(16); // ~60fps
     
     initGraphics();
 }
-
 PreviewScene::~PreviewScene()
 {
 }
-
 void PreviewScene::initGraphics()
 {
     setSceneRect(0, 0, 400, 200);
@@ -36,7 +33,6 @@ void PreviewScene::initGraphics()
     m_queueText = addText("Queue: 0/0");
     m_queueText->setPos(200, 10);
 }
-
 void PreviewScene::updateChunkFlow(int chunkIndex, int totalChunks, double progress)
 {
     // Animate chunk flow
@@ -47,7 +43,6 @@ void PreviewScene::updateChunkFlow(int chunkIndex, int totalChunks, double progr
     }
     updateAnimation();
 }
-
 void PreviewScene::updateSpeedGraph(double currentSpeed)
 {
     m_speedHistory.append(currentSpeed);
@@ -64,28 +59,23 @@ void PreviewScene::updateSpeedGraph(double currentSpeed)
     }
     m_speedLine->setPath(path);
 }
-
-void PreviewScene::updateETA(const QString &amp;eta)
+void PreviewScene::updateETA(const QString &eta)
 {
     m_etaText->setPlainText(QString("ETA: %1").arg(eta));
 }
-
 void PreviewScene::setQueueInfo(int queueSize, int active)
 {
     m_queueText->setPlainText(QString("Queue: %1 active: %2").arg(queueSize).arg(active));
 }
-
 void PreviewScene::animationTimerTick()
 {
     updateAnimation();
 }
-
 void PreviewScene::updateAnimation()
 {
     // Continuous subtle animation
     // ...
 }
-
 PreviewView::PreviewView(PreviewScene *scene, QWidget *parent)
     : QGraphicsView(parent)
 {

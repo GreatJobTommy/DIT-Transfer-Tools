@@ -2,20 +2,17 @@
 #include "TransferTask.h" // Assume exists
 #include "Settings.h"     // Assume exists for maxParallel
 #include <QDebug>
-
 QueueManager::QueueManager(QObject *parent)
     : QObject(parent), m_maxParallel(4) // Default
 {
     connect(&m_threadPool, &QThreadPool::taskFinished, this, &QueueManager::onTaskFinished);
     m_threadPool.setMaxThreadCount(m_maxParallel);
 }
-
 QueueManager::~QueueManager() {
     pauseAll();
     qDeleteAll(m_pendingQueue);
     qDeleteAll(m_activeTasks);
 }
-
 void QueueManager::addTask(TransferTask *task) {
     QMutexLocker locker(&m_mutex);
     task->setStatus(TaskStatus::Pending);
@@ -23,7 +20,6 @@ void QueueManager::addTask(TransferTask *task) {
     emit taskStatusChanged(task, TaskStatus::Pending);
     startNextTask();
 }
-
 void QueueManager::startNextTask() {
     QMutexLocker locker(&m_mutex);
     while (m_pendingQueue.size() > 0 && m_activeTasks.size() < static_cast<size_t>(m_maxParallel)) {
@@ -35,7 +31,6 @@ void QueueManager::startNextTask() {
         m_threadPool.start(task);
     }
 }
-
 void QueueManager::pauseAll() {
     QMutexLocker locker(&m_mutex);
     for (TransferTask *task : m_activeTasks) {
@@ -44,7 +39,6 @@ void QueueManager::pauseAll() {
     }
     m_threadPool.waitForDone();
 }
-
 void QueueManager::resumeAll() {
     QMutexLocker locker(&m_mutex);
     for (TransferTask *task : m_activeTasks) {
@@ -54,7 +48,6 @@ void QueueManager::resumeAll() {
     }
     startNextTask();
 }
-
 QList<TransferTask*> QueueManager::getTasks() const {
     QMutexLocker locker(&m_mutex);
     QList<TransferTask*> all;
@@ -62,17 +55,14 @@ QList<TransferTask*> QueueManager::getTasks() const {
     all << m_activeTasks;
     return all;
 }
-
 int QueueManager::getMaxParallel() const {
     return m_maxParallel;
 }
-
 void QueueManager::setMaxParallel(int max) {
     QMutexLocker locker(&m_mutex);
     m_maxParallel = max;
     m_threadPool.setMaxThreadCount(max);
 }
-
 void QueueManager::moveTask(int fromIndex, int toIndex) {
     QMutexLocker locker(&m_mutex);
     // Simplified: combine pending + active for reordering
@@ -96,7 +86,6 @@ void QueueManager::moveTask(int fromIndex, int toIndex) {
         emit tasksReordered();
     }
 }
-
 void QueueManager::onTaskFinished() {
     QMutexLocker locker(&m_mutex);
     // Remove completed tasks from active
@@ -110,7 +99,6 @@ void QueueManager::onTaskFinished() {
     }
     startNextTask();
 }
-
 void QueueManager::updateTaskStatus(TransferTask *task, TaskStatus status) {
     task->setStatus(status);
     emit taskStatusChanged(task, status);

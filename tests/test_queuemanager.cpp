@@ -34,7 +34,7 @@ private slots:
         m_manager-&gt;addTask(t2);
         m_manager-&gt;moveTask(1, 0);
         // Check reorder via signal or list
-        QSignalSpy spy(m_manager, &amp;QueueManager::tasksReordered);
+        QSignalSpy spy(m_manager, &QueueManager::tasksReordered);
         QCOMPARE(spy.count(), 1);
     }
 

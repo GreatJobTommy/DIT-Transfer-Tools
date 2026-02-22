@@ -5,9 +5,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QApplication>
-
 ConfigManager* ConfigManager::m_instance = nullptr;
-
 ConfigManager::ConfigManager(QObject *parent)
     : QObject(parent)
     , m_qsettings(new QSettings("DIT-Transfer-Tools", "Config", this))
@@ -19,66 +17,54 @@ ConfigManager::ConfigManager(QObject *parent)
     loadAllSettings();
     
     m_watcher->addPath(m_jsonBackupPath);
-    connect(m_watcher, &amp;QFileSystemWatcher::fileChanged, this, &amp;ConfigManager::onJsonFileChanged);
+    connect(m_watcher, &QFileSystemWatcher::fileChanged, this, &ConfigManager::onJsonFileChanged);
 }
-
 ConfigManager::~ConfigManager() {
     saveAllSettings();
     m_instance = nullptr;
 }
-
 ConfigManager* ConfigManager::instance() {
     if (!m_instance) {
         m_instance = new ConfigManager();
     }
     return m_instance;
 }
-
 void ConfigManager::loadAllSettings() {
     loadFromJson(m_jsonBackupPath);
     m_qsettings->sync();
     emit settingsLoaded();
 }
-
 void ConfigManager::saveAllSettings() {
     saveToJson(m_jsonBackupPath);
     m_qsettings->sync();
     emit settingsSaved();
 }
-
 QString ConfigManager::getTransferDir() const {
     return m_qsettings->value("transfer/dir", QDir::homePath()).toString();
 }
-
-void ConfigManager::setTransferDir(const QString &amp;dir) {
+void ConfigManager::setTransferDir(const QString &dir) {
     m_qsettings->setValue("transfer/dir", dir);
     emit transferDirChanged(dir);
 }
-
 QString ConfigManager::getHashAlgorithm() const {
     return m_qsettings->value("hash/algorithm", "SHA256").toString();
 }
-
-void ConfigManager::setHashAlgorithm(const QString &amp;algo) {
+void ConfigManager::setHashAlgorithm(const QString &algo) {
     m_qsettings->setValue("hash/algorithm", algo);
     emit hashAlgorithmChanged(algo);
 }
-
 bool ConfigManager::getAutoTransfer() const {
     return m_qsettings->value("transfer/auto", false).toBool();
 }
-
 void ConfigManager::setAutoTransfer(bool enabled) {
     m_qsettings->setValue("transfer/auto", enabled);
     emit autoTransferChanged(enabled);
 }
-
 void ConfigManager::loadDefaults() {
     m_qsettings->setValue("transfer/dir", QDir::homePath());
     m_qsettings->setValue("hash/algorithm", "SHA256");
     m_qsettings->setValue("transfer/auto", false);
 }
-
 void ConfigManager::migrateFromOldFormat() {
     // Simple migration example
     if (m_qsettings->contains("oldTransferPath")) {
@@ -86,8 +72,7 @@ void ConfigManager::migrateFromOldFormat() {
         m_qsettings->remove("oldTransferPath");
     }
 }
-
-bool ConfigManager::loadFromJson(const QString &amp;jsonPath) {
+bool ConfigManager::loadFromJson(const QString &jsonPath) {
     QFile file(jsonPath);
     if (!file.exists()) {
         return false;
@@ -107,8 +92,7 @@ bool ConfigManager::loadFromJson(const QString &amp;jsonPath) {
     jsonToSettings(doc.object());
     return true;
 }
-
-bool ConfigManager::saveToJson(const QString &amp;jsonPath) {
+bool ConfigManager::saveToJson(const QString &jsonPath) {
     QJsonObject json = settingsToJson();
     QJsonDocument doc(json);
     QFile file(jsonPath);
@@ -118,12 +102,10 @@ bool ConfigManager::saveToJson(const QString &amp;jsonPath) {
     file.write(doc.toJson());
     return true;
 }
-
 void ConfigManager::recoverFromCorruptJson() {
     qDebug() << "Recovering from corrupt JSON, loading defaults";
     loadDefaults();
 }
-
 QJsonObject ConfigManager::settingsToJson() {
     QJsonObject json;
     json["transfer/dir"] = getTransferDir();
@@ -131,13 +113,11 @@ QJsonObject ConfigManager::settingsToJson() {
     json["transfer/auto"] = getAutoTransfer();
     return json;
 }
-
-void ConfigManager::jsonToSettings(const QJsonObject &amp;json) {
+void ConfigManager::jsonToSettings(const QJsonObject &json) {
     if (json.contains("transfer/dir")) setTransferDir(json["transfer/dir"].toString());
     if (json.contains("hash/algorithm")) setHashAlgorithm(json["hash/algorithm"].toString());
     if (json.contains("transfer/auto")) setAutoTransfer(json["transfer/auto"].toBool());
 }
-
-void ConfigManager::onJsonFileChanged(const QString &amp;path) {
+void ConfigManager::onJsonFileChanged(const QString &path) {
     loadAllSettings();
 }

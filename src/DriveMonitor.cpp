@@ -6,14 +6,12 @@
 ** Disconnect: QueueManager::pauseAll()
 ** Reconnect: Check lastFiles, then resumeAll()
 ****************************************************************************/
-
 #include "DriveMonitor.h"
 #include <QProcess>
 #include <QDir>
 #include <QDebug>
 #include <QStandardPaths>
 #include <QSysInfo>
-
 DriveMonitor::DriveMonitor(QObject *parent)
     : QObject(parent)
     , m_pollTimer(new QTimer(this))
@@ -25,12 +23,10 @@ DriveMonitor::DriveMonitor(QObject *parent)
     m_pollTimer->start(5000);  // 5s fallback poll
     scanDrives();  // Initial scan
 }
-
 DriveMonitor::~DriveMonitor()
 {
     // Cleanup watchers if needed
 }
-
 void DriveMonitor::scanDrives()
 {
     // Primary: QStorageInfo (cross-platform)
@@ -57,7 +53,6 @@ void DriveMonitor::scanDrives()
     m_currentDrives = newDrives;
     emit drivesChanged(newDrives);
 }
-
 bool DriveMonitor::isRemovableDrive(const QStorageInfo &info) const
 {
     // USB/Removable heuristics
@@ -69,7 +64,6 @@ bool DriveMonitor::isRemovableDrive(const QStorageInfo &info) const
     }
     return false;
 }
-
 void DriveMonitor::addDrive(const QString &path)
 {
     m_knownDrives.insert(path);
@@ -80,7 +74,6 @@ void DriveMonitor::addDrive(const QString &path)
     // Auto-resume if was paused
     // Note: QueueManager integration via MainWindow signals
 }
-
 void DriveMonitor::removeDrive(const QString &path)
 {
     m_watcher->removePath(path);
@@ -89,24 +82,20 @@ void DriveMonitor::removeDrive(const QString &path)
     // Auto-pause
     // QueueManager::pauseAll() via signal
 }
-
 void DriveMonitor::checkDrivesPoll()
 {
     scanDrives();  // Poll triggers full scan
 }
-
 void DriveMonitor::onWatcherChange(const QString &path)
 {
     qDebug() << "Watcher:" << path;
     QTimer::singleShot(100, this, &DriveMonitor::scanDrives);  // Debounce
 }
-
 void DriveMonitor::onStorageChanged()
 {
     // Qt6+ signal if available, fallback to poll
     scanDrives();
 }
-
 QStringList DriveMonitor::getFallbackDrives() const
 {
     QStringList drives;
@@ -131,10 +120,8 @@ QStringList DriveMonitor::getFallbackDrives() const
 #endif
     return drives;
 }
-
 bool DriveMonitor::isDriveWatched(const QString &path) const
 {
     return m_watcher->files().contains(path) || m_watcher->directories().contains(path);
 }
-
 // EOF

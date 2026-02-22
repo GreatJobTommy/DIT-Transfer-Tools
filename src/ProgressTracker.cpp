@@ -1,16 +1,13 @@
 #include "ProgressTracker.h"
 #include <QDebug>
 #include <QtMath>
-
 ProgressTracker::ProgressTracker(QObject *parent)
     : QObject(parent), m_updateTimer(new QTimer(this)) {
     connect(m_updateTimer, &QTimer::timeout, this, &ProgressTracker::updateDisplay);
     m_updateTimer->setInterval(1000); // Update every second
 }
-
 ProgressTracker::~ProgressTracker() {
 }
-
 void ProgressTracker::start() {
     m_timer.start();
     m_transferredBytes = 0;
@@ -18,28 +15,22 @@ void ProgressTracker::start() {
     m_updateTimer->start();
     emit progressUpdated(0.0, 0.0, "00:00:00");
 }
-
 void ProgressTracker::updateProgress(qint64 bytesTransferred, qint64 totalBytes) {
     m_transferredBytes = bytesTransferred;
     m_totalBytes = totalBytes;
 }
-
 void ProgressTracker::stop() {
     m_isRunning = false;
     m_updateTimer->stop();
     emit transferFinished();
 }
-
 void ProgressTracker::updateDisplay() {
     if (!m_isRunning || m_totalBytes == 0) return;
-
     qint64 elapsedMs = m_timer.elapsed();
     double elapsedSec = elapsedMs / 1000.0;
     double mbTransferred = m_transferredBytes / (1024.0 * 1024.0);
     m_mbPerSec = elapsedSec > 0 ? mbTransferred / elapsedSec : 0.0;
-
     double percentage = (m_transferredBytes * 100.0) / m_totalBytes;
-
     QString eta;
     if (m_mbPerSec > 0) {
         double remainingMb = (m_totalBytes - m_transferredBytes) / (1024.0 * 1024.0);
@@ -51,6 +42,5 @@ void ProgressTracker::updateDisplay() {
     } else {
         eta = "--:--:--";
     }
-
     emit progressUpdated(percentage, m_mbPerSec, eta);
 }

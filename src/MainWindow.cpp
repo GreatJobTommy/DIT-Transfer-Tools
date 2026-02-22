@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "ParallelManager.h"
@@ -12,7 +11,6 @@
 #include <QLabel>
 #include <QDropEvent>
 #include <QMimeData>
-=======
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include <QFileDialog>
@@ -20,15 +18,12 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QFileInfo>
->>>>>>> origin/main
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     setupUI();
-
     // Live Preview Setup
     previewScene = new PreviewScene(this);
     previewView = new PreviewView(previewScene, this);
@@ -47,54 +42,46 @@ MainWindow::MainWindow(QWidget *parent)
     loadSettings();
     
     statusTimer = new QTimer(this);
-    connect(statusTimer, &amp;QTimer::timeout, this, &amp;MainWindow::updateQueueStatus);
+    connect(statusTimer, &QTimer::timeout, this, &MainWindow::updateQueueStatus);
     statusTimer->start(1000);
     
-<<<<<<< HEAD
     // Thread slider setup
     threadSlider = new QSlider(Qt::Horizontal, this);
     threadSlider->setRange(1, 32);
     threadSlider->setValue(parallelMgr->maxThreads());
-    connect(threadSlider, &amp;QSlider::valueChanged, this, &amp;MainWindow::onThreadCountChanged);
+    connect(threadSlider, &QSlider::valueChanged, this, &MainWindow::onThreadCountChanged);
     ui->statusBar()->addPermanentWidget(threadSlider);
     ui->statusBar()->addWidget(new QLabel("Threads: "));
     ui->statusBar()->addWidget(new QLabel("1")); // Placeholder, update dynamically
     
-    connect(driveMon, &amp;DriveMonitor::driveDisconnected, parallelMgr, [this]() { parallelMgr->pause(); });
-    connect(driveMon, &amp;DriveMonitor::driveConnected, parallelMgr, &amp;ParallelManager::resume);
-=======
-    connect(driveMon, &amp;DriveMonitor::driveDisconnected, queueMgr, &amp;QueueManager::pauseAll);
-    connect(driveMon, &amp;DriveMonitor::driveConnected, queueMgr, &amp;QueueManager::resumeAll);
-    connect(driveMon, &amp;DriveMonitor::drivesChanged, this, [this](const QStringList &amp;drives){
+    connect(driveMon, &DriveMonitor::driveDisconnected, parallelMgr, [this]() { parallelMgr->pause(); });
+    connect(driveMon, &DriveMonitor::driveConnected, parallelMgr, &ParallelManager::resume);
+    connect(driveMon, &DriveMonitor::driveDisconnected, queueMgr, &QueueManager::pauseAll);
+    connect(driveMon, &DriveMonitor::driveConnected, queueMgr, &QueueManager::resumeAll);
+    connect(driveMon, &DriveMonitor::drivesChanged, this, [this](const QStringList &drives){
         ui->statusBar()->showMessage(QString("Drives: %1").arg(drives.join(", ")), 2000);
     });
-    connect(errorMgr, &amp;ErrorManager::errorOccurred, this, &amp;MainWindow::onErrorOccurred);
+    connect(errorMgr, &ErrorManager::errorOccurred, this, &MainWindow::onErrorOccurred);
 }
-
-void MainWindow::onErrorOccurred(ErrorCategory cat, const QString&amp; message) {
+void MainWindow::onErrorOccurred(ErrorCategory cat, const QString& message) {
     errorMgr->showUserDialog(cat, message);
->>>>>>> origin/main
 }
-
 MainWindow::~MainWindow()
 {
     saveSettings();
     delete ui;
 }
-
-<<<<<<< HEAD
 void MainWindow::setupUI() {
     // Placeholder
 }
-
 void MainWindow::setupConnections() {
-    connect(ui->addTaskButton, &amp;QPushButton::clicked, this, &amp;MainWindow::on_addTaskButton_clicked);
+    connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
     
     // Preview integration with QueueManager and ParallelManager
-    connect(queueMgr, &amp;QueueManager::taskStatusChanged, this, [this](TransferTask*, TaskStatus) {
+    connect(queueMgr, &QueueManager::taskStatusChanged, this, [this](TransferTask*, TaskStatus) {
         previewScene->setQueueInfo(queueMgr->getTasks().size(), parallelMgr->activeThreads());
     });
-    connect(parallelMgr, &amp;ParallelManager::progressUpdated, previewScene, &amp;PreviewScene::updateSpeedGraph);
+    connect(parallelMgr, &ParallelManager::progressUpdated, previewScene, &PreviewScene::updateSpeedGraph);
     // Assume ParallelManager emits progressUpdated(double speed)
     // Similar for chunk flow, ETA
     
@@ -102,15 +89,14 @@ void MainWindow::setupConnections() {
     setAcceptDrops(true);
     
     // Connect ParallelManager signals
-    connect(parallelMgr, &amp;ParallelManager::taskStarted, this, [](TransferTask* t) {
+    connect(parallelMgr, &ParallelManager::taskStarted, this, [](TransferTask* t) {
         qDebug() << "Task started:" << t;
     });
-    connect(parallelMgr, &amp;ParallelManager::taskFinished, this, &amp;MainWindow::onTaskFinished);
+    connect(parallelMgr, &ParallelManager::taskFinished, this, &MainWindow::onTaskFinished);
     
     // Connect QueueManager to list updates
-    connect(queueMgr, &amp;QueueManager::taskStatusChanged, this, &amp;MainWindow::updateQueueStatus);
+    connect(queueMgr, &QueueManager::taskStatusChanged, this, &MainWindow::updateQueueStatus);
 }
-
 void MainWindow::on_addTaskButton_clicked() {
     AddTaskDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
@@ -119,7 +105,7 @@ void MainWindow::on_addTaskButton_clicked() {
         QJsonObject presets = dialog.getPresetSettings();
         
         // Create TransferTask(s)
-        for (const QString&amp; src : sources) {
+        for (const QString& src : sources) {
             TransferTask *task = new TransferTask(src, targets);
             // Apply presets
             // task->setPreset(presets); assume method
@@ -128,13 +114,11 @@ void MainWindow::on_addTaskButton_clicked() {
         updateQueueStatus();
     }
 }
-
 void MainWindow::onThreadCountChanged(int value) {
     parallelMgr->setMaxThreads(value);
     queueMgr->setMaxParallel(value);
     qDebug() << "Threads set to" << value;
 }
-
 void MainWindow::updateQueueStatus() {
     ui->queueList->clear();
     QList<TransferTask*> tasks = queueMgr->getTasks();
@@ -145,7 +129,6 @@ void MainWindow::updateQueueStatus() {
     int active = parallelMgr->activeThreads();
     ui->statusBar()->showMessage(QString("Active threads: %1 | Queue: %2").arg(active).arg(tasks.size()));
 }
-
 // Placeholder slots
 void MainWindow::onTaskProgress(double, double, QString) {}
 void MainWindow::onTaskFinished(bool) {}
@@ -153,18 +136,16 @@ void MainWindow::onVerification(bool) {}
 void MainWindow::onProgressUpdated(double, double, QString) {}
 void MainWindow::loadSettings() {}
 void MainWindow::saveSettings() {}
-
 // Drag drop for MainWindow
 void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
     }
 }
-
 void MainWindow::dropEvent(QDropEvent *event) {
     QList<QUrl> urls = event->mimeData()->urls();
     QStringList sources;
-    for (const QUrl&amp; url : urls) {
+    for (const QUrl& url : urls) {
         QString path = url.toLocalFile();
         if (!path.isEmpty()) sources << path;
     }
@@ -173,7 +154,7 @@ void MainWindow::dropEvent(QDropEvent *event) {
         dialog.setSources(sources); // Assume setSources method added
         if (dialog.exec() == QDialog::Accepted) {
             // Add as above
-            for (const QString&amp; src : sources) {
+            for (const QString& src : sources) {
                 TransferTask *task = new TransferTask(src, dialog.getTargets());
                 queueMgr->addTask(task);
             }
@@ -181,9 +162,7 @@ void MainWindow::dropEvent(QDropEvent *event) {
         }
     }
     event->acceptProposedAction();
-=======
 void MainWindow::onParallelChanged(int value) {
     Settings::parallel() = value;
     queueMgr->setMaxParallel(value);
->>>>>>> origin/main
 }

@@ -1,10 +1,8 @@
 #ifndef ERROR_MANAGER_H
 #define ERROR_MANAGER_H
-
 #include <QObject>
 #include <QMessageBox>
 #include <QString>
-
 // Error categories
 enum class ErrorCategory {
     DiskFull,
@@ -14,25 +12,18 @@ enum class ErrorCategory {
     HashMismatch,
     Unknown
 };
-
 class ErrorManager : public QObject {
     Q_OBJECT
-
 public:
     explicit ErrorManager(QObject *parent = nullptr);
-
     static QString categoryToString(ErrorCategory cat);
-    static ErrorCategory stringToCategory(const QString&amp; str);
-
-    bool handleError(ErrorCategory cat, const QString&amp; message, int maxRetries = 3);
-    void showUserDialog(ErrorCategory cat, const QString&amp; message);
-
+    static ErrorCategory stringToCategory(const QString& str);
+    bool handleError(ErrorCategory cat, const QString& message, int maxRetries = 3);
+    void showUserDialog(ErrorCategory cat, const QString& message);
 signals:
-    void errorOccurred(ErrorCategory cat, const QString&amp; message);
-
+    void errorOccurred(ErrorCategory cat, const QString& message);
 private:
     bool retryLogic(int attempt, int maxRetries);
-    void logError(ErrorCategory cat, const QString&amp; message);
+    void logError(ErrorCategory cat, const QString& message);
 };
-
 #endif // ERROR_MANAGER_H
