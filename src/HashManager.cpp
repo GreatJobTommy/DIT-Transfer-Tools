@@ -1,30 +1,20 @@
-/****************************************************************************
-** HashManager.cpp - SHA256 Implementation
-****************************************************************************/
-
 #include &quot;HashManager.h&quot;
-#include &lt;QThread&gt;
 #include &lt;QDebug&gt;
 
-HashManager::HashManager(QObject *parent)
-    : QObject(parent)
-{
+QByteArray HashManager::computeHash(const QString &amp;filePath, QCryptographicHash::Algorithm algo) {
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning() &lt;&lt; &quot;Cannot open file:&quot; &lt;&lt; filePath;
+        return QByteArray();
+    }
+    QCryptographicHash hash(algo);
+    if (!hash.addData(&amp;file)) {
+        return QByteArray();
+    }
+    return hash.result();
 }
 
-void HashManager::update(const QByteArray &amp;data)
-{
-    m_hashCtx.addData(data);
-    emit hashReady(m_hashCtx.hash().toHex().left(16)); // Partial 16 chars
+bool HashManager::verifyHash(const QString &amp;filePath, const QByteArray &amp;expectedHash) {
+    QByteArray actual = computeHash(filePath);
+    return actual == expectedHash;
 }
-
-QString HashManager::finalHash() const
-{
-    return QString::fromLatin1(m_hashCtx.result().toHex());
-}
-
-void HashManager::reset()
-{
-    m_hashCtx = QCryptographicHash(QCryptographicHash::Sha256);
-}
-
-// EOF
