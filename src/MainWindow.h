@@ -30,7 +30,10 @@ public:
 
 private slots:
     void updateQueueStatus();
+<<<<<<< HEAD
     void onProgressUpdated(double percentage, double mbPerSec, QString eta);
+=======
+>>>>>>> origin/main
     void loadSettings();
     void saveSettings();
 
