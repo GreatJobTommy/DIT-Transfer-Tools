@@ -103,3 +103,4 @@ void QueueManager::updateTaskStatus(TransferTask *task, TaskStatus status) {
     task->setStatus(status);
     emit taskStatusChanged(task, status);
 }
+#include <queue>

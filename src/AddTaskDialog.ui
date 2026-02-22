@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string><h3>Source (Drag Multi-Folders/Files)</h3></string>
+      <string><Source (Drag Multi-Folders/Files)</</string>
      </property>
     </widget>
    </item>

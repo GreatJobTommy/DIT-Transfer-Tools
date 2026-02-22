@@ -212,3 +212,4 @@ bool TransferTask::loadState(const QJsonObject &state) {
     // targets etc.
     return true;
 }
+#include <functional>
