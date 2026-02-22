@@ -30,6 +30,9 @@ public:
 
 private slots:
     void updateQueueStatus();
+    void onTaskProgress(double perc, double speed, QString eta);
+    void onTaskFinished(bool success);
+    void onVerification(bool ok);
 <<<<<<< HEAD
     void onProgressUpdated(double percentage, double mbPerSec, QString eta);
 =======
