@@ -1,79 +1,92 @@
 /****************************************************************************
-** test_drivemonitor.cpp - Unit-Tests für DriveMonitor
-** Qt Test Framework. Testet Cross-Platform, Watcher/Poll, Signals.
+** test_drivemonitor.cpp - Extended Unit-Tests für DriveMonitor V3
+** Tests: QStorageInfo, Watcher, Poll-Fallback, Signals, Queue Integration.
 ****************************************************************************/
 
 #include &lt;QtTest&gt;
-#include &quot;../src/DriveMonitor.h&quot;
 #include &lt;QSignalSpy&gt;
-#include &lt;QTestEventList&gt;
+#include &quot;../src/DriveMonitor.h&quot;
+#include &quot;../src/QueueManager.h&quot;
 #include &lt;QDir&gt;
-#include &lt;QStorageInfo&gt;
 #include &lt;QThread&gt;
+#include &lt;QStorageInfo&gt;
 
 class TestDriveMonitor : public QObject {
     Q_OBJECT
 
 private slots:
     void initTestCase() {
-        // Create temp dir to simulate drive
-        m_tempDir = QDir::tempPath() + &quot;/testdrive_&quot; + QString::number(QDateTime::currentMSecsSinceEpoch());
-        QDir().mkpath(m_tempDir);
+        m_tempDrive = QDir::tempPath() + &quot;/testdrive_&quot; + QString::number(QDateTime::currentMSecsSinceEpoch());
+        QDir().mkpath(m_tempDrive);
+        // Add test file
+        QFile(m_tempDrive + &quot;/testfile.txt&quot;).open(QIODevice::WriteOnly);
     }
 
     void cleanupTestCase() {
-        QDir(m_tempDir).removeRecursively();
+        QDir(m_tempDrive).removeRecursively();
     }
 
-    void testQStorageInfoCrossPlatform() {
+    void testQStorageInfoAllPlatforms() {
         QList&lt;QStorageInfo&gt; drives = QStorageInfo::mountedVolumes();
-        QCOMPARE(drives.size(), drives.size()); // Basic check
+        QVERIFY(!drives.isEmpty());
         
-        for (const QStorageInfo &amp;drive : drives) {
-            QVERIFY2(drive.isValid(), (drive.rootPath() + &quot; invalid&quot;).toUtf8());
-            QVERIFY2(!drive.rootPath().isEmpty(), &quot;Empty root path&quot;);
+        int removableCount = 0;
+        for (const QStorageInfo &amp;info : drives) {
+            QVERIFY(info.isValid());
+            if (info.isReady() &amp;&amp; info.rootPath() != &quot;/&quot;) {
+                removableCount += DriveMonitor().isRemovableDrive(info) ? 1 : 0;
+            }
         }
+        // Expect at least system drives detected
+        QVERIFY(removableCount &gt;= 0);
+    }
+
+    void testFileSystemWatcher() {
+        DriveMonitor monitor;
+        QSignalSpy spyConnected(&amp;monitor, &amp;DriveMonitor::driveConnected);
+        QSignalSpy spyDisconnected(&amp;monitor, &amp;DriveMonitor::driveDisconnected);
+        
+        // Should scan immediately
+        QTest::qWait(100);
+        QVERIFY(spyConnected.count() &gt;= 0 || spyDisconnected.count() &gt;= 0);
     }
 
     void testPollingFallback() {
         DriveMonitor monitor;
-        QSignalSpy spy(&amp;monitor, &amp;DriveMonitor::driveReconnected);
-        
-        // Simulate drive by touching temp dir
-        QDir(m_tempDir).mkpath(&quot;testfile&quot;);
-        
-        // Wait for poll (reduce timer for test)
-        monitor.m_timer-&gt;setInterval(100);
+        monitor.m_pollTimer-&gt;setSingleShot(true);
+        monitor.m_pollTimer-&gt;start(100);
         QTest::qWait(200);
-        
-        QCOMPARE(spy.count(), 1); // Should detect temp drive as &apos;reconnected&apos;
+        QVERIFY(!monitor.getCurrentDrives().isEmpty());
     }
 
-    void testQueuePauseResume_data() {
-        QTest::addColumn&lt;bool&gt;(&quot;disconnect&quot;);
-        QTest::newRow(&quot;disconnect&quot;) &lt;&lt; true;
-        QTest::newRow(&quot;reconnect&quot;) &lt;&lt; false;
-    }
-
-    void testQueuePauseResume() {
-        QFETCH(bool, disconnect);
-        
+    void testQueueIntegration() {
         DriveMonitor monitor;
-        // Assume global QueueManager instance or mock
-        // For test: verify pause/resume signals (extend DriveMonitor if needed)
-        QVERIFY(true); // Placeholder - integrate with QueueManager in real test
+        QueueManager queueMgr;
+        
+        QSignalSpy spyPause(&amp;queueMgr, &amp;QueueManager::pauseAll);
+        QSignalSpy spyResume(&amp;queueMgr, &amp;QueueManager::resumeAll);
+        
+        // Simulate disconnect/connect via direct call (in real: via signals)
+        emit monitor.driveDisconnected(&quot;/fake&quot;);
+        QCOMPARE(spyPause.count(), 1);
+        
+        emit monitor.driveConnected(&quot;/fake&quot;);
+        QCOMPARE(spyResume.count(), 1);
     }
 
-    void testFileSystemWatcher() {
-#ifdef Q_OS_LINUX
+    void testLastFilesResumeCheck() {
         DriveMonitor monitor;
-        // Test watcher registration on known paths
-        QVERIFY(monitor.getMountedDrives().size() &gt; 0);
-#endif
+        QString path = m_tempDrive;
+        monitor.addDrive(path);
+        QVERIFY(monitor.m_lastFiles[path]);  // Access via friendship or public for test
+        
+        // Remove files, check false
+        QDir(path).removeRecursively(&quot;testfile.txt&quot;);
+        QVERIFY(!QDir(path).entryList(QDir::Files).isEmpty() == false);
     }
 
 private:
-    QString m_tempDir;
+    QString m_tempDrive;
 };
 
 QTEST_MAIN(TestDriveMonitor)

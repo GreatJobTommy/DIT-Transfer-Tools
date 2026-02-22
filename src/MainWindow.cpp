@@ -1,6 +1,6 @@
 /****************************************************************************
-** MainWindow.cpp - GUI Implementation
-** Features: Queue-View, Settings-Dialog, Status-Updates, Log-Viewer.
+** MainWindow.cpp - GUI Implementation V3 (DriveMonitor Integration)
+** Features: Queue-View, Settings-Dialog, Status-Updates, Drive Events.
 ****************************************************************************/
 
 #include &quot;MainWindow.h&quot;
@@ -16,18 +16,24 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui-&gt;setupUi(this);
     setupUI();
-    setupConnections();
-    loadSettings();
     
     queueMgr = new QueueManager(this);
     driveMon = new DriveMonitor(this);
     hashMgr = new HashManager(this);
     
+    setupConnections();
+    loadSettings();
+    
     statusTimer = new QTimer(this);
     connect(statusTimer, &amp;QTimer::timeout, this, &amp;MainWindow::updateQueueStatus);
-    statusTimer-&gt;start(1000); // 1s Update
+    statusTimer-&gt;start(1000);
     
-    connect(driveMon, &amp;DriveMonitor::driveReconnected, this, &amp;MainWindow::onDriveReconnect);
+    // CRITICAL: DriveMonitor &lt;-&gt; QueueManager signals
+    connect(driveMon, &amp;DriveMonitor::driveDisconnected, queueMgr, &amp;QueueManager::pauseAll);
+    connect(driveMon, &amp;DriveMonitor::driveConnected, queueMgr, &amp;QueueManager::resumeAll);
+    connect(driveMon, &amp;DriveMonitor::drivesChanged, this, [this](const QStringList &amp;drives){
+        ui-&gt;statusBar()-&gt;showMessage(QString(&quot;Drives: %1&quot;).arg(drives.join(&quot;, &quot;)), 2000);
+    });
 }
 
 MainWindow::~MainWindow()
@@ -38,41 +44,49 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupUI()
 {
-    setWindowTitle(&quot;DIT-Transfer-Tools&quot;);
-    resize(800, 600);
+    setWindowTitle(&quot;DIT-Transfer-Tools V3&quot;);
+    resize(900, 700);
+    ui-&gt;statusBar()-&gt;showMessage(&quot;DriveMonitor V3 active&quot;);
 }
 
 void MainWindow::setupConnections()
 {
     connect(ui-&gt;addTaskButton, &amp;QPushButton::clicked, [this](){
         QString src = QFileDialog::getOpenFileName(this, &quot;Quelle wählen&quot;);
-        QString dst = QFileDialog::getSaveFileName(this, &quot;Ziel wählen&quot;);
+        QString dst = QFileDialog::getSaveFileName(this, &quot;Ziel Drive wählen&quot;);
         if (!src.isEmpty() &amp;&amp; !dst.isEmpty()) {
-            queueMgr-&gt;addTask(src, dst);
+            TransferTask *task = new TransferTask(src, dst, this);
+            queueMgr-&gt;addTask(task);
         }
     });
+    
+    // Resume button
+    connect(ui-&gt;resumeButton, &amp;QPushButton::clicked, queueMgr, &amp;QueueManager::resumeAll);
 }
 
 void MainWindow::updateQueueStatus()
 {
-    // UI mit Queue-Status aktualisieren (aktiv/wartend)
-    // TODO: Liste refreshen
+    // Update queue list in UI
+    int active = queueMgr-&gt;getTasks().count([](TransferTask *t){ return t-&gt;status() == TaskStatus::Active; });
+    ui-&gt;statusLabel-&gt;setText(QString(&quot;Active: %1 | Drives: %2&quot;)
+        .arg(active).arg(driveMon-&gt;getCurrentDrives().size()));
 }
 
 void MainWindow::onDriveReconnect(const QString &amp;drive)
 {
-    ui-&gt;statusBar()-&gt;showMessage(&quot;Drive reconnected: &quot; + drive, 3000);
+    ui-&gt;statusBar()-&gt;showMessage(&quot;✅ Drive reconnected: &quot; + drive, 5000);
 }
 
 void MainWindow::loadSettings()
 {
-    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + &quot;/settings.ini&quot;, QSettings::IniFormat);
-    // Chunk-Größe, Hash-Enable etc.
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + &quot;/dit.ini&quot;, QSettings::IniFormat);
+    queueMgr-&gt;setMaxParallel(settings.value(&quot;queue/maxParallel&quot;, 4).toInt());
 }
 
 void MainWindow::saveSettings()
 {
-    // Settings speichern
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + &quot;/dit.ini&quot;, QSettings::IniFormat);
+    settings.setValue(&quot;queue/maxParallel&quot;, queueMgr-&gt;getMaxParallel());
 }
 
 // EOF
