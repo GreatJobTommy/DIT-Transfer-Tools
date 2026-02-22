@@ -12,6 +12,9 @@
 #include &quot;QueueManager.h&quot;
 #include &quot;DriveMonitor.h&quot;
 #include &quot;HashManager.h&quot;
+#include &quot;ProgressTracker.h&quot;
+#include &lt;QProgressBar&gt;
+#include &lt;QLabel&gt;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +30,10 @@ public:
 
 private slots:
     void updateQueueStatus();
+<<<<<<< HEAD
+    void onProgressUpdated(double percentage, double mbPerSec, QString eta);
+=======
+>>>>>>> origin/main
     void loadSettings();
     void saveSettings();
 
@@ -36,6 +43,9 @@ private:
     DriveMonitor *driveMon;
     HashManager *hashMgr;
     QTimer *statusTimer;
+    QProgressBar *progressBar;
+    QLabel *speedLabel;
+    QLabel *etaLabel;
     
     void setupUI();
     void setupConnections();
