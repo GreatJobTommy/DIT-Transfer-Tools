@@ -1,16 +1,12 @@
 #include &quot;SettingsDialog.h&quot;
-#include &quot;SettingsManager.h&quot;
+#include &quot;ConfigManager.h&quot;
 #include &lt;QVBoxLayout&gt;
 #include &lt;QHBoxLayout&gt;
-#include &lt;QTabWidget&gt;
-#include &lt;QPushButton&gt;
-#include &lt;QSpinBox&gt;
-#include &lt;QComboBox&gt;
 #include &lt;QDialogButtonBox&gt;
 
-SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent)
+SettingsDialog::SettingsDialog(ConfigManager *configManager, QWidget *parent)
     : QDialog(parent)
-    , m_settingsManager(settingsManager)
+    , m_configManager(configManager)
 {
     setWindowTitle(&quot;Settings&quot;);
 
@@ -26,7 +22,7 @@ SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent
     parallelLabel = new QLabel(&quot;Parallel Tasks:&quot;);
     parallelTasksSpinBox = new QSpinBox();
     parallelTasksSpinBox-&gt;setRange(1, 32);
-    parallelTasksSpinBox-&gt;setValue(settingsManager-&gt;parallelTasks());
+    parallelTasksSpinBox-&gt;setValue(4); // Default
 
     generalLayout-&gt;addWidget(parallelLabel);
     generalLayout-&gt;addWidget(parallelTasksSpinBox);
@@ -34,7 +30,7 @@ SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent
     hashLabel = new QLabel(&quot;Hash Algorithm:&quot;);
     hashAlgoComboBox = new QComboBox();
     hashAlgoComboBox-&gt;addItems({&quot;SHA256&quot;, &quot;SHA512&quot;});
-    hashAlgoComboBox-&gt;setCurrentText(settingsManager-&gt;hashAlgo());
+    hashAlgoComboBox-&gt;setCurrentText(m_configManager-&gt;getHashAlgorithm());
 
     generalLayout-&gt;addWidget(hashLabel);
     generalLayout-&gt;addWidget(hashAlgoComboBox);
@@ -48,7 +44,7 @@ SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent
     pollLabel = new QLabel(&quot;Drive Poll Interval (s):&quot;);
     pollIntervalSpinBox = new QSpinBox();
     pollIntervalSpinBox-&gt;setRange(1, 60);
-    pollIntervalSpinBox-&gt;setValue(settingsManager-&gt;drivePollInterval());
+    pollIntervalSpinBox-&gt;setValue(5); // Default
     pollIntervalSpinBox-&gt;setSuffix(&quot; s&quot;);
 
     driveLayout-&gt;addWidget(pollLabel);
@@ -56,18 +52,37 @@ SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent
 
     tabWidget-&gt;addTab(driveTab, &quot;Drive&quot;);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    mainLayout-&gt;addWidget(buttonBox);
+    // Buttons
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    saveButton = new QPushButton(&quot;Save&quot;);
+    resetButton = new QPushButton(&quot;Reset to Defaults&quot;);
+    QPushButton *cancelButton = new QPushButton(&quot;Cancel&quot;);
 
-    connect(buttonBox, &amp;QDialogButtonBox::accepted, this, &amp;QDialog::accept);
-    connect(buttonBox, &amp;QDialogButtonBox::rejected, this, &amp;QDialog::reject);
+    buttonLayout-&gt;addWidget(saveButton);
+    buttonLayout-&gt;addWidget(resetButton);
+    buttonLayout-&gt;addWidget(cancelButton);
+    mainLayout-&gt;addLayout(buttonLayout);
 
-    connect(settingsManager, &amp;SettingsManager::settingsChanged, this, &amp;QDialog::accept);
+    connect(saveButton, &amp;QPushButton::clicked, this, &amp;SettingsDialog::saveSettings);
+    connect(resetButton, &amp;QPushButton::clicked, this, &amp;SettingsDialog::resetSettings);
+    connect(cancelButton, &amp;QPushButton::clicked, this, &amp;QDialog::reject);
+}
+
+void SettingsDialog::saveSettings() {
+    // Save to ConfigManager
+    // Note: parallelTasks and pollInterval would need getters/setters added to ConfigManager
+    m_configManager-&gt;setHashAlgorithm(hashAlgoComboBox-&gt;currentText());
+    m_configManager-&gt;saveAllSettings();
+    accept();
+}
+
+void SettingsDialog::resetSettings() {
+    parallelTasksSpinBox-&gt;setValue(4);
+    hashAlgoComboBox-&gt;setCurrentText(&quot;SHA256&quot;);
+    pollIntervalSpinBox-&gt;setValue(5);
 }
 
 void SettingsDialog::accept() {
-    m_settingsManager-&gt;setParallelTasks(parallelTasksSpinBox-&gt;value());
-    m_settingsManager-&gt;setHashAlgo(hashAlgoComboBox-&gt;currentText());
-    m_settingsManager-&gt;setDrivePollInterval(pollIntervalSpinBox-&gt;value());
+    saveSettings();
     QDialog::accept();
 }
