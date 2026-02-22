@@ -29,6 +29,7 @@ private slots:
     void onTaskFinished(bool success);
     void onVerification(bool ok);
     void onProgressUpdated(double percentage, double mbPerSec, QString eta);
+    void onParallelChanged(int value);
     void loadSettings();
     void saveSettings();
     void onErrorOccurred(ErrorCategory cat, const QString&amp; message);

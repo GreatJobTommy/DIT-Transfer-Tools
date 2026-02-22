@@ -42,3 +42,8 @@ MainWindow::~MainWindow()
     saveSettings();
     delete ui;
 }
+
+void MainWindow::onParallelChanged(int value) {
+    Settings::parallel() = value;
+    queueMgr->setMaxParallel(value);
+}
