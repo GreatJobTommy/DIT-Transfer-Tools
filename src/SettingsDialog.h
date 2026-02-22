@@ -6,23 +6,26 @@
 #include &lt;QLabel&gt;
 #include &lt;QSpinBox&gt;
 #include &lt;QComboBox&gt;
+<<<<<<< HEAD
 #include &lt;QPushButton&gt;
 
 class ConfigManager;
+=======
+
+class SettingsManager;
+>>>>>>> origin/main
 
 class SettingsDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(ConfigManager *configManager, QWidget *parent = nullptr);
+    explicit SettingsDialog(SettingsManager *settingsManager, QWidget *parent = nullptr);
 
 private slots:
-    void saveSettings();
-    void resetSettings();
     void accept() override;
 
 private:
-    ConfigManager *m_configManager;
+    SettingsManager *m_settingsManager;
 
     QTabWidget *tabWidget;
     QLabel *parallelLabel;
@@ -31,8 +34,11 @@ private:
     QComboBox *hashAlgoComboBox;
     QLabel *pollLabel;
     QSpinBox *pollIntervalSpinBox;
+<<<<<<< HEAD
     QPushButton *saveButton;
     QPushButton *resetButton;
+=======
+>>>>>>> origin/main
 };
 
 #endif // SETTINGSDIALOG_H

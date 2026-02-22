@@ -381,6 +381,11 @@ compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_HashMa
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_HashManager.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp
 moc_MainWindow.cpp: src/MainWindow.h \
+		src/QueueManager.h \
+		src/ErrorManager.h \
+		src/DriveMonitor.h \
+		src/HashManager.h \
+		src/ProgressTracker.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/MainWindow.h -o moc_MainWindow.cpp
@@ -396,11 +401,13 @@ moc_HashManager.cpp: src/HashManager.h \
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/HashManager.h -o moc_HashManager.cpp
 
 moc_QueueManager.cpp: src/QueueManager.h \
+		src/ErrorManager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/QueueManager.h -o moc_QueueManager.cpp
 
 moc_DriveMonitor.cpp: src/DriveMonitor.h \
+		src/ErrorManager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/DriveMonitor.h -o moc_DriveMonitor.cpp
@@ -429,7 +436,13 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-MainWindow.o: src/MainWindow.cpp 
+MainWindow.o: src/MainWindow.cpp src/MainWindow.h \
+		src/QueueManager.h \
+		src/ErrorManager.h \
+		src/DriveMonitor.h \
+		src/HashManager.h \
+		src/ProgressTracker.h \
+		ui_MainWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/MainWindow.cpp
 
 TransferTask.o: src/TransferTask.cpp 

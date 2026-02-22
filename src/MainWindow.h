@@ -1,20 +1,15 @@
-/****************************************************************************
-** MainWindow.h - GUI-Hauptfenster für DIT-Transfer-Tools V3
-** DriveMonitor fully integrated with signals to QueueManager.
-** Max 400 Zeilen.
-****************************************************************************/
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include &lt;QMainWindow&gt;
 #include &lt;QTimer&gt;
-#include &quot;QueueManager.h&quot;
-#include &quot;DriveMonitor.h&quot;
-#include &quot;HashManager.h&quot;
-#include &quot;ProgressTracker.h&quot;
+#include "QueueManager.h"
+#include "DriveMonitor.h"
+#include "HashManager.h"
+#include "ProgressTracker.h"
 #include &lt;QProgressBar&gt;
 #include &lt;QLabel&gt;
+#include "ErrorManager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,19 +28,18 @@ private slots:
     void onTaskProgress(double perc, double speed, QString eta);
     void onTaskFinished(bool success);
     void onVerification(bool ok);
-<<<<<<< HEAD
     void onProgressUpdated(double percentage, double mbPerSec, QString eta);
     void onParallelChanged(int value);
-=======
->>>>>>> origin/main
     void loadSettings();
     void saveSettings();
+    void onErrorOccurred(ErrorCategory cat, const QString&amp; message);
 
 private:
     Ui::MainWindow *ui;
     QueueManager *queueMgr;
     DriveMonitor *driveMon;
     HashManager *hashMgr;
+    ErrorManager *errorMgr;
     QTimer *statusTimer;
     QProgressBar *progressBar;
     QLabel *speedLabel;
