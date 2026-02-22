@@ -7,9 +7,17 @@
 #include <QMutex>
 #include <QWaitCondition>
 
+#include "ErrorManager.h"
+
 class TransferTask; // Forward declaration
 
 enum class TaskStatus {
+    Pending,
+    Active,
+    Paused,
+    Completed,
+    Failed
+};
     Pending,
     Active,
     Paused,

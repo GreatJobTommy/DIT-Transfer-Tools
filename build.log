@@ -1,0 +1,4 @@
+/usr/lib/qt5/bin/uic src/MainWindow.ui -o ui_MainWindow.h
+uic: Error in line 1, column 1 : Start tag expected.
+File 'src/MainWindow.ui' is not valid
+make: *** [Makefile:424: ui_MainWindow.h] Error 1
