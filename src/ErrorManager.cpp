@@ -1,7 +1,7 @@
 #include "ErrorManager.h"
-#include &lt;QDebug&gt;
-#include &lt;QFile&gt;
-#include &lt;QTextStream&gt;
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
 
 ErrorManager::ErrorManager(QObject *parent) : QObject(parent) {}
 
@@ -26,8 +26,8 @@ ErrorCategory ErrorManager::stringToCategory(const QString&amp; str) {
 }
 
 bool ErrorManager::retryLogic(int attempt, int maxRetries) {
-    if (attempt &gt;= maxRetries) return false;
-    qDebug() &lt;&lt; "Retry attempt" &lt;&lt; (attempt + 1) &lt;&lt; "of" &lt;&lt; maxRetries;
+    if (attempt >= maxRetries) return false;
+    qDebug() << "Retry attempt" << (attempt + 1) << "of" << maxRetries;
     return true;
 }
 
@@ -35,7 +35,7 @@ void ErrorManager::logError(ErrorCategory cat, const QString&amp; message) {
     QFile logFile("errors.log");
     if (logFile.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&amp;logFile);
-        out &lt;&lt; QTime::currentTime().toString() &lt;&lt; " [" &lt;&lt; categoryToString(cat) &lt;&lt; "] " &lt;&lt; message &lt;&lt; "\n";
+        out << QTime::currentTime().toString() << " [" << categoryToString(cat) << "] " << message << "\n";
         logFile.close();
     }
 }

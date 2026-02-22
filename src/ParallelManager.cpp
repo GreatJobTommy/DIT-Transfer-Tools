@@ -1,6 +1,6 @@
-#include &quot;ParallelManager.h&quot;
-#include &lt;QDebug&gt;
-#include &lt;QThread&gt;
+#include "ParallelManager.h"
+#include <QDebug>
+#include <QThread>
 
 ParallelManager::ParallelManager(QObject *parent)
     : QObject(parent), m_maxThreads(4), m_paused(false)
@@ -48,7 +48,7 @@ int ParallelManager::activeThreads() const {
 
 void ParallelManager::startNextTask() {
     QMutexLocker lock(&amp;m_mutex);
-    while (!m_taskQueue.empty() &amp;&amp; m_activeTasks.size() &lt; static_cast&lt;size_t&gt;(m_maxThreads) &amp;&amp; !m_paused) {
+    while (!m_taskQueue.empty() &amp;&amp; m_activeTasks.size() < static_cast<size_t>(m_maxThreads) &amp;&amp; !m_paused) {
         auto entry = m_taskQueue.top(); m_taskQueue.pop();
         m_activeTasks.append(entry.task);
         emit taskStarted(entry.task);
@@ -59,11 +59,11 @@ void ParallelManager::startNextTask() {
 void ParallelManager::onTaskFinished() {
     QMutexLocker lock(&amp;m_mutex);
     // Note: This slot assumes connection to thread pool or task signal
-    for (int i = m_activeTasks.size() - 1; i &gt;= 0; --i) {
+    for (int i = m_activeTasks.size() - 1; i >= 0; --i) {
         TransferTask* task = m_activeTasks[i];
-        if (task-&gt;isFinished()) { // Assume method
+        if (task->isFinished()) { // Assume method
             m_activeTasks.removeAt(i);
-            emit taskFinished(task, task-&gt;success());
+            emit taskFinished(task, task->success());
             startNextTask();
             break;
         }
@@ -72,5 +72,5 @@ void ParallelManager::onTaskFinished() {
 
 void ParallelManager::loadBalance() {
     // Simple load balance: adjust based on CPU? Placeholder
-    qDebug() &lt;&lt; &quot;Load balanced to&quot; &lt;&lt; m_maxThreads &lt;&lt; &quot;threads&quot;;
+    qDebug() << "Load balanced to" << m_maxThreads << "threads";
 }

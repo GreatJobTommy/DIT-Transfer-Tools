@@ -1,24 +1,24 @@
-#include &quot;AddTaskDialog.h&quot;
-#include &quot;ui_AddTaskDialog.h&quot;
-#include &lt;QDebug&gt;
-#include &lt;QFileInfo&gt;
-#include &lt;QDir&gt;
-#include &lt;QJsonDocument&gt;
-#include &lt;QMessageBox&gt;
-#include &lt;QDirIterator&gt;
-#include &lt;QCryptographicHash&gt;
+#include "AddTaskDialog.h"
+#include "ui_AddTaskDialog.h"
+#include <QDebug>
+#include <QFileInfo>
+#include <QDir>
+#include <QJsonDocument>
+#include <QMessageBox>
+#include <QDirIterator>
+#include <QCryptographicHash>
 
 AddTaskDialog::AddTaskDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AddTaskDialog)
 {
-    ui-&gt;setupUi(this);
+    ui->setupUi(this);
     setAcceptDrops(true);
     
-    ui-&gt;dropZone-&gt;setAcceptDrops(true);
-    ui-&gt;previewEdit-&gt;setPlainText(&quot;Drop files/folders to preview...&quot;);
+    ui->dropZone->setAcceptDrops(true);
+    ui->previewEdit->setPlainText("Drop files/folders to preview...");
     
     loadSmartPresets();
-    connect(ui-&gt;presetCombo, QOverload&lt;int&gt;::of(&amp;QComboBox::currentIndexChanged), this, &amp;AddTaskDialog::onPresetChanged);
-    connect(ui-&gt;previewButton, &amp;QPushButton::clicked, this, &amp;AddTaskDialog::onPreviewClicked);
+    connect(ui->presetCombo, QOverload<int>::of(&amp;QComboBox::currentIndexChanged), this, &amp;AddTaskDialog::onPresetChanged);
+    connect(ui->previewButton, &amp;QPushButton::clicked, this, &amp;AddTaskDialog::onPreviewClicked);
 }
 
 AddTaskDialog::~AddTaskDialog()
@@ -29,27 +29,27 @@ AddTaskDialog::~AddTaskDialog()
 QStringList AddTaskDialog::getSources() const { return m_sources; }
 
 QStringList AddTaskDialog::getTargets() const {
-    return ui-&gt;targetEdit-&gt;text().split(&#39;,&#39;, Qt::SkipEmptyParts);
+    return ui->targetEdit->text().split(',', Qt::SkipEmptyParts);
 }
 
 QJsonObject AddTaskDialog::getPresetSettings() const { return m_presetSettings; }
 
 void AddTaskDialog::loadSmartPresets() {
-    ui-&gt;presetCombo-&gt;clear();
-    ui-&gt;presetCombo-&gt;addItems({&quot;Fast Copy (no verify)&quot;, &quot;Safe (chunk 1MB + hash)&quot;, &quot;USB Backup (verify + resume)&quot;, &quot;Custom&quot;});
+    ui->presetCombo->clear();
+    ui->presetCombo->addItems({"Fast Copy (no verify)", "Safe (chunk 1MB + hash)", "USB Backup (verify + resume)", "Custom"});
     onPresetChanged(0);
 }
 
 void AddTaskDialog::onPresetChanged(int index) {
     switch(index) {
     case 0: // Fast
-        m_presetSettings = { {&quot;chunkSize&quot;, 64*1024*1024}, {&quot;verify&quot;, false}, {&quot;hash&quot;, false} };
+        m_presetSettings = { {"chunkSize", 64*1024*1024}, {"verify", false}, {"hash", false} };
         break;
     case 1: // Safe
-        m_presetSettings = { {&quot;chunkSize&quot;, 1*1024*1024}, {&quot;verify&quot;, true}, {&quot;hash&quot;, true} };
+        m_presetSettings = { {"chunkSize", 1*1024*1024}, {"verify", true}, {"hash", true} };
         break;
     case 2: // USB
-        m_presetSettings = { {&quot;chunkSize&quot;, 4*1024*1024}, {&quot;verify&quot;, true}, {&quot;hash&quot;, true}, {&quot;resume&quot;, true} };
+        m_presetSettings = { {"chunkSize", 4*1024*1024}, {"verify", true}, {"hash", true}, {"resume", true} };
         break;
     default:
         m_presetSettings = {};
@@ -67,22 +67,22 @@ void AddTaskDialog::updatePreview() {
     qint64 totalSize = calculateTotalSize(m_sources);
     QString estTime = estimateTime(totalSize);
     
-    preview += QString(&quot;Sources (%1):\n&quot;).arg(m_sources.size());
+    preview += QString("Sources (%1):\n").arg(m_sources.size());
     for (const QString&amp; path : m_sources) {
         QFileInfo fi(path);
-        preview += QString(&quot;  %1 (%2)\n&quot;).arg(fi.fileName(), fi.isDir() ? &quot;DIR&quot; : humanReadableSize(fi.size()));
+        preview += QString("  %1 (%2)\n").arg(fi.fileName(), fi.isDir() ? "DIR" : humanReadableSize(fi.size()));
     }
-    preview += QString(&quot;\nTotal: %1 | Est. Time: %2\n&quot;).arg(humanReadableSize(totalSize), estTime);
-    preview += QString(&quot;Preset: %1\n&quot;).arg(ui-&gt;presetCombo-&gt;currentText());
-    preview += m_presetSettings.isEmpty() ? &quot;&quot; : QJsonDocument(m_presetSettings).toJson(QJsonDocument::Compact);
+    preview += QString("\nTotal: %1 | Est. Time: %2\n").arg(humanReadableSize(totalSize), estTime);
+    preview += QString("Preset: %1\n").arg(ui->presetCombo->currentText());
+    preview += m_presetSettings.isEmpty() ? "" : QJsonDocument(m_presetSettings).toJson(QJsonDocument::Compact);
     
     if (validateInputs()) {
-        preview += &quot;\n✅ VALIDATED&quot;;
+        preview += "\n✅ VALIDATED";
     } else {
-        preview += &quot;\n❌ INVALID: Check targets/paths&quot;;
+        preview += "\n❌ INVALID: Check targets/paths";
     }
     
-    ui-&gt;previewEdit-&gt;setPlainText(preview);
+    ui->previewEdit->setPlainText(preview);
 }
 
 bool AddTaskDialog::validateInputs() {
@@ -104,7 +104,7 @@ qint64 AddTaskDialog::calculateTotalSize(const QStringList &amp;paths) {
             QDirIterator it(path, QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
             while (it.hasNext()) {
                 total += QFileInfo(it.next()).size();
-                if (total &gt; 100LL*1024*1024*1024*1024) break; // Cap at 100TB
+                if (total > 100LL*1024*1024*1024*1024) break; // Cap at 100TB
             }
         }
     }
@@ -115,35 +115,35 @@ QString AddTaskDialog::estimateTime(qint64 bytes) {
     double speed = 100.0; // MB/s average
     double secs = (bytes / 1024.0 / 1024.0) / speed;
     int mins = secs / 60;
-    return QString(&quot;%1min&quot;).arg(mins);
+    return QString("%1min").arg(mins);
 }
 
 QString AddTaskDialog::humanReadableSize(qint64 bytes) {
-    QStringList units = {&quot;B&quot;, &quot;KB&quot;, &quot;MB&quot;, &quot;GB&quot;, &quot;TB&quot;};
+    QStringList units = {"B", "KB", "MB", "GB", "TB"};
     double size = bytes;
     int unit = 0;
-    while (size &gt;= 1024 &amp;&amp; unit &lt; units.size()-1) {
+    while (size >= 1024 &amp;&amp; unit < units.size()-1) {
         size /= 1024;
         ++unit;
     }
-    return QString(&quot;%1 %2&quot;).arg(size, 0, &#39;f&#39;, 1).arg(units[unit]);
+    return QString("%1 %2").arg(size, 0, 'f', 1).arg(units[unit]);
 }
 
 void AddTaskDialog::onDropZoneDragEnter(QDragEnterEvent *event) {
-    if (event-&gt;mimeData()-&gt;hasUrls()) {
-        event-&gt;acceptProposedAction();
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
     }
 }
 
 void AddTaskDialog::onDropZoneDrop(QDropEvent *event) {
     m_sources.clear();
-    QList&lt;QUrl&gt; urls = event-&gt;mimeData()-&gt;urls();
+    QList<QUrl> urls = event->mimeData()->urls();
     for (const QUrl&amp; url : urls) {
         QString path = url.toLocalFile();
         if (QFileInfo::exists(path)) {
-            m_sources &lt;&lt; path;
+            m_sources << path;
         }
     }
     updatePreview();
-    event-&gt;acceptProposedAction();
+    event->acceptProposedAction();
 }

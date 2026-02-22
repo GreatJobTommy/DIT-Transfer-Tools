@@ -10,27 +10,27 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include &lt;QMainWindow&gt;
-#include &lt;QTimer&gt;
+#include <QMainWindow>
+#include <QTimer>
 <<<<<<< HEAD
-#include &lt;QSlider&gt;
-#include &quot;ParallelManager.h&quot;
-#include &quot;AddTaskDialog.h&quot;
-#include &quot;QueueManager.h&quot;
-#include &quot;PreviewScene.h&quot;
-#include &quot;DriveMonitor.h&quot;
-#include &quot;HashManager.h&quot;
-#include &quot;ProgressTracker.h&quot;
-#include &lt;QProgressBar&gt;
-#include &lt;QLabel&gt;
-#include &lt;QWidget&gt;
+#include <QSlider>
+#include "ParallelManager.h"
+#include "AddTaskDialog.h"
+#include "QueueManager.h"
+#include "PreviewScene.h"
+#include "DriveMonitor.h"
+#include "HashManager.h"
+#include "ProgressTracker.h"
+#include <QProgressBar>
+#include <QLabel>
+#include <QWidget>
 =======
 #include "QueueManager.h"
 #include "DriveMonitor.h"
 #include "HashManager.h"
 #include "ProgressTracker.h"
-#include &lt;QProgressBar&gt;
-#include &lt;QLabel&gt;
+#include <QProgressBar>
+#include <QLabel>
 #include "ErrorManager.h"
 >>>>>>> origin/main
 

@@ -1,9 +1,9 @@
 #ifndef ERROR_MANAGER_H
 #define ERROR_MANAGER_H
 
-#include &lt;QObject&gt;
-#include &lt;QMessageBox&gt;
-#include &lt;QString&gt;
+#include <QObject>
+#include <QMessageBox>
+#include <QString>
 
 // Error categories
 enum class ErrorCategory {

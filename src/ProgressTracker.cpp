@@ -16,7 +16,7 @@ void ProgressTracker::start() {
     m_transferredBytes = 0;
     m_isRunning = true;
     m_updateTimer->start();
-    emit progressUpdated(0.0, 0.0, &quot;00:00:00&quot;);
+    emit progressUpdated(0.0, 0.0, "00:00:00");
 }
 
 void ProgressTracker::updateProgress(qint64 bytesTransferred, qint64 totalBytes) {
@@ -47,9 +47,9 @@ void ProgressTracker::updateDisplay() {
         qint64 hours = remainingSec / 3600;
         qint64 mins = (remainingSec / 60) % 60;
         qint64 secs = remainingSec % 60;
-        eta = QString(&quot;%1:%2:%3&quot;).arg(hours).arg(mins, 2, 10, QChar(&#x27;0&#x27;)).arg(secs, 2, 10, QChar(&#x27;0&#x27;));
+        eta = QString("%1:%2:%3").arg(hours).arg(mins, 2, 10, QChar(&#x27;0&#x27;)).arg(secs, 2, 10, QChar(&#x27;0&#x27;));
     } else {
-        eta = &quot;--:--:--&quot;;
+        eta = "--:--:--";
     }
 
     emit progressUpdated(percentage, m_mbPerSec, eta);

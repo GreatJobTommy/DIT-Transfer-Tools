@@ -1,151 +1,151 @@
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;ui version=&quot;4.0&quot;&gt;
- &lt;class&gt;AddTaskDialog&lt;/class&gt;
- &lt;widget class=&quot;QDialog&quot; name=&quot;AddTaskDialog&quot;&gt;
-  &lt;property name=&quot;geometry&quot;&gt;
-   &lt;rect&gt;
-    &lt;x&gt;0&lt;/x&gt;
-    &lt;y&gt;0&lt;/y&gt;
-    &lt;width&gt;600&lt;/width&gt;
-    &lt;height&gt;500&lt;/height&gt;
-   &lt;/rect&gt;
-  &lt;/property&gt;
-  &lt;property name=&quot;windowTitle&quot;&gt;
-   &lt;string&gt;ULTIMATE AddTask V3 - Drag Folders/Files, Presets, Preview&lt;/string&gt;
-  &lt;/property&gt;
-  &lt;layout class=&quot;QVBoxLayout&quot; name=&quot;verticalLayout&quot;&gt;
-   &lt;item&gt;
-    &lt;widget class=&quot;QLabel&quot; name=&quot;label&quot;&gt;
-     &lt;property name=&quot;text&quot;&gt;
-      &lt;string&gt;&lt;h3&gt;Source (Drag Multi-Folders/Files)&lt;/h3&gt;&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-   &lt;/item&gt;
-   &lt;item&gt;
-    &lt;widget class=&quot;QWidget&quot; name=&quot;dropZone&quot;&gt;
-     &lt;property name=&quot;minimumSize&quot;&gt;
-      &lt;size&gt;
-       &lt;width&gt;0&lt;/width&gt;
-       &lt;height&gt;100&lt;/height&gt;
-      &lt;/size&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;styleSheet&quot;&gt;
-      &lt;string notr=&quot;true&quot;&gt;background-color: #e0f7fa; border: 3px dashed #00bcd4; border-radius: 10px;&lt;/string&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;text&quot;&gt;
-      &lt;string&gt;Drop folders/files here or click to browse...&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-   &lt;/item&gt;
-   &lt;item&gt;
-    &lt;layout class=&quot;QHBoxLayout&quot; name=&quot;horizontalLayout&quot;&gt;
-     &lt;item&gt;
-      &lt;widget class=&quot;QLabel&quot; name=&quot;label_2&quot;&gt;
-       &lt;property name=&quot;text&quot;&gt;
-        &lt;string&gt;Targets:&lt;/string&gt;
-       &lt;/property&gt;
-      &lt;/widget&gt;
-     &lt;/item&gt;
-     &lt;item&gt;
-      &lt;widget class=&quot;QLineEdit&quot; name=&quot;targetEdit&quot;&gt;
-       &lt;property name=&quot;placeholderText&quot;&gt;
-        &lt;string&gt;/media/usb/backup,/mnt/drive2/DIT,...&lt;/string&gt;
-       &lt;/property&gt;
-      &lt;/widget&gt;
-     &lt;/item&gt;
-    &lt;/layout&gt;
-   &lt;/item&gt;
-   &lt;item&gt;
-    &lt;widget class=&quot;QGroupBox&quot; name=&quot;presetGroup&quot;&gt;
-     &lt;property name=&quot;title&quot;&gt;
-      &lt;string&gt;Smart Presets&lt;/string&gt;
-     &lt;/property&gt;
-     &lt;layout class=&quot;QHBoxLayout&quot; name=&quot;horizontalLayout_2&quot;&gt;
-      &lt;item&gt;
-       &lt;widget class=&quot;QComboBox&quot; name=&quot;presetCombo&quot;&gt;
-        &lt;item&gt;
-         &lt;property name=&quot;text&quot;&gt;
-          &lt;string&gt;Fast Copy (no verify)&lt;/string&gt;
-         &lt;/property&gt;
-        &lt;/item&gt;
-        &lt;item&gt;
-         &lt;property name=&quot;text&quot;&gt;
-          &lt;string&gt;Safe (chunk 1MB + hash)&lt;/string&gt;
-         &lt;/property&gt;
-        &lt;/item&gt;
-        &lt;item&gt;
-         &lt;property name=&quot;text&quot;&gt;
-          &lt;string&gt;USB Backup (verify + resume)&lt;/string&gt;
-         &lt;/property&gt;
-        &lt;/item&gt;
-        &lt;item&gt;
-         &lt;property name=&quot;text&quot;&gt;
-          &lt;string&gt;Custom&lt;/string&gt;
-         &lt;/property&gt;
-        &lt;/item&gt;
-       &lt;/widget&gt;
-      &lt;/item&gt;
-      &lt;item&gt;
-       &lt;widget class=&quot;QPushButton&quot; name=&quot;previewButton&quot;&gt;
-        &lt;property name=&quot;text&quot;&gt;
-         &lt;string&gt;RealTime Preview &amp;&amp; Validate&lt;/string&gt;
-        &lt;/property&gt;
-       &lt;/widget&gt;
-     &lt;/layout&gt;
-    &lt;/widget&gt;
-   &lt;/item&gt;
-   &lt;item&gt;
-    &lt;widget class=&quot;QTextEdit&quot; name=&quot;previewEdit&quot;&gt;
-     &lt;property name=&quot;readOnly&quot;&gt;
-      &lt;bool&gt;true&lt;/bool&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;placeholderText&quot;&gt;
-      &lt;string&gt;Preview: Files/Folders (Total Size, Est. Time, Validation OK)&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-   &lt;/item&gt;
-   &lt;item&gt;
-    &lt;layout class=&quot;QHBoxLayout&quot; name=&quot;buttonLayout&quot;&gt;
-     &lt;item&gt;
-      &lt;spacer&gt;
-       &lt;property name=&quot;orientation&quot;&gt;
-        &lt;enum&gt;Qt::Horizontal&lt;/enum&gt;
-       &lt;/property&gt;
-       &lt;property name=&quot;sizeHint&quot; stdset=&quot;0&quot; stdspac=&quot;40&quot;&gt;
-        &lt;size&gt;
-         &lt;width&gt;40&lt;/width&gt;
-         &lt;height&gt;20&lt;/height&gt;
-        &lt;/size&gt;
-       &lt;/property&gt;
-      &lt;/spacer&gt;
-     &lt;/item&gt;
-     &lt;item&gt;
-      &lt;widget class=&quot;QPushButton&quot; name=&quot;addBatchButton&quot;&gt;
-       &lt;property name=&quot;text&quot;&gt;
-        &lt;string&gt;Add Batch to Queue&lt;/string&gt;
-       &lt;/property&gt;
-      &lt;/widget&gt;
-     &lt;/item&gt;
-     &lt;item&gt;
-      &lt;widget class=&quot;QPushButton&quot; name=&quot;cancelButton&quot;&gt;
-       &lt;property name=&quot;text&quot;&gt;
-        &lt;string&gt;Cancel&lt;/string&gt;
-       &lt;/property&gt;
-      &lt;/widget&gt;
-     &lt;/item&gt;
-    &lt;/layout&gt;
-   &lt;/item&gt;
-  &lt;/layout&gt;
- &lt;/widget&gt;
- &lt;resources/&gt;
- &lt;connections&gt;
-  &lt;connection&gt;
-   &lt;signal&gt;accepted()&lt;/signal&gt;
-   &lt;slot&gt;accept()&lt;/slot&gt;
-  &lt;/connection&gt;
-  &lt;connection&gt;
-   &lt;signal&gt;rejected()&lt;/signal&gt;
-   &lt;slot&gt;reject()&lt;/slot&gt;
-  &lt;/connection&gt;
- &lt;/connections&gt;
-&lt;/ui&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddTaskDialog</class>
+ <widget class="QDialog" name="AddTaskDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ULTIMATE AddTask V3 - Drag Folders/Files, Presets, Preview</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string><h3>Source (Drag Multi-Folders/Files)</h3></string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="dropZone">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #e0f7fa; border: 3px dashed #00bcd4; border-radius: 10px;</string>
+     </property>
+     <property name="text">
+      <string>Drop folders/files here or click to browse...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Targets:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="targetEdit">
+       <property name="placeholderText">
+        <string>/media/usb/backup,/mnt/drive2/DIT,...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="presetGroup">
+     <property name="title">
+      <string>Smart Presets</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QComboBox" name="presetCombo">
+        <item>
+         <property name="text">
+          <string>Fast Copy (no verify)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Safe (chunk 1MB + hash)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>USB Backup (verify + resume)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Custom</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="previewButton">
+        <property name="text">
+         <string>RealTime Preview &amp;&amp; Validate</string>
+        </property>
+       </widget>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="previewEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="placeholderText">
+      <string>Preview: Files/Folders (Total Size, Est. Time, Validation OK)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonLayout">
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" stdspac="40">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addBatchButton">
+       <property name="text">
+        <string>Add Batch to Queue</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <signal>accepted()</signal>
+   <slot>accept()</slot>
+  </connection>
+  <connection>
+   <signal>rejected()</signal>
+   <slot>reject()</slot>
+  </connection>
+ </connections>
+</ui>

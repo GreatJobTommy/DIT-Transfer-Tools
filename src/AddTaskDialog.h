@@ -1,14 +1,14 @@
 #ifndef ADDTASKDIALOG_H
 #define ADDTASKDIALOG_H
 
-#include &lt;QDialog&gt;
-#include &lt;QDragEnterEvent&gt;
-#include &lt;QDropEvent&gt;
-#include &lt;QMimeData&gt;
-#include &lt;QDirIterator&gt;
-#include &lt;QFileInfo&gt;
-#include &lt;QJsonObject&gt;
-#include &quot;TransferTask.h&quot;
+#include <QDialog>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QDirIterator>
+#include <QFileInfo>
+#include <QJsonObject>
+#include "TransferTask.h"
 
 namespace Ui {
 class AddTaskDialog;

@@ -7,7 +7,7 @@
 ** Reconnect: Check lastFiles, then resumeAll()
 ****************************************************************************/
 
-#include &quot;DriveMonitor.h&quot;
+#include "DriveMonitor.h"
 #include <QProcess>
 #include <QDir>
 #include <QDebug>
@@ -38,7 +38,7 @@ void DriveMonitor::scanDrives()
     QStringList newDrives;
     
     for (const QStorageInfo &info : volumes) {
-        if (info.isReady() && info.rootPath() != &quot;/&quot; && isRemovableDrive(info)) {
+        if (info.isReady() && info.rootPath() != "/" && isRemovableDrive(info)) {
             QString path = info.rootPath();
             newDrives << path;
             if (!m_knownDrives.contains(path)) {
@@ -62,8 +62,8 @@ bool DriveMonitor::isRemovableDrive(const QStorageInfo &info) const
 {
     // USB/Removable heuristics
     QString device = info.device();
-    if (device.contains(&quot;usb&quot;, Qt::CaseInsensitive) || 
-        device.contains(&quot;sd&quot;, Qt::CaseInsensitive) ||
+    if (device.contains("usb", Qt::CaseInsensitive) || 
+        device.contains("sd", Qt::CaseInsensitive) ||
         info.bytesTotal() < 2LL * 1024 * 1024 * 1024 * 1024) {  // < 2TB likely removable
         return true;
     }
@@ -97,7 +97,7 @@ void DriveMonitor::checkDrivesPoll()
 
 void DriveMonitor::onWatcherChange(const QString &path)
 {
-    qDebug() << &quot;Watcher:&quot; << path;
+    qDebug() << "Watcher:" << path;
     QTimer::singleShot(100, this, &DriveMonitor::scanDrives);  // Debounce
 }
 
@@ -112,19 +112,19 @@ QStringList DriveMonitor::getFallbackDrives() const
     QStringList drives;
 #if defined(Q_OS_LINUX)
     QProcess p;
-    p.start(&quot;df&quot;, { &quot;-hT&quot;, &quot;/media&quot; });
+    p.start("df", { "-hT", "/media" });
     p.waitForFinished(1000);
     QString out = p.readAllStandardOutput();
     QStringList lines = out.split(&apos;\n&apos;);
     for (const QString &line : lines) {
-        if (line.contains(&quot;/media&quot;) && !line.contains(&quot;tmpfs&quot;)) {
-            QStringList parts = line.split(QRegExp(&quot;\\s+&quot;));
+        if (line.contains("/media") && !line.contains("tmpfs")) {
+            QStringList parts = line.split(QRegExp("\\s+"));
             if (parts.size() > 5) drives << parts[5].trimmed();
         }
     }
 #elif defined(Q_OS_WIN)
     QProcess p;
-    p.start(&quot;wmic&quot;, { &quot;logicaldisk&quot;, &quot;get&quot;, &quot;DeviceID,DriveType&quot; });
+    p.start("wmic", { "logicaldisk", "get", "DeviceID,DriveType" });
     // Parse output...
 #elif defined(Q_OS_MAC)
     // diskutil list parse

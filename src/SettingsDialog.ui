@@ -1,159 +1,159 @@
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;ui version=&quot;4.0&quot;&gt;
- &lt;class&gt;SettingsDialog&lt;/class&gt;
- &lt;widget class=&quot;QDialog&quot; name=&quot;SettingsDialog&quot;&gt;
-  &lt;property name=&quot;geometry&quot;&gt;
-   &lt;rect&gt;
-    &lt;x&gt;0&lt;/x&gt;
-    &lt;y&gt;0&lt;/y&gt;
-    &lt;width&gt;400&lt;/width&gt;
-    &lt;height&gt;300&lt;/height&gt;
-   &lt;/rect&gt;
-  &lt;/property&gt;
-  &lt;property name=&quot;windowTitle&quot;&gt;
-   &lt;string&gt;Settings&lt;/string&gt;
-  &lt;/property&gt;
-  &lt;widget class=&quot;QTabWidget&quot; name=&quot;tabWidget&quot;&gt;
-   &lt;property name=&quot;geometry&quot;&gt;
-    &lt;rect&gt;
-     &lt;x&gt;10&lt;/x&gt;
-     &lt;y&gt;10&lt;/y&gt;
-     &lt;width&gt;381&lt;/width&gt;
-     &lt;height&gt;241&lt;/height&gt;
-    &lt;/rect&gt;
-   &lt;/property&gt;
-   &lt;widget class=&quot;QWidget&quot; name=&quot;generalTab&quot;&gt;
-    &lt;attribute name=&quot;title&quot;&gt;
-     &lt;string&gt;General&lt;/string&gt;
-    &lt;/attribute&gt;
-    &lt;widget class=&quot;QSpinBox&quot; name=&quot;parallelTasksSpinBox&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;20&lt;/x&gt;
-       &lt;y&gt;30&lt;/y&gt;
-       &lt;width&gt;42&lt;/width&gt;
-       &lt;height&gt;22&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;minimum&quot;&gt;
-      &lt;number&gt;1&lt;/number&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;maximum&quot;&gt;
-      &lt;number&gt;32&lt;/number&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-    &lt;widget class=&quot;QLabel&quot; name=&quot;parallelLabel&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;80&lt;/x&gt;
-       &lt;y&gt;33&lt;/y&gt;
-       &lt;width&gt;111&lt;/width&gt;
-       &lt;height&gt;16&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;text&quot;&gt;
-      &lt;string&gt;Parallel Tasks&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-    &lt;widget class=&quot;QComboBox&quot; name=&quot;hashAlgoComboBox&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;20&lt;/x&gt;
-       &lt;y&gt;80&lt;/y&gt;
-       &lt;width&gt;171&lt;/width&gt;
-       &lt;height&gt;22&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;item&gt;
-      &lt;property name=&quot;text&quot;&gt;
-       &lt;string&gt;SHA256&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/item&gt;
-     &lt;item&gt;
-      &lt;property name=&quot;text&quot;&gt;
-       &lt;string&gt;SHA512&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/item&gt;
-    &lt;/widget&gt;
-    &lt;widget class=&quot;QLabel&quot; name=&quot;hashLabel&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;20&lt;/x&gt;
-       &lt;y&gt;60&lt;/y&gt;
-       &lt;width&gt;171&lt;/width&gt;
-       &lt;height&gt;16&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;text&quot;&gt;
-      &lt;string&gt;Hash Algorithm&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-   &lt;/widget&gt;
-   &lt;widget class=&quot;QWidget&quot; name=&quot;driveTab&quot;&gt;
-    &lt;attribute name=&quot;title&quot;&gt;
-     &lt;string&gt;Drive&lt;/string&gt;
-    &lt;/attribute&gt;
-    &lt;widget class=&quot;QSpinBox&quot; name=&quot;pollIntervalSpinBox&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;20&lt;/x&gt;
-       &lt;y&gt;30&lt;/y&gt;
-       &lt;width&gt;42&lt;/width&gt;
-       &lt;height&gt;22&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;suffix&quot;&gt;
-      &lt;string&gt; s&lt;/string&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;minimum&quot;&gt;
-      &lt;number&gt;1&lt;/number&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;maximum&quot;&gt;
-      &lt;number&gt;60&lt;/number&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-    &lt;widget class=&quot;QLabel&quot; name=&quot;pollLabel&quot;&gt;
-     &lt;property name=&quot;geometry&quot;&gt;
-      &lt;rect&gt;
-       &lt;x&gt;80&lt;/x&gt;
-       &lt;y&gt;33&lt;/y&gt;
-       &lt;width&gt;131&lt;/width&gt;
-       &lt;height&gt;16&lt;/height&gt;
-      &lt;/rect&gt;
-     &lt;/property&gt;
-     &lt;property name=&quot;text&quot;&gt;
-      &lt;string&gt;Drive Poll Interval&lt;/string&gt;
-     &lt;/property&gt;
-    &lt;/widget&gt;
-   &lt;/widget&gt;
-  &lt;/widget&gt;
-  &lt;widget class=&quot;QPushButton&quot; name=&quot;okButton&quot;&gt;
-   &lt;property name=&quot;geometry&quot;&gt;
-    &lt;rect&gt;
-     &lt;x&gt;230&lt;/x&gt;
-     &lt;y&gt;260&lt;/y&gt;
-     &lt;width&gt;75&lt;/width&gt;
-     &lt;height&gt;23&lt;/height&gt;
-    &lt;/rect&gt;
-   &lt;/property&gt;
-   &lt;property name=&quot;text&quot;&gt;
-    &lt;string&gt;OK&lt;/string&gt;
-   &lt;/property&gt;
-  &lt;/widget&gt;
-  &lt;widget class=&quot;QPushButton&quot; name=&quot;cancelButton&quot;&gt;
-   &lt;property name=&quot;geometry&quot;&gt;
-    &lt;rect&gt;
-     &lt;x&gt;320&lt;/x&gt;
-     &lt;y&gt;260&lt;/y&gt;
-     &lt;width&gt;75&lt;/width&gt;
-     &lt;height&gt;23&lt;/height&gt;
-    &lt;/rect&gt;
-   &lt;/property&gt;
-   &lt;property name=&quot;text&quot;&gt;
-    &lt;string&gt;Cancel&lt;/string&gt;
-   &lt;/property&gt;
-  &lt;/widget&gt;
- &lt;/widget&gt;
- &lt;resources/&gt;
- &lt;connections/&gt;
-&lt;/ui&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="generalTab">
+    <attribute name="title">
+     <string>General</string>
+    </attribute>
+    <widget class="QSpinBox" name="parallelTasksSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>42</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>32</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="parallelLabel">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>33</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Parallel Tasks</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="hashAlgoComboBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>171</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>SHA256</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SHA512</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="hashLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Hash Algorithm</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="driveTab">
+    <attribute name="title">
+     <string>Drive</string>
+    </attribute>
+    <widget class="QSpinBox" name="pollIntervalSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>42</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="suffix">
+      <string> s</string>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>60</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pollLabel">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>33</y>
+       <width>131</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Drive Poll Interval</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="okButton">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>260</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelButton">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>260</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

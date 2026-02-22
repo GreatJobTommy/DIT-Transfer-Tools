@@ -1,15 +1,15 @@
 #ifndef PREVIEWSCENE_H
 #define PREVIEWSCENE_H
 
-#include &lt;QGraphicsScene&gt;
-#include &lt;QGraphicsItem&gt;
-#include &lt;QGraphicsView&gt;
-#include &lt;QTimer&gt;
-#include &lt;QVector&gt;
-#include &lt;QPointF&gt;
-#include &lt;QRectF&gt;
-#include &lt;QPainter&gt;
-#include &lt;QGraphicsTextItem&gt;
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QGraphicsView>
+#include <QTimer>
+#include <QVector>
+#include <QPointF>
+#include <QRectF>
+#include <QPainter>
+#include <QGraphicsTextItem>
 
 class PreviewScene : public QGraphicsScene
 {
@@ -29,12 +29,12 @@ private slots:
 
 private:
     QTimer *m_animationTimer;
-    QVector&lt;QGraphicsRectItem*&gt; m_chunkItems;
+    QVector<QGraphicsRectItem*> m_chunkItems;
     QGraphicsTextItem *m_etaText;
     QGraphicsTextItem *m_queueText;
     
     // Speed graph
-    QVector&lt;double&gt; m_speedHistory;
+    QVector<double> m_speedHistory;
     int m_historySize = 60; // 60fps, 1 sec
     QGraphicsPathItem *m_speedLine;
     

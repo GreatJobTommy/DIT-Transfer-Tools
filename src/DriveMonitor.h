@@ -17,13 +17,13 @@
 #include <QStorageInfo>
 #include <QStringList>
 =======
-#include &lt;QObject&gt;
-#include &lt;QTimer&gt;
-#include &lt;QSet&gt;
-#include &lt;QMap&gt;
-#include &lt;QFileSystemWatcher&gt;
-#include &lt;QStorageInfo&gt;
-#include &lt;QStringList&gt;
+#include <QObject>
+#include <QTimer>
+#include <QSet>
+#include <QMap>
+#include <QFileSystemWatcher>
+#include <QStorageInfo>
+#include <QStringList>
 #include "ErrorManager.h"
 >>>>>>> origin/main
 

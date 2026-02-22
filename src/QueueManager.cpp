@@ -1,6 +1,6 @@
-#include &quot;QueueManager.h&quot;
-#include &quot;TransferTask.h&quot; // Assume exists
-#include &quot;Settings.h&quot;     // Assume exists for maxParallel
+#include "QueueManager.h"
+#include "TransferTask.h" // Assume exists
+#include "Settings.h"     // Assume exists for maxParallel
 #include <QDebug>
 
 QueueManager::QueueManager(QObject *parent)

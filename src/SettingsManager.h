@@ -1,10 +1,10 @@
 #ifndef SETTINGS_MANAGER_H
 #define SETTINGS_MANAGER_H
 
-#include &lt;QObject&gt;
-#include &lt;QSettings&gt;
-#include &lt;QHash&gt;
-#include &lt;QByteArray&gt;
+#include <QObject>
+#include <QSettings>
+#include <QHash>
+#include <QByteArray>
 
 class SettingsManager : public QObject {
     Q_OBJECT

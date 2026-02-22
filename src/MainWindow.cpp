@@ -1,41 +1,41 @@
 <<<<<<< HEAD
-#include &quot;MainWindow.h&quot;
-#include &quot;ui_MainWindow.h&quot;
-#include &quot;ParallelManager.h&quot;
-#include &quot;AddTaskDialog.h&quot;
-#include &quot;QueueManager.h&quot;
-#include &lt;QFileDialog&gt;
-#include &lt;QSettings&gt;
-#include &lt;QDebug&gt;
-#include &lt;QSlider&gt;
-#include &lt;QVBoxLayout&gt;
-#include &lt;QLabel&gt;
-#include &lt;QDropEvent&gt;
-#include &lt;QMimeData&gt;
+#include "MainWindow.h"
+#include "ui_MainWindow.h"
+#include "ParallelManager.h"
+#include "AddTaskDialog.h"
+#include "QueueManager.h"
+#include <QFileDialog>
+#include <QSettings>
+#include <QDebug>
+#include <QSlider>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QDropEvent>
+#include <QMimeData>
 =======
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include &lt;QFileDialog&gt;
-#include &lt;QSettings&gt;
-#include &lt;QDebug&gt;
-#include &lt;QStandardPaths&gt;
-#include &lt;QFileInfo&gt;
+#include <QFileDialog>
+#include <QSettings>
+#include <QDebug>
+#include <QStandardPaths>
+#include <QFileInfo>
 >>>>>>> origin/main
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui-&gt;setupUi(this);
+    ui->setupUi(this);
     setupUI();
 
     // Live Preview Setup
     previewScene = new PreviewScene(this);
     previewView = new PreviewView(previewScene, this);
     previewWidget = new QWidget(this);
-    previewWidget-&gt;setLayout(new QVBoxLayout());
-    previewWidget-&gt;layout()-&gt;addWidget(previewView);
-    ui-&gt;verticalLayout-&gt;insertWidget(1, previewWidget);
+    previewWidget->setLayout(new QVBoxLayout());
+    previewWidget->layout()->addWidget(previewView);
+    ui->verticalLayout->insertWidget(1, previewWidget);
     
     parallelMgr = new ParallelManager(this);
     queueMgr = new QueueManager(this);
@@ -48,31 +48,31 @@ MainWindow::MainWindow(QWidget *parent)
     
     statusTimer = new QTimer(this);
     connect(statusTimer, &amp;QTimer::timeout, this, &amp;MainWindow::updateQueueStatus);
-    statusTimer-&gt;start(1000);
+    statusTimer->start(1000);
     
 <<<<<<< HEAD
     // Thread slider setup
     threadSlider = new QSlider(Qt::Horizontal, this);
-    threadSlider-&gt;setRange(1, 32);
-    threadSlider-&gt;setValue(parallelMgr-&gt;maxThreads());
+    threadSlider->setRange(1, 32);
+    threadSlider->setValue(parallelMgr->maxThreads());
     connect(threadSlider, &amp;QSlider::valueChanged, this, &amp;MainWindow::onThreadCountChanged);
-    ui-&gt;statusBar()-&gt;addPermanentWidget(threadSlider);
-    ui-&gt;statusBar()-&gt;addWidget(new QLabel(&quot;Threads: &quot;));
-    ui-&gt;statusBar()-&gt;addWidget(new QLabel(&quot;1&quot;)); // Placeholder, update dynamically
+    ui->statusBar()->addPermanentWidget(threadSlider);
+    ui->statusBar()->addWidget(new QLabel("Threads: "));
+    ui->statusBar()->addWidget(new QLabel("1")); // Placeholder, update dynamically
     
-    connect(driveMon, &amp;DriveMonitor::driveDisconnected, parallelMgr, [this]() { parallelMgr-&gt;pause(); });
+    connect(driveMon, &amp;DriveMonitor::driveDisconnected, parallelMgr, [this]() { parallelMgr->pause(); });
     connect(driveMon, &amp;DriveMonitor::driveConnected, parallelMgr, &amp;ParallelManager::resume);
 =======
     connect(driveMon, &amp;DriveMonitor::driveDisconnected, queueMgr, &amp;QueueManager::pauseAll);
     connect(driveMon, &amp;DriveMonitor::driveConnected, queueMgr, &amp;QueueManager::resumeAll);
     connect(driveMon, &amp;DriveMonitor::drivesChanged, this, [this](const QStringList &amp;drives){
-        ui-&gt;statusBar()-&gt;showMessage(QString("Drives: %1").arg(drives.join(", ")), 2000);
+        ui->statusBar()->showMessage(QString("Drives: %1").arg(drives.join(", ")), 2000);
     });
     connect(errorMgr, &amp;ErrorManager::errorOccurred, this, &amp;MainWindow::onErrorOccurred);
 }
 
 void MainWindow::onErrorOccurred(ErrorCategory cat, const QString&amp; message) {
-    errorMgr-&gt;showUserDialog(cat, message);
+    errorMgr->showUserDialog(cat, message);
 >>>>>>> origin/main
 }
 
@@ -88,11 +88,11 @@ void MainWindow::setupUI() {
 }
 
 void MainWindow::setupConnections() {
-    connect(ui-&gt;addTaskButton, &amp;QPushButton::clicked, this, &amp;MainWindow::on_addTaskButton_clicked);
+    connect(ui->addTaskButton, &amp;QPushButton::clicked, this, &amp;MainWindow::on_addTaskButton_clicked);
     
     // Preview integration with QueueManager and ParallelManager
     connect(queueMgr, &amp;QueueManager::taskStatusChanged, this, [this](TransferTask*, TaskStatus) {
-        previewScene-&gt;setQueueInfo(queueMgr-&gt;getTasks().size(), parallelMgr-&gt;activeThreads());
+        previewScene->setQueueInfo(queueMgr->getTasks().size(), parallelMgr->activeThreads());
     });
     connect(parallelMgr, &amp;ParallelManager::progressUpdated, previewScene, &amp;PreviewScene::updateSpeedGraph);
     // Assume ParallelManager emits progressUpdated(double speed)
@@ -103,7 +103,7 @@ void MainWindow::setupConnections() {
     
     // Connect ParallelManager signals
     connect(parallelMgr, &amp;ParallelManager::taskStarted, this, [](TransferTask* t) {
-        qDebug() &lt;&lt; &quot;Task started:&quot; &lt;&lt; t;
+        qDebug() << "Task started:" << t;
     });
     connect(parallelMgr, &amp;ParallelManager::taskFinished, this, &amp;MainWindow::onTaskFinished);
     
@@ -122,28 +122,28 @@ void MainWindow::on_addTaskButton_clicked() {
         for (const QString&amp; src : sources) {
             TransferTask *task = new TransferTask(src, targets);
             // Apply presets
-            // task-&gt;setPreset(presets); assume method
-            queueMgr-&gt;addTask(task);
+            // task->setPreset(presets); assume method
+            queueMgr->addTask(task);
         }
         updateQueueStatus();
     }
 }
 
 void MainWindow::onThreadCountChanged(int value) {
-    parallelMgr-&gt;setMaxThreads(value);
-    queueMgr-&gt;setMaxParallel(value);
-    qDebug() &lt;&lt; &quot;Threads set to&quot; &lt;&lt; value;
+    parallelMgr->setMaxThreads(value);
+    queueMgr->setMaxParallel(value);
+    qDebug() << "Threads set to" << value;
 }
 
 void MainWindow::updateQueueStatus() {
-    ui-&gt;queueList-&gt;clear();
-    QList&lt;TransferTask*&gt; tasks = queueMgr-&gt;getTasks();
+    ui->queueList->clear();
+    QList<TransferTask*> tasks = queueMgr->getTasks();
     for (TransferTask *task : tasks) {
-        QString itemText = QString(&quot;%1 -&gt; %2&quot;).arg(task-&gt;source().split(&#39;/&#39;).last(), task-&gt;targets().join(&quot;,&quot;));
-        ui-&gt;queueList-&gt;addItem(itemText);
+        QString itemText = QString("%1 -> %2").arg(task->source().split('/').last(), task->targets().join(","));
+        ui->queueList->addItem(itemText);
     }
-    int active = parallelMgr-&gt;activeThreads();
-    ui-&gt;statusBar()-&gt;showMessage(QString(&quot;Active threads: %1 | Queue: %2&quot;).arg(active).arg(tasks.size()));
+    int active = parallelMgr->activeThreads();
+    ui->statusBar()->showMessage(QString("Active threads: %1 | Queue: %2").arg(active).arg(tasks.size()));
 }
 
 // Placeholder slots
@@ -156,17 +156,17 @@ void MainWindow::saveSettings() {}
 
 // Drag drop for MainWindow
 void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
-    if (event-&gt;mimeData()-&gt;hasUrls()) {
-        event-&gt;acceptProposedAction();
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
     }
 }
 
 void MainWindow::dropEvent(QDropEvent *event) {
-    QList&lt;QUrl&gt; urls = event-&gt;mimeData()-&gt;urls();
+    QList<QUrl> urls = event->mimeData()->urls();
     QStringList sources;
     for (const QUrl&amp; url : urls) {
         QString path = url.toLocalFile();
-        if (!path.isEmpty()) sources &lt;&lt; path;
+        if (!path.isEmpty()) sources << path;
     }
     if (!sources.isEmpty()) {
         AddTaskDialog dialog(this);
@@ -175,12 +175,12 @@ void MainWindow::dropEvent(QDropEvent *event) {
             // Add as above
             for (const QString&amp; src : sources) {
                 TransferTask *task = new TransferTask(src, dialog.getTargets());
-                queueMgr-&gt;addTask(task);
+                queueMgr->addTask(task);
             }
             updateQueueStatus();
         }
     }
-    event-&gt;acceptProposedAction();
+    event->acceptProposedAction();
 =======
 void MainWindow::onParallelChanged(int value) {
     Settings::parallel() = value;

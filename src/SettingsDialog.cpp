@@ -1,75 +1,75 @@
-#include &quot;SettingsDialog.h&quot;
-#include &quot;SettingsManager.h&quot;
-#include &lt;QVBoxLayout&gt;
-#include &lt;QHBoxLayout&gt;
-#include &lt;QTabWidget&gt;
-#include &lt;QPushButton&gt;
-#include &lt;QSpinBox&gt;
-#include &lt;QComboBox&gt;
-#include &lt;QDialogButtonBox&gt;
+#include "SettingsDialog.h"
+#include "SettingsManager.h"
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTabWidget>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QDialogButtonBox>
 
 SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent)
     : QDialog(parent)
     , m_settingsManager(settingsManager)
 {
-    setWindowTitle(&quot;Settings&quot;);
+    setWindowTitle("Settings");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     tabWidget = new QTabWidget(this);
-    mainLayout-&gt;addWidget(tabWidget);
+    mainLayout->addWidget(tabWidget);
 
     // General Tab
     QWidget *generalTab = new QWidget();
     QVBoxLayout *generalLayout = new QVBoxLayout(generalTab);
 
-    parallelLabel = new QLabel(&quot;Parallel Tasks:&quot;);
+    parallelLabel = new QLabel("Parallel Tasks:");
     parallelTasksSpinBox = new QSpinBox();
-    parallelTasksSpinBox-&gt;setRange(1, 32);
+    parallelTasksSpinBox->setRange(1, 32);
 <<<<<<< HEAD
-    parallelTasksSpinBox-&gt;setValue(m_settingsManager-&gt;parallelTasks());
+    parallelTasksSpinBox->setValue(m_settingsManager->parallelTasks());
 
-    generalLayout-&gt;addWidget(parallelLabel);
-    generalLayout-&gt;addWidget(parallelTasksSpinBox);
+    generalLayout->addWidget(parallelLabel);
+    generalLayout->addWidget(parallelTasksSpinBox);
 
-    hashLabel = new QLabel(&quot;Hash Algorithm:&quot;);
+    hashLabel = new QLabel("Hash Algorithm:");
     hashAlgoComboBox = new QComboBox();
-    hashAlgoComboBox-&gt;addItems({&quot;SHA256&quot;, &quot;SHA512&quot;});
+    hashAlgoComboBox->addItems({"SHA256", "SHA512"});
 <<<<<<< HEAD
-    hashAlgoComboBox-&gt;setCurrentText(m_settingsManager-&gt;hashAlgo());
+    hashAlgoComboBox->setCurrentText(m_settingsManager->hashAlgo());
 
-    generalLayout-&gt;addWidget(hashLabel);
-    generalLayout-&gt;addWidget(hashAlgoComboBox);
+    generalLayout->addWidget(hashLabel);
+    generalLayout->addWidget(hashAlgoComboBox);
 
-    tabWidget-&gt;addTab(generalTab, &quot;General&quot;);
+    tabWidget->addTab(generalTab, "General");
 
     // Drive Tab
     QWidget *driveTab = new QWidget();
     QVBoxLayout *driveLayout = new QVBoxLayout(driveTab);
 
-    pollLabel = new QLabel(&quot;Drive Poll Interval (s):&quot;);
+    pollLabel = new QLabel("Drive Poll Interval (s):");
     pollIntervalSpinBox = new QSpinBox();
-    pollIntervalSpinBox-&gt;setRange(1, 60);
+    pollIntervalSpinBox->setRange(1, 60);
 <<<<<<< HEAD
-    pollIntervalSpinBox-&gt;setValue(m_settingsManager-&gt;drivePollInterval());
-    pollIntervalSpinBox-&gt;setSuffix(&quot; s&quot;);
+    pollIntervalSpinBox->setValue(m_settingsManager->drivePollInterval());
+    pollIntervalSpinBox->setSuffix(" s");
 
-    driveLayout-&gt;addWidget(pollLabel);
-    driveLayout-&gt;addWidget(pollIntervalSpinBox);
+    driveLayout->addWidget(pollLabel);
+    driveLayout->addWidget(pollIntervalSpinBox);
 
-    tabWidget-&gt;addTab(driveTab, &quot;Drive&quot;);
+    tabWidget->addTab(driveTab, "Drive");
 
 <<<<<<< HEAD
     // Buttons
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    saveButton = new QPushButton(&quot;Save&quot;);
-    resetButton = new QPushButton(&quot;Reset to Defaults&quot;);
-    QPushButton *cancelButton = new QPushButton(&quot;Cancel&quot;);
+    saveButton = new QPushButton("Save");
+    resetButton = new QPushButton("Reset to Defaults");
+    QPushButton *cancelButton = new QPushButton("Cancel");
 
-    buttonLayout-&gt;addWidget(saveButton);
-    buttonLayout-&gt;addWidget(resetButton);
-    buttonLayout-&gt;addWidget(cancelButton);
-    mainLayout-&gt;addLayout(buttonLayout);
+    buttonLayout->addWidget(saveButton);
+    buttonLayout->addWidget(resetButton);
+    buttonLayout->addWidget(cancelButton);
+    mainLayout->addLayout(buttonLayout);
 
     connect(saveButton, &amp;QPushButton::clicked, this, &amp;SettingsDialog::saveSettings);
     connect(resetButton, &amp;QPushButton::clicked, this, &amp;SettingsDialog::resetSettings);
@@ -79,22 +79,22 @@ SettingsDialog::SettingsDialog(SettingsManager *settingsManager, QWidget *parent
 void SettingsDialog::saveSettings() {
     // Save to ConfigManager
     // Note: parallelTasks and pollInterval would need getters/setters added to ConfigManager
-    m_configManager-&gt;setHashAlgorithm(hashAlgoComboBox-&gt;currentText());
-    m_configManager-&gt;saveAllSettings();
+    m_configManager->setHashAlgorithm(hashAlgoComboBox->currentText());
+    m_configManager->saveAllSettings();
     accept();
 }
 
 void SettingsDialog::resetSettings() {
-    parallelTasksSpinBox-&gt;setValue(4);
-    hashAlgoComboBox-&gt;setCurrentText(&quot;SHA256&quot;);
-    pollIntervalSpinBox-&gt;setValue(5);
+    parallelTasksSpinBox->setValue(4);
+    hashAlgoComboBox->setCurrentText("SHA256");
+    pollIntervalSpinBox->setValue(5);
 }
 
 void SettingsDialog::accept() {
     saveSettings();
 =======
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    mainLayout-&gt;addWidget(buttonBox);
+    mainLayout->addWidget(buttonBox);
 
     connect(buttonBox, &amp;QDialogButtonBox::accepted, this, &amp;QDialog::accept);
     connect(buttonBox, &amp;QDialogButtonBox::rejected, this, &amp;QDialog::reject);
@@ -103,8 +103,8 @@ void SettingsDialog::accept() {
 }
 
 void SettingsDialog::accept() {
-    m_settingsManager-&gt;setParallelTasks(parallelTasksSpinBox-&gt;value());
-    m_settingsManager-&gt;setHashAlgo(hashAlgoComboBox-&gt;currentText());
-    m_settingsManager-&gt;setDrivePollInterval(pollIntervalSpinBox-&gt;value());
+    m_settingsManager->setParallelTasks(parallelTasksSpinBox->value());
+    m_settingsManager->setHashAlgo(hashAlgoComboBox->currentText());
+    m_settingsManager->setDrivePollInterval(pollIntervalSpinBox->value());
     QDialog::accept();
 }

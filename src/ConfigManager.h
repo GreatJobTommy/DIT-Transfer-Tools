@@ -1,10 +1,10 @@
 #ifndef CONFIGMANAGER_H
 #define CONFIGMANAGER_H
 
-#include &lt;QObject&gt;
-#include &lt;QSettings&gt;
-#include &lt;QJsonObject&gt;
-#include &lt;QFileSystemWatcher&gt;
+#include <QObject>
+#include <QSettings>
+#include <QJsonObject>
+#include <QFileSystemWatcher>
 
 class ConfigManager : public QObject {
     Q_OBJECT

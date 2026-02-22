@@ -1,13 +1,13 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include &lt;QDialog&gt;
-#include &lt;QTabWidget&gt;
-#include &lt;QLabel&gt;
-#include &lt;QSpinBox&gt;
-#include &lt;QComboBox&gt;
+#include <QDialog>
+#include <QTabWidget>
+#include <QLabel>
+#include <QSpinBox>
+#include <QComboBox>
 <<<<<<< HEAD
-#include &lt;QPushButton&gt;
+#include <QPushButton>
 
 class ConfigManager;
 =======

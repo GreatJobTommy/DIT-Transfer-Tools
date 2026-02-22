@@ -1,13 +1,13 @@
 #ifndef PARALLELMANAGER_H
 #define PARALLELMANAGER_H
 
-#include &lt;QObject&gt;
-#include &lt;QThreadPool&gt;
-#include &lt;QMutex&gt;
-#include &lt;QPriorityQueue&gt; // C++11, but Qt has no built-in, use std::priority_queue
-#include &lt;queue&gt;
-#include &lt;TransferTask.h&gt; // Assume exists
-#include &lt;functional&gt;
+#include <QObject>
+#include <QThreadPool>
+#include <QMutex>
+#include <QPriorityQueue> // C++11, but Qt has no built-in, use std::priority_queue
+#include <queue>
+#include <TransferTask.h> // Assume exists
+#include <functional>
 
 class ParallelManager : public QObject {
     Q_OBJECT
@@ -34,10 +34,10 @@ private:
     struct TaskEntry {
         TransferTask* task;
         int priority;
-        bool operator&lt;(const TaskEntry&amp; other) const { return priority &lt; other.priority; }
+        bool operator<(const TaskEntry&amp; other) const { return priority < other.priority; }
     };
-    std::priority_queue&lt;TaskEntry&gt; m_taskQueue;
-    QList&lt;TransferTask*&gt; m_activeTasks;
+    std::priority_queue<TaskEntry> m_taskQueue;
+    QList<TransferTask*> m_activeTasks;
     mutable QMutex m_mutex;
     QThreadPool m_threadPool;
     int m_maxThreads;

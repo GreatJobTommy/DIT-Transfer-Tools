@@ -11,17 +11,17 @@
 #include <QStringList>
 #include <QThreadPool>
 =======
-#include &lt;QObject&gt;
-#include &lt;QRunnable&gt;
-#include &lt;QFile&gt;
-#include &lt;QJsonObject&gt;
-#include &lt;QJsonDocument&gt;
-#include &lt;QThread&gt;
-#include &lt;QStringList&gt;
-#include &lt;QThreadPool&gt;
+#include <QObject>
+#include <QRunnable>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QThread>
+#include <QStringList>
+#include <QThreadPool>
 >>>>>>> origin/main
-#include &quot;ProgressTracker.h&quot;
-#include &quot;HashManager.h&quot;
+#include "ProgressTracker.h"
+#include "HashManager.h"
 
 enum class TaskStatus { Pending, Active, Paused, Completed, Failed };
 

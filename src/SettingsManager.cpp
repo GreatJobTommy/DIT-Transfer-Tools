@@ -1,57 +1,57 @@
-#include &quot;SettingsManager.h&quot;
-#include &lt;QStandardPaths&gt;
-#include &lt;QDir&gt;
-#include &lt;QCoreApplication&gt;
-#include &lt;QCryptographicHash&gt;
+#include "SettingsManager.h"
+#include <QStandardPaths>
+#include <QDir>
+#include <QCoreApplication>
+#include <QCryptographicHash>
 
 SettingsManager::SettingsManager(QObject *parent)
     : QObject(parent)
-    , m_settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QDir::separator() + &quot;settings.ini&quot;, QSettings::IniFormat)
+    , m_settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QDir::separator() + "settings.ini", QSettings::IniFormat)
 {
     // Defaults
-    if (!m_settings.contains(&quot;parallelTasks&quot;)) {
-        m_settings.setValue(&quot;parallelTasks&quot;, 4);
+    if (!m_settings.contains("parallelTasks")) {
+        m_settings.setValue("parallelTasks", 4);
     }
-    if (!m_settings.contains(&quot;hashAlgo&quot;)) {
-        m_settings.setValue(&quot;hashAlgo&quot;, &quot;SHA256&quot;);
+    if (!m_settings.contains("hashAlgo")) {
+        m_settings.setValue("hashAlgo", "SHA256");
     }
-    if (!m_settings.contains(&quot;drivePollInterval&quot;)) {
-        m_settings.setValue(&quot;drivePollInterval&quot;, 10);
+    if (!m_settings.contains("drivePollInterval")) {
+        m_settings.setValue("drivePollInterval", 10);
     }
     m_settings.sync();
 }
 
 int SettingsManager::parallelTasks() const {
-    return m_settings.value(&quot;parallelTasks&quot;, 4).toInt();
+    return m_settings.value("parallelTasks", 4).toInt();
 }
 
 QString SettingsManager::hashAlgo() const {
-    return m_settings.value(&quot;hashAlgo&quot;, &quot;SHA256&quot;).toString();
+    return m_settings.value("hashAlgo", "SHA256").toString();
 }
 
 int SettingsManager::drivePollInterval() const {
-    return m_settings.value(&quot;drivePollInterval&quot;, 10).toInt();
+    return m_settings.value("drivePollInterval", 10).toInt();
 }
 
 void SettingsManager::setParallelTasks(int value) {
-    if (value &gt;= 1 &amp;&amp; value &lt;= 32) {
-        m_settings.setValue(&quot;parallelTasks&quot;, value);
+    if (value >= 1 &amp;&amp; value <= 32) {
+        m_settings.setValue("parallelTasks", value);
         m_settings.sync();
         emitChanged();
     }
 }
 
 void SettingsManager::setHashAlgo(const QString&amp; algo) {
-    if (algo == &quot;SHA256&quot; || algo == &quot;SHA512&quot;) {
-        m_settings.setValue(&quot;hashAlgo&quot;, algo);
+    if (algo == "SHA256" || algo == "SHA512") {
+        m_settings.setValue("hashAlgo", algo);
         m_settings.sync();
         emitChanged();
     }
 }
 
 void SettingsManager::setDrivePollInterval(int seconds) {
-    if (seconds &gt;= 1 &amp;&amp; seconds &lt;= 60) {
-        m_settings.setValue(&quot;drivePollInterval&quot;, seconds);
+    if (seconds >= 1 &amp;&amp; seconds <= 60) {
+        m_settings.setValue("drivePollInterval", seconds);
         m_settings.sync();
         emitChanged();
     }

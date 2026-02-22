@@ -1,10 +1,10 @@
-#include &quot;HashManager.h&quot;
+#include "HashManager.h"
 #include <QDebug>
 
 QByteArray HashManager::computeHash(const QString &filePath, QCryptographicHash::Algorithm algo) {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << &quot;Cannot open file:&quot; << filePath;
+        qWarning() << "Cannot open file:" << filePath;
         return QByteArray();
     }
     QCryptographicHash hash(algo);
