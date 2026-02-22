@@ -1,32 +1,16 @@
-/****************************************************************************
-** HashManager.h - Live SHA256 Hashing für Transfers
-** Thread-sicher, Streaming-Hash-Update.
-** Max 250 Zeilen.
-****************************************************************************/
-
 #ifndef HASHMANAGER_H
 #define HASHMANAGER_H
 
 #include &lt;QObject&gt;
-#include &lt;QByteArray&gt;
+#include &lt;QFile&gt;
 #include &lt;QCryptographicHash&gt;
 
-class HashManager : public QObject
-{
+class HashManager : public QObject {
     Q_OBJECT
 
 public:
-    explicit HashManager(QObject *parent = nullptr);
-    
-    void update(const QByteArray &amp;data);
-    QString finalHash() const;
-    void reset();
-
-signals:
-    void hashReady(const QByteArray &amp;partialHash);
-
-private:
-    QCryptographicHash m_hashCtx{QCryptographicHash::Sha256};
+    static QByteArray computeHash(const QString &amp;filePath, QCryptographicHash::Algorithm algo = QCryptographicHash::Sha256);
+    static bool verifyHash(const QString &amp;filePath, const QByteArray &amp;expectedHash);
 };
 
 #endif // HASHMANAGER_H
