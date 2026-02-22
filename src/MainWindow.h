@@ -35,6 +35,7 @@ private slots:
     void onVerification(bool ok);
 <<<<<<< HEAD
     void onProgressUpdated(double percentage, double mbPerSec, QString eta);
+    void onParallelChanged(int value);
 =======
 >>>>>>> origin/main
     void loadSettings();

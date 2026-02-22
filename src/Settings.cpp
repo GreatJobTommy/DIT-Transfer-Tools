@@ -1,5 +1,5 @@
 #include &quot;Settings.h&quot;
 
-int Settings::maxParallelTransfers() {
-    return 4; // From config
+int Settings::parallel() {
+    return 4; // From config, 1-16
 }
