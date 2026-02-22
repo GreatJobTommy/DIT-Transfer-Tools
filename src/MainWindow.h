@@ -1,6 +1,6 @@
 /****************************************************************************
-** MainWindow.h - GUI-Hauptfenster für DIT-Transfer-Tools
-** Steuert Queue-Status, Settings, Logs und Drive-Monitor.
+** MainWindow.h - GUI-Hauptfenster für DIT-Transfer-Tools V3
+** DriveMonitor fully integrated with signals to QueueManager.
 ** Max 400 Zeilen.
 ****************************************************************************/
 
@@ -27,7 +27,6 @@ public:
 
 private slots:
     void updateQueueStatus();
-    void onDriveReconnect(const QString &amp;drive);
     void loadSettings();
     void saveSettings();
 
