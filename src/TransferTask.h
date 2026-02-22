@@ -8,6 +8,7 @@
 #include &lt;QJsonDocument&gt;
 #include &lt;QThread&gt;
 #include &lt;QStringList&gt;
+#include &lt;QThreadPool&gt;
 #include &quot;ProgressTracker.h&quot;
 #include &quot;HashManager.h&quot;
 
@@ -36,6 +37,7 @@ signals:
     void statusChanged(TaskStatus status);
     void finished(bool success);
     void verified(bool ok);
+    void errorOccurred(const QString &amp;error);
 
 private:
     QString m_source;
