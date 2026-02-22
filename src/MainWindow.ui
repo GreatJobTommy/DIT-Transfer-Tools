@@ -1,91 +1,172 @@
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;ui version=&quot;4.0&quot;&gt;
- &lt;class&gt;MainWindow&lt;/class&gt;
- &lt;widget class=&quot;QMainWindow&quot; name=&quot;MainWindow&quot;&gt;
-  &lt;property name=&quot;geometry&quot;&gt;
-   &lt;rect&gt;
-    &lt;x&gt;0&lt;/x&gt;
-    &lt;y&gt;0&lt;/y&gt;
-    &lt;width&gt;800&lt;/width&gt;
-    &lt;height&gt;600&lt;/height&gt;
-   &lt;/rect&gt;
-  &lt;/property&gt;
-  &lt;property name=&quot;windowTitle&quot;&gt;
-   &lt;string&gt;DIT-Transfer-Tools&lt;/string&gt;
-  &lt;/property&gt;
-  &lt;widget class=&quot;QWidget&quot; name=&quot;centralwidget&quot;&gt;
-   &lt;layout class=&quot;QHBoxLayout&quot; name=&quot;horizontalLayout&quot;&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QPushButton&quot; name=&quot;addTaskButton&quot;&gt;
-      &lt;property name=&quot;text&quot;&gt;
-       &lt;string&gt;Task hinzufügen&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QLabel&quot; name=&quot;parallelLabel&quot;&gt;
-      &lt;property name=&quot;text&quot;&gt;
-       &lt;string&gt;Parallel:&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QSlider&quot; name=&quot;parallelSlider&quot;&gt;
-      &lt;property name=&quot;maximumSize&quot;&gt;
-       &lt;size&gt;
-        &lt;width&gt;100&lt;/width&gt;
-        &lt;height&gt;16777215&lt;/height&gt;
-       &lt;/size&gt;
-      &lt;/property&gt;
-      &lt;property name=&quot;minimum&quot;&gt;
-       &lt;number&gt;1&lt;/number&gt;
-      &lt;/property&gt;
-      &lt;property name=&quot;maximum&quot;&gt;
-       &lt;number&gt;16&lt;/number&gt;
-      &lt;/property&gt;
-      &lt;property name=&quot;value&quot;&gt;
-       &lt;number&gt;4&lt;/number&gt;
-      &lt;/property&gt;
-      &lt;property name=&quot;orientation&quot;&gt;
-       &lt;enum&gt;Qt::Horizontal&lt;/enum&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QLCDNumber&quot; name=&quot;parallelValue&quot;&gt;
-      &lt;property name=&quot;minimumSize&quot;&gt;
-       &lt;size&gt;
-        &lt;width&gt;40&lt;/width&gt;
-        &lt;height&gt;40&lt;/height&gt;
-       &lt;/size&gt;
-      &lt;/property&gt;
-      &lt;property name=&quot;digitCount&quot;&gt;
-       &lt;number&gt;2&lt;/number&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-   &lt;/layout&gt;
-  &lt;/widget&gt;
-  &lt;widget class=&quot;QWidget&quot; name=&quot;centralwidget_2&quot;&gt;
-   &lt;layout class=&quot;QVBoxLayout&quot; name=&quot;verticalLayout&quot;&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QListWidget&quot; name=&quot;queueList&quot;&gt;
-      &lt;property name=&quot;placeholderText&quot;&gt;
-       &lt;string&gt;Queue (aktiv/wartend)&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-     &lt;widget class=&quot;QTextEdit&quot; name=&quot;logView&quot; native=&quot;true&quot;&gt;
-      &lt;property name=&quot;placeholderText&quot;&gt;
-       &lt;string&gt;Logs (transfer_log.txt)&lt;/string&gt;
-      &lt;/property&gt;
-     &lt;/widget&gt;
-    &lt;/item&gt;
-   &lt;/layout&gt;
-  &lt;/widget&gt;
-  &lt;widget class=&quot;QStatusBar&quot; name=&quot;statusbar&quot;/&gt;
-  &lt;connections/&gt;
- &lt;/widget&gt;
- &lt;resources/&gt;
-&lt;/ui&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DIT Transfer Tools</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <widget class="QWidget" name="queueTab">
+       <attribute name="title">
+        <string>Queue</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QListView" name="queueListView">
+          <property name="placeholderText">
+           <string>Warteschlange (aktiv/wartend)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="startButton">
+            <property name="text">
+             <string>Start</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pauseButton">
+            <property name="text">
+             <string>Pause</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clearButton">
+            <property name="text">
+             <string>Clear</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="driveTab">
+       <attribute name="title">
+        <string>Drive</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTreeView" name="driveTreeView">
+          <property name="header">
+           <string>Drives/Ordner</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="progressTab">
+       <attribute name="title">
+        <string>Progress</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QTreeView" name="progressTreeView">
+          <property name="rootIsDecorated">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QProgressBar" name="overallProgressBar">
+            <property name="textVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="settingsTab">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QListView" name="settingsListView">
+          <property name="placeholderText">
+           <string>Settings</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="addTaskTab">
+       <attribute name="title">
+        <string>AddTask</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QLineEdit" name="sourceLineEdit">
+          <property name="placeholderText">
+           <string>Source Path</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="targetLineEdit">
+          <property name="placeholderText">
+           <string>Target Path</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QPushButton" name="browseSourceButton">
+            <property name="text">
+             <string>Browse Source</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="browseTargetButton">
+            <property name="text">
+             <string>Browse Target</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addTaskButton">
+          <property name="text">
+           <string>Task Addieren</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <connections/>
+ </widget>
+ <resources/>
+</ui>

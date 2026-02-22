@@ -6,8 +6,14 @@
 #include &lt;QLabel&gt;
 #include &lt;QSpinBox&gt;
 #include &lt;QComboBox&gt;
+<<<<<<< HEAD
+#include &lt;QPushButton&gt;
+
+class ConfigManager;
+=======
 
 class SettingsManager;
+>>>>>>> origin/main
 
 class SettingsDialog : public QDialog {
     Q_OBJECT
@@ -28,6 +34,11 @@ private:
     QComboBox *hashAlgoComboBox;
     QLabel *pollLabel;
     QSpinBox *pollIntervalSpinBox;
+<<<<<<< HEAD
+    QPushButton *saveButton;
+    QPushButton *resetButton;
+=======
+>>>>>>> origin/main
 };
 
 #endif // SETTINGSDIALOG_H
