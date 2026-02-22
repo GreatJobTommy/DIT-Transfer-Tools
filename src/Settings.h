@@ -5,7 +5,7 @@
 
 class Settings : public QObject {
 public:
-    static int maxParallelTransfers();
+    static int parallel();
 };
 
 #endif

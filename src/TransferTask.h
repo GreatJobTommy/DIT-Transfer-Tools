@@ -1,6 +1,7 @@
 #ifndef TRANSFER_TASK_H
 #define TRANSFER_TASK_H
 
+<<<<<<< HEAD
 #include <QObject>
 #include <QRunnable>
 #include <QFile>
@@ -9,6 +10,16 @@
 #include <QThread>
 #include <QStringList>
 #include <QThreadPool>
+=======
+#include &lt;QObject&gt;
+#include &lt;QRunnable&gt;
+#include &lt;QFile&gt;
+#include &lt;QJsonObject&gt;
+#include &lt;QJsonDocument&gt;
+#include &lt;QThread&gt;
+#include &lt;QStringList&gt;
+#include &lt;QThreadPool&gt;
+>>>>>>> origin/main
 #include &quot;ProgressTracker.h&quot;
 #include &quot;HashManager.h&quot;
 
@@ -18,8 +29,13 @@ class TransferTask : public QObject, public QRunnable {
     Q_OBJECT
 
 public:
+<<<<<<< HEAD
     explicit TransferTask(const QString &src, const QStringList &targets, QObject *parent = nullptr);
     explicit TransferTask(const QJsonObject &state, QObject *parent = nullptr); // Resume constructor
+=======
+    explicit TransferTask(const QString &amp;src, const QStringList &amp;targets, QObject *parent = nullptr);
+    explicit TransferTask(const QJsonObject &amp;state, QObject *parent = nullptr); // Resume constructor
+>>>>>>> origin/main
     ~TransferTask();
 
     TaskStatus status() const { return m_status; }
@@ -27,7 +43,11 @@ public:
     QString source() const { return m_source; }
     QStringList targets() const { return m_targets; }
     QJsonObject toJson() const;
+<<<<<<< HEAD
     bool loadState(const QJsonObject &state);
+=======
+    bool loadState(const QJsonObject &amp;state);
+>>>>>>> origin/main
 
 protected:
     void run() override;
@@ -37,7 +57,11 @@ signals:
     void statusChanged(TaskStatus status);
     void finished(bool success);
     void verified(bool ok);
+<<<<<<< HEAD
     void errorOccurred(const QString &error);
+=======
+    void errorOccurred(ErrorCategory cat, const QString &amp;error);
+>>>>>>> origin/main
 
 private:
     QString m_source;
@@ -51,8 +75,13 @@ private:
     QByteArray m_expectedHash;
 
     void determineChunkSize();
+<<<<<<< HEAD
     bool copyChunk(const QString &target, qint64 offset, qint64 size);
     bool verifyComplete(const QString &target);
+=======
+    bool copyChunk(const QString &amp;target, qint64 offset, qint64 size);
+    bool verifyComplete(const QString &amp;target);
+>>>>>>> origin/main
 };
 
 #endif // TRANSFER_TASK_H
