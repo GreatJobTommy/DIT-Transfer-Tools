@@ -4,9 +4,9 @@
 ** Autor: OpenClaw Builder | Erstellt: 2026
 ****************************************************************************/
 
-#include &lt;QApplication&gt;
-#include &lt;QDir&gt;
-#include &quot;src/MainWindow.h&quot;
+#include <QApplication>
+#include <QDir>
+#include "src/MainWindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     
     // Log-Verzeichnis initialisieren
     QDir logDir(QApplication::applicationDirPath());
-    if (!logDir.exists(&quot;logs&quot;)) {
-        logDir.mkdir(&quot;logs&quot;);
+    if (!logDir.exists("logs")) {
+        logDir.mkdir("logs");
     }
     
     MainWindow window;

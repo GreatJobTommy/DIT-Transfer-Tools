@@ -1,14 +1,14 @@
 #ifndef TRANSFER_TASK_H
 #define TRANSFER_TASK_H
 
-#include &lt;QObject&gt;
-#include &lt;QRunnable&gt;
-#include &lt;QFile&gt;
-#include &lt;QJsonObject&gt;
-#include &lt;QJsonDocument&gt;
-#include &lt;QThread&gt;
-#include &lt;QStringList&gt;
-#include &lt;QThreadPool&gt;
+#include <QObject>
+#include <QRunnable>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QThread>
+#include <QStringList>
+#include <QThreadPool>
 #include &quot;ProgressTracker.h&quot;
 #include &quot;HashManager.h&quot;
 
@@ -18,8 +18,8 @@ class TransferTask : public QObject, public QRunnable {
     Q_OBJECT
 
 public:
-    explicit TransferTask(const QString &amp;src, const QStringList &amp;targets, QObject *parent = nullptr);
-    explicit TransferTask(const QJsonObject &amp;state, QObject *parent = nullptr); // Resume constructor
+    explicit TransferTask(const QString &src, const QStringList &targets, QObject *parent = nullptr);
+    explicit TransferTask(const QJsonObject &state, QObject *parent = nullptr); // Resume constructor
     ~TransferTask();
 
     TaskStatus status() const { return m_status; }
@@ -27,7 +27,7 @@ public:
     QString source() const { return m_source; }
     QStringList targets() const { return m_targets; }
     QJsonObject toJson() const;
-    bool loadState(const QJsonObject &amp;state);
+    bool loadState(const QJsonObject &state);
 
 protected:
     void run() override;
@@ -37,7 +37,7 @@ signals:
     void statusChanged(TaskStatus status);
     void finished(bool success);
     void verified(bool ok);
-    void errorOccurred(const QString &amp;error);
+    void errorOccurred(const QString &error);
 
 private:
     QString m_source;
@@ -51,8 +51,8 @@ private:
     QByteArray m_expectedHash;
 
     void determineChunkSize();
-    bool copyChunk(const QString &amp;target, qint64 offset, qint64 size);
-    bool verifyComplete(const QString &amp;target);
+    bool copyChunk(const QString &target, qint64 offset, qint64 size);
+    bool verifyComplete(const QString &target);
 };
 
 #endif // TRANSFER_TASK_H

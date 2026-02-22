@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include &lt;QObject&gt;
+#include <QObject>
 
 class Settings : public QObject {
 public:

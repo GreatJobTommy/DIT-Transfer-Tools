@@ -8,13 +8,13 @@
 #ifndef DRIVEMONITOR_H
 #define DRIVEMONITOR_H
 
-#include &lt;QObject&gt;
-#include &lt;QTimer&gt;
-#include &lt;QSet&gt;
-#include &lt;QMap&gt;
-#include &lt;QFileSystemWatcher&gt;
-#include &lt;QStorageInfo&gt;
-#include &lt;QStringList&gt;
+#include <QObject>
+#include <QTimer>
+#include <QSet>
+#include <QMap>
+#include <QFileSystemWatcher>
+#include <QStorageInfo>
+#include <QStringList>
 
 class DriveMonitor : public QObject
 {
@@ -25,30 +25,30 @@ public:
     ~DriveMonitor();
 
     QStringList getCurrentDrives() const { return m_currentDrives; }
-    bool isDriveWatched(const QString &amp;path) const;
+    bool isDriveWatched(const QString &path) const;
 
 signals:
-    void driveConnected(const QString &amp;drivePath);
-    void driveDisconnected(const QString &amp;drivePath);
-    void drivesChanged(const QStringList &amp;availableDrives);
+    void driveConnected(const QString &drivePath);
+    void driveDisconnected(const QString &drivePath);
+    void drivesChanged(const QStringList &availableDrives);
 
 private slots:
     void checkDrivesPoll();
     void onStorageChanged();
-    void onWatcherChange(const QString &amp;path);
+    void onWatcherChange(const QString &path);
 
 private:
     void scanDrives();
-    bool isRemovableDrive(const QStorageInfo &amp;info) const;
-    void addDrive(const QString &amp;path);
-    void removeDrive(const QString &amp;path);
+    bool isRemovableDrive(const QStorageInfo &info) const;
+    void addDrive(const QString &path);
+    void removeDrive(const QString &path);
     QStringList getFallbackDrives() const;  // df/wmic fallback
 
     QTimer *m_pollTimer;
     QFileSystemWatcher *m_watcher;
-    QSet&lt;QString&gt; m_knownDrives;
+    QSet<QString> m_knownDrives;
     QStringList m_currentDrives;
-    QMap&lt;QString, bool&gt; m_lastFiles;  // For resume check: path -&gt; had files
+    QMap<QString, bool> m_lastFiles;  // For resume check: path -> had files
 };
 
 #endif // DRIVEMONITOR_H

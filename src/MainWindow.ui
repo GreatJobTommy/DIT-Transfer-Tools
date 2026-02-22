@@ -17,6 +17,9 @@
    &lt;layout class=&quot;QVBoxLayout&quot; name=&quot;verticalLayout&quot;&gt;
     &lt;item&gt;
      &lt;widget class=&quot;QPushButton&quot; name=&quot;addTaskButton&quot;&gt;
+     &lt;property name=&quot;acceptDrops&quot;&gt;
+      &lt;bool&gt;true&lt;/bool&gt;
+     &lt;/property&gt;
       &lt;property name=&quot;text&quot;&gt;
        &lt;string&gt;Task hinzufügen&lt;/string&gt;
       &lt;/property&gt;
@@ -24,6 +27,9 @@
     &lt;/item&gt;
     &lt;item&gt;
      &lt;widget class=&quot;QListWidget&quot; name=&quot;queueList&quot;&gt;
+     &lt;property name=&quot;acceptDrops&quot;&gt;
+      &lt;bool&gt;true&lt;/bool&gt;
+     &lt;/property&gt;
       &lt;property name=&quot;placeholderText&quot;&gt;
        &lt;string&gt;Queue (aktiv/wartend)&lt;/string&gt;
       &lt;/property&gt;

@@ -1,20 +1,20 @@
 #include &quot;HashManager.h&quot;
-#include &lt;QDebug&gt;
+#include <QDebug>
 
-QByteArray HashManager::computeHash(const QString &amp;filePath, QCryptographicHash::Algorithm algo) {
+QByteArray HashManager::computeHash(const QString &filePath, QCryptographicHash::Algorithm algo) {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() &lt;&lt; &quot;Cannot open file:&quot; &lt;&lt; filePath;
+        qWarning() << &quot;Cannot open file:&quot; << filePath;
         return QByteArray();
     }
     QCryptographicHash hash(algo);
-    if (!hash.addData(&amp;file)) {
+    if (!hash.addData(&file)) {
         return QByteArray();
     }
     return hash.result();
 }
 
-bool HashManager::verifyHash(const QString &amp;filePath, const QByteArray &amp;expectedHash) {
+bool HashManager::verifyHash(const QString &filePath, const QByteArray &expectedHash) {
     QByteArray actual = computeHash(filePath);
     return actual == expectedHash;
 }

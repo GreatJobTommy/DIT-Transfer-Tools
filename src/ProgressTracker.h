@@ -1,9 +1,9 @@
 #ifndef PROGRESS_TRACKER_H
 #define PROGRESS_TRACKER_H
 
-#include &lt;QObject&gt;
-#include &lt;QElapsedTimer&gt;
-#include &lt;QTimer&gt;
+#include <QObject>
+#include <QElapsedTimer>
+#include <QTimer>
 
 class ProgressTracker : public QObject {
     Q_OBJECT

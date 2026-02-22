@@ -11,6 +11,8 @@
 #include &lt;QTimer&gt;
 #include &lt;QSlider&gt;
 #include &quot;ParallelManager.h&quot;
+#include &quot;AddTaskDialog.h&quot;
+#include &quot;QueueManager.h&quot;
 #include &quot;DriveMonitor.h&quot;
 #include &quot;HashManager.h&quot;
 #include &quot;ProgressTracker.h&quot;
@@ -31,6 +33,8 @@ public:
 
 private slots:
     void updateQueueStatus();
+    void on_addTaskButton_clicked();
+    void onDropEvent(QDropEvent *event);
     void onTaskProgress(double perc, double speed, QString eta);
     void onTaskFinished(bool success);
     void onVerification(bool ok);
@@ -42,6 +46,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     ParallelManager *parallelMgr;
+    QueueManager *queueMgr;
     DriveMonitor *driveMon;
     HashManager *hashMgr;
     QTimer *statusTimer;
