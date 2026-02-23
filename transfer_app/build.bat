@@ -1,0 +1,1 @@
+:: Windows build script for transfer_app\n@echo off\ng++ -o transfer_app.exe main.cpp -lQt6Core -lQt6Gui -lQt6Widgets\npause
