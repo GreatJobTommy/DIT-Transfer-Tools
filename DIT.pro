@@ -1,8 +1,42 @@
-QT       += core gui widgets
+QT += core gui widgets network concurrent
 
-TARGET = DIT
+CONFIG += c++17
+
+TARGET = DIT-Transfer-Tools
 TEMPLATE = app
 
-CONFIG += c++11
+SOURCES += \
+    main.cpp \
+    src/MainWindow.cpp \
+    src/TransferTask.cpp \
+    src/HashManager.cpp \
+    src/QueueManager.cpp \
+    src/DriveMonitor.cpp
 
-SOURCES += main.cpp
+HEADERS += \
+    src/MainWindow.h \
+    src/TransferTask.h \
+    src/HashManager.h \
+    src/QueueManager.h \
+    src/DriveMonitor.h
+
+FORMS += \
+    src/MainWindow.ui
+
+# Logs
+LOG_FILES += transfer_log.txt detailed.log
+
+# Dokumentation
+# DIT-Transfer-Tools: Qt/C++ Anwendung für sicheren Dateitransfer mit Chunk-Copy,
+# Live SHA256 Hashing, Queue-Management (aktiv/wartend), Drive-Reconnect,
+# Logging (transfer_log.txt + detailed.log) und Einstellungen.
+# Modular aufgebaut, max 500 Zeilen pro Datei.
+# Features:
+# - Chunk-basierter Copy mit Resume
+# - Live SHA256 Hash-Berechnung während Transfer
+# - Queue mit Status (aktiv/wartend/pausiert)
+# - Automatisches Drive-Reconnect bei USB/Laufwerk-Verlust
+# - Detailliertes Logging
+# - GUI mit Qt Widgets für Settings und StatusHEADERS += src/SettingsManager.h src/SettingsDialog.h
+SOURCES += src/SettingsManager.cpp src/SettingsDialog.cpp
+FORMS += src/SettingsDialog.ui
