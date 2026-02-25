@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(DIT-Transfer-Tools VERSION 1.0 LANGUAGES CXX)
+project(DIT-Transfer-Tools VERSION 2.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,14 +13,16 @@ set(CMAKE_AUTOUIC ON)
 add_executable(DIT-Transfer-Tools
     main.cpp
     src/MainWindow.cpp
+    src/MainWindow.h
     src/TransferTask.cpp
+    src/TransferTask.h
     src/QueueManager.cpp
+    src/QueueManager.h
     src/AddTaskDialog.cpp
     src/AddTaskDialog.h
     src/AddTaskDialog.ui
     src/ParallelManager.cpp
     src/ParallelManager.h
-    # Add other sources as needed
 )
 
 target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
@@ -30,3 +32,19 @@ enable_testing()
 add_executable(test_queuemanager tests/test_queuemanager.cpp src/TransferTask.cpp src/QueueManager.cpp)
 target_link_libraries(test_queuemanager Qt6::Core Qt6::Test)
 add_test(NAME TestQueueManager COMMAND test_queuemanager)
+
+add_executable(test_addtask tests/test_addtask.cpp src/AddTaskDialog.cpp src/TransferTask.cpp src/ParallelManager.cpp)
+target_link_libraries(test_addtask Qt6::Core Qt6::Widgets Qt6::Test)
+add_test(NAME TestAddTask COMMAND test_addtask)
+
+add_executable(test_configmanager tests/test_configmanager.cpp)
+target_link_libraries(test_configmanager Qt6::Core Qt6::Test)
+add_test(NAME TestConfigManager COMMAND test_configmanager)
+
+add_executable(test_drivemonitor tests/test_drivemonitor.cpp)
+target_link_libraries(test_drivemonitor Qt6::Core Qt6::Test)
+add_test(NAME TestDriveMonitor COMMAND test_drivemonitor)
+
+add_executable(test_errorhandling tests/test_errorhandling.cpp)
+target_link_libraries(test_errorhandling Qt6::Core Qt6::Test)
+add_test(NAME TestErrorHandling COMMAND test_errorhandling)

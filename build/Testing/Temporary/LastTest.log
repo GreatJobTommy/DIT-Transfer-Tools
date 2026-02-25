@@ -1,0 +1,90 @@
+Start testing: Feb 25 14:25 CET
+----------------------------------------------------------
+1/5 Testing: TestQueueManager
+1/5 Test: TestQueueManager
+Command: "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager"
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestQueueManager" start time: Feb 25 14:25 CET
+Output:
+----------------------------------------------------------
+********* Start testing of TestQueueManager *********
+Config: Using QtTest library 6.8.2, Qt 6.8.2 (arm64-little_endian-lp64 shared (dynamic) release build; by GCC 14.2.0), debian 13
+PASS   : TestQueueManager::initTestCase()
+PASS   : TestQueueManager::testReorderWaiting()
+PASS   : TestQueueManager::testParallel10()
+PASS   : TestQueueManager::cleanupTestCase()
+Totals: 4 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
+********* Finished testing of TestQueueManager *********
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestQueueManager" end time: Feb 25 14:25 CET
+"TestQueueManager" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask
+2/5 Testing: TestAddTask
+2/5 Test: TestAddTask
+Command: ""
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestAddTask" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestAddTask" end time: Feb 25 14:25 CET
+"TestAddTask" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager
+3/5 Testing: TestConfigManager
+3/5 Test: TestConfigManager
+Command: ""
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestConfigManager" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestConfigManager" end time: Feb 25 14:25 CET
+"TestConfigManager" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor
+4/5 Testing: TestDriveMonitor
+4/5 Test: TestDriveMonitor
+Command: ""
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestDriveMonitor" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestDriveMonitor" end time: Feb 25 14:25 CET
+"TestDriveMonitor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_errorhandling
+5/5 Testing: TestErrorHandling
+5/5 Test: TestErrorHandling
+Command: ""
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestErrorHandling" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestErrorHandling" end time: Feb 25 14:25 CET
+"TestErrorHandling" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Feb 25 14:25 CET
