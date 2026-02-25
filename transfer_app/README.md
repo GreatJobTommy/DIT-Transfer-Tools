@@ -1,1 +1,0 @@
-# Transfer App v1.0\n\nFeatures:\n- Drive Monitoring\n- Ordner Transfers\n- Multi-Ziele Support\n\nSee DIT-Transfer-Tools for full Qt/C++ implementation.\n\nBuild: build.bat\nConfig: config.ini

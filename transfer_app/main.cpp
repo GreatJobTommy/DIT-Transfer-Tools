@@ -1,1 +1,0 @@
-#include &lt;QApplication&gt;\n#include &lt;QMainWindow&gt;\n// Transfer App main.cpp - Drive/Ordner/Multi Features from DIT-Transfer-Tools\n// Full implementation in DIT-Transfer-Tools repo\nint main(int argc, char *argv[]) {\n    // Placeholder for transfer_app\n    return 0;\n}
