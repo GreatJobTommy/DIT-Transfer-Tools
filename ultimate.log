@@ -1,0 +1,110 @@
+Makefile:452: warning: overriding recipe for target 'ui_MainWindow.h'
+Makefile:448: warning: ignoring old recipe for target 'ui_MainWindow.h'
+/usr/lib/qt5/bin/uic src/AddTaskDialog.ui -o ui_AddTaskDialog.h
+/usr/lib/qt5/bin/uic src/MainWindow.ui -o ui_MainWindow.h
+g++ -c -pipe -O2 -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CONCURRENT_LIB -DQT_CORE_LIB -I. -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CONCURRENT_LIB -DQT_CORE_LIB -I. -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -o TransferTask.o src/TransferTask.cpp
+uic: Error in line 20, column 23 : Expected '>' or '/', but got '('.
+File 'src/AddTaskDialog.ui' is not valid
+make: *** [Makefile:444: ui_AddTaskDialog.h] Error 1
+make: *** Waiting for unfinished jobs....
+uic: Error in line 53, column 38 : XML declaration not at start of document.
+File 'src/MainWindow.ui' is not valid
+make: *** [Makefile:452: ui_MainWindow.h] Error 1
+In file included from src/MainWindow.h:11,
+                 from main.cpp:9:
+src/ParallelManager.h:6:10: fatal error: QPriorityQueue: No such file or directory
+    6 | #include <QPriorityQueue> // C++11, but Qt has no built-in, use std::QPriorityQueue
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:481: main.o] Error 1
+In file included from src/TransferTask.cpp:1:
+src/TransferTask.h:27:14: error: ‘TransferTask::TransferTask(const QString&, const QStringList&, QObject*)’ cannot be overloaded with ‘TransferTask::TransferTask(const QString&, const QStringList&, QObject*)’
+   27 |     explicit TransferTask(const QString &src, const QStringList &targets, QObject *parent = nullptr);
+      |              ^~~~~~~~~~~~
+src/TransferTask.h:25:14: note: previous declaration ‘TransferTask::TransferTask(const QString&, const QStringList&, QObject*)’
+   25 |     explicit TransferTask(const QString &src, const QStringList &targets, QObject *parent = nullptr);
+      |              ^~~~~~~~~~~~
+src/TransferTask.h:28:14: error: ‘TransferTask::TransferTask(const QJsonObject&, QObject*)’ cannot be overloaded with ‘TransferTask::TransferTask(const QJsonObject&, QObject*)’
+   28 |     explicit TransferTask(const QJsonObject &state, QObject *parent = nullptr); // Resume constructor
+      |              ^~~~~~~~~~~~
+src/TransferTask.h:26:14: note: previous declaration ‘TransferTask::TransferTask(const QJsonObject&, QObject*)’
+   26 |     explicit TransferTask(const QJsonObject &state, QObject *parent = nullptr); // Resume constructor
+      |              ^~~~~~~~~~~~
+src/TransferTask.h:36:10: error: ‘bool TransferTask::loadState(const QJsonObject&)’ cannot be overloaded with ‘bool TransferTask::loadState(const QJsonObject&)’
+   36 |     bool loadState(const QJsonObject &state);
+      |          ^~~~~~~~~
+src/TransferTask.h:35:10: note: previous declaration ‘bool TransferTask::loadState(const QJsonObject&)’
+   35 |     bool loadState(const QJsonObject &state);
+      |          ^~~~~~~~~
+src/TransferTask.h:45:24: error: ‘ErrorCategory’ has not been declared
+   45 |     void errorOccurred(ErrorCategory cat, const QString &error);
+      |                        ^~~~~~~~~~~~~
+src/TransferTask.h:59:10: error: ‘bool TransferTask::copyChunk(const QString&, qint64, qint64)’ cannot be overloaded with ‘bool TransferTask::copyChunk(const QString&, qint64, qint64)’
+   59 |     bool copyChunk(const QString &target, qint64 offset, qint64 size);
+      |          ^~~~~~~~~
+src/TransferTask.h:57:10: note: previous declaration ‘bool TransferTask::copyChunk(const QString&, qint64, qint64)’
+   57 |     bool copyChunk(const QString &target, qint64 offset, qint64 size);
+      |          ^~~~~~~~~
+src/TransferTask.h:60:10: error: ‘bool TransferTask::verifyComplete(const QString&)’ cannot be overloaded with ‘bool TransferTask::verifyComplete(const QString&)’
+   60 |     bool verifyComplete(const QString &target);
+      |          ^~~~~~~~~~~~~~
+src/TransferTask.h:58:10: note: previous declaration ‘bool TransferTask::verifyComplete(const QString&)’
+   58 |     bool verifyComplete(const QString &target);
+      |          ^~~~~~~~~~~~~~
+src/TransferTask.cpp:15:1: error: expected initializer before ‘TransferTask’
+   15 | TransferTask::TransferTask(const QString &src, const QStringList &targets, QObject *parent)
+      | ^~~~~~~~~~~~
+src/TransferTask.cpp:31:5: error: expected initializer before ‘connect’
+   31 |     connect(m_progress, &ProgressTracker::progressUpdated, this, &TransferTask::progressUpdate);
+      |     ^~~~~~~
+src/TransferTask.cpp:32:1: error: expected declaration before ‘}’ token
+   32 | }
+      | ^
+src/TransferTask.cpp: In member function ‘virtual void TransferTask::run()’:
+src/TransferTask.cpp:78:61: error: redeclaration of ‘std::function<bool(const QString&, long long int, long long int)> TransferTask::run()::ChunkJob::copyFunc’
+   78 |         std::function<bool(const QString&, qint64, qint64)> copyFunc;
+      |                                                             ^~~~~~~~
+src/TransferTask.cpp:76:61: note: previous declaration ‘std::function<bool(const QString&, long long int, long long int)> TransferTask::run()::ChunkJob::copyFunc’
+   76 |         std::function<bool(const QString&, qint64, qint64)> copyFunc;
+      |                                                             ^~~~~~~~
+src/TransferTask.cpp:79:45: error: redeclaration of ‘std::function<bool(const QString&)> TransferTask::run()::ChunkJob::verifyFunc’
+   79 |         std::function<bool(const QString&)> verifyFunc;
+      |                                             ^~~~~~~~~~
+src/TransferTask.cpp:77:45: note: previous declaration ‘std::function<bool(const QString&)> TransferTask::run()::ChunkJob::verifyFunc’
+   77 |         std::function<bool(const QString&)> verifyFunc;
+      |                                             ^~~~~~~~~~
+src/TransferTask.cpp:133:25: warning: unused variable ‘target’ [-Wunused-variable]
+  133 |     for (const QString &target : m_targets) {
+      |                         ^~~~~~
+src/TransferTask.cpp:144:29: error: qualified-id in declaration before ‘(’ token
+  144 | bool TransferTask::copyChunk(const QString &target, qint64 offset, qint64 size) {
+      |                             ^
+src/TransferTask.cpp:148:29: error: qualified-id in declaration before ‘(’ token
+  148 | bool TransferTask::copyChunk(const QString &target, qint64 offset, qint64 size) {
+      |                             ^
+src/TransferTask.cpp:214:2: error: expected ‘}’ at end of input
+  214 | }
+      |  ^
+src/TransferTask.cpp:90:45: note: to match this ‘{’
+   90 |     for (const QString &target : m_targets) {
+      |                                             ^
+src/TransferTask.cpp:214:2: error: expected ‘}’ at end of input
+  214 | }
+      |  ^
+src/TransferTask.cpp:89:54: note: to match this ‘{’
+   89 |         if (storage.bytesAvailable() < m_totalBytes) {
+      |                                                      ^
+src/TransferTask.cpp:214:2: error: expected ‘}’ at end of input
+  214 | }
+      |  ^
+src/TransferTask.cpp:86:45: note: to match this ‘{’
+   86 |     for (const QString &target : m_targets) {
+      |                                             ^
+src/TransferTask.cpp:214:2: error: expected ‘}’ at end of input
+  214 | }
+      |  ^
+src/TransferTask.cpp:63:26: note: to match this ‘{’
+   63 | void TransferTask::run() {
+      |                          ^
+make: *** [Makefile:499: TransferTask.o] Error 1
