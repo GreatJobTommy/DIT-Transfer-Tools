@@ -1,0 +1,1 @@
+26-02-23_22:10:00 | Task=Backup | Files=123 | Size=1.2GB | Integrity=100% | Dest=DIT1,DIT2\n26-02-23_22:11:30 | Task=Sync | Files=456 | Size=3.4GB | Integrity=99.8% | Dest=Local\n

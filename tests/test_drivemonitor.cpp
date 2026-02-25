@@ -31,9 +31,9 @@ private slots:
         QVERIFY(!drives.isEmpty());
         
         int removableCount = 0;
-        for (const QStorageInfo &amp;info : drives) {
+        for (const QStorageInfo &info : drives) {
             QVERIFY(info.isValid());
-            if (info.isReady() &amp;&amp; info.rootPath() != &quot;/&quot;) {
+            if (info.isReady() && info.rootPath() != &quot;/&quot;) {
                 removableCount += DriveMonitor().isRemovableDrive(info) ? 1 : 0;
             }
         }
@@ -43,8 +43,8 @@ private slots:
 
     void testFileSystemWatcher() {
         DriveMonitor monitor;
-        QSignalSpy spyConnected(&amp;monitor, &amp;DriveMonitor::driveConnected);
-        QSignalSpy spyDisconnected(&amp;monitor, &amp;DriveMonitor::driveDisconnected);
+        QSignalSpy spyConnected(&monitor, &DriveMonitor::driveConnected);
+        QSignalSpy spyDisconnected(&monitor, &DriveMonitor::driveDisconnected);
         
         // Should scan immediately
         QTest::qWait(100);
@@ -63,8 +63,8 @@ private slots:
         DriveMonitor monitor;
         QueueManager queueMgr;
         
-        QSignalSpy spyPause(&amp;queueMgr, &amp;QueueManager::pauseAll);
-        QSignalSpy spyResume(&amp;queueMgr, &amp;QueueManager::resumeAll);
+        QSignalSpy spyPause(&queueMgr, &QueueManager::pauseAll);
+        QSignalSpy spyResume(&queueMgr, &QueueManager::resumeAll);
         
         // Simulate disconnect/connect via direct call (in real: via signals)
         emit monitor.driveDisconnected(&quot;/fake&quot;);

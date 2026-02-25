@@ -37,4 +37,6 @@ LOG_FILES += transfer_log.txt detailed.log
 # - Queue mit Status (aktiv/wartend/pausiert)
 # - Automatisches Drive-Reconnect bei USB/Laufwerk-Verlust
 # - Detailliertes Logging
-# - GUI mit Qt Widgets für Settings und Status
+# - GUI mit Qt Widgets für Settings und StatusHEADERS += src/SettingsManager.h src/SettingsDialog.h
+SOURCES += src/SettingsManager.cpp src/SettingsDialog.cpp
+FORMS += src/SettingsDialog.ui
