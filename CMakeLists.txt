@@ -4,7 +4,7 @@ project(DIT-Transfer-Tools VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -15,6 +15,11 @@ add_executable(DIT-Transfer-Tools
     src/MainWindow.cpp
     src/TransferTask.cpp
     src/QueueManager.cpp
+    src/AddTaskDialog.cpp
+    src/AddTaskDialog.h
+    src/AddTaskDialog.ui
+    src/ParallelManager.cpp
+    src/ParallelManager.h
     # Add other sources as needed
 )
 
