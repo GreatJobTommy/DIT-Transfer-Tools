@@ -7,28 +7,71 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Install Qt6
       run: |
         sudo apt update
-        sudo apt install qt6-base-dev qt6-tools-dev qmake6 ninja-build
-    
+        sudo apt install qt6-base-dev cmake ninja-build
+
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G Ninja
+
     - name: Build
       run: |
-        qmake6 DIT.pro
-        make -j3
-    
+        cd build
+        ninja
+
     - name: Test
       run: |
-        make check || echo \"Tests optional\"
-    
+        cd build
+        ctest --output-on-failure
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: DIT-Transfer-Tools
-        path: DIT
+        name: DIT-Transfer-Tools-Linux
+        path: build/DIT-Transfer-Tools
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Qt6
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.6.3'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Visual Studio 17 2022" -A x64
+
+    - name: Build
+      run: |
+        cd build
+        cmake --build . --config Release
+
+    - name: Test
+      run: |
+        cd build
+        ctest -C Release --output-on-failure
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-Windows
+        path: build/Release/DIT-Transfer-Tools.exe

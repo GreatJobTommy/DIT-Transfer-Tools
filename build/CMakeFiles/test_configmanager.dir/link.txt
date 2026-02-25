@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/test_configmanager.dir/link.d CMakeFiles/test_configmanager.dir/test_configmanager_autogen/mocs_compilation.cpp.o CMakeFiles/test_configmanager.dir/tests/test_configmanager.cpp.o -o test_configmanager  /usr/lib/aarch64-linux-gnu/libQt6Test.so.6.8.2 /usr/lib/aarch64-linux-gnu/libQt6Core.so.6.8.2
