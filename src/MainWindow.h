@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "QueueManager.h"
+#include "AddTaskDialog.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -19,11 +20,13 @@ private slots:
     void updateLists();
     void reorderUp();
     void reorderDown();
+    void addTask();
 
 private:
     QueueManager* m_queue;
     QListWidget* m_activeList;
     QListWidget* m_waitingList;
+    QPushButton* m_addTaskBtn;
     QPushButton* m_reorderUpBtn;
     QPushButton* m_reorderDownBtn;
 };

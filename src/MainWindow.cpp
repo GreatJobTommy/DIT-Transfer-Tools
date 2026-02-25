@@ -23,10 +23,12 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_waitingList = new QListWidget;
     waitingLayout->addWidget(m_waitingList);
 
-    // Reorder buttons
+    // Buttons
     QVBoxLayout* buttonLayout = new QVBoxLayout;
+    m_addTaskBtn = new QPushButton("Add Task");
     m_reorderUpBtn = new QPushButton("Move Up");
     m_reorderDownBtn = new QPushButton("Move Down");
+    buttonLayout->addWidget(m_addTaskBtn);
     buttonLayout->addWidget(m_reorderUpBtn);
     buttonLayout->addWidget(m_reorderDownBtn);
     buttonLayout->addStretch();
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     mainLayout->addLayout(activeLayout);
     mainLayout->addLayout(waitingLayout);
 
+    connect(m_addTaskBtn, &QPushButton::clicked, this, &MainWindow::addTask);
     connect(m_reorderUpBtn, &QPushButton::clicked, this, &MainWindow::reorderUp);
     connect(m_reorderDownBtn, &QPushButton::clicked, this, &MainWindow::reorderDown);
 
@@ -77,5 +80,14 @@ void MainWindow::reorderDown() {
         m_queue->reorderWaiting(row, row + 1);
         updateLists();
         m_waitingList->setCurrentRow(row + 1);
+    }
+}
+
+void MainWindow::addTask() {
+    AddTaskDialog dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        TransferTask* task = dialog.getTask();
+        m_queue->addTask(task);
+        updateLists();
     }
 }

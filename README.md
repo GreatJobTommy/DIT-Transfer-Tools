@@ -14,6 +14,7 @@
 - Unicode + >4TB + power-loss safe
 - Live preview + settings UI
 - Queue management with active/waiting lists, reorder functionality, and configurable parallel transfers
+- Add Task Dialog: Drag multi-folder, presets, path validation, browse buttons, preview, add to queue
 
 ## Build & Run
 ```bash

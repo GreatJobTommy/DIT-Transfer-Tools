@@ -11,17 +11,22 @@ SOURCES += \
     src/TransferTask.cpp \
     src/HashManager.cpp \
     src/QueueManager.cpp \
-    src/DriveMonitor.cpp
+    src/DriveMonitor.cpp \
+    src/ParallelManager.cpp \
+    src/AddTaskDialog.cpp
 
 HEADERS += \
     src/MainWindow.h \
     src/TransferTask.h \
     src/HashManager.h \
     src/QueueManager.h \
-    src/DriveMonitor.h
+    src/DriveMonitor.h \
+    src/ParallelManager.h \
+    src/AddTaskDialog.h
 
 FORMS += \
-    src/MainWindow.ui
+    src/MainWindow.ui \
+    src/AddTaskDialog.ui
 
 # Logs
 LOG_FILES += transfer_log.txt detailed.log
