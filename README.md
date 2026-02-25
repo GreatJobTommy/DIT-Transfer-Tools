@@ -8,20 +8,22 @@
 
 ## Key Capabilities
 - Drive monitoring + auto-detection
-- Multi-target folder transfers  
+- Multi-target folder transfers
 - Qt/C++ cross-platform
 - Concurrent + atomic writes
 - Unicode + >4TB + power-loss safe
 - Live preview + settings UI
+- Queue management with active/waiting lists, reorder functionality, and configurable parallel transfers
 
 ## Build & Run
 ```bash
 # Windows
 build.bat
 
-# Linux/Mac  
-g++ -std=c++17 -o transfer_app transfer_app/*.cpp -pthread  
-./transfer_app /source /dest
+# Linux/Mac
+qmake DIT.pro
+make
+./DIT --queue-size 5 /source /dest
 
 # Tests
 g++ -std=c++17 -o tests transfer_app/tests.cpp transfer_app/Task.cpp -pthread
