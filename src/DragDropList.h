@@ -34,10 +34,12 @@ protected:
             event->acceptProposedAction();
         } else {
             QListWidget::dropEvent(event);
+            emit orderChanged();
         }
     }
 signals:
     void filesDropped(const QStringList& files);
+    void orderChanged();
 };
 
 #endif // DRAGDROPLIST_H
