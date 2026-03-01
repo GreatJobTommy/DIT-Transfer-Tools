@@ -56,7 +56,7 @@ void AddTaskDialog::setupUI() {
 
     QGroupBox* dragGroup = new QGroupBox("Drag Folders Here");
     QVBoxLayout* dragLayout = new QVBoxLayout(dragGroup);
-    m_dragList = new DragDropList;
+    m_dragList = new FileDropList;
     dragLayout->addWidget(m_dragList);
     splitter->addWidget(dragGroup);
 
@@ -86,7 +86,7 @@ void AddTaskDialog::setupConnections() {
     connect(m_destEdit, &QLineEdit::textChanged, this, &AddTaskDialog::validatePaths);
     connect(m_addBtn, &QPushButton::clicked, this, &AddTaskDialog::addToQueue);
     connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
-    connect(m_dragList, &DragDropList::pathsDropped, this, &AddTaskDialog::onPathsDropped);
+    connect(m_dragList, &FileDropList::pathsDropped, this, &AddTaskDialog::onPathsDropped);
 }
 
 void AddTaskDialog::browseSource() {

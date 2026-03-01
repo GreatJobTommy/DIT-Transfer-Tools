@@ -15,6 +15,7 @@ public:
     void addTask(TransferTask* task);
     void removeTask(TransferTask* task);
     void reorderWaiting(int from, int to);
+    void setWaitingOrder(const QList<TransferTask*>& order);
 
     QList<TransferTask*> activeTasks() const;
     QList<TransferTask*> waitingTasks() const;

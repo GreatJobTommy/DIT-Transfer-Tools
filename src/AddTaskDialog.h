@@ -19,10 +19,10 @@
 #include <QMessageBox>
 #include "TransferTask.h"
 
-class DragDropList : public QListWidget {
+class FileDropList : public QListWidget {
     Q_OBJECT
 public:
-    DragDropList(QWidget* parent = nullptr) : QListWidget(parent) {
+    FileDropList(QWidget* parent = nullptr) : QListWidget(parent) {
         setAcceptDrops(true);
     }
 protected:
@@ -78,7 +78,7 @@ private:
     QLineEdit* m_destEdit;
     QPushButton* m_destBrowseBtn;
     QComboBox* m_presetCombo;
-    DragDropList* m_dragList; // For drag multi-folder
+    FileDropList* m_dragList; // For drag multi-folder
     QTextEdit* m_previewEdit;
     QPushButton* m_addBtn;
     QPushButton* m_cancelBtn;

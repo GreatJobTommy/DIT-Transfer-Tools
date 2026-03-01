@@ -177,6 +177,62 @@ CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp -o CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.s
 
+CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/flags.make
+CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp
+CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o -MF CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o.d -o CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp > CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.i
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp -o CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.s
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/flags.make
+CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp
+CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o -MF CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o.d -o CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp > CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.i
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp -o CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.s
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/flags.make
+CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp
+CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o -MF CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o.d -o CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp > CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.i
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp -o CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.s
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/flags.make
+CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp
+CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o: CMakeFiles/DIT-Transfer-Tools.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o -MF CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o.d -o CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp > CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.i
+
+CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp -o CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.s
+
 # Object files for target DIT-Transfer-Tools
 DIT__Transfer__Tools_OBJECTS = \
 "CMakeFiles/DIT-Transfer-Tools.dir/DIT-Transfer-Tools_autogen/mocs_compilation.cpp.o" \
@@ -185,7 +241,11 @@ DIT__Transfer__Tools_OBJECTS = \
 "CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.o" \
 "CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.o" \
 "CMakeFiles/DIT-Transfer-Tools.dir/src/AddTaskDialog.cpp.o" \
-"CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o"
+"CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o" \
+"CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o" \
+"CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o" \
+"CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o" \
+"CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o"
 
 # External object files for target DIT-Transfer-Tools
 DIT__Transfer__Tools_EXTERNAL_OBJECTS =
@@ -197,6 +257,10 @@ DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.o
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.o
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/AddTaskDialog.cpp.o
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o
+DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o
+DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o
+DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o
+DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/build.make
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/compiler_depend.ts
 DIT-Transfer-Tools: /usr/lib/aarch64-linux-gnu/libQt6Widgets.so.6.8.2
@@ -205,7 +269,7 @@ DIT-Transfer-Tools: /usr/lib/aarch64-linux-gnu/libGLX.so
 DIT-Transfer-Tools: /usr/lib/aarch64-linux-gnu/libOpenGL.so
 DIT-Transfer-Tools: /usr/lib/aarch64-linux-gnu/libQt6Core.so.6.8.2
 DIT-Transfer-Tools: CMakeFiles/DIT-Transfer-Tools.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable DIT-Transfer-Tools"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable DIT-Transfer-Tools"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DIT-Transfer-Tools.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

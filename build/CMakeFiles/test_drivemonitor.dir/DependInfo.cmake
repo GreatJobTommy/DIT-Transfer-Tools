@@ -9,6 +9,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "test_drivemonitor_autogen/timestamp" "custom" "test_drivemonitor_autogen/deps"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp" "CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o" "gcc" "CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp" "CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o" "gcc" "CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp" "CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o" "gcc" "CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor_autogen/mocs_compilation.cpp" "CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_drivemonitor.cpp" "CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o" "gcc" "CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o.d"
   "" "test_drivemonitor" "gcc" "CMakeFiles/test_drivemonitor.dir/link.d"

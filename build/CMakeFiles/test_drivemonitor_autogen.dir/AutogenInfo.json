@@ -237,7 +237,27 @@
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "test_drivemonitor_autogen/timestamp",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.h",
+			"MU",
+			"UVLADIE3JM/moc_DriveMonitor.cpp",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h",
+			"MU",
+			"UVLADIE3JM/moc_QueueManager.cpp",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h",
+			"MU",
+			"UVLADIE3JM/moc_TransferTask.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor_autogen/include",
 	"MOC_COMPILATION_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor_autogen/mocs_compilation.cpp",
@@ -298,8 +318,6 @@
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/mocs_compilation.cpp",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask_autogen/include/src/ui_AddTaskDialog.h",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask_autogen/mocs_compilation.cpp",
-		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager_autogen/include/src/ui_AddTaskDialog.h",
-		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager_autogen/mocs_compilation.cpp",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/include/src/ui_AddTaskDialog.h",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp"
 	],
@@ -314,6 +332,21 @@
 	"SOURCES" : 
 	[
 		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp",
+			"MU",
+			null
+		],
+		[
 			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_drivemonitor.cpp",
 			"MU",
 			null
@@ -327,8 +360,6 @@
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/mocs_compilation.cpp",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask_autogen/include/src/ui_AddTaskDialog.h",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask_autogen/mocs_compilation.cpp",
-		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager_autogen/include/src/ui_AddTaskDialog.h",
-		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager_autogen/mocs_compilation.cpp",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/include/src/ui_AddTaskDialog.h",
 		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp"
 	],

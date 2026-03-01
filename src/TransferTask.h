@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include <QRunnable>
+#include <QFileInfo>
 
 enum class TransferStatus {
     Pending,
@@ -26,6 +27,8 @@ public:
     void setStatus(TransferStatus status);
     bool isFinished() const;
     bool success() const;
+    qint64 totalBytes() const;
+    qint64 bytesTransferred() const;
 
     // Other methods as needed, e.g., progress, etc.
 
@@ -33,6 +36,7 @@ public:
 
 signals:
     void statusChanged(TransferStatus status);
+    void progressChanged(qint64 bytes, qint64 speed, qint64 eta);
 
 private:
     QString m_source;
@@ -40,6 +44,8 @@ private:
     TransferStatus m_status;
     bool m_finished;
     bool m_success;
+    qint64 m_totalBytes;
+    qint64 m_bytesTransferred;
 };
 
 #endif // TRANSFERTASK_H
