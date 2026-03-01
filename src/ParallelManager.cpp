@@ -30,7 +30,7 @@ void ParallelManager::setMaxThreads(int threads) {
 }
 
 int ParallelManager::maxThreads() const {
-    return m_maxThreads;
+    return static_cast<int>(m_maxThreads);
 }
 
 void ParallelManager::pause() {
@@ -50,7 +50,7 @@ int ParallelManager::activeThreads() const {
 
 void ParallelManager::startNextTask() {
     QMutexLocker lock(&m_mutex);
-    while (!m_taskQueue.empty() && m_activeTasks.size() < static_cast<size_t>(m_maxThreads) && !m_paused) {
+    while (!m_taskQueue.empty() && m_activeTasks.size() < m_maxThreads && !m_paused) {
         auto entry = m_taskQueue.top(); m_taskQueue.pop();
         m_activeTasks.append(entry.task);
         emit taskStarted(entry.task);

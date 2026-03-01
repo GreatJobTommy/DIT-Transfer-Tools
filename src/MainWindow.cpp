@@ -52,6 +52,12 @@ MainWindow::~MainWindow() {}
 void MainWindow::setupUI() {
     m_tabWidget = new QTabWidget;
     setCentralWidget(m_tabWidget);
+
+    m_errorDock = new QDockWidget("Errors");
+    m_errorEdit = new QTextEdit;
+    m_errorEdit->setReadOnly(true);
+    m_errorDock->setWidget(m_errorEdit);
+    addDockWidget(Qt::BottomDockWidgetArea, m_errorDock);
 }
 
 void MainWindow::setupTabs() {
@@ -70,19 +76,24 @@ void MainWindow::setupQueueTab() {
     QVBoxLayout* activeLayout = new QVBoxLayout;
     activeLayout->addWidget(new QLabel("Active Transfers"));
     m_activeList = new QListWidget;
+    m_activeList->setObjectName("activeList");
     activeLayout->addWidget(m_activeList);
 
     // Waiting list
     QVBoxLayout* waitingLayout = new QVBoxLayout;
     waitingLayout->addWidget(new QLabel("Waiting Transfers"));
     m_waitingList = new QListWidget;
+    m_waitingList->setObjectName("waitingList");
     waitingLayout->addWidget(m_waitingList);
 
     // Buttons
     QVBoxLayout* buttonLayout = new QVBoxLayout;
     m_addTaskBtn = new QPushButton("Add Task");
+    m_addTaskBtn->setObjectName("addTaskBtn");
     m_reorderUpBtn = new QPushButton("Move Up");
+    m_reorderUpBtn->setObjectName("reorderUpBtn");
     m_reorderDownBtn = new QPushButton("Move Down");
+    m_reorderDownBtn->setObjectName("reorderDownBtn");
     buttonLayout->addWidget(m_addTaskBtn);
     buttonLayout->addWidget(m_reorderUpBtn);
     buttonLayout->addWidget(m_reorderDownBtn);
@@ -139,12 +150,15 @@ void MainWindow::setupProgressTab() {
     layout->addWidget(m_progressBar);
 
     m_speedLabel = new QLabel("Speed: 0 MB/s");
+    m_speedLabel->setObjectName("speedLabel");
     layout->addWidget(m_speedLabel);
 
     m_etaLabel = new QLabel("ETA: --");
+    m_etaLabel->setObjectName("etaLabel");
     layout->addWidget(m_etaLabel);
 
     m_logEdit = new QTextEdit;
+    m_logEdit->setObjectName("logEdit");
     m_logEdit->setReadOnly(true);
     layout->addWidget(m_logEdit);
 
@@ -233,4 +247,5 @@ void MainWindow::onProgressUpdated(double speed, qint64 eta, const QString& log)
 
 void MainWindow::onErrorAdded(const QString& error) {
     m_logEdit->append("ERROR: " + error);
+    m_errorEdit->append("ERROR: " + error);
 }

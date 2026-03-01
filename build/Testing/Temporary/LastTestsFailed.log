@@ -2,3 +2,4 @@
 3:TestConfigManager
 4:TestDriveMonitor
 5:TestErrorHandling
+6:TestUI

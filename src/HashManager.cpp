@@ -34,3 +34,8 @@ void HashManager::computeHash(const QString& filePath) {
 QString HashManager::hash() const {
     return m_resultHash;
 }
+
+void HashManager::compute() {
+    // Placeholder implementation
+    qDebug() << "HashManager compute called";
+}

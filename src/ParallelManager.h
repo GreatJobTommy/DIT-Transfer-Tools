@@ -40,7 +40,7 @@ private:
     QList<TransferTask*> m_activeTasks;
     mutable QMutex m_mutex;
     QThreadPool m_threadPool;
-    int m_maxThreads;
+    qsizetype m_maxThreads;
     bool m_paused;
 
     void startNextTask();

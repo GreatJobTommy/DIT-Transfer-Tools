@@ -11,6 +11,7 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QTableWidget>
+#include <QDockWidget>
 #include <QSettings>
 #include "QueueManager.h"
 #include "AddTaskDialog.h"
@@ -83,6 +84,10 @@ private:
     QLabel* m_speedLabel;
     QLabel* m_etaLabel;
     QTextEdit* m_logEdit;
+
+    // Dock
+    QDockWidget* m_errorDock;
+    QTextEdit* m_errorEdit;
 };
 
 #endif // MAINWINDOW_H

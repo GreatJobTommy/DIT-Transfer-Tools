@@ -1,10 +1,10 @@
-Start testing: Feb 25 14:25 CET
+Start testing: Mar 01 23:53 CET
 ----------------------------------------------------------
-1/5 Testing: TestQueueManager
-1/5 Test: TestQueueManager
+1/6 Testing: TestQueueManager
+1/6 Test: TestQueueManager
 Command: "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager"
 Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
-"TestQueueManager" start time: Feb 25 14:25 CET
+"TestQueueManager" start time: Mar 01 23:53 CET
 Output:
 ----------------------------------------------------------
 ********* Start testing of TestQueueManager *********
@@ -13,19 +13,19 @@ PASS   : TestQueueManager::initTestCase()
 PASS   : TestQueueManager::testReorderWaiting()
 PASS   : TestQueueManager::testParallel10()
 PASS   : TestQueueManager::cleanupTestCase()
-Totals: 4 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
+Totals: 4 passed, 0 failed, 0 skipped, 0 blacklisted, 6ms
 ********* Finished testing of TestQueueManager *********
 <end of output>
-Test time =   0.02 sec
+Test time =   0.16 sec
 ----------------------------------------------------------
 Test Passed.
-"TestQueueManager" end time: Feb 25 14:25 CET
+"TestQueueManager" end time: Mar 01 23:53 CET
 "TestQueueManager" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask
-2/5 Testing: TestAddTask
-2/5 Test: TestAddTask
+2/6 Testing: TestAddTask
+2/6 Test: TestAddTask
 Command: ""
 Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 "TestAddTask" start time: 
@@ -35,13 +35,13 @@ Output:
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"TestAddTask" end time: Feb 25 14:25 CET
+"TestAddTask" end time: Mar 01 23:53 CET
 "TestAddTask" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_configmanager
-3/5 Testing: TestConfigManager
-3/5 Test: TestConfigManager
+3/6 Testing: TestConfigManager
+3/6 Test: TestConfigManager
 Command: ""
 Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 "TestConfigManager" start time: 
@@ -51,13 +51,13 @@ Output:
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"TestConfigManager" end time: Feb 25 14:25 CET
+"TestConfigManager" end time: Mar 01 23:53 CET
 "TestConfigManager" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_drivemonitor
-4/5 Testing: TestDriveMonitor
-4/5 Test: TestDriveMonitor
+4/6 Testing: TestDriveMonitor
+4/6 Test: TestDriveMonitor
 Command: ""
 Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 "TestDriveMonitor" start time: 
@@ -67,13 +67,13 @@ Output:
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"TestDriveMonitor" end time: Feb 25 14:25 CET
+"TestDriveMonitor" end time: Mar 01 23:53 CET
 "TestDriveMonitor" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_errorhandling
-5/5 Testing: TestErrorHandling
-5/5 Test: TestErrorHandling
+5/6 Testing: TestErrorHandling
+5/6 Test: TestErrorHandling
 Command: ""
 Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 "TestErrorHandling" start time: 
@@ -83,8 +83,24 @@ Output:
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"TestErrorHandling" end time: Feb 25 14:25 CET
+"TestErrorHandling" end time: Mar 01 23:53 CET
 "TestErrorHandling" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Feb 25 14:25 CET
+Unable to find executable: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_ui
+6/6 Testing: TestUI
+6/6 Test: TestUI
+Command: ""
+Directory: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
+"TestUI" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestUI" end time: Mar 01 23:53 CET
+"TestUI" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 01 23:53 CET

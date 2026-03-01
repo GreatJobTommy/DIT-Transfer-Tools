@@ -318,6 +318,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qwindowdefs.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QComboBox \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QDialog \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QDockWidget \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QFileDialog \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QLabel \
@@ -342,6 +343,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qcombobox.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qdialog.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qdialogbuttonbox.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qdockwidget.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qfiledialog.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qframe.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
