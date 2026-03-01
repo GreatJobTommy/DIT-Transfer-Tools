@@ -1,6 +1,6 @@
-# DIT-Transfer-Tools v2.0
+# DIT-Transfer-Tools v2.1
 
-A high-performance, cross-platform file transfer tool built with Qt6 and C++17, featuring parallel processing, live previews, and robust queue management.
+A high-performance, cross-platform file transfer tool built with Qt6 and C++17, featuring parallel processing, live previews, and robust queue management. UI overhaul with tabbed interface.
 
 ## Features
 
@@ -26,6 +26,26 @@ A high-performance, cross-platform file transfer tool built with Qt6 and C++17, 
 - **Pause/Resume**: Interrupt and resume transfers at any point
 - **Transfer Validation**: Pre-transfer checks and post-transfer verification
 - **Logging**: Detailed logs for debugging and auditing
+
+## Screenshots
+
+### Main Window with Tabs
+![Main Window](screenshots/main_window.png)
+
+### Queue Tab - Active and Waiting Tasks
+![Queue Tab](screenshots/queue_tab.png)
+
+### Drives Monitor Tab
+![Drives Tab](screenshots/drives_tab.png)
+
+### Add Task Tab with Drag & Drop
+![Add Task Tab](screenshots/add_task_tab.png)
+
+### Settings Tab
+![Settings Tab](screenshots/settings_tab.png)
+
+### Progress Tab with Logs
+![Progress Tab](screenshots/progress_tab.png)
 
 ## Build Instructions
 

@@ -6,12 +6,22 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/main.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/HashManager.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/HashManager.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h \
 	/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h \
@@ -90,17 +100,25 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/c++/14/bits/os_defines.h \
 	/usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h \
 	/usr/include/aarch64-linux-gnu/gnu/stubs.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QCryptographicHash \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QDir \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QElapsedTimer \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QFile \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QList \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMimeData \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMutex \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QObject \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QRect \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QRunnable \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QSettings \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QSize \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QSizeF \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QStorageInfo \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QString \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QThread \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QThreadPool \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20functional.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20iterator.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20memory.h \
@@ -116,6 +134,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qatomic.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qatomic_cxx11.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbasicatomic.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbasictimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbindingstorage.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearray.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h \
@@ -136,6 +155,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreapplication.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreevent.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcryptographichash.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdarwinhelpers.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdatastream.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdatetime.h \
@@ -197,12 +217,14 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qscopedpointer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qscopeguard.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qset.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsettings.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qshareddata.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qshareddata_impl.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedpointer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsize.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qspan.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstorageinfo.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstring.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringalgorithms.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringbuilder.h \
@@ -229,6 +251,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtextstream.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qthread.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qthreadpool.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimezone.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtmetamacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtnoop.h \
@@ -302,7 +325,10 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QListWidget \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QMainWindow \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QMessageBox \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QProgressBar \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QPushButton \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTabWidget \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTableWidget \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTextEdit \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTreeWidget \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
@@ -327,6 +353,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qmessagebox.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qprogressbar.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qrubberband.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
@@ -334,6 +361,8 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qstyle.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtabbar.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtableview.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtablewidget.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtextedit.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtreeview.h \

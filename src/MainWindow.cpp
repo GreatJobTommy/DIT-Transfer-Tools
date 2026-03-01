@@ -1,15 +1,70 @@
 #include "MainWindow.h"
 #include "TransferTask.h"
 #include <QLabel>
+#include <QSplitter>
+#include <QHeaderView>
+#include <QCloseEvent>
+#include <QShortcut>
+#include <QApplication>
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
-    setWindowTitle("DIT Transfer Tools");
+    setWindowTitle("DIT Transfer Tools v2.1");
 
-    QWidget* central = new QWidget;
-    setCentralWidget(central);
+    m_parallel = new ParallelManager(this);
+    m_driveMonitor = new DriveMonitor(this);
+    m_settings = new SettingsManager(this);
+    m_progress = new ProgressMonitor(this);
+    m_errors = new ErrorManager(this);
+    m_hash = new HashManager(this);
 
-    QHBoxLayout* mainLayout = new QHBoxLayout(central);
+    setupUI();
+    setupTabs();
+    restoreWindowState();
+
+    // Connect signals
+    connect(m_driveMonitor, &DriveMonitor::driveAdded, this, &MainWindow::onDriveAdded);
+    connect(m_driveMonitor, &DriveMonitor::driveRemoved, this, &MainWindow::onDriveRemoved);
+    connect(m_progress, &ProgressMonitor::progressUpdated, this, &MainWindow::onProgressUpdated);
+    connect(m_errors, &ErrorManager::errorAdded, this, &MainWindow::onErrorAdded);
+
+    // Hotkeys
+    new QShortcut(QKeySequence("Ctrl+A"), this, SLOT(addTask()));
+    new QShortcut(QKeySequence("Ctrl+Up"), this, SLOT(reorderUp()));
+    new QShortcut(QKeySequence("Ctrl+Down"), this, SLOT(reorderDown()));
+
+    // Tooltips
+    m_addTaskBtn->setToolTip("Add a new transfer task (Ctrl+A)");
+    m_reorderUpBtn->setToolTip("Move selected task up (Ctrl+Up)");
+    m_reorderDownBtn->setToolTip("Move selected task down (Ctrl+Down)");
+
+    // For demo, add some tasks
+    TransferTask* t1 = new TransferTask("src1", "dst1");
+    TransferTask* t2 = new TransferTask("src2", "dst2");
+    m_queue->addTask(t1);
+    m_queue->addTask(t2);
+
+    updateLists();
+}
+
+MainWindow::~MainWindow() {}
+
+void MainWindow::setupUI() {
+    m_tabWidget = new QTabWidget;
+    setCentralWidget(m_tabWidget);
+}
+
+void MainWindow::setupTabs() {
+    setupQueueTab();
+    setupDrivesTab();
+    setupAddTaskTab();
+    setupSettingsTab();
+    setupProgressTab();
+}
+
+void MainWindow::setupQueueTab() {
+    QWidget* queueWidget = new QWidget;
+    QHBoxLayout* mainLayout = new QHBoxLayout(queueWidget);
 
     // Active list
     QVBoxLayout* activeLayout = new QVBoxLayout;
@@ -42,16 +97,76 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     connect(m_reorderUpBtn, &QPushButton::clicked, this, &MainWindow::reorderUp);
     connect(m_reorderDownBtn, &QPushButton::clicked, this, &MainWindow::reorderDown);
 
-    // For demo, add some tasks
-    TransferTask* t1 = new TransferTask("src1", "dst1");
-    TransferTask* t2 = new TransferTask("src2", "dst2");
-    m_queue->addTask(t1);
-    m_queue->addTask(t2);
-
-    updateLists();
+    m_tabWidget->addTab(queueWidget, "Queue");
 }
 
-MainWindow::~MainWindow() {}
+void MainWindow::setupDrivesTab() {
+    QWidget* drivesWidget = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(drivesWidget);
+
+    m_drivesTable = new QTableWidget;
+    m_drivesTable->setColumnCount(4);
+    m_drivesTable->setHorizontalHeaderLabels({"Name", "Path", "Size", "Available"});
+    layout->addWidget(m_drivesTable);
+
+    m_tabWidget->addTab(drivesWidget, "Drives");
+}
+
+void MainWindow::setupAddTaskTab() {
+    m_addTaskDialog = new AddTaskDialog;
+    m_tabWidget->addTab(m_addTaskDialog, "Add Task");
+}
+
+void MainWindow::setupSettingsTab() {
+    QWidget* settingsWidget = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(settingsWidget);
+
+    m_settingsEdit = new QTextEdit;
+    m_settingsEdit->setPlainText("Settings loaded from config.ini\nMaxThreads=4\nChunkSize=8192\n...");
+    layout->addWidget(m_settingsEdit);
+
+    QPushButton* saveBtn = new QPushButton("Save Settings");
+    layout->addWidget(saveBtn);
+
+    m_tabWidget->addTab(settingsWidget, "Settings");
+}
+
+void MainWindow::setupProgressTab() {
+    QWidget* progressWidget = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(progressWidget);
+
+    m_progressBar = new QProgressBar;
+    layout->addWidget(m_progressBar);
+
+    m_speedLabel = new QLabel("Speed: 0 MB/s");
+    layout->addWidget(m_speedLabel);
+
+    m_etaLabel = new QLabel("ETA: --");
+    layout->addWidget(m_etaLabel);
+
+    m_logEdit = new QTextEdit;
+    m_logEdit->setReadOnly(true);
+    layout->addWidget(m_logEdit);
+
+    m_tabWidget->addTab(progressWidget, "Progress");
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    saveWindowState();
+    event->accept();
+}
+
+void MainWindow::saveWindowState() {
+    QSettings settings;
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("windowState", saveState());
+}
+
+void MainWindow::restoreWindowState() {
+    QSettings settings;
+    restoreGeometry(settings.value("geometry").toByteArray());
+    restoreState(settings.value("windowState").toByteArray());
+}
 
 void MainWindow::updateLists() {
     m_activeList->clear();
@@ -84,10 +199,38 @@ void MainWindow::reorderDown() {
 }
 
 void MainWindow::addTask() {
-    AddTaskDialog dialog(this);
-    if (dialog.exec() == QDialog::Accepted) {
-        TransferTask* task = dialog.getTask();
+    if (m_addTaskDialog->exec() == QDialog::Accepted) {
+        TransferTask* task = m_addTaskDialog->getTask();
         m_queue->addTask(task);
         updateLists();
     }
+}
+
+void MainWindow::onDriveAdded(const QStorageInfo& drive) {
+    int row = m_drivesTable->rowCount();
+    m_drivesTable->insertRow(row);
+    m_drivesTable->setItem(row, 0, new QTableWidgetItem(drive.name()));
+    m_drivesTable->setItem(row, 1, new QTableWidgetItem(drive.rootPath()));
+    m_drivesTable->setItem(row, 2, new QTableWidgetItem(QString::number(drive.bytesTotal() / (1024*1024*1024)) + " GB"));
+    m_drivesTable->setItem(row, 3, new QTableWidgetItem(QString::number(drive.bytesAvailable() / (1024*1024*1024)) + " GB"));
+}
+
+void MainWindow::onDriveRemoved(const QStorageInfo& drive) {
+    for (int i = 0; i < m_drivesTable->rowCount(); ++i) {
+        if (m_drivesTable->item(i, 1)->text() == drive.rootPath()) {
+            m_drivesTable->removeRow(i);
+            break;
+        }
+    }
+}
+
+void MainWindow::onProgressUpdated(double speed, qint64 eta, const QString& log) {
+    m_progressBar->setValue(50); // Placeholder
+    m_speedLabel->setText(QString("Speed: %1 MB/s").arg(speed, 0, 'f', 2));
+    m_etaLabel->setText(QString("ETA: %1 s").arg(eta));
+    m_logEdit->append(log);
+}
+
+void MainWindow::onErrorAdded(const QString& error) {
+    m_logEdit->append("ERROR: " + error);
 }

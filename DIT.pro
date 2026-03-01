@@ -13,7 +13,10 @@ SOURCES += \
     src/QueueManager.cpp \
     src/DriveMonitor.cpp \
     src/ParallelManager.cpp \
-    src/AddTaskDialog.cpp
+    src/AddTaskDialog.cpp \
+    src/SettingsManager.cpp \
+    src/ProgressMonitor.cpp \
+    src/ErrorManager.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -22,10 +25,12 @@ HEADERS += \
     src/QueueManager.h \
     src/DriveMonitor.h \
     src/ParallelManager.h \
-    src/AddTaskDialog.h
+    src/AddTaskDialog.h \
+    src/SettingsManager.h \
+    src/ProgressMonitor.h \
+    src/ErrorManager.h
 
 FORMS += \
-    src/MainWindow.ui \
     src/AddTaskDialog.ui
 
 # Logs
@@ -42,6 +47,4 @@ LOG_FILES += transfer_log.txt detailed.log
 # - Queue mit Status (aktiv/wartend/pausiert)
 # - Automatisches Drive-Reconnect bei USB/Laufwerk-Verlust
 # - Detailliertes Logging
-# - GUI mit Qt Widgets für Settings und StatusHEADERS += src/SettingsManager.h src/SettingsDialog.h
-SOURCES += src/SettingsManager.cpp src/SettingsDialog.cpp
-FORMS += src/SettingsDialog.ui
+# - GUI mit Qt Widgets für Settings und Status

@@ -10,3 +10,5 @@ set(__QT_DEPLOY_TARGET_test_drivemonitor_FILE /home/openclaw/.openclaw/workspace
 set(__QT_DEPLOY_TARGET_test_drivemonitor_TYPE EXECUTABLE)
 set(__QT_DEPLOY_TARGET_test_errorhandling_FILE /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_errorhandling)
 set(__QT_DEPLOY_TARGET_test_errorhandling_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_test_ui_FILE /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_ui)
+set(__QT_DEPLOY_TARGET_test_ui_TYPE EXECUTABLE)

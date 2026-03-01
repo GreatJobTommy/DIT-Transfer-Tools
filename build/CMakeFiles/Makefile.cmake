@@ -181,6 +181,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/test_configmanager_autogen.dir/AutogenInfo.json"
   "CMakeFiles/test_drivemonitor_autogen.dir/AutogenInfo.json"
   "CMakeFiles/test_errorhandling_autogen.dir/AutogenInfo.json"
+  "CMakeFiles/test_ui_autogen.dir/AutogenInfo.json"
   ".qt/QtDeploySupport.cmake"
   ".qt/QtDeployTargets.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
@@ -194,6 +195,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_configmanager.dir/DependInfo.cmake"
   "CMakeFiles/test_drivemonitor.dir/DependInfo.cmake"
   "CMakeFiles/test_errorhandling.dir/DependInfo.cmake"
+  "CMakeFiles/test_ui.dir/DependInfo.cmake"
   "CMakeFiles/DIT-Transfer-Tools_autogen_timestamp_deps.dir/DependInfo.cmake"
   "CMakeFiles/DIT-Transfer-Tools_autogen.dir/DependInfo.cmake"
   "CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/DependInfo.cmake"
@@ -206,4 +208,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_drivemonitor_autogen.dir/DependInfo.cmake"
   "CMakeFiles/test_errorhandling_autogen_timestamp_deps.dir/DependInfo.cmake"
   "CMakeFiles/test_errorhandling_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/test_ui_autogen_timestamp_deps.dir/DependInfo.cmake"
+  "CMakeFiles/test_ui_autogen.dir/DependInfo.cmake"
   )

@@ -23,6 +23,16 @@ add_executable(DIT-Transfer-Tools
     src/AddTaskDialog.ui
     src/ParallelManager.cpp
     src/ParallelManager.h
+    src/HashManager.cpp
+    src/HashManager.h
+    src/DriveMonitor.cpp
+    src/DriveMonitor.h
+    src/SettingsManager.cpp
+    src/SettingsManager.h
+    src/ProgressMonitor.cpp
+    src/ProgressMonitor.h
+    src/ErrorManager.cpp
+    src/ErrorManager.h
 )
 
 target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
@@ -48,3 +58,7 @@ add_test(NAME TestDriveMonitor COMMAND test_drivemonitor)
 add_executable(test_errorhandling tests/test_errorhandling.cpp)
 target_link_libraries(test_errorhandling Qt6::Core Qt6::Test)
 add_test(NAME TestErrorHandling COMMAND test_errorhandling)
+
+add_executable(test_ui tests/test_ui.cpp src/QueueManager.cpp src/QueueManager.h src/TransferTask.cpp src/TransferTask.h src/MainWindow.cpp src/MainWindow.h src/AddTaskDialog.cpp src/AddTaskDialog.h src/AddTaskDialog.ui src/ParallelManager.cpp src/ParallelManager.h src/HashManager.cpp src/HashManager.h src/DriveMonitor.cpp src/DriveMonitor.h src/SettingsManager.cpp src/SettingsManager.h src/ProgressMonitor.cpp src/ProgressMonitor.h src/ErrorManager.cpp src/ErrorManager.h)
+target_link_libraries(test_ui Qt6::Core Qt6::Widgets Qt6::Test)
+add_test(NAME TestUI COMMAND test_ui)

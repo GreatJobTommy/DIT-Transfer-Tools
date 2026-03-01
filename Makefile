@@ -61,11 +61,17 @@ SOURCES       = main.cpp \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
 		src/SettingsManager.cpp \
-		src/SettingsDialog.cpp moc_MainWindow.cpp \
+		src/ProgressMonitor.cpp \
+		src/ErrorManager.cpp moc_MainWindow.cpp \
 		moc_TransferTask.cpp \
+		moc_HashManager.cpp \
 		moc_QueueManager.cpp \
+		moc_DriveMonitor.cpp \
 		moc_ParallelManager.cpp \
-		moc_AddTaskDialog.cpp
+		moc_AddTaskDialog.cpp \
+		moc_SettingsManager.cpp \
+		moc_ProgressMonitor.cpp \
+		moc_ErrorManager.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		TransferTask.o \
@@ -75,12 +81,18 @@ OBJECTS       = main.o \
 		ParallelManager.o \
 		AddTaskDialog.o \
 		SettingsManager.o \
-		SettingsDialog.o \
+		ProgressMonitor.o \
+		ErrorManager.o \
 		moc_MainWindow.o \
 		moc_TransferTask.o \
+		moc_HashManager.o \
 		moc_QueueManager.o \
+		moc_DriveMonitor.o \
 		moc_ParallelManager.o \
-		moc_AddTaskDialog.o
+		moc_AddTaskDialog.o \
+		moc_SettingsManager.o \
+		moc_ProgressMonitor.o \
+		moc_ErrorManager.o
 DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -164,7 +176,10 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/QueueManager.h \
 		src/DriveMonitor.h \
 		src/ParallelManager.h \
-		src/AddTaskDialog.h main.cpp \
+		src/AddTaskDialog.h \
+		src/SettingsManager.h \
+		src/ProgressMonitor.h \
+		src/ErrorManager.h main.cpp \
 		src/MainWindow.cpp \
 		src/TransferTask.cpp \
 		src/HashManager.cpp \
@@ -173,7 +188,8 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
 		src/SettingsManager.cpp \
-		src/SettingsDialog.cpp
+		src/ProgressMonitor.cpp \
+		src/ErrorManager.cpp
 QMAKE_TARGET  = DIT-Transfer-Tools
 DESTDIR       = 
 TARGET        = DIT-Transfer-Tools
@@ -182,7 +198,7 @@ TARGET        = DIT-Transfer-Tools
 first: all
 ####### Build rules
 
-DIT-Transfer-Tools: ui_MainWindow.h ui_AddTaskDialog.h ui_SettingsDialog.h $(OBJECTS)  
+DIT-Transfer-Tools: ui_AddTaskDialog.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: DIT.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -357,9 +373,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/HashManager.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/HashManager.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/SettingsManager.cpp src/SettingsDialog.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/MainWindow.ui src/AddTaskDialog.ui src/SettingsDialog.ui $(DISTDIR)/
+	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/HashManager.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h src/SettingsManager.h src/ProgressMonitor.h src/ErrorManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/HashManager.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/SettingsManager.cpp src/ProgressMonitor.cpp src/ErrorManager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/AddTaskDialog.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -391,13 +407,19 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp
+compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_HashManager.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_SettingsManager.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp
+	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_HashManager.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_SettingsManager.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp
 moc_MainWindow.cpp: src/MainWindow.h \
 		src/QueueManager.h \
 		src/TransferTask.h \
 		src/AddTaskDialog.h \
+		src/DriveMonitor.h \
+		src/SettingsManager.h \
+		src/ProgressMonitor.h \
+		src/ErrorManager.h \
+		src/ParallelManager.h \
+		src/HashManager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/MainWindow.h -o moc_MainWindow.cpp
@@ -407,13 +429,24 @@ moc_TransferTask.cpp: src/TransferTask.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/TransferTask.h -o moc_TransferTask.cpp
 
+moc_HashManager.cpp: src/HashManager.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/HashManager.h -o moc_HashManager.cpp
+
 moc_QueueManager.cpp: src/QueueManager.h \
 		src/TransferTask.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/QueueManager.h -o moc_QueueManager.cpp
 
+moc_DriveMonitor.cpp: src/DriveMonitor.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/DriveMonitor.h -o moc_DriveMonitor.cpp
+
 moc_ParallelManager.cpp: src/ParallelManager.h \
+		src/TransferTask.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/ParallelManager.h -o moc_ParallelManager.cpp
@@ -424,24 +457,31 @@ moc_AddTaskDialog.cpp: src/AddTaskDialog.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/AddTaskDialog.h -o moc_AddTaskDialog.cpp
 
+moc_SettingsManager.cpp: src/SettingsManager.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/SettingsManager.h -o moc_SettingsManager.cpp
+
+moc_ProgressMonitor.cpp: src/ProgressMonitor.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/ProgressMonitor.h -o moc_ProgressMonitor.cpp
+
+moc_ErrorManager.cpp: src/ErrorManager.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtNetwork -I/usr/include/aarch64-linux-gnu/qt5/QtConcurrent -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/ErrorManager.h -o moc_ErrorManager.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_MainWindow.h ui_AddTaskDialog.h ui_SettingsDialog.h
+compiler_uic_make_all: ui_AddTaskDialog.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_MainWindow.h ui_AddTaskDialog.h ui_SettingsDialog.h
-ui_MainWindow.h: src/MainWindow.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic src/MainWindow.ui -o ui_MainWindow.h
-
+	-$(DEL_FILE) ui_AddTaskDialog.h
 ui_AddTaskDialog.h: src/AddTaskDialog.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic src/AddTaskDialog.ui -o ui_AddTaskDialog.h
-
-ui_SettingsDialog.h: src/SettingsDialog.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic src/SettingsDialog.ui -o ui_SettingsDialog.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -456,40 +496,56 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: main.cpp src/MainWindow.h \
 		src/QueueManager.h \
 		src/TransferTask.h \
-		src/AddTaskDialog.h
+		src/AddTaskDialog.h \
+		src/DriveMonitor.h \
+		src/SettingsManager.h \
+		src/ProgressMonitor.h \
+		src/ErrorManager.h \
+		src/ParallelManager.h \
+		src/HashManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: src/MainWindow.cpp src/MainWindow.h \
 		src/QueueManager.h \
 		src/TransferTask.h \
-		src/AddTaskDialog.h
+		src/AddTaskDialog.h \
+		src/DriveMonitor.h \
+		src/SettingsManager.h \
+		src/ProgressMonitor.h \
+		src/ErrorManager.h \
+		src/ParallelManager.h \
+		src/HashManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/MainWindow.cpp
 
 TransferTask.o: src/TransferTask.cpp src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TransferTask.o src/TransferTask.cpp
 
-HashManager.o: src/HashManager.cpp 
+HashManager.o: src/HashManager.cpp src/HashManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HashManager.o src/HashManager.cpp
 
 QueueManager.o: src/QueueManager.cpp src/QueueManager.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QueueManager.o src/QueueManager.cpp
 
-DriveMonitor.o: src/DriveMonitor.cpp 
+DriveMonitor.o: src/DriveMonitor.cpp src/DriveMonitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DriveMonitor.o src/DriveMonitor.cpp
 
-ParallelManager.o: src/ParallelManager.cpp 
+ParallelManager.o: src/ParallelManager.cpp src/ParallelManager.h \
+		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ParallelManager.o src/ParallelManager.cpp
 
 AddTaskDialog.o: src/AddTaskDialog.cpp src/AddTaskDialog.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AddTaskDialog.o src/AddTaskDialog.cpp
 
-SettingsManager.o: src/SettingsManager.cpp 
+SettingsManager.o: src/SettingsManager.cpp src/SettingsManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SettingsManager.o src/SettingsManager.cpp
 
-SettingsDialog.o: src/SettingsDialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SettingsDialog.o src/SettingsDialog.cpp
+ProgressMonitor.o: src/ProgressMonitor.cpp src/ProgressMonitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ProgressMonitor.o src/ProgressMonitor.cpp
+
+ErrorManager.o: src/ErrorManager.cpp src/ErrorManager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ErrorManager.o src/ErrorManager.cpp
 
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
@@ -497,14 +553,29 @@ moc_MainWindow.o: moc_MainWindow.cpp
 moc_TransferTask.o: moc_TransferTask.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TransferTask.o moc_TransferTask.cpp
 
+moc_HashManager.o: moc_HashManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_HashManager.o moc_HashManager.cpp
+
 moc_QueueManager.o: moc_QueueManager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_QueueManager.o moc_QueueManager.cpp
+
+moc_DriveMonitor.o: moc_DriveMonitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DriveMonitor.o moc_DriveMonitor.cpp
 
 moc_ParallelManager.o: moc_ParallelManager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ParallelManager.o moc_ParallelManager.cpp
 
 moc_AddTaskDialog.o: moc_AddTaskDialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_AddTaskDialog.o moc_AddTaskDialog.cpp
+
+moc_SettingsManager.o: moc_SettingsManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SettingsManager.o moc_SettingsManager.cpp
+
+moc_ProgressMonitor.o: moc_ProgressMonitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ProgressMonitor.o moc_ProgressMonitor.cpp
+
+moc_ErrorManager.o: moc_ErrorManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ErrorManager.o moc_ErrorManager.cpp
 
 ####### Install
 
