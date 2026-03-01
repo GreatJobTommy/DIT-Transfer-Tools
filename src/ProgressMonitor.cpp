@@ -10,15 +10,14 @@ ProgressMonitor::~ProgressMonitor() {}
 void ProgressMonitor::addTask(TransferTask* task) {
     if (!m_progress.contains(task)) {
         m_progress[task] = 0;
-        connect(task, &TransferTask::progressChanged, this, [this, task](int percent) {
+        connect(task, &TransferTask::progressChanged, this, [this, task](qint64 bytes, qint64 speed, qint64 eta) {
+            int percent = (task->totalBytes() > 0) ? (bytes * 100) / task->totalBytes() : 0;
             m_progress[task] = percent;
             emit progressUpdated(task, percent);
             if (percent == 100) {
                 emit taskCompleted(task);
             }
         });
-        // Simulate progress for demo
-        // In real, connect to actual transfer signals
     }
 }
 
