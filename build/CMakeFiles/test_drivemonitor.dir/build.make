@@ -107,22 +107,70 @@ CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_drivemonitor.cpp -o CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.s
 
+CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o: CMakeFiles/test_drivemonitor.dir/flags.make
+CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp
+CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o: CMakeFiles/test_drivemonitor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o -MF CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o.d -o CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp
+
+CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp > CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.i
+
+CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp -o CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.s
+
+CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o: CMakeFiles/test_drivemonitor.dir/flags.make
+CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp
+CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o: CMakeFiles/test_drivemonitor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o -MF CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o.d -o CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp
+
+CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp > CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.i
+
+CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp -o CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.s
+
+CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o: CMakeFiles/test_drivemonitor.dir/flags.make
+CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp
+CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o: CMakeFiles/test_drivemonitor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o -MF CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o.d -o CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp
+
+CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp > CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.i
+
+CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp -o CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.s
+
 # Object files for target test_drivemonitor
 test_drivemonitor_OBJECTS = \
 "CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.o" \
-"CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o"
+"CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o" \
+"CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o" \
+"CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o" \
+"CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o"
 
 # External object files for target test_drivemonitor
 test_drivemonitor_EXTERNAL_OBJECTS =
 
 test_drivemonitor: CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.o
 test_drivemonitor: CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o
+test_drivemonitor: CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o
+test_drivemonitor: CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o
+test_drivemonitor: CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o
 test_drivemonitor: CMakeFiles/test_drivemonitor.dir/build.make
 test_drivemonitor: CMakeFiles/test_drivemonitor.dir/compiler_depend.ts
 test_drivemonitor: /usr/lib/aarch64-linux-gnu/libQt6Test.so.6.8.2
 test_drivemonitor: /usr/lib/aarch64-linux-gnu/libQt6Core.so.6.8.2
 test_drivemonitor: CMakeFiles/test_drivemonitor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable test_drivemonitor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable test_drivemonitor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_drivemonitor.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

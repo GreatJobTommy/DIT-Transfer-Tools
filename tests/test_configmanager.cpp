@@ -57,4 +57,5 @@ void TestConfigManager::testLiveReload() {
 }
 
 QTEST_MAIN(TestConfigManager)
+#include "test_configmanager.moc"
 #include &quot;test_configmanager.moc&quot;

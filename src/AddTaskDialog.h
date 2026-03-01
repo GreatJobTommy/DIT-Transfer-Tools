@@ -19,7 +19,7 @@
 #include <QMessageBox>
 #include "TransferTask.h"
 
-class DragDropList : public QListWidget {
+class FileDropList : public QListWidget {
     Q_OBJECT
 public:
     DragDropList(QWidget* parent = nullptr) : QListWidget(parent) {

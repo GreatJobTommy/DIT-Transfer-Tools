@@ -32,13 +32,13 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-struct qt_meta_tag_ZN12DragDropListE_t {};
+struct qt_meta_tag_ZN12FileDropListE_t {};
 } // unnamed namespace
 
 
 #ifdef QT_MOC_HAS_STRINGDATA
-static constexpr auto qt_meta_stringdata_ZN12DragDropListE = QtMocHelpers::stringData(
-    "DragDropList",
+static constexpr auto qt_meta_stringdata_ZN12FileDropListE = QtMocHelpers::stringData(
+    "FileDropList",
     "pathsDropped",
     "",
     "paths"
@@ -47,7 +47,7 @@ static constexpr auto qt_meta_stringdata_ZN12DragDropListE = QtMocHelpers::strin
 #error "qtmochelpers.h not found or too old."
 #endif // !QT_MOC_HAS_STRINGDATA
 
-Q_CONSTINIT static const uint qt_meta_data_ZN12DragDropListE[] = {
+Q_CONSTINIT static const uint qt_meta_data_ZN12FileDropListE[] = {
 
  // content:
       12,       // revision
@@ -69,15 +69,15 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12DragDropListE[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject DragDropList::staticMetaObject = { {
+Q_CONSTINIT const QMetaObject FileDropList::staticMetaObject = { {
     QMetaObject::SuperData::link<QListWidget::staticMetaObject>(),
-    qt_meta_stringdata_ZN12DragDropListE.offsetsAndSizes,
-    qt_meta_data_ZN12DragDropListE,
+    qt_meta_stringdata_ZN12FileDropListE.offsetsAndSizes,
+    qt_meta_data_ZN12FileDropListE,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_tag_ZN12DragDropListE_t,
+    qt_incomplete_metaTypeArray<qt_meta_tag_ZN12FileDropListE_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<DragDropList, std::true_type>,
+        QtPrivate::TypeAndForceComplete<FileDropList, std::true_type>,
         // method 'pathsDropped'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QStringList &, std::false_type>
@@ -85,9 +85,9 @@ Q_CONSTINIT const QMetaObject DragDropList::staticMetaObject = { {
     nullptr
 } };
 
-void DragDropList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void FileDropList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    auto *_t = static_cast<DragDropList *>(_o);
+    auto *_t = static_cast<FileDropList *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->pathsDropped((*reinterpret_cast< std::add_pointer_t<QStringList>>(_a[1]))); break;
@@ -97,8 +97,8 @@ void DragDropList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _q_method_type = void (DragDropList::*)(const QStringList & );
-            if (_q_method_type _q_method = &DragDropList::pathsDropped; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+            using _q_method_type = void (FileDropList::*)(const QStringList & );
+            if (_q_method_type _q_method = &FileDropList::pathsDropped; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
             }
@@ -106,20 +106,20 @@ void DragDropList::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     }
 }
 
-const QMetaObject *DragDropList::metaObject() const
+const QMetaObject *FileDropList::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *DragDropList::qt_metacast(const char *_clname)
+void *FileDropList::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ZN12DragDropListE.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ZN12FileDropListE.stringdata0))
         return static_cast<void*>(this);
     return QListWidget::qt_metacast(_clname);
 }
 
-int DragDropList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int FileDropList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QListWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -138,7 +138,7 @@ int DragDropList::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void DragDropList::pathsDropped(const QStringList & _t1)
+void FileDropList::pathsDropped(const QStringList & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

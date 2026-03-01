@@ -29,6 +29,10 @@ void QueueManager::reorderWaiting(int from, int to) {
     m_waiting.move(from, to);
 }
 
+void QueueManager::setWaitingOrder(const QList<TransferTask*>& order) {
+    m_waiting = order;
+}
+
 QList<TransferTask*> QueueManager::activeTasks() const {
     return m_active;
 }

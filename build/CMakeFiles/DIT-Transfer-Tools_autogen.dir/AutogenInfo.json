@@ -246,6 +246,18 @@
 			null
 		],
 		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.h",
+			"MU",
+			"UVLADIE3JM/moc_DriveMonitor.cpp",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.h",
+			"MU",
+			"UVLADIE3JM/moc_ErrorManager.cpp",
+			null
+		],
+		[
 			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.h",
 			"MU",
 			"UVLADIE3JM/moc_MainWindow.cpp",
@@ -258,9 +270,21 @@
 			null
 		],
 		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.h",
+			"MU",
+			"UVLADIE3JM/moc_ProgressMonitor.cpp",
+			null
+		],
+		[
 			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h",
 			"MU",
 			"UVLADIE3JM/moc_QueueManager.cpp",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h",
+			"MU",
+			"UVLADIE3JM/moc_SettingsManager.cpp",
 			null
 		],
 		[
@@ -340,6 +364,16 @@
 			null
 		],
 		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp",
+			"MU",
+			null
+		],
+		[
 			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp",
 			"MU",
 			null
@@ -350,7 +384,17 @@
 			null
 		],
 		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp",
+			"MU",
+			null
+		],
+		[
 			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp",
 			"MU",
 			null
 		],

@@ -1,19 +1,15 @@
-DIT-Transfer-Tools_autogen/timestamp: \
+test_addtask_autogen/timestamp: \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/CMakeLists.txt \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeSystem.cmake \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/moc_predefs.h \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/main.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_addtask_autogen/moc_predefs.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.h \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.h \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp \
-	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp \
 	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_addtask.cpp \
 	/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h \
 	/usr/include/aarch64-linux-gnu/bits/byteswap.h \
 	/usr/include/aarch64-linux-gnu/bits/cpu-set.h \
@@ -87,11 +83,20 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/c++/14/bits/error_constants.h \
 	/usr/include/aarch64-linux-gnu/c++/14/bits/gthr-default.h \
 	/usr/include/aarch64-linux-gnu/c++/14/bits/gthr.h \
+	/usr/include/aarch64-linux-gnu/c++/14/bits/opt_random.h \
 	/usr/include/aarch64-linux-gnu/c++/14/bits/os_defines.h \
 	/usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h \
 	/usr/include/aarch64-linux-gnu/gnu/stubs.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QAbstractItemModel \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QDeadlineTimer \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QDebug \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QDir \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QEvent \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QHash \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QList \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMap \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMargins \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMetaEnum \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMimeData \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMutex \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QObject \
@@ -100,33 +105,68 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QSize \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QSizeF \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QString \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QThreadPool \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QVariant \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QtCore \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QtCoreDepends \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20algorithm.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20chrono.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20functional.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20iterator.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20map.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20memory.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20type_traits.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q20vector.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q23functional.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/q23utility.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/q26numeric.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qabstractanimation.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qabstracteventdispatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qabstractnativeeventfilter.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qabstractproxymodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qalgorithms.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qanimationgroup.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qanystringview.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qapplicationstatic.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qarraydata.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qarraydataops.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qarraydatapointer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qassert.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qassociativeiterable.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qatomic.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qatomic_cxx11.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qatomicscopedvaluerollback.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbasicatomic.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbasictimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbindingstorage.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbitarray.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbuffer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearray.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearraylist.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearraymatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearrayview.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcache.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcalendar.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborarray.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborcommon.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcbormap.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborstream.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborstreamreader.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborstreamwriter.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcborvalue.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qchar.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qchronotimer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcollator.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcommandlineoption.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcommandlineparser.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcompare.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcompare_impl.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcomparehelpers.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcompilerdetection.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qconcatenatetablesproxymodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qconfig.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qconstructormacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcontainerfwd.h \
@@ -136,47 +176,73 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreapplication.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcoreevent.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qcryptographichash.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdarwinhelpers.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdatastream.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdatetime.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdeadlinetimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdebug.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdir.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdiriterator.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qdirlisting.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qeasingcurve.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qelapsedtimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qendian.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qeventloop.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qexception.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qexceptionhandling.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfactoryinterface.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfile.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfiledevice.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfileinfo.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfileselector.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfilesystemwatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qflags.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfloat16.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qforeach.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfunctionaltools_impl.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfunctionpointer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfuture.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfuture_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfutureinterface.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfuturesynchronizer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qfuturewatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qgenericatomic.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qglobal.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qglobalstatic.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qhash.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qhashfunctions.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qidentityproxymodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qiodevice.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qiodevicebase.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qiterable.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qiterator.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qjsonarray.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qjsondocument.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qjsonobject.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qjsonvalue.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlatin1stringmatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlatin1stringview.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlibrary.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlibraryinfo.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qline.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlist.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlocale.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlockfile.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qlogging.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qloggingcategory.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmalloc.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmap.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmargins.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmath.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmessageauthenticationcode.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmetacontainer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmetaobject.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmetatype.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmimedata.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmimedatabase.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmimetype.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qminmax.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qmutex.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qnamespace.h \
@@ -184,25 +250,58 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qnumeric.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qobject.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qobject_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qobjectcleanuphandler.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qobjectdefs.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qoperatingsystemversion.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qoverload.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpair.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qparallelanimationgroup.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpauseanimation.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpermissions.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qplugin.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpluginloader.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpoint.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpointer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qprocess.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qprocessordetection.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpromise.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qproperty.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpropertyanimation.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qpropertyprivate.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qqueue.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qrandom.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qreadwritelock.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qrect.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qrefcount.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qregularexpression.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qresource.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qresultstore.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qrunnable.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsavefile.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qscopedpointer.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qscopedvaluerollback.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qscopeguard.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsemaphore.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsequentialanimationgroup.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsequentialiterable.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qset.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsettings.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qshareddata.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qshareddata_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedmemory.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedpointer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsignalmapper.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsimd.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsize.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsocketnotifier.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsortfilterproxymodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qspan.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstack.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstandardpaths.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstaticlatin1stringmatcher.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstorageinfo.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstring.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringalgorithms.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringbuilder.h \
@@ -210,6 +309,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringconverter_base.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringfwd.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringlist.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringlistmodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringliteral.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringmatcher.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qstringtokenizer.h \
@@ -217,39 +317,71 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qswap.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsysinfo.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsystemdetection.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qsystemsemaphore.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtaggedpointer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtclasshelpermacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtconfiginclude.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtconfigmacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtcore-config.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtcoreexports.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtcoreversion.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtdeprecationdefinitions.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtdeprecationmarkers.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtemporarydir.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtemporaryfile.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtenvironmentvariables.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtestsupport_core.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtextboundaryfinder.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtextstream.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qthread.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qthreadpool.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qthreadstorage.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimeline.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimer.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimezone.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtipccommon.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtmetamacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtnoop.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtpreprocessorsupport.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtranslator.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtransposeproxymodel.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtresource.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtsan_impl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtsymbolmacros.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qttranslation.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qttypetraits.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtversion.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtversionchecks.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtypeinfo.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtyperevision.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qtypes.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qurl.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qurlquery.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qutf8stringview.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/quuid.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvariant.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvariantanimation.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvarianthash.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvariantlist.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvariantmap.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qvector.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qversionnumber.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qversiontagging.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qwaitcondition.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qwineventnotifier.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qxmlstream.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/qxpfunctional.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qxptype_traits.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/qyieldcpu.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QBrush \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QColor \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/QDragEnterEvent \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/QDropEvent \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QFont \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QIcon \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QImage \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/QPixmap \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/QTransform \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qaction.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qbitmap.h \
@@ -281,6 +413,9 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qrgba64.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qscreen.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qscreen_platform.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qsurface.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qsurfaceformat.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qtestsupport_gui.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qtextcursor.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qtextdocument.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qtextformat.h \
@@ -291,8 +426,37 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qtransform.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qvalidator.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qvector2d.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qvector3d.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qvector4d.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qvectornd.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtGui/qwindow.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtGui/qwindowdefs.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/QtTest \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/QtTestDepends \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qabstractitemmodeltester.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qbenchmark.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qbenchmarkmetric.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qsignalspy.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtest.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtest_gui.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtest_widgets.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestassert.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestcase.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestdata.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestevent.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtesteventloop.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestkeyboard.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestmouse.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestspontaneevent.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestsystem.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtesttostring.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtesttouch.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qtestwheel.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qttestexports.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qttestglobal.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qttestlib-config.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtTest/qttestversion.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QApplication \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QComboBox \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QDialog \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QFileDialog \
@@ -300,9 +464,9 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QLabel \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QLineEdit \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QListWidget \
-	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QMainWindow \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QMessageBox \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QPushButton \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QSizePolicy \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTextEdit \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QTreeWidget \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
@@ -312,6 +476,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qabstractslider.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qabstractspinbox.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qapplication.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qcombobox.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qdialog.h \
@@ -325,7 +490,6 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlineedit.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlistview.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
-	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qmessagebox.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qrubberband.h \
@@ -335,6 +499,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtabbar.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
+	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtestsupport_widgets.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtextedit.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtreeview.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtreewidget.h \
@@ -405,6 +570,8 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/c++/14/bits/postypes.h \
 	/usr/include/c++/14/bits/predefined_ops.h \
 	/usr/include/c++/14/bits/ptr_traits.h \
+	/usr/include/c++/14/bits/random.h \
+	/usr/include/c++/14/bits/random.tcc \
 	/usr/include/c++/14/bits/range_access.h \
 	/usr/include/c++/14/bits/refwrap.h \
 	/usr/include/c++/14/bits/requires_hosted.h \
@@ -497,6 +664,7 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/include/c++/14/pstl/execution_defs.h \
 	/usr/include/c++/14/pstl/glue_numeric_defs.h \
 	/usr/include/c++/14/queue \
+	/usr/include/c++/14/random \
 	/usr/include/c++/14/ratio \
 	/usr/include/c++/14/stdexcept \
 	/usr/include/c++/14/streambuf \
@@ -659,6 +827,9 @@ DIT-Transfer-Tools_autogen/timestamp: \
 	/usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-none.cmake \
 	/usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
 	/usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
+	/usr/lib/gcc/aarch64-linux-gnu/14/include/arm_bf16.h \
+	/usr/lib/gcc/aarch64-linux-gnu/14/include/arm_fp16.h \
+	/usr/lib/gcc/aarch64-linux-gnu/14/include/arm_neon.h \
 	/usr/lib/gcc/aarch64-linux-gnu/14/include/stdarg.h \
 	/usr/lib/gcc/aarch64-linux-gnu/14/include/stdbool.h \
 	/usr/lib/gcc/aarch64-linux-gnu/14/include/stddef.h \
