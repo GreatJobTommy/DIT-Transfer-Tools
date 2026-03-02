@@ -70,8 +70,6 @@ private:
     QListWidget* m_drivesList;
 
     // Settings
-    QSlider* m_parallelSlider;
-    QLabel* m_parallelLabel;
 
     // Progress
     QProgressBar* m_overallProgress;

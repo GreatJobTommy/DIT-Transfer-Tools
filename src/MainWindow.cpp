@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "TransferTask.h"
+#include "SettingsDialog.h"
 #include <QLabel>
 #include <QApplication>
 #include <QStyle>
@@ -172,21 +173,15 @@ void MainWindow::createSettingsTab() {
     QWidget* settingsTab = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout(settingsTab);
 
-    QLabel* parallelLabel = new QLabel("Max Parallel Transfers");
-    layout->addWidget(parallelLabel);
-
-    m_parallelSlider = new QSlider(Qt::Horizontal);
-    m_parallelSlider->setObjectName("parallelSlider");
-    m_parallelSlider->setRange(1, 10);
-    m_parallelSlider->setValue(m_settingsManager->getMaxParallelTransfers());
-    connect(m_parallelSlider, &QSlider::valueChanged, [this](int value) {
-        m_settingsManager->setMaxParallelTransfers(value);
-        m_parallelLabel->setText(QString("Max Parallel Transfers: %1").arg(value));
+    QPushButton* openSettingsBtn = new QPushButton("Open Settings Dialog");
+    openSettingsBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
+    connect(openSettingsBtn, &QPushButton::clicked, [this]() {
+        SettingsDialog dialog(m_settingsManager, this);
+        if (dialog.exec() == QDialog::Accepted) {
+            // Settings are saved automatically in dialog
+        }
     });
-    layout->addWidget(m_parallelSlider);
-
-    m_parallelLabel = new QLabel(QString("Max Parallel Transfers: %1").arg(m_parallelSlider->value()));
-    layout->addWidget(m_parallelLabel);
+    layout->addWidget(openSettingsBtn);
 
     layout->addStretch();
 
@@ -292,6 +287,7 @@ void MainWindow::updateErrors() {
 }
 
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
+    Q_UNUSED(value);
     if (key == "maxParallel") {
         // Update parallel manager or something
     }

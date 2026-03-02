@@ -15,7 +15,8 @@ SOURCES += \
     src/AddTaskDialog.cpp \
     src/ProgressMonitor.cpp \
     src/ErrorManager.cpp \
-    src/SettingsManager.cpp
+    src/SettingsManager.cpp \
+    src/SettingsDialog.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -27,6 +28,7 @@ HEADERS += \
     src/ProgressMonitor.h \
     src/ErrorManager.h \
     src/SettingsManager.h \
+    src/SettingsDialog.h \
     src/DragDropList.h
 
 FORMS += \
@@ -35,7 +37,9 @@ FORMS += \
 # Tests
 test_ui_clarity.target = test_ui_clarity
 test_ui_clarity.commands = cd tests && $(QMAKE) test_ui_clarity.pro && $(MAKE) && ./test_ui_clarity
-QMAKE_EXTRA_TARGETS += test_ui_clarity
+test_settings.target = test_settings
+test_settings.commands = cd tests && $(QMAKE) test_settings.pro && $(MAKE) && ./test_settings
+QMAKE_EXTRA_TARGETS += test_ui_clarity test_settings
 
 # Logs
 LOG_FILES += transfer_log.txt detailed.log
