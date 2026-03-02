@@ -35,6 +35,11 @@ void DriveMonitor::addDrive(const QString& path) {
 void DriveMonitor::removeDrive(const QString& path) {
     m_watcher->removePath(path);
     m_lastFiles.remove(path);
+    m_removedDrives.insert(path);
+}
+
+void DriveMonitor::setResumeOffset(const QString& path, const QString& lastFile, qint64 offset) {
+    m_resumeOffsets[path] = {lastFile, offset};
 }
 
 void DriveMonitor::onDirectoryChanged(const QString& path) {
@@ -68,6 +73,11 @@ void DriveMonitor::pollDrives() {
         if (!currentPaths.contains(path)) {
             addDrive(path);
             emit driveConnected(path);
+            if (m_removedDrives.contains(path) && m_resumeOffsets.contains(path)) {
+                const ResumeInfo& info = m_resumeOffsets[path];
+                emit driveReconnected(path, info.lastFile, info.offset);
+                m_removedDrives.remove(path);
+            }
         }
     }
 
