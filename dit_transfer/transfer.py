@@ -3,8 +3,8 @@ import stat
 import hashlib
 from pathlib import Path
 from urllib.parse import urlparse
-import paramiko
-from tqdm import tqdm
+import paramiko  # type: ignore[import-untyped]
+from tqdm import tqdm  # type: ignore[import-untyped]
 import subprocess
 import configparser
 import uuid
@@ -24,7 +24,7 @@ def parse_sftp_uri(uri: str) -> tuple[str, str, int, str]:
     parsed = urlparse(uri)
     if parsed.scheme.lower() != "sftp":
         raise ValueError(f"Not a valid SFTP URI: {uri}")
-    user = parsed.username or os.getenv("USER")
+    user = parsed.username or os.getenv("USER") or ""
     host = parsed.hostname
     port = parsed.port or 22
     path = parsed.path.lstrip("/")

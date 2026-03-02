@@ -1,6 +1,7 @@
 import click
-from pathlib import Path
 import os
+import sys
+from pathlib import Path
 from .transfer import (
     parse_sftp_uri,
     sftp_connect,
@@ -15,7 +16,13 @@ from .transfer import (
 )
 
 
-@click.command()
+@click.group()
+def cli():
+    """DIT Transfer Tools CLI."""
+    pass
+
+
+@cli.command()
 @click.argument("source")
 @click.argument("dest")
 @click.option("--verify", is_flag=True, help="Verify checksums after transfer")
@@ -27,7 +34,7 @@ from .transfer import (
     default=4,
     help="Number of parallel transfers for rclone (default: 4)",
 )
-def main(source, dest, verify, password, key_file, concurrency):
+def transfer(source, dest, verify, password, key_file, concurrency):
     """Transfer files or directories from SOURCE to DEST."""
     src_path = Path(source)
     dst_path = Path(dest)
@@ -103,5 +110,84 @@ def main(source, dest, verify, password, key_file, concurrency):
             client.close()
 
 
+@cli.command()
+@click.argument("src")
+@click.argument("dest")
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    default=True,
+    help="Dry run mode (default). No changes made.",
+)
+def verify(src, dest, dry_run):
+    """Verify directories by file sizes (local only)."""
+    src_path = Path(src)
+    dest_path = Path(dest)
+    if not src_path.is_dir():
+        click.echo(click.style(f"Error: {src} is not a directory", fg="red"), err=True)
+        sys.exit(1)
+    if not dest_path.is_dir():
+        click.echo(click.style(f"Error: {dest} is not a directory", fg="red"), err=True)
+        sys.exit(1)
+
+    def get_sizes(root_path):
+        sizes = {}
+        for r, dirs, files in os.walk(root_path):
+            rel_root = os.path.relpath(r, str(root_path))
+            for f in files:
+                fpath = os.path.join(r, f)
+                try:
+                    st = os.stat(fpath)
+                    rel = os.path.join(rel_root, f) if rel_root != "." else f
+                    sizes[rel] = st.st_size
+                except OSError as e:
+                    click.echo(
+                        click.style(f"Warning: cannot stat {fpath}: {e}", fg="yellow"),
+                        err=True,
+                    )
+        return sizes
+
+    src_sizes = get_sizes(src_path)
+    dest_sizes = get_sizes(dest_path)
+
+    src_files = set(src_sizes.keys())
+    dest_files = set(dest_sizes.keys())
+
+    missing = sorted(src_files - dest_files)
+    extra = sorted(dest_files - src_files)
+    mismatches = [
+        f
+        for f in sorted(src_files.intersection(dest_files))
+        if src_sizes[f] != dest_sizes[f]
+    ]
+
+    has_issues = bool(missing or extra or mismatches)
+
+    if missing:
+        click.echo(click.style("Missing files in DEST:", fg="red"))
+        for f in missing:
+            click.echo(f"  - {f}")
+
+    if extra:
+        click.echo(click.style("Extra files in DEST:", fg="red"))
+        for f in extra:
+            click.echo(f"  - {f}")
+
+    if mismatches:
+        click.echo(click.style("Size mismatches:", fg="yellow"))
+        for f in mismatches:
+            click.echo(
+                f"  - {f} (SRC: {src_sizes[f]} bytes, DEST: {dest_sizes[f]} bytes)"
+            )
+
+    if not has_issues:
+        click.echo(click.style("✓ All files match by size.", fg="green"))
+    else:
+        click.echo("(dry-run: no actions taken)" if dry_run else "Verification failed.")
+
+    if has_issues:
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-    main()
+    cli()

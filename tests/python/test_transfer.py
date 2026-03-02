@@ -1,5 +1,3 @@
-import pytest
-from pathlib import Path
 import hashlib
 from dit_transfer.transfer import (
     parse_sftp_uri,
