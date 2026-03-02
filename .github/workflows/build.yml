@@ -26,8 +26,8 @@ jobs:
         rm -rf build
         mkdir build
         cd build
-        if [[ &quot;${{ runner.os }}&quot; == &quot;Windows&quot; ]]; then
-          cmake .. -G &quot;Visual Studio 17 2022&quot; -A x64 -DCMAKE_BUILD_TYPE=Release
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
         else
           cmake .. -DCMAKE_BUILD_TYPE=Release
         fi
@@ -35,7 +35,7 @@ jobs:
     - name: Build
       run: |
         cd build
-        if [[ &quot;${{ runner.os }}&quot; == &quot;Windows&quot; ]]; then
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
           cmake --build . --config Release
         else
           cmake --build . --parallel
