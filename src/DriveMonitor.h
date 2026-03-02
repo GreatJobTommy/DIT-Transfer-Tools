@@ -6,16 +6,13 @@
 #include <QFileSystemWatcher>
 #include <QTimer>
 #include <QMap>
-<<<<<<< HEAD
 #include <QStringList>
-=======
 #include <QString>
 
 struct ResumeInfo {
     QString lastFile;
     qint64 offset;
 };
->>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
 
 class DriveMonitor : public QObject {
     Q_OBJECT
@@ -35,6 +32,7 @@ signals:
     void driveConnected(const QString& path);
     void driveDisconnected(const QString& path);
     void driveReconnected();
+    void driveReconnected(const QString& path, const QString& lastFile, qint64 offset);
     void driveAdded(const QString& drive);
     void driveRemoved(const QString& drive);
 

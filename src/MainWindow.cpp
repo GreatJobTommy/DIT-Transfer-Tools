@@ -15,13 +15,10 @@
 #include <QProgressBar>
 #include <QStorageInfo>
 #include <QDebug>
-<<<<<<< HEAD
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QFileDialog>
-=======
 #include <QtCharts/QChartView>
->>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
@@ -29,11 +26,7 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
-<<<<<<< HEAD
-    m_notificationManager = new NotificationManager(this);
-=======
     m_speedHistory = new SpeedHistory(this);
->>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
 
     setWindowTitle("DIT Transfer Tools v3.3");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
@@ -44,8 +37,6 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_trayIcon->setToolTip("DIT Transfer Tools v3.3");
     m_trayIcon->show();
 
-    m_notificationManager->setTrayIcon(m_trayIcon);
-
     setupUI();
     setupHotkeys();
 
@@ -53,12 +44,6 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
     connect(m_driveMonitor, &DriveMonitor::driveConnected, this, &MainWindow::updateDrives);
     connect(m_driveMonitor, &DriveMonitor::driveDisconnected, this, &MainWindow::updateDrives);
-
-    // Connect notification settings
-    m_notificationManager->setNotificationsEnabled(m_settingsManager->getNotificationsEnabled());
-    m_notificationManager->setSoundEnabled(m_settingsManager->getNotificationSoundEnabled());
-    m_notificationManager->setSoundFile(m_settingsManager->getNotificationSoundFile());
-    m_notificationManager->setUseSystemNotify(m_settingsManager->getUseSystemNotifications());
 
     updateDrives();
 
@@ -397,41 +382,24 @@ void MainWindow::updateErrors() {
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
     if (key == "maxParallel") {
         // Update parallel manager or something
-    } else if (key.startsWith("notifications/")) {
-        // Update notification settings
-        m_notificationManager->setNotificationsEnabled(m_settingsManager->getNotificationsEnabled());
-        m_notificationManager->setSoundEnabled(m_settingsManager->getNotificationSoundEnabled());
-        m_notificationManager->setSoundFile(m_settingsManager->getNotificationSoundFile());
-        m_notificationManager->setUseSystemNotify(m_settingsManager->getUseSystemNotifications());
     }
 }
 
 void MainWindow::onTaskCompleted(TransferTask* task) {
     if (!task) return;
-    QString title = "Transfer Completed";
-    QString message = QString("Task '%1' to '%2' completed successfully.")
-                     .arg(task->source(), task->destination());
-    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Information);
+    qDebug() << "Task completed:" << task->source() << "to" << task->destination();
 }
 
 void MainWindow::onTaskFailed(TransferTask* task) {
     if (!task) return;
-    QString title = "Transfer Failed";
-    QString message = QString("Task '%1' to '%2' failed.")
-                     .arg(task->source(), task->destination());
-    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Critical);
+    qDebug() << "Task failed:" << task->source() << "to" << task->destination();
 }
 
 void MainWindow::onTaskPaused(TransferTask* task) {
     if (!task) return;
-    QString title = "Transfer Paused";
-    QString message = QString("Task '%1' to '%2' has been paused.")
-                     .arg(task->source(), task->destination());
-    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Warning);
+    qDebug() << "Task paused:" << task->source() << "to" << task->destination();
 }
 
 void MainWindow::onDriveReconnected() {
-    QString title = "Drive Reconnected";
-    QString message = "A previously disconnected drive has been reconnected.";
-    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Information);
+    qDebug() << "Drive reconnected";
 }

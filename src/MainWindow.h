@@ -20,7 +20,6 @@
 #include "ProgressMonitor.h"
 #include "ErrorManager.h"
 #include "SettingsManager.h"
-#include "NotificationManager.h"
 #include "DragDropList.h"
 #include "SpeedHistory.h"
 
@@ -61,7 +60,6 @@ private:
     ProgressMonitor* m_progressMonitor;
     ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
-    NotificationManager* m_notificationManager;
     SpeedHistory* m_speedHistory;
 
     QTabWidget* m_tabWidget;

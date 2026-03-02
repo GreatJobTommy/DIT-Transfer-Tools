@@ -75,15 +75,11 @@ void DriveMonitor::pollDrives() {
         if (!currentPaths.contains(path)) {
             addDrive(path);
             emit driveConnected(path);
-<<<<<<< HEAD
-            emit driveReconnected(); // Notify about reconnection
-=======
             if (m_removedDrives.contains(path) && m_resumeOffsets.contains(path)) {
                 const ResumeInfo& info = m_resumeOffsets[path];
                 emit driveReconnected(path, info.lastFile, info.offset);
                 m_removedDrives.remove(path);
             }
->>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
         }
     }
 
