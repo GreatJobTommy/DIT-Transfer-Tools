@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QTimer>
+#include <QElapsedTimer>
 
 enum class TransferStatus {
     Pending,
@@ -59,6 +60,10 @@ private:
     int m_retryCount;
     int m_maxRetries;
     int m_backoffMs;
+
+    qint64 m_chunkSize;
+    QElapsedTimer m_speedTimer;
+    qint64 m_lastBytes;
 };
 
 #endif // TRANSFERTASK_H

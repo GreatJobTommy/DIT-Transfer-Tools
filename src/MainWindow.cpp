@@ -28,13 +28,13 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_settingsManager = new SettingsManager(this);
 
-    setWindowTitle("DIT Transfer Tools v1.1");
+    setWindowTitle("DIT Transfer Tools v4.0");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
 
     // Setup tray icon
     m_trayIcon = new QSystemTrayIcon(this);
     m_trayIcon->setIcon(windowIcon());
-    m_trayIcon->setToolTip("DIT Transfer Tools v1.1");
+    m_trayIcon->setToolTip("DIT Transfer Tools v4.0");
     m_trayIcon->show();
 
     setupUI();

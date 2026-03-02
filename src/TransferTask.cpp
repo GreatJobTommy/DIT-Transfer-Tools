@@ -4,10 +4,13 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QSettings>
+#include <QFile>
+#include <QElapsedTimer>
+#include <QDebug>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
-      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000) {
+      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0) {
     QFileInfo fi(m_source);
     m_totalBytes = fi.exists() ? fi.size() : 1000000;
     m_process = new QProcess(this);
@@ -15,6 +18,7 @@ TransferTask::TransferTask(const QString& source, const QString& destination, QO
     connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);
     m_retryTimer = new QTimer(this);
     connect(m_retryTimer, &QTimer::timeout, this, &TransferTask::retryTransfer);
+    m_speedTimer.start();
 }
 
 TransferTask::~TransferTask() {
@@ -72,20 +76,83 @@ void TransferTask::run() {
         args << "copy" << "--checksum" << "--config" << configPath << m_source << m_destination;
         m_process->start(rclonePath, args);
     } else {
-        // Local copy simulation
-        qint64 chunk = 10240; // 10KB
-        qint64 speed = 102400; // 100KB/s
-        while (m_bytesTransferred < m_totalBytes) {
-            QThread::msleep(100); // Simulate time
-            m_bytesTransferred += chunk;
-            if (m_bytesTransferred > m_totalBytes) m_bytesTransferred = m_totalBytes;
-            qint64 remaining = m_totalBytes - m_bytesTransferred;
-            qint64 eta = (remaining > 0) ? remaining / speed : 0;
-            emit progressChanged(m_bytesTransferred, speed, eta);
+        // Real local file copy with dynamic chunking
+        QFile sourceFile(m_source);
+        QFile destFile(m_destination);
+        if (!sourceFile.open(QIODevice::ReadOnly)) {
+            qWarning() << "Failed to open source file:" << m_source;
+            m_finished = true;
+            m_success = false;
+            setStatus(TransferStatus::Failed);
+            return;
         }
-        m_finished = true;
-        m_success = true;
-        setStatus(TransferStatus::Completed);
+        QDir().mkpath(QFileInfo(m_destination).absolutePath());
+        if (!destFile.open(QIODevice::WriteOnly)) {
+            qWarning() << "Failed to open dest file:" << m_destination;
+            sourceFile.close();
+            m_finished = true;
+            m_success = false;
+            setStatus(TransferStatus::Failed);
+            return;
+        }
+
+        m_speedTimer.restart();
+        m_lastBytes = 0;
+        qint64 speed = 0; // current speed
+        char* buffer = new char[64 * 1024 * 1024]; // Max 64MB buffer
+
+        while (!sourceFile.atEnd()) {
+            qint64 bytesRead = sourceFile.read(buffer, m_chunkSize);
+            if (bytesRead == -1) {
+                qWarning() << "Read error";
+                break;
+            }
+            qint64 bytesWritten = destFile.write(buffer, bytesRead);
+            if (bytesWritten != bytesRead) {
+                qWarning() << "Write error";
+                break;
+            }
+            m_bytesTransferred += bytesRead;
+
+            // Calculate speed and adjust chunk size
+            qint64 elapsed = m_speedTimer.elapsed();
+            if (elapsed > 1000) { // Every second
+                qint64 bytesInSecond = m_bytesTransferred - m_lastBytes;
+                speed = bytesInSecond * 1000 / elapsed; // bytes per second
+                // Adjust chunk size: 4KB to 64MB based on speed
+                if (speed < 1024 * 1024) { // <1MB/s
+                    m_chunkSize = 4 * 1024; // 4KB
+                } else if (speed < 10 * 1024 * 1024) { // <10MB/s
+                    m_chunkSize = 64 * 1024; // 64KB
+                } else if (speed < 100 * 1024 * 1024) { // <100MB/s
+                    m_chunkSize = 1024 * 1024; // 1MB
+                } else {
+                    m_chunkSize = 64 * 1024 * 1024; // 64MB
+                }
+                m_lastBytes = m_bytesTransferred;
+                m_speedTimer.restart();
+            }
+
+            qint64 remaining = m_totalBytes - m_bytesTransferred;
+            qint64 eta = (speed > 0) ? remaining / speed : 0;
+            emit progressChanged(m_bytesTransferred, speed, eta);
+
+            QThread::yieldCurrentThread(); // Allow other threads
+        }
+
+        delete[] buffer;
+        sourceFile.close();
+        destFile.close();
+
+        if (m_bytesTransferred == m_totalBytes) {
+            m_finished = true;
+            m_success = true;
+            setStatus(TransferStatus::Completed);
+        } else {
+            m_finished = true;
+            m_success = false;
+            setStatus(TransferStatus::Failed);
+        }
     }
 }
 
