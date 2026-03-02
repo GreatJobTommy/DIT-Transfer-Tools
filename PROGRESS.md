@@ -1,1 +1,0 @@
-Intensive DIT Progress

@@ -1,3 +1,4 @@
+#include <QCoreApplication>
 #include <QObject>
 #include <QString>
 #include <QDebug>
