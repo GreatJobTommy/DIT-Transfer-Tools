@@ -36,3 +36,19 @@ FORMS += \
 test_ui_clarity.target = test_ui_clarity
 test_ui_clarity.commands = cd tests && $(QMAKE) test_ui_clarity.pro && $(MAKE) && ./test_ui_clarity
 QMAKE_EXTRA_TARGETS += test_ui_clarity
+
+# Logs
+LOG_FILES += transfer_log.txt detailed.log
+
+# Dokumentation
+# DIT-Transfer-Tools: Qt/C++ Anwendung für sicheren Dateitransfer mit Chunk-Copy,
+# Live SHA256 Hashing, Queue-Management (aktiv/wartend), Drive-Reconnect,
+# Logging (transfer_log.txt + detailed.log) und Einstellungen.
+# Modular aufgebaut, max 500 Zeilen pro Datei.
+# Features:
+# - Chunk-basierter Copy mit Resume
+# - Live SHA256 Hash-Berechnung während Transfer
+# - Queue mit Status (aktiv/wartend/pausiert)
+# - Automatisches Drive-Reconnect bei USB/Laufwerk-Verlust
+# - Detailliertes Logging
+# - GUI mit Qt Widgets für Settings und Status

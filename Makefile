@@ -59,8 +59,11 @@ SOURCES       = main.cpp \
 		src/DriveMonitor.cpp \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
+<<<<<<< HEAD
 		src/ProgressMonitor.cpp \
 		src/ErrorManager.cpp \
+=======
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 		src/SettingsManager.cpp moc_MainWindow.cpp \
 		moc_TransferTask.cpp \
 		moc_QueueManager.cpp \
@@ -174,18 +177,25 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/DriveMonitor.h \
 		src/ParallelManager.h \
 		src/AddTaskDialog.h \
+<<<<<<< HEAD
 		src/ProgressMonitor.h \
 		src/ErrorManager.h \
 		src/SettingsManager.h \
 		src/DragDropList.h main.cpp \
+=======
+		src/SettingsManager.h main.cpp \
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 		src/MainWindow.cpp \
 		src/TransferTask.cpp \
 		src/QueueManager.cpp \
 		src/DriveMonitor.cpp \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
+<<<<<<< HEAD
 		src/ProgressMonitor.cpp \
 		src/ErrorManager.cpp \
+=======
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 		src/SettingsManager.cpp
 QMAKE_TARGET  = DIT-Transfer-Tools
 DESTDIR       = 
@@ -195,7 +205,11 @@ TARGET        = DIT-Transfer-Tools
 first: all
 ####### Build rules
 
+<<<<<<< HEAD
 DIT-Transfer-Tools: ui_AddTaskDialog.h $(OBJECTS)  
+=======
+DIT-Transfer-Tools: ui_MainWindow.h ui_AddTaskDialog.h $(OBJECTS)  
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: DIT.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -370,9 +384,15 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
+<<<<<<< HEAD
 	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h src/ProgressMonitor.h src/ErrorManager.h src/SettingsManager.h src/DragDropList.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/ProgressMonitor.cpp src/ErrorManager.cpp src/SettingsManager.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/AddTaskDialog.ui $(DISTDIR)/
+=======
+	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/HashManager.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h src/SettingsManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/HashManager.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/SettingsManager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/MainWindow.ui src/AddTaskDialog.ui $(DISTDIR)/
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 
 
 clean: compiler_clean 
@@ -407,9 +427,15 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
+<<<<<<< HEAD
 compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp moc_SettingsManager.cpp moc_DragDropList.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp moc_SettingsManager.cpp moc_DragDropList.cpp
+=======
+compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp
+compiler_moc_header_clean:
+	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 moc_MainWindow.cpp: src/MainWindow.h \
 		src/QueueManager.h \
 		src/TransferTask.h \
@@ -475,9 +501,19 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+<<<<<<< HEAD
 compiler_uic_make_all: ui_AddTaskDialog.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_AddTaskDialog.h
+=======
+compiler_uic_make_all: ui_MainWindow.h ui_AddTaskDialog.h
+compiler_uic_clean:
+	-$(DEL_FILE) ui_MainWindow.h ui_AddTaskDialog.h
+ui_MainWindow.h: src/MainWindow.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic src/MainWindow.ui -o ui_MainWindow.h
+
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 ui_AddTaskDialog.h: src/AddTaskDialog.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic src/AddTaskDialog.ui -o ui_AddTaskDialog.h
@@ -517,6 +553,12 @@ MainWindow.o: src/MainWindow.cpp src/MainWindow.h \
 TransferTask.o: src/TransferTask.cpp src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TransferTask.o src/TransferTask.cpp
 
+<<<<<<< HEAD
+=======
+HashManager.o: src/HashManager.cpp src/HashManager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HashManager.o src/HashManager.cpp
+
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 QueueManager.o: src/QueueManager.cpp src/QueueManager.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QueueManager.o src/QueueManager.cpp
@@ -532,6 +574,7 @@ AddTaskDialog.o: src/AddTaskDialog.cpp src/AddTaskDialog.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AddTaskDialog.o src/AddTaskDialog.cpp
 
+<<<<<<< HEAD
 ProgressMonitor.o: src/ProgressMonitor.cpp src/ProgressMonitor.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ProgressMonitor.o src/ProgressMonitor.cpp
@@ -542,6 +585,11 @@ ErrorManager.o: src/ErrorManager.cpp src/ErrorManager.h
 SettingsManager.o: src/SettingsManager.cpp src/SettingsManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SettingsManager.o src/SettingsManager.cpp
 
+=======
+SettingsManager.o: src/SettingsManager.cpp src/SettingsManager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SettingsManager.o src/SettingsManager.cpp
+
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.)
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
 

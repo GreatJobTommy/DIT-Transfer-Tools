@@ -1,6 +1,8 @@
 #include "DriveMonitor.h"
 #include <QDir>
 #include <QDebug>
+#include <QStorageInfo>
+#include <QTimer>
 
 DriveMonitor::DriveMonitor(QObject* parent)
     : QObject(parent), m_watcher(new QFileSystemWatcher(this)), m_pollTimer(new QTimer(this)) {

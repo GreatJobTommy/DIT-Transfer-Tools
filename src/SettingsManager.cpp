@@ -29,3 +29,11 @@ bool SettingsManager::getAutoStart() const {
 void SettingsManager::setAutoStart(bool value) {
     setSetting("autoStart", value);
 }
+
+void SettingsManager::setValue(const QString& key, const QVariant& value) {
+    setSetting(key, value);
+}
+
+QVariant SettingsManager::value(const QString& key, const QVariant& defaultValue) {
+    return getSetting(key, defaultValue);
+}

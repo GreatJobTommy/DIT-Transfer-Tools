@@ -104,7 +104,10 @@
 #define __FLT64X_EPSILON__ 1.92592994438723585305597794258492732e-34F64x
 #define __STDC_HOSTED__ 1
 #define __DEC64_MIN_EXP__ (-382)
+<<<<<<< HEAD:build/test_drivemonitor_autogen/moc_predefs.h
 #define QT_TESTCASE_BUILDDIR "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build"
+=======
+>>>>>>> b44b3f7 (Add missing src files: MainWindow.ui, HashManager.cpp/h, DriveMonitor.cpp/h, SettingsManager.cpp/h. Clean DIT.pro SOURCES/FORMS/MOC. Build clean.):moc_predefs.h
 #define __cpp_decltype_auto 201304L
 #define __DBL_DIG__ 15
 #define __FLT_EPSILON__ 1.19209289550781250000000000000000000e-7F

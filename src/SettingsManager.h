@@ -22,6 +22,9 @@ public:
     bool getAutoStart() const;
     void setAutoStart(bool value);
 
+    void setValue(const QString& key, const QVariant& value);
+    QVariant value(const QString& key, const QVariant& defaultValue = QVariant());
+
 signals:
     void settingChanged(const QString& key, const QVariant& value);
 
