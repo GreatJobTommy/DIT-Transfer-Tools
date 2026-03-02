@@ -15,10 +15,12 @@ from .transfer import (
     cleanup_temp_rclone_remote,
 )
 
+
 @click.group()
 def cli():
     """DIT Transfer Tools CLI."""
     pass
+
 
 @cli.command()
 @click.argument("source")
@@ -107,10 +109,16 @@ def transfer(source, dest, verify, password, key_file, concurrency):
         if client:
             client.close()
 
+
 @cli.command()
 @click.argument("src")
 @click.argument("dest")
-@click.option("--dry-run", is_flag=True, default=True, help="Dry run mode (default). No changes made.")
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    default=True,
+    help="Dry run mode (default). No changes made.",
+)
 def verify(src, dest, dry_run):
     """Verify directories by file sizes (local only)."""
     src_path = Path(src)
@@ -133,7 +141,10 @@ def verify(src, dest, dry_run):
                     rel = os.path.join(rel_root, f) if rel_root != "." else f
                     sizes[rel] = st.st_size
                 except OSError as e:
-                    click.echo(click.style(f"Warning: cannot stat {fpath}: {e}", fg="yellow"), err=True)
+                    click.echo(
+                        click.style(f"Warning: cannot stat {fpath}: {e}", fg="yellow"),
+                        err=True,
+                    )
         return sizes
 
     src_sizes = get_sizes(src_path)
@@ -144,7 +155,11 @@ def verify(src, dest, dry_run):
 
     missing = sorted(src_files - dest_files)
     extra = sorted(dest_files - src_files)
-    mismatches = [f for f in sorted(src_files.intersection(dest_files)) if src_sizes[f] != dest_sizes[f]]
+    mismatches = [
+        f
+        for f in sorted(src_files.intersection(dest_files))
+        if src_sizes[f] != dest_sizes[f]
+    ]
 
     has_issues = bool(missing or extra or mismatches)
 
@@ -161,7 +176,9 @@ def verify(src, dest, dry_run):
     if mismatches:
         click.echo(click.style("Size mismatches:", fg="yellow"))
         for f in mismatches:
-            click.echo(f"  - {f} (SRC: {src_sizes[f]} bytes, DEST: {dest_sizes[f]} bytes)")
+            click.echo(
+                f"  - {f} (SRC: {src_sizes[f]} bytes, DEST: {dest_sizes[f]} bytes)"
+            )
 
     if not has_issues:
         click.echo(click.style("✓ All files match by size.", fg="green"))
@@ -170,6 +187,7 @@ def verify(src, dest, dry_run):
 
     if has_issues:
         sys.exit(1)
+
 
 if __name__ == "__main__":
     cli()
