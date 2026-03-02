@@ -1,1 +1,35 @@
-[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"dit-transfer-tools\"\ndynamic = [\"version\"]\ndescription = \"DIT Transfer Tools\"\nreadme = \"README.md\"\nrequires-python = \">=3.12\"\nlicense = {text = \"MIT\"}\nauthors = [{name = \"OpenClaw Agent\", email = \"openclaw@workspace\"}]\ndependencies = [\n  \"click\",\n  \"paramiko\",\n  \"tqdm\",\n  \"cryptography\",\n]\n\n[project.optional-dependencies]\ndev = [\n  \"black\",\n  \"ruff\",\n]\n\n[project.scripts]\ndit-transfer = \"dit_transfer.cli:main\"\n\n[tool.hatch.version]\npath = \"dit_transfer/version.py\"
+[build-system]
+requires = [ "hatchling" ]
+build-backend = "hatchling.build"
+
+[project]
+name = "dit-transfer-tools"
+dynamic = [ "version" ]
+description = "DIT Transfer Tools"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [ { name = "OpenClaw Agent", email = "openclaw@workspace" } ]
+dependencies = [
+  "click",
+  "paramiko",
+  "tqdm",
+  "cryptography",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "ruff",
+  "pytest",
+  "mypy",
+]
+
+[project.scripts]
+dit-transfer = "dit_transfer.cli:main"
+
+[tool.hatch.version]
+path = "dit_transfer/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dit_transfer"]
