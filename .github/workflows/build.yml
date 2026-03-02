@@ -1,77 +1,49 @@
-name: CI Build & Test
+name: Build DIT-Transfer-Tools
 
 on:
   push:
-    branches: [ main, feature-* ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Install Qt6
-      run: |
-        sudo apt update
-        sudo apt install qt6-base-dev cmake ninja-build
-
-    - name: Configure
-      run: |
-        mkdir build
-        cd build
-        cmake .. -G Ninja
-
+    - uses: actions/checkout@v3
+    - name: Install Qt
+      run: sudo apt-get update && sudo apt-get install -y qt6-base-dev cmake build-essential
     - name: Build
-      run: |
-        cd build
-        ninja
-
+      run: mkdir build && cd build && cmake .. && make -j4
     - name: Test
-      run: |
-        cd build
-        ctest --output-on-failure
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: DIT-Transfer-Tools-Linux
-        path: build/DIT-Transfer-Tools
+      run: cd build && ctest --output-on-failure
 
   build-windows:
     runs-on: windows-latest
-
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Install Qt6
+    - uses: actions/checkout@v3
+    - name: Setup MSVC
+      uses: microsoft/setup-msvc@v1
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.6.3'
-        host: 'windows'
-        target: 'desktop'
-        arch: 'win64_msvc2019_64'
-
-    - name: Configure
+        version: '6.5.3'
+    - name: Build
       run: |
         mkdir build
         cd build
-        cmake .. -G "Visual Studio 17 2022" -A x64
-
-    - name: Build
-      run: |
-        cd build
-        cmake --build . --config Release
-
+        cmake .. -G "NMake Makefiles"
+        nmake
     - name: Test
-      run: |
-        cd build
-        ctest -C Release --output-on-failure
+      run: cd build && ctest --output-on-failure
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: DIT-Transfer-Tools-Windows
-        path: build/Release/DIT-Transfer-Tools.exe
+  build-mac:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Qt
+      run: brew install qt6 cmake
+    - name: Build
+      run: mkdir build && cd build && cmake .. && make -j4
+    - name: Test
+      run: cd build && ctest --output-on-failure

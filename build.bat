@@ -1,8 +1,30 @@
 @echo off
-REM Windows build script for DIT-Transfer-Tools using CMake and MSVC
+REM Windows Build Script for DIT-Transfer-Tools
+
+if "%1"=="clean" (
+    rmdir /s /q build
+    goto end
+)
+
 if not exist build mkdir build
 cd build
-cmake .. -G "Visual Studio 17 2022" -A x64
-cmake --build . --config Release
-cd ..
-pause
+
+REM Assume Qt6 is installed and qmake is in PATH
+qmake ..\DIT.pro
+
+if %errorlevel% neq 0 (
+    echo qmake failed
+    exit /b 1
+)
+
+nmake
+
+if %errorlevel% neq 0 (
+    echo nmake failed
+    exit /b 1
+)
+
+echo Build successful
+goto end
+
+:end

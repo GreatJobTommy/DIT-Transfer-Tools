@@ -1,4 +1,8 @@
-# DIT-Transfer-Tools v2.0
+# DIT-Transfer-Tools v3.2
+
+[![Linux Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
+[![Windows Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
+[![macOS Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
 
 A high-performance, cross-platform file transfer tool built with Qt6 and C++17, featuring parallel processing, live previews, and robust queue management.
 
