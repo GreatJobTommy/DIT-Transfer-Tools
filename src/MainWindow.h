@@ -20,6 +20,7 @@
 #include "ErrorManager.h"
 #include "SettingsManager.h"
 #include "DragDropList.h"
+#include "SpeedHistory.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -38,6 +39,7 @@ private slots:
     void updateProgress();
     void updateErrors();
     void settingChanged(const QString& key, const QVariant& value);
+    void onProgressChanged(qint64 bytes, qint64 speed, qint64 eta);
 
 private:
     void setupUI();
@@ -53,6 +55,7 @@ private:
     ProgressMonitor* m_progressMonitor;
     ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
+    SpeedHistory* m_speedHistory;
 
     QTabWidget* m_tabWidget;
 
