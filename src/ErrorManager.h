@@ -38,7 +38,7 @@ private:
     QStringList m_errors;
     LogsDockWidget* m_logsWidget;
     LogLevel m_logLevel;
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
 };
 
 #endif // ERRORMANAGER_H
