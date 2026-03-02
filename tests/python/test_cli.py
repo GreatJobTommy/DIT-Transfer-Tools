@@ -14,6 +14,7 @@ def test_cli_local_file(tmp_path):
     src = tmp_path / 'test.txt'
     src.write_text('hello cli')
     dst_dir = tmp_path / 'dst'
+    dst_dir.mkdir()
     result = runner.invoke(main, [str(src), str(dst_dir)])
     assert result.exit_code == 0
     dst_file = dst_dir / 'test.txt'
@@ -35,6 +36,7 @@ def test_cli_verify(tmp_path):
     src = tmp_path / 'verify.txt'
     src.write_text('verify')
     dst_dir = tmp_path / 'dst_v'
+    dst_dir.mkdir()
     result = runner.invoke(main, [str(src), str(dst_dir), '--verify'])
     assert result.exit_code == 0
 
@@ -43,5 +45,6 @@ def test_cli_concurrency(tmp_path):
     src = tmp_path / 'conc.txt'
     src.write_text('concurrency test')
     dst_dir = tmp_path / 'dst_c'
+    dst_dir.mkdir()
     result = runner.invoke(main, [str(src), str(dst_dir), '--concurrency', '2'])
     assert result.exit_code == 0
