@@ -15,9 +15,13 @@
 #include <QProgressBar>
 #include <QStorageInfo>
 #include <QDebug>
+<<<<<<< HEAD
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QFileDialog>
+=======
+#include <QtCharts/QChartView>
+>>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
@@ -25,7 +29,11 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
+<<<<<<< HEAD
     m_notificationManager = new NotificationManager(this);
+=======
+    m_speedHistory = new SpeedHistory(this);
+>>>>>>> b8928050ebd865a1b6994c7da391d12e3739cc10
 
     setWindowTitle("DIT Transfer Tools v3.3");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
@@ -63,6 +71,8 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     // For demo, add some tasks
     TransferTask* t1 = new TransferTask("src1", "dst1");
     TransferTask* t2 = new TransferTask("src2", "dst2");
+    connect(t1, &TransferTask::progressChanged, this, &MainWindow::onProgressChanged);
+    connect(t2, &TransferTask::progressChanged, this, &MainWindow::onProgressChanged);
     m_queue->addTask(t1);
     m_queue->addTask(t2);
     m_progressMonitor->addTask(t1);
@@ -286,6 +296,12 @@ void MainWindow::createProgressTab() {
     m_overallProgress->setObjectName("overallProgress");
     layout->addWidget(m_overallProgress);
 
+    QLabel* chartLabel = new QLabel("Speed History");
+    layout->addWidget(chartLabel);
+
+    QChartView* chartView = new QChartView(m_speedHistory->createChart());
+    layout->addWidget(chartView);
+
     QLabel* logLabel = new QLabel("Transfer Logs");
     layout->addWidget(logLabel);
 
@@ -356,6 +372,11 @@ void MainWindow::updateDashboard() {
 
 void MainWindow::updateProgress() {
     updateDashboard();
+}
+
+void MainWindow::onProgressChanged(qint64 bytes, qint64 speed, qint64 eta) {
+    qreal speedMBs = speed / (1024.0 * 1024.0); // convert to MB/s
+    m_speedHistory->addSpeed(speedMBs);
 }
 
 void MainWindow::updateDrives() {

@@ -22,6 +22,7 @@
 #include "SettingsManager.h"
 #include "NotificationManager.h"
 #include "DragDropList.h"
+#include "SpeedHistory.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -44,6 +45,7 @@ private slots:
     void onTaskFailed(TransferTask* task);
     void onTaskPaused(TransferTask* task);
     void onDriveReconnected();
+    void onProgressChanged(qint64 bytes, qint64 speed, qint64 eta);
 
 private:
     void setupUI();
@@ -60,6 +62,7 @@ private:
     ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
     NotificationManager* m_notificationManager;
+    SpeedHistory* m_speedHistory;
 
     QTabWidget* m_tabWidget;
 
