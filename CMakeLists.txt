@@ -31,6 +31,8 @@ add_executable(DIT-Transfer-Tools
     src/ErrorManager.h
     src/SettingsManager.cpp
     src/SettingsManager.h
+    src/SettingsDialog.cpp
+    src/SettingsDialog.h
 )
 
 target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
@@ -60,3 +62,7 @@ add_test(NAME TestErrorHandling COMMAND test_errorhandling)
 add_executable(test_ui_clarity tests/test_ui_clarity.cpp src/MainWindow.cpp src/QueueManager.cpp src/TransferTask.cpp src/DriveMonitor.cpp src/ProgressMonitor.cpp src/ErrorManager.cpp src/SettingsManager.cpp src/AddTaskDialog.cpp src/ParallelManager.cpp)
 target_link_libraries(test_ui_clarity Qt6::Core Qt6::Widgets Qt6::Test)
 add_test(NAME TestUIClarity COMMAND test_ui_clarity)
+
+add_executable(test_settings tests/test_settings.cpp src/SettingsManager.cpp)
+target_link_libraries(test_settings Qt6::Core Qt6::Test)
+add_test(NAME TestSettings COMMAND test_settings)
