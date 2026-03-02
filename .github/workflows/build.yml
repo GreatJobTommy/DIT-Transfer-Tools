@@ -45,7 +45,13 @@ jobs:
 
     - name: Test
       shell: bash
-      run: cd build && ctest -V
+      run: |
+        cd build
+        if [ "${{ runner.os }}" = "Windows" ]; then
+          ctest -C Release -V
+        else
+          ctest -V
+        fi
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
