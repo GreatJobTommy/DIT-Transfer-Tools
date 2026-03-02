@@ -13,6 +13,7 @@
 #include <QSlider>
 #include <QLabel>
 #include <QAction>
+#include <QComboBox>
 #include "QueueManager.h"
 #include "AddTaskDialog.h"
 #include "DriveMonitor.h"
@@ -20,6 +21,8 @@
 #include "ErrorManager.h"
 #include "SettingsManager.h"
 #include "DragDropList.h"
+#include "PresetManager.h"
+#include "VerifyWizard.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -38,6 +41,7 @@ private slots:
     void updateProgress();
     void updateErrors();
     void settingChanged(const QString& key, const QVariant& value);
+    void runVerifyWizard();
 
 private:
     void setupUI();
@@ -53,6 +57,7 @@ private:
     ProgressMonitor* m_progressMonitor;
     ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
+    PresetManager* m_presetManager;
 
     QTabWidget* m_tabWidget;
 
@@ -61,6 +66,8 @@ private:
     QLabel* m_drivesCountLabel;
     QLabel* m_progressLabel;
     QLabel* m_errorsCountLabel;
+    QComboBox* m_presetComboBox;
+    QPushButton* m_verifyButton;
 
     // Queue
     DragDropList* m_waitingList;

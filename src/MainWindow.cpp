@@ -15,6 +15,8 @@
 #include <QProgressBar>
 #include <QStorageInfo>
 #include <QDebug>
+#include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
@@ -22,6 +24,7 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
+    m_presetManager = new PresetManager(this);
 
     setWindowTitle("DIT Transfer Tools v2.2");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
@@ -101,10 +104,50 @@ void MainWindow::createDashboardTab() {
     m_errorsCountLabel = new QLabel("Count: 0");
     errorsLayout->addWidget(m_errorsCountLabel);
 
+    // Presets card
+    QGroupBox* presetsCard = new QGroupBox("Presets");
+    presetsCard->setStyleSheet("QGroupBox { font-weight: bold; }");
+    QVBoxLayout* presetsLayout = new QVBoxLayout(presetsCard);
+    m_presetComboBox = new QComboBox;
+    m_presetComboBox->addItem("Select Preset...");
+    m_presetComboBox->addItems(m_presetManager->getPresetNames());
+    connect(m_presetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), [this](int index) {
+        if (index > 0) {
+            QString presetName = m_presetComboBox->currentText();
+            PresetManager::Preset preset;
+            if (m_presetManager->loadPreset(presetName, preset)) {
+                // Apply preset settings
+                for (auto key : preset.settings.keys()) {
+                    m_settingsManager->setSetting(key, preset.settings[key].toVariant());
+                }
+                // Add tasks from preset
+                for (const QJsonValue& taskVal : preset.tasks) {
+                    QJsonObject taskObj = taskVal.toObject();
+                    QString source = taskObj["source"].toString();
+                    QJsonArray destinations = taskObj["destinations"].toArray();
+                    for (const QJsonValue& destVal : destinations) {
+                        TransferTask* task = new TransferTask(source, destVal.toString());
+                        m_queue->addTask(task);
+                        m_progressMonitor->addTask(task);
+                    }
+                }
+                updateLists();
+                updateDashboard();
+                QMessageBox::information(this, "Preset Applied", "Preset '" + presetName + "' applied successfully.");
+            }
+            m_presetComboBox->setCurrentIndex(0);
+        }
+    });
+    presetsLayout->addWidget(m_presetComboBox);
+
+    m_verifyButton = new QPushButton("Run VerifyWizard");
+    connect(m_verifyButton, &QPushButton::clicked, this, &MainWindow::runVerifyWizard);
+    presetsLayout->addWidget(m_verifyButton);
+
     layout->addWidget(queueCard, 0, 0);
     layout->addWidget(drivesCard, 0, 1);
     layout->addWidget(progressCard, 1, 0);
-    layout->addWidget(errorsCard, 1, 1);
+    layout->addWidget(presetsCard, 1, 1);
 
     m_tabWidget->addTab(dashboard, QIcon(":/icons/dashboard.png"), "Dashboard");
 }
@@ -289,6 +332,15 @@ void MainWindow::updateDrives() {
 
 void MainWindow::updateErrors() {
     updateDashboard();
+}
+
+void MainWindow::runVerifyWizard() {
+    VerifyWizard wizard(this);
+    QString scanPath = QFileDialog::getExistingDirectory(this, "Select Directory to Scan");
+    if (!scanPath.isEmpty()) {
+        wizard.setScanPath(scanPath);
+        wizard.exec();
+    }
 }
 
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {

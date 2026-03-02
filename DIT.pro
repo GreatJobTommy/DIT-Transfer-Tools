@@ -1,4 +1,4 @@
-QT += core gui widgets network concurrent
+QT += core gui widgets network concurrent printsupport
 
 CONFIG += c++17
 
@@ -15,7 +15,9 @@ SOURCES += \
     src/AddTaskDialog.cpp \
     src/ProgressMonitor.cpp \
     src/ErrorManager.cpp \
-    src/SettingsManager.cpp
+    src/SettingsManager.cpp \
+    src/VerifyWizard.cpp \
+    src/PresetManager.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -27,7 +29,9 @@ HEADERS += \
     src/ProgressMonitor.h \
     src/ErrorManager.h \
     src/SettingsManager.h \
-    src/DragDropList.h
+    src/DragDropList.h \
+    src/VerifyWizard.h \
+    src/PresetManager.h
 
 FORMS += \
     src/AddTaskDialog.ui
@@ -36,6 +40,14 @@ FORMS += \
 test_ui_clarity.target = test_ui_clarity
 test_ui_clarity.commands = cd tests && $(QMAKE) test_ui_clarity.pro && $(MAKE) && ./test_ui_clarity
 QMAKE_EXTRA_TARGETS += test_ui_clarity
+
+test_verify.target = test_verify
+test_verify.commands = cd tests && qmake test_verify.pro && $(MAKE) && ./test_verify
+QMAKE_EXTRA_TARGETS += test_verify
+
+test_presets.target = test_presets
+test_presets.commands = cd tests && qmake test_presets.pro && $(MAKE) && ./test_presets
+QMAKE_EXTRA_TARGETS += test_presets
 
 # Logs
 LOG_FILES += transfer_log.txt detailed.log
