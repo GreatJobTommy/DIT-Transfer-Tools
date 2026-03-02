@@ -1,1 +1,1 @@
-"""DIT Transfer Tools - Core package."""\n__version__ = &quot;0.1.0&quot;\n
+\"\"\"\nDIT Transfer Tools - Core package.\n\"\"\"\n\n__version__ = \"0.1.0\"
