@@ -5,6 +5,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 import paramiko
 from tqdm import tqdm
+import subprocess
+import configparser
 
 class ProgressTracker:
     def __init__(self, pbar):
@@ -27,6 +29,21 @@ def parse_sftp_uri(uri: str) -&gt; tuple[str, str, int, str]:
         raise ValueError(&#x27;Missing host in SFTP URI&#x27;)
     return user, host, int(port), path
 
+def parse_rclone_uri(uri: str) -> tuple[str, str, str | None, str | None, int, str]:
+    parsed = urlparse(uri)
+    if parsed.scheme.lower() != 'rclone':
+        raise ValueError(f'Not a valid rclone URI: {uri}')
+    remote_name = parsed.hostname
+    if not remote_name:
+        raise ValueError('Missing remote name in rclone URI')
+    user = parsed.username
+    password = parsed.password
+    port = parsed.port or 22
+    path = parsed.path.lstrip('/')
+    host = remote_name
+    return remote_name, host, user, password, int(port), path
+
+
 def sftp_connect(user, host, port, password=None, key_file=None):
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -39,6 +56,27 @@ def sftp_connect(user, host, port, password=None, key_file=None):
         raise ValueError(&#x27;Must provide password or key_file&#x27;)
     sftp = client.open_sftp()
     return sftp, client
+
+def ensure_rclone_remote(remote_name: str, user: str, password: str | None, host: str, port: int = 22):
+    if not password:
+        return
+    conf_path = Path.home() / ".config" / "rclone" / "rclone.conf"
+    conf_path.parent.mkdir(parents=True, exist_ok=True)
+    config = configparser.ConfigParser(interpolation=None)
+    config.read(conf_path)
+    if remote_name in config:
+        return
+    obf_pass = subprocess.check_output(["rclone", "obscure", password]).decode("utf-8").strip()
+    config[remote_name] = {
+        "type": "sftp",
+        "host": host,
+        "user": user,
+        "port": str(port),
+        "pass": obf_pass,
+    }
+    with open(conf_path, "w") as f:
+        config.write(f)
+
 
 def sftp_makedirs(sftp, remote_path: str):
     if remote_path and remote_path != &#x27;/&#x27;:
@@ -168,3 +206,20 @@ def transfer_local(src: Path, dst: Path, verify=False):
         else:
             if file_checksum(src) != file_checksum(dst):
                 raise RuntimeError(&#x27;Mismatch&#x27;)
+
+
+def transfer_with_rclone(src: str, dst: str, verify: bool = False, concurrency: int = 4) -> None:
+    cmd = [
+        "rclone",
+        "copy",
+        src,
+        dst,
+        "--progress",
+        "--checksum",
+        "--transfers",
+        str(concurrency),
+    ]
+    subprocess.run(cmd, check=True)
+    if verify:
+        check_cmd = ["rclone", "check", src, dst, "--download"]
+        subprocess.run(check_cmd, check=True)

@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Unreleased
+### Added
+- rclone:// backend support for LTO/rclone integration per README roadmap #1
+- Parse rclone://[user:pass@]remote:path URIs
+- Auto-create SFTP rclone remotes from URI credentials using rclone obscure
+- rclone copy with --progress --checksum --transfers=N [--concurrency 4]
+- --verify uses rclone check --download
+- Support local ↔ rclone, rclone ↔ rclone (no paramiko SFTP mix yet)
+
 ## v4.0.0 (2026-03-02)
 - **Major Release**: Complete feature polish and optimization
 - Dynamic chunked copying (4KB-64MB speed-based)
