@@ -1,10 +1,23 @@
-# DIT-Transfer-Tools v3.2
+# DIT-Transfer-Tools v1.0
 
-[![Linux Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
-[![Windows Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
-[![macOS Build](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/your-repo/DIT-Transfer-Tools/actions/workflows/build.yml)
+A minimal Qt6 GUI application for managing file transfer queues.
 
-A high-performance, cross-platform file transfer tool built with Qt6 and C++17, featuring parallel processing, live previews, and robust queue management.
+## Features
+
+- Qt GUI with queue list
+- Add task button for testing
+- Basic queue management
+
+## Usage
+
+Run the application:
+
+```bash
+./DIT-Transfer-Tools
+```
+
+- Click "Add Task" to add dummy tasks to the queue.
+- The queue list shows waiting tasks.
 
 ## Features
 

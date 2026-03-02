@@ -18,13 +18,8 @@
 #include "AddTaskDialog.h"
 #include "DriveMonitor.h"
 #include "ProgressMonitor.h"
-#include "ErrorManager.h"
 #include "SettingsManager.h"
-#include "SpeedHistory.h"
 #include "DragDropList.h"
-#include "ErrorManager.h"
-#include "SettingsManager.h"
-
 #include "LogsDockWidget.h"
 
 class MainWindow : public QMainWindow {
@@ -39,10 +34,7 @@ private slots:
     void addTask();
     void onFilesDropped(const QStringList& files);
     void ejectDrive();
-    void updateDashboard();
-    void updateDrives();
     void updateProgress();
-    void updateErrors();
     void settingChanged(const QString& key, const QVariant& value);
     void onTaskCompleted(TransferTask* task);
     void onTaskFailed(TransferTask* task);
@@ -53,21 +45,17 @@ private slots:
 private:
     void setupUI();
     void setupHotkeys();
+    void createDashboardTab();
+    void createQueueTab();
+    void createDrivesTab();
+    void createSettingsTab();
 
     QueueManager* m_queue;
     DriveMonitor* m_driveMonitor;
     ProgressMonitor* m_progressMonitor;
-    ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
-    SpeedHistory* m_speedHistory;
 
     QTabWidget* m_tabWidget;
-    QListWidget* m_drivesList;
-    QProgressBar* m_overallProgress;
-    QTextEdit* m_logView;
-    DragDropList* m_dropZone;
-
-    LogsDockWidget* m_logsDock;
 
     // Dashboard
     QLabel* m_queueCountLabel;
@@ -85,7 +73,7 @@ private:
     QSlider* m_parallelSlider;
     QLabel* m_parallelLabel;
 
-    // Progress (now in dashboard)
+    // Progress
     QProgressBar* m_overallProgress;
 
     QAction* m_addTaskAction;

@@ -14,8 +14,8 @@ SOURCES += \
     src/ParallelManager.cpp \
     src/AddTaskDialog.cpp \
     src/ProgressMonitor.cpp \
-    src/ErrorManager.cpp \
-    src/SettingsManager.cpp
+    src/SettingsManager.cpp \
+    src/LogsDockWidget.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -25,9 +25,8 @@ HEADERS += \
     src/ParallelManager.h \
     src/AddTaskDialog.h \
     src/ProgressMonitor.h \
-    src/ErrorManager.h \
     src/SettingsManager.h \
-    src/DragDropList.h
+    src/LogsDockWidget.h
 
 FORMS += \
     src/AddTaskDialog.ui
@@ -39,4 +38,6 @@ test_reconnect.target = test_reconnect
 test_reconnect.commands = cd tests && $(QMAKE) test_reconnect.pro && $(MAKE) && ./test_reconnect
 test_avgs.target = test_avgs
 test_avgs.commands = cd tests && $(QMAKE) test_avgs.pro && $(MAKE) && ./test_avgs
-QMAKE_EXTRA_TARGETS += test_ui_clarity test_reconnect test_avgs
+test_logs.target = test_logs
+test_logs.commands = cd tests && $(QMAKE) test_logs.pro && $(MAKE) && ./test_logs
+QMAKE_EXTRA_TARGETS += test_ui_clarity test_reconnect test_avgs test_logs

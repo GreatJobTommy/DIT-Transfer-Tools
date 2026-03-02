@@ -60,17 +60,16 @@ SOURCES       = main.cpp \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
 		src/ProgressMonitor.cpp \
-		src/ErrorManager.cpp \
-		src/SettingsManager.cpp moc_MainWindow.cpp \
+		src/SettingsManager.cpp \
+		src/LogsDockWidget.cpp moc_MainWindow.cpp \
 		moc_TransferTask.cpp \
 		moc_QueueManager.cpp \
 		moc_DriveMonitor.cpp \
 		moc_ParallelManager.cpp \
 		moc_AddTaskDialog.cpp \
 		moc_ProgressMonitor.cpp \
-		moc_ErrorManager.cpp \
 		moc_SettingsManager.cpp \
-		moc_DragDropList.cpp
+		moc_LogsDockWidget.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		TransferTask.o \
@@ -79,8 +78,8 @@ OBJECTS       = main.o \
 		ParallelManager.o \
 		AddTaskDialog.o \
 		ProgressMonitor.o \
-		ErrorManager.o \
 		SettingsManager.o \
+		LogsDockWidget.o \
 		moc_MainWindow.o \
 		moc_TransferTask.o \
 		moc_QueueManager.o \
@@ -88,9 +87,8 @@ OBJECTS       = main.o \
 		moc_ParallelManager.o \
 		moc_AddTaskDialog.o \
 		moc_ProgressMonitor.o \
-		moc_ErrorManager.o \
 		moc_SettingsManager.o \
-		moc_DragDropList.o
+		moc_LogsDockWidget.o
 DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -175,9 +173,8 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/ParallelManager.h \
 		src/AddTaskDialog.h \
 		src/ProgressMonitor.h \
-		src/ErrorManager.h \
 		src/SettingsManager.h \
-		src/DragDropList.h main.cpp \
+		src/LogsDockWidget.h main.cpp \
 		src/MainWindow.cpp \
 		src/TransferTask.cpp \
 		src/QueueManager.cpp \
@@ -185,8 +182,8 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/ParallelManager.cpp \
 		src/AddTaskDialog.cpp \
 		src/ProgressMonitor.cpp \
-		src/ErrorManager.cpp \
-		src/SettingsManager.cpp
+		src/SettingsManager.cpp \
+		src/LogsDockWidget.cpp
 QMAKE_TARGET  = DIT-Transfer-Tools
 DESTDIR       = 
 TARGET        = DIT-Transfer-Tools
@@ -370,8 +367,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h src/ProgressMonitor.h src/ErrorManager.h src/SettingsManager.h src/DragDropList.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/ProgressMonitor.cpp src/ErrorManager.cpp src/SettingsManager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/MainWindow.h src/TransferTask.h src/QueueManager.h src/DriveMonitor.h src/ParallelManager.h src/AddTaskDialog.h src/ProgressMonitor.h src/SettingsManager.h src/LogsDockWidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/MainWindow.cpp src/TransferTask.cpp src/QueueManager.cpp src/DriveMonitor.cpp src/ParallelManager.cpp src/AddTaskDialog.cpp src/ProgressMonitor.cpp src/SettingsManager.cpp src/LogsDockWidget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/AddTaskDialog.ui $(DISTDIR)/
 
 
@@ -397,6 +394,9 @@ test_reconnect:
 test_avgs:
 	cd tests && $(QMAKE) test_avgs.pro && $(MAKE) && ./test_avgs
 
+test_logs:
+	cd tests && $(QMAKE) test_logs.pro && $(MAKE) && ./test_logs
+
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
 
 mocables: compiler_moc_header_make_all compiler_moc_objc_header_make_all compiler_moc_source_make_all
@@ -413,19 +413,18 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp moc_SettingsManager.cpp moc_DragDropList.cpp
+compiler_moc_header_make_all: moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_SettingsManager.cpp moc_LogsDockWidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_ErrorManager.cpp moc_SettingsManager.cpp moc_DragDropList.cpp
+	-$(DEL_FILE) moc_MainWindow.cpp moc_TransferTask.cpp moc_QueueManager.cpp moc_DriveMonitor.cpp moc_ParallelManager.cpp moc_AddTaskDialog.cpp moc_ProgressMonitor.cpp moc_SettingsManager.cpp moc_LogsDockWidget.cpp
 moc_MainWindow.cpp: src/MainWindow.h \
 		src/QueueManager.h \
 		src/TransferTask.h \
 		src/AddTaskDialog.h \
 		src/DriveMonitor.h \
 		src/ProgressMonitor.h \
-		src/ErrorManager.h \
 		src/SettingsManager.h \
 		src/DragDropList.h \
-		src/SpeedHistory.h \
+		src/LogsDockWidget.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/MainWindow.h -o moc_MainWindow.cpp
@@ -463,20 +462,15 @@ moc_ProgressMonitor.cpp: src/ProgressMonitor.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/ProgressMonitor.h -o moc_ProgressMonitor.cpp
 
-moc_ErrorManager.cpp: src/ErrorManager.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/ErrorManager.h -o moc_ErrorManager.cpp
-
 moc_SettingsManager.cpp: src/SettingsManager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/SettingsManager.h -o moc_SettingsManager.cpp
 
-moc_DragDropList.cpp: src/DragDropList.h \
+moc_LogsDockWidget.cpp: src/LogsDockWidget.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/DragDropList.h -o moc_DragDropList.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/14 -I/usr/include/aarch64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/aarch64-linux-gnu/14/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include src/LogsDockWidget.h -o moc_LogsDockWidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -505,10 +499,9 @@ main.o: main.cpp src/MainWindow.h \
 		src/AddTaskDialog.h \
 		src/DriveMonitor.h \
 		src/ProgressMonitor.h \
-		src/ErrorManager.h \
 		src/SettingsManager.h \
 		src/DragDropList.h \
-		src/SpeedHistory.h
+		src/LogsDockWidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: src/MainWindow.cpp src/MainWindow.h \
@@ -517,10 +510,9 @@ MainWindow.o: src/MainWindow.cpp src/MainWindow.h \
 		src/AddTaskDialog.h \
 		src/DriveMonitor.h \
 		src/ProgressMonitor.h \
-		src/ErrorManager.h \
 		src/SettingsManager.h \
 		src/DragDropList.h \
-		src/SpeedHistory.h
+		src/LogsDockWidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/MainWindow.cpp
 
 TransferTask.o: src/TransferTask.cpp src/TransferTask.h
@@ -545,11 +537,11 @@ ProgressMonitor.o: src/ProgressMonitor.cpp src/ProgressMonitor.h \
 		src/TransferTask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ProgressMonitor.o src/ProgressMonitor.cpp
 
-ErrorManager.o: src/ErrorManager.cpp src/ErrorManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ErrorManager.o src/ErrorManager.cpp
-
 SettingsManager.o: src/SettingsManager.cpp src/SettingsManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SettingsManager.o src/SettingsManager.cpp
+
+LogsDockWidget.o: src/LogsDockWidget.cpp src/LogsDockWidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LogsDockWidget.o src/LogsDockWidget.cpp
 
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
@@ -572,14 +564,11 @@ moc_AddTaskDialog.o: moc_AddTaskDialog.cpp
 moc_ProgressMonitor.o: moc_ProgressMonitor.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ProgressMonitor.o moc_ProgressMonitor.cpp
 
-moc_ErrorManager.o: moc_ErrorManager.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ErrorManager.o moc_ErrorManager.cpp
-
 moc_SettingsManager.o: moc_SettingsManager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SettingsManager.o moc_SettingsManager.cpp
 
-moc_DragDropList.o: moc_DragDropList.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DragDropList.o moc_DragDropList.cpp
+moc_LogsDockWidget.o: moc_LogsDockWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_LogsDockWidget.o moc_LogsDockWidget.cpp
 
 ####### Install
 

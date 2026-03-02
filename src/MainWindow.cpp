@@ -26,9 +26,7 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
     m_driveMonitor = new DriveMonitor(this);
     m_progressMonitor = new ProgressMonitor(this);
-    m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
-    m_logsDock = new LogsDockWidget(this);
 
     setWindowTitle("DIT Transfer Tools v1.1");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
@@ -42,18 +40,8 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     setupUI();
     setupHotkeys();
 
-    // Setup logs dock
-    addDockWidget(Qt::BottomDockWidgetArea, m_logsDock);
-    m_errorManager->setLogsWidget(m_logsDock);
-    m_errorManager->setLogLevel(static_cast<ErrorManager::LogLevel>(m_settingsManager->getLogLevel()));
-    m_logsDock->setLogPath(m_settingsManager->getLogPath());
-
     // Connect signals
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
-    connect(m_driveMonitor, &DriveMonitor::driveConnected, this, &MainWindow::updateDrives);
-    connect(m_driveMonitor, &DriveMonitor::driveDisconnected, this, &MainWindow::updateDrives);
-
-    updateDrives();
 
     // Connect to queue for task notifications
     connect(m_queue, &QueueManager::taskCompleted, this, &MainWindow::onTaskCompleted);
@@ -83,10 +71,6 @@ void MainWindow::setupUI() {
     QPushButton* addBtn = new QPushButton("Add Task");
     connect(addBtn, &QPushButton::clicked, this, &MainWindow::addTask);
     layout->addWidget(addBtn);
-
-    QPushButton* startBtn = new QPushButton("Start All");
-    // connect(startBtn, &QPushButton::clicked, [this]() { m_queue->startAll(); });
-    layout->addWidget(startBtn);
 }
 
 void MainWindow::setupHotkeys() {
@@ -107,6 +91,7 @@ void MainWindow::createDashboardTab() {
     m_queueCountLabel = new QLabel("Active: 0\nWaiting: 0");
     m_queueCountLabel->setObjectName("queueCountLabel");
     queueLayout->addWidget(m_queueCountLabel);
+    layout->addWidget(queueCard, 0, 0);
 
     // Drives card
     QGroupBox* drivesCard = new QGroupBox("Drives");
@@ -114,6 +99,7 @@ void MainWindow::createDashboardTab() {
     QVBoxLayout* drivesLayout = new QVBoxLayout(drivesCard);
     m_drivesCountLabel = new QLabel("Connected: 0");
     drivesLayout->addWidget(m_drivesCountLabel);
+    layout->addWidget(drivesCard, 0, 1);
 
     // Progress card
     QGroupBox* progressCard = new QGroupBox("Progress");
@@ -125,6 +111,7 @@ void MainWindow::createDashboardTab() {
     m_overallProgress = new QProgressBar;
     m_overallProgress->setObjectName("overallProgress");
     progressLayout->addWidget(m_overallProgress);
+    layout->addWidget(progressCard, 1, 0);
 
     // Errors card
     QGroupBox* errorsCard = new QGroupBox("Errors");
@@ -132,73 +119,18 @@ void MainWindow::createDashboardTab() {
     QVBoxLayout* errorsLayout = new QVBoxLayout(errorsCard);
     m_errorsCountLabel = new QLabel("Count: 0");
     errorsLayout->addWidget(m_errorsCountLabel);
-
-    layout->addWidget(queueCard, 0, 0);
-    layout->addWidget(drivesCard, 0, 1);
-    layout->addWidget(progressCard, 1, 0);
     layout->addWidget(errorsCard, 1, 1);
 
     m_tabWidget->addTab(dashboard, QIcon(":/icons/dashboard.png"), "Dashboard");
 }
 
-void MainWindow::createQueueTab() {
-    QWidget* queueTab = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout(queueTab);
 
-    QLabel* waitingLabel = new QLabel("Waiting Queue (Drag to reorder)");
-    layout->addWidget(waitingLabel);
 
-    m_waitingList = new DragDropList;
-    m_waitingList->setObjectName("waitingList");
-    m_waitingList->setToolTip("Drag items to reorder tasks");
-    connect(m_waitingList, &DragDropList::orderChanged, [this]() {
-        QList<TransferTask*> newOrder;
-        for (int i = 0; i < m_waitingList->count(); ++i) {
-            // Find task by matching text, simplistic
-            QString text = m_waitingList->item(i)->text();
-            for (auto task : m_queue->waitingTasks()) {
-                if (task->source() + " -> " + task->destination() == text) {
-                    newOrder.append(task);
-                    break;
-                }
-            }
-        }
-        m_queue->setWaitingOrder(newOrder);
-    });
-    layout->addWidget(m_waitingList);
 
-    QLabel* dropLabel = new QLabel("Drop files/folders here to add tasks");
-    dropLabel->setAlignment(Qt::AlignCenter);
-    dropLabel->setStyleSheet("border: 2px dashed #aaa; padding: 20px; font-size: 14pt;");
-    layout->addWidget(dropLabel);
 
-    m_dropZone = new DragDropList;
-    m_dropZone->setMinimumHeight(100);
-    m_dropZone->setToolTip("Drop files or folders here to create transfer tasks");
-    connect(m_dropZone, &DragDropList::filesDropped, this, &MainWindow::onFilesDropped);
-    layout->addWidget(m_dropZone);
 
-    m_tabWidget->addTab(queueTab, QIcon(":/icons/queue.png"), "Queue");
-}
 
-void MainWindow::createDrivesTab() {
-    QWidget* drivesTab = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout(drivesTab);
 
-    QLabel* drivesLabel = new QLabel("Connected Drives");
-    layout->addWidget(drivesLabel);
-
-    m_drivesList = new QListWidget;
-    m_drivesList->setObjectName("drivesList");
-    layout->addWidget(m_drivesList);
-
-    QPushButton* ejectBtn = new QPushButton("Eject Selected");
-    ejectBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_TrashIcon));
-    connect(ejectBtn, &QPushButton::clicked, this, &MainWindow::ejectDrive);
-    layout->addWidget(ejectBtn);
-
-    m_tabWidget->addTab(drivesTab, QIcon(":/icons/drive.png"), "Drives");
-}
 
 void MainWindow::createSettingsTab() {
     QWidget* settingsTab = new QWidget;
@@ -278,37 +210,63 @@ void MainWindow::createSettingsTab() {
 
     layout->addWidget(notificationGroup);
 
+    layout->addSpacing(20);
+
+    // Logging settings
+    QGroupBox* loggingGroup = new QGroupBox("Logging");
+    loggingGroup->setStyleSheet("QGroupBox { font-weight: bold; }");
+    QVBoxLayout* loggingLayout = new QVBoxLayout(loggingGroup);
+
+    // Log level
+    QHBoxLayout* levelLayout = new QHBoxLayout;
+    QLabel* levelLabel = new QLabel("Log Level:");
+    QComboBox* levelCombo = new QComboBox;
+    levelCombo->addItem("DEBUG", 0);
+    levelCombo->addItem("INFO", 1);
+    levelCombo->addItem("WARNING", 2);
+    levelCombo->addItem("ERROR", 3);
+    levelCombo->addItem("CRITICAL", 4);
+    levelCombo->setCurrentIndex(m_settingsManager->getLogLevel());
+    connect(levelCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), [this, levelCombo](int index) {
+        m_settingsManager->setLogLevel(levelCombo->itemData(index).toInt());
+    });
+    levelLayout->addWidget(levelLabel);
+    levelLayout->addWidget(levelCombo);
+    levelLayout->addStretch();
+    loggingLayout->addLayout(levelLayout);
+
+    // Log path
+    QHBoxLayout* pathLayout = new QHBoxLayout;
+    QLabel* pathLabel = new QLabel("Log File:");
+    QLineEdit* pathEdit = new QLineEdit(m_settingsManager->getLogPath());
+    QPushButton* pathButton = new QPushButton("Browse...");
+    pathLayout->addWidget(pathLabel);
+    pathLayout->addWidget(pathEdit);
+    pathLayout->addWidget(pathButton);
+
+    connect(pathEdit, &QLineEdit::textChanged, [this](const QString& text) {
+        m_settingsManager->setLogPath(text);
+    });
+
+    connect(pathButton, &QPushButton::clicked, [pathEdit, this]() {
+        QString file = QFileDialog::getSaveFileName(nullptr, "Select Log File",
+                                                   pathEdit->text(),
+                                                   "Log Files (*.log);;All Files (*)");
+        if (!file.isEmpty()) {
+            pathEdit->setText(file);
+        }
+    });
+
+    loggingLayout->addLayout(pathLayout);
+
+    layout->addWidget(loggingGroup);
+
     layout->addStretch();
 
     m_tabWidget->addTab(settingsTab, QIcon(":/icons/settings.png"), "Settings");
 }
 
-void MainWindow::createProgressTab() {
-    QWidget* progressTab = new QWidget;
-    QVBoxLayout* layout = new QVBoxLayout(progressTab);
 
-    QLabel* progressLabel = new QLabel("Overall Progress");
-    layout->addWidget(progressLabel);
-
-    m_overallProgress = new QProgressBar;
-    m_overallProgress->setObjectName("overallProgress");
-    layout->addWidget(m_overallProgress);
-
-    // QLabel* chartLabel = new QLabel("Speed History");
-    // layout->addWidget(chartLabel);
-
-    // QChartView* chartView = new QChartView(m_speedHistory->createChart());
-    // layout->addWidget(chartView);
-
-    QLabel* logLabel = new QLabel("Transfer Logs");
-    layout->addWidget(logLabel);
-
-    m_logView = new QTextEdit;
-    m_logView->setReadOnly(true);
-    layout->addWidget(m_logView);
-
-    m_tabWidget->addTab(progressTab, QIcon(":/icons/progress.png"), "Progress");
-}
 
 void MainWindow::updateLists() {
     m_waitingList->clear();
@@ -337,7 +295,6 @@ void MainWindow::onFilesDropped(const QStringList& files) {
         m_progressMonitor->addTask(task);
     }
     updateLists();
-    updateDashboard();
 }
 
 void MainWindow::ejectDrive() {
@@ -351,33 +308,11 @@ void MainWindow::ejectDrive() {
     if (idx != -1) path = path.left(idx);
     // Eject using umount
     QProcess::execute("umount", QStringList() << path);
-    updateDrives();
 }
 
-void MainWindow::updateDashboard() {
-    int active = m_queue->activeTasks().size();
-    int waiting = m_queue->waitingTasks().size();
-    m_queueCountLabel->setText(QString("Active: %1\nWaiting: %2").arg(active).arg(waiting));
 
-    int drives = m_driveMonitor->getCurrentDrives().size();
-    m_drivesCountLabel->setText(QString("Connected: %1").arg(drives));
-
-    // Calculate overall progress
-    auto progress = m_progressMonitor->getProgress();
-    int total = 0;
-    for (int p : progress.values()) {
-        total += p;
-    }
-    int avg = progress.isEmpty() ? 0 : total / progress.size();
-    m_progressLabel->setText(QString("Overall: %1%").arg(avg));
-    m_overallProgress->setValue(avg);
-
-    int errors = m_errorManager->getErrors().size();
-    m_errorsCountLabel->setText(QString("Count: %1").arg(errors));
-}
 
 void MainWindow::updateProgress() {
-    updateDashboard();
 }
 
 void MainWindow::onProgressChanged(qint64 bytes, qint64 speed, qint64 eta) {
@@ -385,32 +320,9 @@ void MainWindow::onProgressChanged(qint64 bytes, qint64 speed, qint64 eta) {
     qDebug() << "Progress:" << bytes << "bytes," << speed << "B/s";
 }
 
-void MainWindow::updateDrives() {
-    m_drivesList->clear();
-    for (const QStorageInfo& info : m_driveMonitor->getCurrentDrives()) {
-        if (info.isReady()) {
-            QString type;
-            QIcon icon;
-            if (info.device().contains("sd") || info.device().contains("mmc")) {
-                type = "SD";
-                icon = QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon); // Floppy as placeholder for SD
-            } else if (info.device().contains("usb")) {
-                type = "USB";
-                icon = QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon); // HD for USB
-            } else {
-                type = "Drive";
-                icon = QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon);
-            }
-            QListWidgetItem* item = new QListWidgetItem(type + ": " + info.rootPath() + " (" + QString::number(info.bytesAvailable() / 1024 / 1024 / 1024) + " GB free)");
-            item->setIcon(icon);
-            m_drivesList->addItem(item);
-        }
-    }
-}
 
-void MainWindow::updateErrors() {
-    updateDashboard();
-}
+
+
 
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
     if (key == "maxParallel") {

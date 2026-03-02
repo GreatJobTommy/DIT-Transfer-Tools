@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QTimer>
 #include <QStringList>
 #include <QMutex>

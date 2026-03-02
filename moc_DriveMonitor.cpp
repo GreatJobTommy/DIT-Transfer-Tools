@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DriveMonitor_t {
-    QByteArrayData data[14];
-    char stringdata0[157];
+    QByteArrayData data[13];
+    char stringdata0[145];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,15 +44,13 @@ QT_MOC_LITERAL(8, 86, 12), // "driveRemoved"
 QT_MOC_LITERAL(9, 99, 8), // "lastFile"
 QT_MOC_LITERAL(10, 108, 6), // "offset"
 QT_MOC_LITERAL(11, 115, 18), // "onDirectoryChanged"
-QT_MOC_LITERAL(12, 134, 10), // "pollDrives"
-QT_MOC_LITERAL(13, 145, 11) // "checkDrives"
+QT_MOC_LITERAL(12, 134, 10) // "pollDrives"
 
     },
     "DriveMonitor\0driveConnected\0\0path\0"
     "driveDisconnected\0driveReconnected\0"
     "driveAdded\0drive\0driveRemoved\0lastFile\0"
-    "offset\0onDirectoryChanged\0pollDrives\0"
-    "checkDrives"
+    "offset\0onDirectoryChanged\0pollDrives"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +60,7 @@ static const uint qt_meta_data_DriveMonitor[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,17 +68,16 @@ static const uint qt_meta_data_DriveMonitor[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
-       4,    1,   62,    2, 0x06 /* Public */,
-       5,    0,   65,    2, 0x06 /* Public */,
-       6,    1,   66,    2, 0x06 /* Public */,
-       8,    1,   69,    2, 0x06 /* Public */,
-       5,    3,   72,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
+       4,    1,   57,    2, 0x06 /* Public */,
+       5,    0,   60,    2, 0x06 /* Public */,
+       6,    1,   61,    2, 0x06 /* Public */,
+       8,    1,   64,    2, 0x06 /* Public */,
+       5,    3,   67,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    1,   79,    2, 0x08 /* Private */,
-      12,    0,   82,    2, 0x08 /* Private */,
-      13,    0,   83,    2, 0x08 /* Private */,
+      11,    1,   74,    2, 0x08 /* Private */,
+      12,    0,   77,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -92,7 +89,6 @@ static const uint qt_meta_data_DriveMonitor[] = {
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -112,7 +108,6 @@ void DriveMonitor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 5: _t->driveReconnected((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< qint64(*)>(_a[3]))); break;
         case 6: _t->onDirectoryChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->pollDrives(); break;
-        case 8: _t->checkDrives(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -191,13 +186,13 @@ int DriveMonitor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 8;
     }
     return _id;
 }
