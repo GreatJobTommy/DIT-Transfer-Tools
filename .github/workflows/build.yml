@@ -16,43 +16,36 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install dependencies (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y qt6-base-dev qt6-tools-dev qmake6 build-essential
-
-    - name: Install Qt (Windows)
-      if: matrix.os == 'windows-latest'
+    - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.7.0'
+        version: '6.6.2'
 
-    - name: Install Qt (macOS)
-      if: matrix.os == 'macos-latest'
-      run: brew install qt@6
-
-    - name: Build (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
-      run: qmake6 DIT.pro && make -j$(nproc)
-
-    - name: Build (Windows)
-      if: matrix.os == 'windows-latest'
-      shell: cmd
+    - name: Configure CMake
       run: |
-        qmake6 DIT.pro
-        nmake
+        mkdir build
+        cd build
+        if [[ &quot;${{ runner.os }}&quot; == &quot;Windows&quot; ]]; then
+          cmake .. -G &quot;Visual Studio 17 2022&quot; -A x64 -DCMAKE_BUILD_TYPE=Release
+        else
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+        fi
 
-    - name: Build (macOS)
-      if: matrix.os == 'macos-latest'
+    - name: Build
       run: |
-        export PATH=&quot;/opt/homebrew/opt/qt@6/bin:$PATH&quot;
-        qmake6 DIT.pro
-        make -j4
+        cd build
+        if [[ &quot;${{ runner.os }}&quot; == &quot;Windows&quot; ]]; then
+          cmake --build . --config Release
+        else
+          cmake --build . --parallel
+        fi
+
+    - name: Test
+      run: cd build && ctest -V
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: DIT-${{ matrix.os }}
-        path: DIT
+        path: build/DIT-Transfer-Tools*
         retention-days: 1

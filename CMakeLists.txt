@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(DIT-Transfer-Tools VERSION 2.0 LANGUAGES CXX)
+project(DIT-Transfer-Tools VERSION 4.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,9 @@ add_executable(DIT-Transfer-Tools
     src/AddTaskDialog.cpp
     src/AddTaskDialog.h
     src/AddTaskDialog.ui
+    src/MainWindow.ui
+    src/LogsDockWidget.h
+    src/LogsDockWidget.cpp
     src/ParallelManager.cpp
     src/ParallelManager.h
     src/DriveMonitor.cpp
@@ -33,10 +36,7 @@ add_executable(DIT-Transfer-Tools
     src/SettingsManager.h
     src/NotificationManager.cpp
     src/NotificationManager.h
-    src/SpeedHistory.cpp
-    src/SpeedHistory.h
     src/DragDropList.h
-    src/full-polish.cpp
 )
 
 target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
