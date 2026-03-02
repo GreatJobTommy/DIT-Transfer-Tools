@@ -153,58 +153,6 @@ test_queuemanager/fast:
 .PHONY : test_queuemanager/fast
 
 #=============================================================================
-# Target rules for targets named test_addtask
-
-# Build rule for target.
-test_addtask: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_addtask
-.PHONY : test_addtask
-
-# fast build rule for target.
-test_addtask/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/build
-.PHONY : test_addtask/fast
-
-#=============================================================================
-# Target rules for targets named test_drivemonitor
-
-# Build rule for target.
-test_drivemonitor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_drivemonitor
-.PHONY : test_drivemonitor
-
-# fast build rule for target.
-test_drivemonitor/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/build
-.PHONY : test_drivemonitor/fast
-
-#=============================================================================
-# Target rules for targets named test_errorhandling
-
-# Build rule for target.
-test_errorhandling: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_errorhandling
-.PHONY : test_errorhandling
-
-# fast build rule for target.
-test_errorhandling/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/build
-.PHONY : test_errorhandling/fast
-
-#=============================================================================
-# Target rules for targets named test_ui_clarity
-
-# Build rule for target.
-test_ui_clarity: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ui_clarity
-.PHONY : test_ui_clarity
-
-# fast build rule for target.
-test_ui_clarity/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/build
-.PHONY : test_ui_clarity/fast
-
-#=============================================================================
 # Target rules for targets named DIT-Transfer-Tools_autogen_timestamp_deps
 
 # Build rule for target.
@@ -255,110 +203,6 @@ test_queuemanager_autogen: cmake_check_build_system
 test_queuemanager_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager_autogen.dir/build.make CMakeFiles/test_queuemanager_autogen.dir/build
 .PHONY : test_queuemanager_autogen/fast
-
-#=============================================================================
-# Target rules for targets named test_addtask_autogen_timestamp_deps
-
-# Build rule for target.
-test_addtask_autogen_timestamp_deps: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_addtask_autogen_timestamp_deps
-.PHONY : test_addtask_autogen_timestamp_deps
-
-# fast build rule for target.
-test_addtask_autogen_timestamp_deps/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask_autogen_timestamp_deps.dir/build.make CMakeFiles/test_addtask_autogen_timestamp_deps.dir/build
-.PHONY : test_addtask_autogen_timestamp_deps/fast
-
-#=============================================================================
-# Target rules for targets named test_addtask_autogen
-
-# Build rule for target.
-test_addtask_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_addtask_autogen
-.PHONY : test_addtask_autogen
-
-# fast build rule for target.
-test_addtask_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask_autogen.dir/build.make CMakeFiles/test_addtask_autogen.dir/build
-.PHONY : test_addtask_autogen/fast
-
-#=============================================================================
-# Target rules for targets named test_drivemonitor_autogen_timestamp_deps
-
-# Build rule for target.
-test_drivemonitor_autogen_timestamp_deps: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_drivemonitor_autogen_timestamp_deps
-.PHONY : test_drivemonitor_autogen_timestamp_deps
-
-# fast build rule for target.
-test_drivemonitor_autogen_timestamp_deps/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor_autogen_timestamp_deps.dir/build.make CMakeFiles/test_drivemonitor_autogen_timestamp_deps.dir/build
-.PHONY : test_drivemonitor_autogen_timestamp_deps/fast
-
-#=============================================================================
-# Target rules for targets named test_drivemonitor_autogen
-
-# Build rule for target.
-test_drivemonitor_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_drivemonitor_autogen
-.PHONY : test_drivemonitor_autogen
-
-# fast build rule for target.
-test_drivemonitor_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor_autogen.dir/build.make CMakeFiles/test_drivemonitor_autogen.dir/build
-.PHONY : test_drivemonitor_autogen/fast
-
-#=============================================================================
-# Target rules for targets named test_errorhandling_autogen_timestamp_deps
-
-# Build rule for target.
-test_errorhandling_autogen_timestamp_deps: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_errorhandling_autogen_timestamp_deps
-.PHONY : test_errorhandling_autogen_timestamp_deps
-
-# fast build rule for target.
-test_errorhandling_autogen_timestamp_deps/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling_autogen_timestamp_deps.dir/build.make CMakeFiles/test_errorhandling_autogen_timestamp_deps.dir/build
-.PHONY : test_errorhandling_autogen_timestamp_deps/fast
-
-#=============================================================================
-# Target rules for targets named test_errorhandling_autogen
-
-# Build rule for target.
-test_errorhandling_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_errorhandling_autogen
-.PHONY : test_errorhandling_autogen
-
-# fast build rule for target.
-test_errorhandling_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling_autogen.dir/build.make CMakeFiles/test_errorhandling_autogen.dir/build
-.PHONY : test_errorhandling_autogen/fast
-
-#=============================================================================
-# Target rules for targets named test_ui_clarity_autogen_timestamp_deps
-
-# Build rule for target.
-test_ui_clarity_autogen_timestamp_deps: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ui_clarity_autogen_timestamp_deps
-.PHONY : test_ui_clarity_autogen_timestamp_deps
-
-# fast build rule for target.
-test_ui_clarity_autogen_timestamp_deps/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity_autogen_timestamp_deps.dir/build.make CMakeFiles/test_ui_clarity_autogen_timestamp_deps.dir/build
-.PHONY : test_ui_clarity_autogen_timestamp_deps/fast
-
-#=============================================================================
-# Target rules for targets named test_ui_clarity_autogen
-
-# Build rule for target.
-test_ui_clarity_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ui_clarity_autogen
-.PHONY : test_ui_clarity_autogen
-
-# fast build rule for target.
-test_ui_clarity_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity_autogen.dir/build.make CMakeFiles/test_ui_clarity_autogen.dir/build
-.PHONY : test_ui_clarity_autogen/fast
 
 DIT-Transfer-Tools_autogen/mocs_compilation.o: DIT-Transfer-Tools_autogen/mocs_compilation.cpp.o
 .PHONY : DIT-Transfer-Tools_autogen/mocs_compilation.o
@@ -414,8 +258,6 @@ src/AddTaskDialog.o: src/AddTaskDialog.cpp.o
 # target to build an object file
 src/AddTaskDialog.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/AddTaskDialog.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/AddTaskDialog.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/AddTaskDialog.cpp.o
 .PHONY : src/AddTaskDialog.cpp.o
 
 src/AddTaskDialog.i: src/AddTaskDialog.cpp.i
@@ -424,8 +266,6 @@ src/AddTaskDialog.i: src/AddTaskDialog.cpp.i
 # target to preprocess a source file
 src/AddTaskDialog.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/AddTaskDialog.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/AddTaskDialog.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/AddTaskDialog.cpp.i
 .PHONY : src/AddTaskDialog.cpp.i
 
 src/AddTaskDialog.s: src/AddTaskDialog.cpp.s
@@ -434,8 +274,6 @@ src/AddTaskDialog.s: src/AddTaskDialog.cpp.s
 # target to generate assembly for a file
 src/AddTaskDialog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/AddTaskDialog.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/AddTaskDialog.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/AddTaskDialog.cpp.s
 .PHONY : src/AddTaskDialog.cpp.s
 
 src/DriveMonitor.o: src/DriveMonitor.cpp.o
@@ -444,8 +282,6 @@ src/DriveMonitor.o: src/DriveMonitor.cpp.o
 # target to build an object file
 src/DriveMonitor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/DriveMonitor.cpp.o
 .PHONY : src/DriveMonitor.cpp.o
 
 src/DriveMonitor.i: src/DriveMonitor.cpp.i
@@ -454,8 +290,6 @@ src/DriveMonitor.i: src/DriveMonitor.cpp.i
 # target to preprocess a source file
 src/DriveMonitor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/DriveMonitor.cpp.i
 .PHONY : src/DriveMonitor.cpp.i
 
 src/DriveMonitor.s: src/DriveMonitor.cpp.s
@@ -464,8 +298,6 @@ src/DriveMonitor.s: src/DriveMonitor.cpp.s
 # target to generate assembly for a file
 src/DriveMonitor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/DriveMonitor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/DriveMonitor.cpp.s
 .PHONY : src/DriveMonitor.cpp.s
 
 src/ErrorManager.o: src/ErrorManager.cpp.o
@@ -474,7 +306,6 @@ src/ErrorManager.o: src/ErrorManager.cpp.o
 # target to build an object file
 src/ErrorManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ErrorManager.cpp.o
 .PHONY : src/ErrorManager.cpp.o
 
 src/ErrorManager.i: src/ErrorManager.cpp.i
@@ -483,7 +314,6 @@ src/ErrorManager.i: src/ErrorManager.cpp.i
 # target to preprocess a source file
 src/ErrorManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ErrorManager.cpp.i
 .PHONY : src/ErrorManager.cpp.i
 
 src/ErrorManager.s: src/ErrorManager.cpp.s
@@ -492,7 +322,6 @@ src/ErrorManager.s: src/ErrorManager.cpp.s
 # target to generate assembly for a file
 src/ErrorManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ErrorManager.cpp.s
 .PHONY : src/ErrorManager.cpp.s
 
 src/MainWindow.o: src/MainWindow.cpp.o
@@ -501,7 +330,6 @@ src/MainWindow.o: src/MainWindow.cpp.o
 # target to build an object file
 src/MainWindow.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/MainWindow.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/MainWindow.cpp.o
 .PHONY : src/MainWindow.cpp.o
 
 src/MainWindow.i: src/MainWindow.cpp.i
@@ -510,7 +338,6 @@ src/MainWindow.i: src/MainWindow.cpp.i
 # target to preprocess a source file
 src/MainWindow.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/MainWindow.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/MainWindow.cpp.i
 .PHONY : src/MainWindow.cpp.i
 
 src/MainWindow.s: src/MainWindow.cpp.s
@@ -519,8 +346,31 @@ src/MainWindow.s: src/MainWindow.cpp.s
 # target to generate assembly for a file
 src/MainWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/MainWindow.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/MainWindow.cpp.s
 .PHONY : src/MainWindow.cpp.s
+
+src/NotificationManager.o: src/NotificationManager.cpp.o
+.PHONY : src/NotificationManager.o
+
+# target to build an object file
+src/NotificationManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/NotificationManager.cpp.o
+.PHONY : src/NotificationManager.cpp.o
+
+src/NotificationManager.i: src/NotificationManager.cpp.i
+.PHONY : src/NotificationManager.i
+
+# target to preprocess a source file
+src/NotificationManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/NotificationManager.cpp.i
+.PHONY : src/NotificationManager.cpp.i
+
+src/NotificationManager.s: src/NotificationManager.cpp.s
+.PHONY : src/NotificationManager.s
+
+# target to generate assembly for a file
+src/NotificationManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/NotificationManager.cpp.s
+.PHONY : src/NotificationManager.cpp.s
 
 src/ParallelManager.o: src/ParallelManager.cpp.o
 .PHONY : src/ParallelManager.o
@@ -528,8 +378,6 @@ src/ParallelManager.o: src/ParallelManager.cpp.o
 # target to build an object file
 src/ParallelManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/ParallelManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ParallelManager.cpp.o
 .PHONY : src/ParallelManager.cpp.o
 
 src/ParallelManager.i: src/ParallelManager.cpp.i
@@ -538,8 +386,6 @@ src/ParallelManager.i: src/ParallelManager.cpp.i
 # target to preprocess a source file
 src/ParallelManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/ParallelManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ParallelManager.cpp.i
 .PHONY : src/ParallelManager.cpp.i
 
 src/ParallelManager.s: src/ParallelManager.cpp.s
@@ -548,8 +394,6 @@ src/ParallelManager.s: src/ParallelManager.cpp.s
 # target to generate assembly for a file
 src/ParallelManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/ParallelManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ParallelManager.cpp.s
 .PHONY : src/ParallelManager.cpp.s
 
 src/ProgressMonitor.o: src/ProgressMonitor.cpp.o
@@ -558,7 +402,6 @@ src/ProgressMonitor.o: src/ProgressMonitor.cpp.o
 # target to build an object file
 src/ProgressMonitor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ProgressMonitor.cpp.o
 .PHONY : src/ProgressMonitor.cpp.o
 
 src/ProgressMonitor.i: src/ProgressMonitor.cpp.i
@@ -567,7 +410,6 @@ src/ProgressMonitor.i: src/ProgressMonitor.cpp.i
 # target to preprocess a source file
 src/ProgressMonitor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ProgressMonitor.cpp.i
 .PHONY : src/ProgressMonitor.cpp.i
 
 src/ProgressMonitor.s: src/ProgressMonitor.cpp.s
@@ -576,7 +418,6 @@ src/ProgressMonitor.s: src/ProgressMonitor.cpp.s
 # target to generate assembly for a file
 src/ProgressMonitor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/ProgressMonitor.cpp.s
 .PHONY : src/ProgressMonitor.cpp.s
 
 src/QueueManager.o: src/QueueManager.cpp.o
@@ -586,8 +427,6 @@ src/QueueManager.o: src/QueueManager.cpp.o
 src/QueueManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/QueueManager.cpp.o
 .PHONY : src/QueueManager.cpp.o
 
 src/QueueManager.i: src/QueueManager.cpp.i
@@ -597,8 +436,6 @@ src/QueueManager.i: src/QueueManager.cpp.i
 src/QueueManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/QueueManager.cpp.i
 .PHONY : src/QueueManager.cpp.i
 
 src/QueueManager.s: src/QueueManager.cpp.s
@@ -608,8 +445,6 @@ src/QueueManager.s: src/QueueManager.cpp.s
 src/QueueManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/QueueManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/QueueManager.cpp.s
 .PHONY : src/QueueManager.cpp.s
 
 src/SettingsManager.o: src/SettingsManager.cpp.o
@@ -618,7 +453,6 @@ src/SettingsManager.o: src/SettingsManager.cpp.o
 # target to build an object file
 src/SettingsManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/SettingsManager.cpp.o
 .PHONY : src/SettingsManager.cpp.o
 
 src/SettingsManager.i: src/SettingsManager.cpp.i
@@ -627,7 +461,6 @@ src/SettingsManager.i: src/SettingsManager.cpp.i
 # target to preprocess a source file
 src/SettingsManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/SettingsManager.cpp.i
 .PHONY : src/SettingsManager.cpp.i
 
 src/SettingsManager.s: src/SettingsManager.cpp.s
@@ -636,8 +469,31 @@ src/SettingsManager.s: src/SettingsManager.cpp.s
 # target to generate assembly for a file
 src/SettingsManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/SettingsManager.cpp.s
 .PHONY : src/SettingsManager.cpp.s
+
+src/SpeedHistory.o: src/SpeedHistory.cpp.o
+.PHONY : src/SpeedHistory.o
+
+# target to build an object file
+src/SpeedHistory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SpeedHistory.cpp.o
+.PHONY : src/SpeedHistory.cpp.o
+
+src/SpeedHistory.i: src/SpeedHistory.cpp.i
+.PHONY : src/SpeedHistory.i
+
+# target to preprocess a source file
+src/SpeedHistory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SpeedHistory.cpp.i
+.PHONY : src/SpeedHistory.cpp.i
+
+src/SpeedHistory.s: src/SpeedHistory.cpp.s
+.PHONY : src/SpeedHistory.s
+
+# target to generate assembly for a file
+src/SpeedHistory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/SpeedHistory.cpp.s
+.PHONY : src/SpeedHistory.cpp.s
 
 src/TransferTask.o: src/TransferTask.cpp.o
 .PHONY : src/TransferTask.o
@@ -646,9 +502,6 @@ src/TransferTask.o: src/TransferTask.cpp.o
 src/TransferTask.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/TransferTask.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/TransferTask.cpp.o
 .PHONY : src/TransferTask.cpp.o
 
 src/TransferTask.i: src/TransferTask.cpp.i
@@ -658,9 +511,6 @@ src/TransferTask.i: src/TransferTask.cpp.i
 src/TransferTask.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/TransferTask.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/TransferTask.cpp.i
 .PHONY : src/TransferTask.cpp.i
 
 src/TransferTask.s: src/TransferTask.cpp.s
@@ -670,82 +520,7 @@ src/TransferTask.s: src/TransferTask.cpp.s
 src/TransferTask.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DIT-Transfer-Tools.dir/build.make CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/src/TransferTask.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/src/TransferTask.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/src/TransferTask.cpp.s
 .PHONY : src/TransferTask.cpp.s
-
-test_addtask_autogen/mocs_compilation.o: test_addtask_autogen/mocs_compilation.cpp.o
-.PHONY : test_addtask_autogen/mocs_compilation.o
-
-# target to build an object file
-test_addtask_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/test_addtask_autogen/mocs_compilation.cpp.o
-.PHONY : test_addtask_autogen/mocs_compilation.cpp.o
-
-test_addtask_autogen/mocs_compilation.i: test_addtask_autogen/mocs_compilation.cpp.i
-.PHONY : test_addtask_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-test_addtask_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/test_addtask_autogen/mocs_compilation.cpp.i
-.PHONY : test_addtask_autogen/mocs_compilation.cpp.i
-
-test_addtask_autogen/mocs_compilation.s: test_addtask_autogen/mocs_compilation.cpp.s
-.PHONY : test_addtask_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-test_addtask_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/test_addtask_autogen/mocs_compilation.cpp.s
-.PHONY : test_addtask_autogen/mocs_compilation.cpp.s
-
-test_drivemonitor_autogen/mocs_compilation.o: test_drivemonitor_autogen/mocs_compilation.cpp.o
-.PHONY : test_drivemonitor_autogen/mocs_compilation.o
-
-# target to build an object file
-test_drivemonitor_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.o
-.PHONY : test_drivemonitor_autogen/mocs_compilation.cpp.o
-
-test_drivemonitor_autogen/mocs_compilation.i: test_drivemonitor_autogen/mocs_compilation.cpp.i
-.PHONY : test_drivemonitor_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-test_drivemonitor_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.i
-.PHONY : test_drivemonitor_autogen/mocs_compilation.cpp.i
-
-test_drivemonitor_autogen/mocs_compilation.s: test_drivemonitor_autogen/mocs_compilation.cpp.s
-.PHONY : test_drivemonitor_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-test_drivemonitor_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/test_drivemonitor_autogen/mocs_compilation.cpp.s
-.PHONY : test_drivemonitor_autogen/mocs_compilation.cpp.s
-
-test_errorhandling_autogen/mocs_compilation.o: test_errorhandling_autogen/mocs_compilation.cpp.o
-.PHONY : test_errorhandling_autogen/mocs_compilation.o
-
-# target to build an object file
-test_errorhandling_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/test_errorhandling_autogen/mocs_compilation.cpp.o
-.PHONY : test_errorhandling_autogen/mocs_compilation.cpp.o
-
-test_errorhandling_autogen/mocs_compilation.i: test_errorhandling_autogen/mocs_compilation.cpp.i
-.PHONY : test_errorhandling_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-test_errorhandling_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/test_errorhandling_autogen/mocs_compilation.cpp.i
-.PHONY : test_errorhandling_autogen/mocs_compilation.cpp.i
-
-test_errorhandling_autogen/mocs_compilation.s: test_errorhandling_autogen/mocs_compilation.cpp.s
-.PHONY : test_errorhandling_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-test_errorhandling_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/test_errorhandling_autogen/mocs_compilation.cpp.s
-.PHONY : test_errorhandling_autogen/mocs_compilation.cpp.s
 
 test_queuemanager_autogen/mocs_compilation.o: test_queuemanager_autogen/mocs_compilation.cpp.o
 .PHONY : test_queuemanager_autogen/mocs_compilation.o
@@ -771,102 +546,6 @@ test_queuemanager_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.s
 .PHONY : test_queuemanager_autogen/mocs_compilation.cpp.s
 
-test_ui_clarity_autogen/mocs_compilation.o: test_ui_clarity_autogen/mocs_compilation.cpp.o
-.PHONY : test_ui_clarity_autogen/mocs_compilation.o
-
-# target to build an object file
-test_ui_clarity_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/test_ui_clarity_autogen/mocs_compilation.cpp.o
-.PHONY : test_ui_clarity_autogen/mocs_compilation.cpp.o
-
-test_ui_clarity_autogen/mocs_compilation.i: test_ui_clarity_autogen/mocs_compilation.cpp.i
-.PHONY : test_ui_clarity_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-test_ui_clarity_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/test_ui_clarity_autogen/mocs_compilation.cpp.i
-.PHONY : test_ui_clarity_autogen/mocs_compilation.cpp.i
-
-test_ui_clarity_autogen/mocs_compilation.s: test_ui_clarity_autogen/mocs_compilation.cpp.s
-.PHONY : test_ui_clarity_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-test_ui_clarity_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/test_ui_clarity_autogen/mocs_compilation.cpp.s
-.PHONY : test_ui_clarity_autogen/mocs_compilation.cpp.s
-
-tests/test_addtask.o: tests/test_addtask.cpp.o
-.PHONY : tests/test_addtask.o
-
-# target to build an object file
-tests/test_addtask.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/tests/test_addtask.cpp.o
-.PHONY : tests/test_addtask.cpp.o
-
-tests/test_addtask.i: tests/test_addtask.cpp.i
-.PHONY : tests/test_addtask.i
-
-# target to preprocess a source file
-tests/test_addtask.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/tests/test_addtask.cpp.i
-.PHONY : tests/test_addtask.cpp.i
-
-tests/test_addtask.s: tests/test_addtask.cpp.s
-.PHONY : tests/test_addtask.s
-
-# target to generate assembly for a file
-tests/test_addtask.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_addtask.dir/build.make CMakeFiles/test_addtask.dir/tests/test_addtask.cpp.s
-.PHONY : tests/test_addtask.cpp.s
-
-tests/test_drivemonitor.o: tests/test_drivemonitor.cpp.o
-.PHONY : tests/test_drivemonitor.o
-
-# target to build an object file
-tests/test_drivemonitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.o
-.PHONY : tests/test_drivemonitor.cpp.o
-
-tests/test_drivemonitor.i: tests/test_drivemonitor.cpp.i
-.PHONY : tests/test_drivemonitor.i
-
-# target to preprocess a source file
-tests/test_drivemonitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.i
-.PHONY : tests/test_drivemonitor.cpp.i
-
-tests/test_drivemonitor.s: tests/test_drivemonitor.cpp.s
-.PHONY : tests/test_drivemonitor.s
-
-# target to generate assembly for a file
-tests/test_drivemonitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_drivemonitor.dir/build.make CMakeFiles/test_drivemonitor.dir/tests/test_drivemonitor.cpp.s
-.PHONY : tests/test_drivemonitor.cpp.s
-
-tests/test_errorhandling.o: tests/test_errorhandling.cpp.o
-.PHONY : tests/test_errorhandling.o
-
-# target to build an object file
-tests/test_errorhandling.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/tests/test_errorhandling.cpp.o
-.PHONY : tests/test_errorhandling.cpp.o
-
-tests/test_errorhandling.i: tests/test_errorhandling.cpp.i
-.PHONY : tests/test_errorhandling.i
-
-# target to preprocess a source file
-tests/test_errorhandling.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/tests/test_errorhandling.cpp.i
-.PHONY : tests/test_errorhandling.cpp.i
-
-tests/test_errorhandling.s: tests/test_errorhandling.cpp.s
-.PHONY : tests/test_errorhandling.s
-
-# target to generate assembly for a file
-tests/test_errorhandling.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_errorhandling.dir/build.make CMakeFiles/test_errorhandling.dir/tests/test_errorhandling.cpp.s
-.PHONY : tests/test_errorhandling.cpp.s
-
 tests/test_queuemanager.o: tests/test_queuemanager.cpp.o
 .PHONY : tests/test_queuemanager.o
 
@@ -891,30 +570,6 @@ tests/test_queuemanager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_queuemanager.dir/build.make CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.s
 .PHONY : tests/test_queuemanager.cpp.s
 
-tests/test_ui_clarity.o: tests/test_ui_clarity.cpp.o
-.PHONY : tests/test_ui_clarity.o
-
-# target to build an object file
-tests/test_ui_clarity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/tests/test_ui_clarity.cpp.o
-.PHONY : tests/test_ui_clarity.cpp.o
-
-tests/test_ui_clarity.i: tests/test_ui_clarity.cpp.i
-.PHONY : tests/test_ui_clarity.i
-
-# target to preprocess a source file
-tests/test_ui_clarity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/tests/test_ui_clarity.cpp.i
-.PHONY : tests/test_ui_clarity.cpp.i
-
-tests/test_ui_clarity.s: tests/test_ui_clarity.cpp.s
-.PHONY : tests/test_ui_clarity.s
-
-# target to generate assembly for a file
-tests/test_ui_clarity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ui_clarity.dir/build.make CMakeFiles/test_ui_clarity.dir/tests/test_ui_clarity.cpp.s
-.PHONY : tests/test_ui_clarity.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -926,22 +581,10 @@ help:
 	@echo "... test"
 	@echo "... DIT-Transfer-Tools_autogen"
 	@echo "... DIT-Transfer-Tools_autogen_timestamp_deps"
-	@echo "... test_addtask_autogen"
-	@echo "... test_addtask_autogen_timestamp_deps"
-	@echo "... test_drivemonitor_autogen"
-	@echo "... test_drivemonitor_autogen_timestamp_deps"
-	@echo "... test_errorhandling_autogen"
-	@echo "... test_errorhandling_autogen_timestamp_deps"
 	@echo "... test_queuemanager_autogen"
 	@echo "... test_queuemanager_autogen_timestamp_deps"
-	@echo "... test_ui_clarity_autogen"
-	@echo "... test_ui_clarity_autogen_timestamp_deps"
 	@echo "... DIT-Transfer-Tools"
-	@echo "... test_addtask"
-	@echo "... test_drivemonitor"
-	@echo "... test_errorhandling"
 	@echo "... test_queuemanager"
-	@echo "... test_ui_clarity"
 	@echo "... DIT-Transfer-Tools_autogen/mocs_compilation.o"
 	@echo "... DIT-Transfer-Tools_autogen/mocs_compilation.i"
 	@echo "... DIT-Transfer-Tools_autogen/mocs_compilation.s"
@@ -960,6 +603,9 @@ help:
 	@echo "... src/MainWindow.o"
 	@echo "... src/MainWindow.i"
 	@echo "... src/MainWindow.s"
+	@echo "... src/NotificationManager.o"
+	@echo "... src/NotificationManager.i"
+	@echo "... src/NotificationManager.s"
 	@echo "... src/ParallelManager.o"
 	@echo "... src/ParallelManager.i"
 	@echo "... src/ParallelManager.s"
@@ -972,39 +618,18 @@ help:
 	@echo "... src/SettingsManager.o"
 	@echo "... src/SettingsManager.i"
 	@echo "... src/SettingsManager.s"
+	@echo "... src/SpeedHistory.o"
+	@echo "... src/SpeedHistory.i"
+	@echo "... src/SpeedHistory.s"
 	@echo "... src/TransferTask.o"
 	@echo "... src/TransferTask.i"
 	@echo "... src/TransferTask.s"
-	@echo "... test_addtask_autogen/mocs_compilation.o"
-	@echo "... test_addtask_autogen/mocs_compilation.i"
-	@echo "... test_addtask_autogen/mocs_compilation.s"
-	@echo "... test_drivemonitor_autogen/mocs_compilation.o"
-	@echo "... test_drivemonitor_autogen/mocs_compilation.i"
-	@echo "... test_drivemonitor_autogen/mocs_compilation.s"
-	@echo "... test_errorhandling_autogen/mocs_compilation.o"
-	@echo "... test_errorhandling_autogen/mocs_compilation.i"
-	@echo "... test_errorhandling_autogen/mocs_compilation.s"
 	@echo "... test_queuemanager_autogen/mocs_compilation.o"
 	@echo "... test_queuemanager_autogen/mocs_compilation.i"
 	@echo "... test_queuemanager_autogen/mocs_compilation.s"
-	@echo "... test_ui_clarity_autogen/mocs_compilation.o"
-	@echo "... test_ui_clarity_autogen/mocs_compilation.i"
-	@echo "... test_ui_clarity_autogen/mocs_compilation.s"
-	@echo "... tests/test_addtask.o"
-	@echo "... tests/test_addtask.i"
-	@echo "... tests/test_addtask.s"
-	@echo "... tests/test_drivemonitor.o"
-	@echo "... tests/test_drivemonitor.i"
-	@echo "... tests/test_drivemonitor.s"
-	@echo "... tests/test_errorhandling.o"
-	@echo "... tests/test_errorhandling.i"
-	@echo "... tests/test_errorhandling.s"
 	@echo "... tests/test_queuemanager.o"
 	@echo "... tests/test_queuemanager.i"
 	@echo "... tests/test_queuemanager.s"
-	@echo "... tests/test_ui_clarity.o"
-	@echo "... tests/test_ui_clarity.i"
-	@echo "... tests/test_ui_clarity.s"
 .PHONY : help
 
 

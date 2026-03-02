@@ -1,9 +1,5 @@
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_addtask.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_drivemonitor.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_errorhandling.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_ui_clarity.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/edit_cache.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/rebuild_cache.dir
@@ -11,11 +7,3 @@
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager_autogen.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_addtask_autogen_timestamp_deps.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_addtask_autogen.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_drivemonitor_autogen_timestamp_deps.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_drivemonitor_autogen.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_errorhandling_autogen_timestamp_deps.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_errorhandling_autogen.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_ui_clarity_autogen_timestamp_deps.dir
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_ui_clarity_autogen.dir

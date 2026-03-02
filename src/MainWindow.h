@@ -20,8 +20,12 @@
 #include "ProgressMonitor.h"
 #include "ErrorManager.h"
 #include "SettingsManager.h"
-#include "DragDropList.h"
 #include "SpeedHistory.h"
+#include "DragDropList.h"
+#include "ErrorManager.h"
+#include "SettingsManager.h"
+
+#include "LogsDockWidget.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -49,11 +53,6 @@ private slots:
 private:
     void setupUI();
     void setupHotkeys();
-    void createDashboardTab();
-    void createQueueTab();
-    void createDrivesTab();
-    void createSettingsTab();
-    void createProgressTab();
 
     QueueManager* m_queue;
     DriveMonitor* m_driveMonitor;
@@ -63,6 +62,12 @@ private:
     SpeedHistory* m_speedHistory;
 
     QTabWidget* m_tabWidget;
+    QListWidget* m_drivesList;
+    QProgressBar* m_overallProgress;
+    QTextEdit* m_logView;
+    DragDropList* m_dropZone;
+
+    LogsDockWidget* m_logsDock;
 
     // Dashboard
     QLabel* m_queueCountLabel;
@@ -71,8 +76,7 @@ private:
     QLabel* m_errorsCountLabel;
 
     // Queue
-    DragDropList* m_waitingList;
-    DragDropList* m_dropZone;
+    QListWidget* m_waitingList;
 
     // Drives
     QListWidget* m_drivesList;
@@ -81,9 +85,8 @@ private:
     QSlider* m_parallelSlider;
     QLabel* m_parallelLabel;
 
-    // Progress
+    // Progress (now in dashboard)
     QProgressBar* m_overallProgress;
-    QTextEdit* m_logView;
 
     QAction* m_addTaskAction;
     QSystemTrayIcon* m_trayIcon;

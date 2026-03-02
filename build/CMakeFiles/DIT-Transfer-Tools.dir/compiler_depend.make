@@ -15,6 +15,7 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.h \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.h \
+  /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.cpp \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.h \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.h \
@@ -24,6 +25,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h \
+  /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SpeedHistory.cpp \
+  /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SpeedHistory.h \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp \
   /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h \
   /usr/bin/cmake \
@@ -111,6 +114,7 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QMimeData \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QMutex \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QObject \
+  /usr/include/aarch64-linux-gnu/qt6/QtCore/QPointF \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QProcess \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QRect \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QRunnable \
@@ -122,7 +126,6 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QThreadPool \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer \
-  /usr/include/aarch64-linux-gnu/qt6/QtCore/QUrl \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/QVariant \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/q20functional.h \
   /usr/include/aarch64-linux-gnu/qt6/QtCore/q20iterator.h \
@@ -704,22 +707,79 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /usr/lib/linux/uapi/arm64/asm/errno.h \
   /usr/lib/linux/uapi/arm64/asm/posix_types.h \
   /usr/lib/linux/uapi/arm64/asm/types.h \
+  /usr/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in \
+  /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp \
   /usr/share/cmake-3.31/Modules/CMakeCXXInformation.cmake \
   /usr/share/cmake-3.31/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /usr/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeCompilerIdDetection.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeFindBinUtils.cmake \
   /usr/share/cmake-3.31/Modules/CMakeFindDependencyMacro.cmake \
   /usr/share/cmake-3.31/Modules/CMakeGenericSystem.cmake \
   /usr/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake \
   /usr/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeParseImplicitIncludeInfo.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeParseImplicitLinkInfo.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeParseLibraryArchitecture.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeSystem.cmake.in \
   /usr/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake \
   /usr/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeTestCompilerCommon.cmake \
+  /usr/share/cmake-3.31/Modules/CMakeUnixFindMake.cmake \
   /usr/share/cmake-3.31/Modules/CheckCXXCompilerFlag.cmake \
   /usr/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake \
   /usr/share/cmake-3.31/Modules/CheckIncludeFileCXX.cmake \
   /usr/share/cmake-3.31/Modules/CheckLibraryExists.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /usr/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Cray-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/GHS-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/GNU-FindBinUtils.cmake \
   /usr/share/cmake-3.31/Modules/Compiler/GNU.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/IAR-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Intel-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/OrangeC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/PGI-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/SCO-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/TI-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/TIClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Tasking-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.31/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.31/Modules/FeatureSummary.cmake \
   /usr/share/cmake-3.31/Modules/FindOpenGL.cmake \
   /usr/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake \
@@ -730,15 +790,18 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
   /usr/share/cmake-3.31/Modules/GNUInstallDirs.cmake \
   /usr/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake \
   /usr/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake \
+  /usr/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake \
   /usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake \
   /usr/share/cmake-3.31/Modules/Internal/CheckFlagCommonConfig.cmake \
   /usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake \
+  /usr/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake \
   /usr/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake \
   /usr/share/cmake-3.31/Modules/Linker/GNU.cmake \
   /usr/share/cmake-3.31/Modules/MacroAddFileDependencies.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linker/Linux-GNU-CXX.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linker/Linux-GNU.cmake \
+  /usr/share/cmake-3.31/Modules/Platform/Linux-Determine-CXX.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linux-GNU-CXX.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linux-GNU.cmake \
   /usr/share/cmake-3.31/Modules/Platform/Linux-Initialize.cmake \
@@ -752,15 +815,21 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/share/cmake-3.31/Modules/Platform/Linux-GNU.cmake:
 
+/usr/share/cmake-3.31/Modules/Platform/Linux-Determine-CXX.cmake:
+
 /usr/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake:
 
 /usr/share/cmake-3.31/Modules/MacroAddFileDependencies.cmake:
 
 /usr/share/cmake-3.31/Modules/Linker/GNU.cmake:
 
+/usr/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake:
+
 /usr/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:
 
 /usr/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:
+
+/usr/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:
 
 /usr/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake:
 
@@ -774,9 +843,51 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/share/cmake-3.31/Modules/FindOpenGL.cmake:
 
+/usr/share/cmake-3.31/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/TIClang-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/SCO-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/OrangeC-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/NVIDIA-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/NVHPC-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/MSVC-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/PathScale-DetermineCompiler.cmake:
+
 /usr/share/cmake-3.31/Modules/Compiler/GNU.cmake:
 
+/usr/share/cmake-3.31/Modules/Compiler/GNU-FindBinUtils.cmake:
+
 /usr/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Fujitsu-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Embarcadero-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Cray-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompilerInternal.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/Borland-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/AppleClang-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/ARMClang-DetermineCompiler.cmake:
 
 /usr/share/cmake-3.31/Modules/CheckLibraryExists.cmake:
 
@@ -784,9 +895,19 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/share/cmake-3.31/Modules/CheckCXXCompilerFlag.cmake:
 
+/usr/share/cmake-3.31/Modules/CMakeUnixFindMake.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:
+
 /usr/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake:
 
 /usr/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeParseLibraryArchitecture.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeParseImplicitLinkInfo.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeParseImplicitIncludeInfo.cmake:
 
 /usr/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake:
 
@@ -796,9 +917,25 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/share/cmake-3.31/Modules/CMakeFindDependencyMacro.cmake:
 
+/usr/share/cmake-3.31/Modules/CMakeFindBinUtils.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeDetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/GHS-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeCompilerIdDetection.cmake:
+
 /usr/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake:
 
 /usr/share/cmake-3.31/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp:
+
+/usr/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in:
 
 /usr/lib/linux/uapi/arm64/asm/posix_types.h:
 
@@ -846,10 +983,6 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6Gui/Qt6GuiTargets.cmake:
 
-/usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsAdditionalTargetInfo.cmake:
-
-/usr/lib/aarch64-linux-gnu/cmake/Qt6Gui/Qt6GuiDependencies.cmake:
-
 /usr/lib/aarch64-linux-gnu/cmake/Qt6Gui/Qt6GuiConfigVersionImpl.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6Gui/Qt6GuiConfig.cmake:
@@ -874,11 +1007,15 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6CoreTools/Qt6CoreToolsConfigVersionImpl.cmake:
 
+/usr/share/cmake-3.31/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
+
 /usr/lib/aarch64-linux-gnu/cmake/Qt6CoreTools/Qt6CoreToolsConfigVersion.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6CoreTools/Qt6CoreToolsAdditionalTargetInfo.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreTargets-none.cmake:
+
+/usr/share/cmake-3.31/Modules/Compiler/TI-DetermineCompiler.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreMacros.cmake:
 
@@ -893,6 +1030,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicTargetHelpers.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomPythonHelpers.cmake:
+
+/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomPurlHelpers.cmake:
 
@@ -958,6 +1097,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/linux/posix_types.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/ADSP-DetermineCompiler.cmake:
+
 /usr/lib/aarch64-linux-gnu/cmake/Qt6CoreTools/Qt6CoreToolsConfig.cmake:
 
 /usr/include/linux/errno.h:
@@ -1000,9 +1141,11 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/c++/14/tr1/beta_function.tcc:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qthreadpool.h:
+/usr/include/c++/14/tr1/bessel_function.tcc:
 
-/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlineedit.h:
+/usr/include/c++/14/system_error:
+
+/usr/include/c++/14/string_view:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qtextstream.h:
 
@@ -1036,8 +1179,6 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/c++/14/list:
 
-/usr/include/c++/14/concepts:
-
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qstringlist.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qsystemdetection.h:
@@ -1052,9 +1193,9 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qstringbuilder.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qcalendar.h:
-
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qcontiguouscache.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qcalendar.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qscopeguard.h:
 
@@ -1074,6 +1215,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/qdialogbuttonbox.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/Watcom-DetermineCompiler.cmake:
+
 /usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/asm-generic/types.h:
@@ -1083,6 +1226,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qnamespace.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/qstyle.h:
+
+/usr/share/cmake-3.31/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake:
 
 /usr/include/c++/14/ext/concurrence.h:
 
@@ -1133,6 +1278,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qline.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qiterator.h:
+
+/usr/share/cmake-3.31/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake:
 
 /usr/include/c++/14/tr1/poly_laguerre.tcc:
 
@@ -1196,6 +1343,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qdatastream.h:
 
+/usr/share/cmake-3.31/Modules/CMakeSystem.cmake.in:
+
 /usr/include/c++/14/bits/requires_hosted.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qdarwinhelpers.h:
@@ -1224,13 +1373,7 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qconstructormacros.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/QUrl:
-
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlabel.h:
-
-/usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreConfig.cmake:
-
-/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QDialog:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qcompilerdetection.h:
 
@@ -1239,10 +1382,6 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QProcess:
 
 /usr/include/aarch64-linux-gnu/bits/types/struct_tm.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimer.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qbytearrayview.h:
 
@@ -1296,6 +1435,10 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/bits/endian.h:
 
+/usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreVersionlessAliasTargets.cmake:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qmalloc.h:
+
 /usr/include/aarch64-linux-gnu/bits/time64.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qcompare_impl.h:
@@ -1308,17 +1451,7 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/c++/14/bit:
 
-/usr/include/aarch64-linux-gnu/bits/timesize.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtGui/qvectornd.h:
-
-/usr/include/aarch64-linux-gnu/bits/select.h:
-
-/usr/include/c++/14/bits/stl_heap.h:
-
 /usr/include/aarch64-linux-gnu/bits/pthreadtypes.h:
-
-/usr/include/aarch64-linux-gnu/bits/timex.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qfilesystemwatcher.h:
 
@@ -1388,6 +1521,22 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/bits/errno.h:
 
+/usr/include/aarch64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qthreadpool.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qlineedit.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qttypetraits.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qtnoop.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qminmax.h:
+
+/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
+
 /usr/include/aarch64-linux-gnu/bits/stdlib-float.h:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake:
@@ -1410,7 +1559,7 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/c++/14/debug/assertions.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer:
+/usr/include/aarch64-linux-gnu/qt6/QtCore/q20type_traits.h:
 
 /usr/include/aarch64-linux-gnu/bits/wchar.h:
 
@@ -1428,6 +1577,22 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtGui/qfontinfo.h:
 
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qassert.h:
+
+/usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomAttributionHelpers.cmake:
+
+/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qframe.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qarraydataops.h:
+
+/usr/include/aarch64-linux-gnu/bits/endianness.h:
+
+/usr/include/aarch64-linux-gnu/bits/thread-shared-types.h:
+
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp:
+
+/usr/include/aarch64-linux-gnu/qt6/QtGui/qevent.h:
+
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.h:
 
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp:
@@ -1440,6 +1605,10 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/bits/uio_lim.h:
 
+/usr/include/aarch64-linux-gnu/qt6/QtCore/q20memory.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtGui/qtguiexports.h:
+
 /usr/include/c++/14/climits:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qfunctionaltools_impl.h:
@@ -1450,9 +1619,9 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QThreadPool:
 
-/usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomSystemDepHelpers.cmake:
+/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
-/usr/include/aarch64-linux-gnu/bits/setjmp.h:
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.h:
 
 /usr/include/c++/14/bits/charconv.h:
 
@@ -1469,6 +1638,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qtypes.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QString:
+
+/usr/share/cmake-3.31/Modules/Compiler/XL-CXX-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h:
 
@@ -1492,6 +1663,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 
 /usr/include/c++/14/bits/exception_defines.h:
 
+/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:
+
 /usr/include/aarch64-linux-gnu/qt6/QtGui/qtextcursor.h:
 
 /usr/lib/aarch64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsTargets.cmake:
@@ -1499,6 +1672,8 @@ DIT-Transfer-Tools_autogen/timestamp: /home/openclaw/.openclaw/workspace/DIT-Tra
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qhash.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QMap:
+
+/usr/share/cmake-3.31/Modules/Compiler/PGI-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qcompare.h:
 
@@ -1548,6 +1723,8 @@ CMakeFiles/3.31.6/CMakeSystem.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QStorageInfo:
 
+/usr/share/cmake-3.31/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake:
+
 /usr/lib/aarch64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsConfigVersion.cmake:
 
 /usr/include/c++/14/backward/auto_ptr.h:
@@ -1560,25 +1737,17 @@ CMakeFiles/3.31.6/CMakeCXXCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/q20functional.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qassert.h:
+/usr/include/aarch64-linux-gnu/sys/select.h:
 
-/usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomAttributionHelpers.cmake:
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtWidgets/qframe.h:
+/usr/include/c++/14/bits/enable_special_members.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qarraydataops.h:
+/usr/include/c++/14/bits/std_function.h:
 
-/usr/include/aarch64-linux-gnu/bits/endianness.h:
+/usr/include/aarch64-linux-gnu/bits/typesizes.h:
 
-/usr/include/aarch64-linux-gnu/bits/thread-shared-types.h:
-
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp:
-
-/usr/include/aarch64-linux-gnu/qt6/QtGui/qevent.h:
-
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
+/usr/share/cmake-3.31/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QObject:
 
@@ -1589,6 +1758,12 @@ CMakeFiles/3.31.6/CMakeCXXCompiler.cmake:
 /usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake:
 
 /usr/include/c++/14/bits/move.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer:
+
+/usr/include/c++/14/bits/uses_allocator.h:
+
+/usr/share/cmake-3.31/Modules/Compiler/IAR-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h:
 
@@ -1606,27 +1781,19 @@ CMakeFiles/3.31.6/CMakeCXXCompiler.cmake:
 
 /usr/include/c++/14/bits/shared_ptr_base.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qminmax.h:
+/usr/include/aarch64-linux-gnu/bits/select.h:
 
-/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
+/usr/include/c++/14/bits/stl_heap.h:
 
-/usr/include/aarch64-linux-gnu/sys/select.h:
+/usr/include/aarch64-linux-gnu/bits/timesize.h:
 
-/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h:
+/usr/include/aarch64-linux-gnu/qt6/QtGui/qvectornd.h:
 
-/usr/include/c++/14/bits/enable_special_members.h:
+/usr/lib/aarch64-linux-gnu/cmake/Qt6/QtPublicSbomSystemDepHelpers.cmake:
 
-/usr/include/c++/14/bits/std_function.h:
+/usr/include/aarch64-linux-gnu/bits/setjmp.h:
 
-/usr/include/aarch64-linux-gnu/bits/typesizes.h:
-
-/usr/include/aarch64-linux-gnu/bits/cpu-set.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qttypetraits.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qtnoop.h:
+/usr/include/aarch64-linux-gnu/bits/timex.h:
 
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp:
 
@@ -1634,7 +1801,11 @@ CMakeFiles/3.31.6/CMakeCXXCompiler.cmake:
 
 /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake:
+
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qdeadlinetimer.h:
+
+/usr/share/cmake-3.31/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/bits/waitflags.h:
 
@@ -1670,11 +1841,21 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qfunctionpointer.h:
 
+/usr/lib/aarch64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsAdditionalTargetInfo.cmake:
+
+/usr/lib/aarch64-linux-gnu/cmake/Qt6Gui/Qt6GuiDependencies.cmake:
+
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SpeedHistory.h:
+
+/usr/include/c++/14/bits/string_view.tcc:
+
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QVariant:
 
 /usr/include/aarch64-linux-gnu/bits/types/time_t.h:
 
 /usr/include/aarch64-linux-gnu/bits/stdint-intn.h:
+
+/usr/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:
 
 /usr/include/c++/14/bits/cpp_type_traits.h:
 
@@ -1688,8 +1869,6 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/c++/14/bits/locale_classes.h:
 
-/usr/include/aarch64-linux-gnu/qt6/QtCore/q20type_traits.h:
-
 /usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h:
 
 /usr/include/aarch64-linux-gnu/bits/wordsize.h:
@@ -1702,17 +1881,11 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/aarch64-linux-gnu/c++/14/bits/error_constants.h:
 
-/usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreVersionlessAliasTargets.cmake:
-
-/usr/include/aarch64-linux-gnu/qt6/QtCore/qmalloc.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtGui/qtguiexports.h:
-
-/usr/include/aarch64-linux-gnu/qt6/QtCore/q20memory.h:
-
 /usr/include/c++/14/bits/stream_iterator.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QDir:
+
+/usr/share/cmake-3.31/Modules/Compiler/CrayClang-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/bits/types/error_t.h:
 
@@ -1732,6 +1905,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/c++/14/bits/postypes.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake:
+
 /usr/include/c++/14/initializer_list:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList:
@@ -1739,6 +1914,16 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qdirlisting.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/QSlider:
+
+/usr/lib/aarch64-linux-gnu/cmake/Qt6Core/Qt6CoreConfig.cmake:
+
+/usr/include/aarch64-linux-gnu/qt6/QtWidgets/QDialog:
+
+/usr/include/aarch64-linux-gnu/bits/stdint-uintn.h:
+
+/usr/include/aarch64-linux-gnu/qt6/QtCore/qtimer.h:
+
+/usr/include/c++/14/concepts:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qtimezone.h:
 
@@ -1798,6 +1983,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtGui/qaction.h:
 
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.cpp:
+
 /usr/include/aarch64-linux-gnu/qt6/QtGui/qcursor.h:
 
 /usr/include/aarch64-linux-gnu/c++/14/bits/gthr-default.h:
@@ -1805,6 +1992,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 /usr/include/c++/14/bits/uses_allocator_args.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qyieldcpu.h:
+
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SpeedHistory.cpp:
 
 /usr/include/aarch64-linux-gnu/qt6/QtGui/qfont.h:
 
@@ -1878,6 +2067,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/QLabel:
 
+/usr/share/cmake-3.31/Modules/CMakeTestCompilerCommon.cmake:
+
 /usr/include/c++/14/bits/stl_relops.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/QListWidget:
@@ -1940,6 +2131,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/qsystemtrayicon.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/Intel-DetermineCompiler.cmake:
+
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qcomparehelpers.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/__sigset_t.h:
@@ -1997,6 +2190,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 /usr/include/c++/14/bits/stl_iterator_base_funcs.h:
 
 /usr/include/c++/14/algorithm:
+
+/usr/share/cmake-3.31/Modules/Compiler/ARMCC-DetermineCompiler.cmake:
 
 /usr/include/aarch64-linux-gnu/qt6/QtCore/qscopedpointer.h:
 
@@ -2066,6 +2261,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/sched.h:
 
+/usr/include/aarch64-linux-gnu/qt6/QtCore/QPointF:
+
 /usr/include/aarch64-linux-gnu/qt6/QtWidgets/QMessageBox:
 
 /usr/include/c++/14/bits/new_allocator.h:
@@ -2110,6 +2307,8 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/c++/14/bits/stl_algo.h:
 
+/usr/share/cmake-3.31/Modules/Compiler/Tasking-DetermineCompiler.cmake:
+
 /usr/include/c++/14/cmath:
 
 /usr/include/c++/14/bits/stl_deque.h:
@@ -2134,8 +2333,6 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 
 /usr/include/c++/14/bits/streambuf_iterator.h:
 
-/usr/include/c++/14/bits/string_view.tcc:
-
 /usr/include/c++/14/bits/stringfwd.h:
 
 /usr/include/c++/14/bits/uniform_int_dist.h:
@@ -2145,8 +2342,6 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 /usr/include/c++/14/bits/unique_lock.h:
 
 /usr/include/c++/14/bits/unordered_map.h:
-
-/usr/include/c++/14/bits/uses_allocator.h:
 
 /usr/include/c++/14/bits/utility.h:
 
@@ -2225,9 +2420,3 @@ DIT-Transfer-Tools_autogen/moc_predefs.h:
 /usr/include/c++/14/queue:
 
 /usr/include/c++/14/string:
-
-/usr/include/c++/14/string_view:
-
-/usr/include/c++/14/system_error:
-
-/usr/include/c++/14/tr1/bessel_function.tcc:

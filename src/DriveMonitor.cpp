@@ -75,9 +75,8 @@ void DriveMonitor::pollDrives() {
         if (!currentPaths.contains(path)) {
             addDrive(path);
             emit driveConnected(path);
-            if (m_removedDrives.contains(path) && m_resumeOffsets.contains(path)) {
-                const ResumeInfo& info = m_resumeOffsets[path];
-                emit driveReconnected(path, info.lastFile, info.offset);
+            if (m_removedDrives.contains(path)) {
+                emit driveReconnected();
                 m_removedDrives.remove(path);
             }
         }
@@ -96,8 +95,22 @@ void DriveMonitor::pollDrives() {
 
 void DriveMonitor::scanDrives() {
     m_currentDrives = QStorageInfo::mountedVolumes();
-    for (const QStorageInfo& info : m_currentDrives) {
-        if (info.isReady() && isRemovableDrive(info)) {
+    QDir mediaMnt("/media/mnt");
+    if (mediaMnt.exists()) {
+        QStringList entries = mediaMnt.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+        for (const QString& entry : entries) {
+            QString path = "/media/mnt/" + entry;
+            QStorageInfo info(path);
+            if (info.isReady() && (info.device().contains("sd") || info.device().contains("mmc") || info.device().contains("usb"))) {
+                m_currentDrives.append(info);
+                addDrive(path);
+                emit driveConnected(path);
+            }
+        }
+    }
+    // Also scan other removable drives
+    for (const QStorageInfo& info : QStorageInfo::mountedVolumes()) {
+        if (info.isReady() && isRemovableDrive(info) && !info.rootPath().startsWith("/media/mnt")) {
             addDrive(info.rootPath());
             emit driveConnected(info.rootPath());
         }

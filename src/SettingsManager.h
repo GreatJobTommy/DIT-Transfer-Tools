@@ -38,6 +38,13 @@ public:
     bool getUseSystemNotifications() const;
     void setUseSystemNotifications(bool value);
 
+    // Logging settings
+    int getLogLevel() const;
+    void setLogLevel(int level);
+
+    QString getLogPath() const;
+    void setLogPath(const QString& path);
+
     void setValue(const QString& key, const QVariant& value);
     QVariant value(const QString& key, const QVariant& defaultValue = QVariant());
 

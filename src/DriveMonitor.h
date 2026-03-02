@@ -6,6 +6,7 @@
 #include <QFileSystemWatcher>
 #include <QTimer>
 #include <QMap>
+#include <QSet>
 #include <QStringList>
 #include <QString>
 
@@ -32,14 +33,12 @@ signals:
     void driveConnected(const QString& path);
     void driveDisconnected(const QString& path);
     void driveReconnected();
-    void driveReconnected(const QString& path, const QString& lastFile, qint64 offset);
     void driveAdded(const QString& drive);
     void driveRemoved(const QString& drive);
 
 private slots:
     void onDirectoryChanged(const QString& path);
     void pollDrives();
-    void checkDrives();
 
 private:
     void scanDrives();

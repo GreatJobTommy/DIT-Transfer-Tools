@@ -4,10 +4,6 @@
 #include <QObject>
 #include <QList>
 #include <QPointF>
-#include <QtCharts/QChart>
-#include <QtCharts/QLineSeries>
-
-QT_CHARTS_USE_NAMESPACE
 
 class SpeedHistory : public QObject {
     Q_OBJECT
@@ -17,11 +13,10 @@ public:
     ~SpeedHistory();
 
     void addSpeed(qreal speed); // speed in MB/s
-    QChart* createChart() const;
     qreal averageSpeed() const;
 
 private:
-    QList<QPointF> m_speedData;
+    QList<qreal> m_speedData;
     static const int MAX_POINTS = 100;
 };
 

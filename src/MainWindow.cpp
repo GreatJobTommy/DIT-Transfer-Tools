@@ -18,7 +18,9 @@
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QFileDialog>
-#include <QtCharts/QChartView>
+#include <QProcess>
+#include <QStandardPaths>
+//#include <QtCharts/QChartView>
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
@@ -26,19 +28,25 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
-    m_speedHistory = new SpeedHistory(this);
+    m_logsDock = new LogsDockWidget(this);
 
-    setWindowTitle("DIT Transfer Tools v3.3");
+    setWindowTitle("DIT Transfer Tools v1.1");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
 
     // Setup tray icon
     m_trayIcon = new QSystemTrayIcon(this);
     m_trayIcon->setIcon(windowIcon());
-    m_trayIcon->setToolTip("DIT Transfer Tools v3.3");
+    m_trayIcon->setToolTip("DIT Transfer Tools v1.1");
     m_trayIcon->show();
 
     setupUI();
     setupHotkeys();
+
+    // Setup logs dock
+    addDockWidget(Qt::BottomDockWidgetArea, m_logsDock);
+    m_errorManager->setLogsWidget(m_logsDock);
+    m_errorManager->setLogLevel(static_cast<ErrorManager::LogLevel>(m_settingsManager->getLogLevel()));
+    m_logsDock->setLogPath(m_settingsManager->getLogPath());
 
     // Connect signals
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
@@ -51,33 +59,34 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     connect(m_queue, &QueueManager::taskCompleted, this, &MainWindow::onTaskCompleted);
     connect(m_queue, &QueueManager::taskFailed, this, &MainWindow::onTaskFailed);
     connect(m_queue, &QueueManager::taskPaused, this, &MainWindow::onTaskPaused);
-    connect(m_driveMonitor, &DriveMonitor::driveReconnected, this, &MainWindow::onDriveReconnected);
-
-    // For demo, add some tasks
-    TransferTask* t1 = new TransferTask("src1", "dst1");
-    TransferTask* t2 = new TransferTask("src2", "dst2");
-    connect(t1, &TransferTask::progressChanged, this, &MainWindow::onProgressChanged);
-    connect(t2, &TransferTask::progressChanged, this, &MainWindow::onProgressChanged);
-    m_queue->addTask(t1);
-    m_queue->addTask(t2);
-    m_progressMonitor->addTask(t1);
-    m_progressMonitor->addTask(t2);
+    // connect(m_driveMonitor, QOverload<const QString&, const QString&, qint64>::of(&DriveMonitor::driveReconnected), this, &MainWindow::onDriveReconnected);
 
     updateLists();
-    updateDashboard();
 }
 
 MainWindow::~MainWindow() {}
 
 void MainWindow::setupUI() {
-    m_tabWidget = new QTabWidget;
-    setCentralWidget(m_tabWidget);
+    QWidget* central = new QWidget;
+    setCentralWidget(central);
+    QVBoxLayout* layout = new QVBoxLayout(central);
 
-    createDashboardTab();
-    createQueueTab();
-    createDrivesTab();
-    createSettingsTab();
-    createProgressTab();
+    QLabel* title = new QLabel("DIT Transfer Tools v1.0");
+    title->setAlignment(Qt::AlignCenter);
+    layout->addWidget(title);
+
+    m_waitingList = new QListWidget;
+    m_waitingList->setObjectName("waitingList");
+    layout->addWidget(new QLabel("Queue List:"));
+    layout->addWidget(m_waitingList);
+
+    QPushButton* addBtn = new QPushButton("Add Task");
+    connect(addBtn, &QPushButton::clicked, this, &MainWindow::addTask);
+    layout->addWidget(addBtn);
+
+    QPushButton* startBtn = new QPushButton("Start All");
+    // connect(startBtn, &QPushButton::clicked, [this]() { m_queue->startAll(); });
+    layout->addWidget(startBtn);
 }
 
 void MainWindow::setupHotkeys() {
@@ -112,6 +121,10 @@ void MainWindow::createDashboardTab() {
     QVBoxLayout* progressLayout = new QVBoxLayout(progressCard);
     m_progressLabel = new QLabel("Overall: 0%");
     progressLayout->addWidget(m_progressLabel);
+
+    m_overallProgress = new QProgressBar;
+    m_overallProgress->setObjectName("overallProgress");
+    progressLayout->addWidget(m_overallProgress);
 
     // Errors card
     QGroupBox* errorsCard = new QGroupBox("Errors");
@@ -281,11 +294,11 @@ void MainWindow::createProgressTab() {
     m_overallProgress->setObjectName("overallProgress");
     layout->addWidget(m_overallProgress);
 
-    QLabel* chartLabel = new QLabel("Speed History");
-    layout->addWidget(chartLabel);
+    // QLabel* chartLabel = new QLabel("Speed History");
+    // layout->addWidget(chartLabel);
 
-    QChartView* chartView = new QChartView(m_speedHistory->createChart());
-    layout->addWidget(chartView);
+    // QChartView* chartView = new QChartView(m_speedHistory->createChart());
+    // layout->addWidget(chartView);
 
     QLabel* logLabel = new QLabel("Transfer Logs");
     layout->addWidget(logLabel);
@@ -307,14 +320,13 @@ void MainWindow::updateLists() {
 }
 
 void MainWindow::addTask() {
-    AddTaskDialog dialog(this);
-    if (dialog.exec() == QDialog::Accepted) {
-        TransferTask* task = dialog.getTask();
-        m_queue->addTask(task);
-        m_progressMonitor->addTask(task);
-        updateLists();
-        updateDashboard();
-    }
+    // For minimal test, add a dummy task
+    static int count = 1;
+    TransferTask* task = new TransferTask(QString("test_src_%1").arg(count), QString("test_dst_%1").arg(count));
+    count++;
+    m_queue->addTask(task);
+    m_progressMonitor->addTask(task);
+    updateLists();
 }
 
 void MainWindow::onFilesDropped(const QStringList& files) {
@@ -329,8 +341,17 @@ void MainWindow::onFilesDropped(const QStringList& files) {
 }
 
 void MainWindow::ejectDrive() {
-    // Placeholder for eject
-    qDebug() << "Eject drive";
+    QListWidgetItem* item = m_drivesList->currentItem();
+    if (!item) return;
+    QString text = item->text();
+    int idx = text.indexOf(": ");
+    if (idx == -1) return;
+    QString path = text.mid(idx + 2);
+    idx = path.indexOf(" (");
+    if (idx != -1) path = path.left(idx);
+    // Eject using umount
+    QProcess::execute("umount", QStringList() << path);
+    updateDrives();
 }
 
 void MainWindow::updateDashboard() {
@@ -360,16 +381,28 @@ void MainWindow::updateProgress() {
 }
 
 void MainWindow::onProgressChanged(qint64 bytes, qint64 speed, qint64 eta) {
-    qreal speedMBs = speed / (1024.0 * 1024.0); // convert to MB/s
-    m_speedHistory->addSpeed(speedMBs);
+    // Minimal: just debug
+    qDebug() << "Progress:" << bytes << "bytes," << speed << "B/s";
 }
 
 void MainWindow::updateDrives() {
     m_drivesList->clear();
     for (const QStorageInfo& info : m_driveMonitor->getCurrentDrives()) {
         if (info.isReady()) {
-            QListWidgetItem* item = new QListWidgetItem(info.rootPath() + " (" + QString::number(info.bytesAvailable() / 1024 / 1024) + " MB free)");
-            item->setIcon(QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon));
+            QString type;
+            QIcon icon;
+            if (info.device().contains("sd") || info.device().contains("mmc")) {
+                type = "SD";
+                icon = QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon); // Floppy as placeholder for SD
+            } else if (info.device().contains("usb")) {
+                type = "USB";
+                icon = QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon); // HD for USB
+            } else {
+                type = "Drive";
+                icon = QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon);
+            }
+            QListWidgetItem* item = new QListWidgetItem(type + ": " + info.rootPath() + " (" + QString::number(info.bytesAvailable() / 1024 / 1024 / 1024) + " GB free)");
+            item->setIcon(icon);
             m_drivesList->addItem(item);
         }
     }

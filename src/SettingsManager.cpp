@@ -72,6 +72,23 @@ void SettingsManager::setUseSystemNotifications(bool value) {
     setSetting("notifications/useSystem", value);
 }
 
+// Logging settings
+int SettingsManager::getLogLevel() const {
+    return getSetting("logging/level", 1).toInt(); // Default INFO
+}
+
+void SettingsManager::setLogLevel(int level) {
+    setSetting("logging/level", level);
+}
+
+QString SettingsManager::getLogPath() const {
+    return getSetting("logging/path", QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/dit-transfer-tools.log").toString();
+}
+
+void SettingsManager::setLogPath(const QString& path) {
+    setSetting("logging/path", path);
+}
+
 void SettingsManager::setValue(const QString& key, const QVariant& value) {
     setSetting(key, value);
 }

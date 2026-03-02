@@ -1,4 +1,4 @@
-QT += core gui widgets network concurrent charts
+QT += core gui widgets
 
 CONFIG += c++17
 
@@ -15,8 +15,7 @@ SOURCES += \
     src/AddTaskDialog.cpp \
     src/ProgressMonitor.cpp \
     src/ErrorManager.cpp \
-    src/SettingsManager.cpp \
-    src/SpeedHistory.cpp
+    src/SettingsManager.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -28,8 +27,7 @@ HEADERS += \
     src/ProgressMonitor.h \
     src/ErrorManager.h \
     src/SettingsManager.h \
-    src/DragDropList.h \
-    src/SpeedHistory.h
+    src/DragDropList.h
 
 FORMS += \
     src/AddTaskDialog.ui

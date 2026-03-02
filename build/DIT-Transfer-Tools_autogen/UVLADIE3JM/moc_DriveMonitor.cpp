@@ -46,6 +46,8 @@ static constexpr auto qt_meta_stringdata_ZN12DriveMonitorE = QtMocHelpers::strin
     "driveAdded",
     "drive",
     "driveRemoved",
+    "lastFile",
+    "offset",
     "onDirectoryChanged",
     "pollDrives",
     "checkDrives"
@@ -60,24 +62,25 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12DriveMonitorE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   62,    2, 0x06,    1 /* Public */,
-       4,    1,   65,    2, 0x06,    3 /* Public */,
-       5,    0,   68,    2, 0x06,    5 /* Public */,
-       6,    1,   69,    2, 0x06,    6 /* Public */,
-       8,    1,   72,    2, 0x06,    8 /* Public */,
+       1,    1,   68,    2, 0x06,    1 /* Public */,
+       4,    1,   71,    2, 0x06,    3 /* Public */,
+       5,    0,   74,    2, 0x06,    5 /* Public */,
+       6,    1,   75,    2, 0x06,    6 /* Public */,
+       8,    1,   78,    2, 0x06,    8 /* Public */,
+       5,    3,   81,    2, 0x06,   10 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    1,   75,    2, 0x08,   10 /* Private */,
-      10,    0,   78,    2, 0x08,   12 /* Private */,
-      11,    0,   79,    2, 0x08,   13 /* Private */,
+      11,    1,   88,    2, 0x08,   14 /* Private */,
+      12,    0,   91,    2, 0x08,   16 /* Private */,
+      13,    0,   92,    2, 0x08,   17 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -85,6 +88,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12DriveMonitorE[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::LongLong,    3,    9,   10,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -117,6 +121,11 @@ Q_CONSTINIT const QMetaObject DriveMonitor::staticMetaObject = { {
         // method 'driveRemoved'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'driveReconnected'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qint64, std::false_type>,
         // method 'onDirectoryChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
@@ -138,9 +147,10 @@ void DriveMonitor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 2: _t->driveReconnected(); break;
         case 3: _t->driveAdded((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 4: _t->driveRemoved((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 5: _t->onDirectoryChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 6: _t->pollDrives(); break;
-        case 7: _t->checkDrives(); break;
+        case 5: _t->driveReconnected((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<qint64>>(_a[3]))); break;
+        case 6: _t->onDirectoryChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 7: _t->pollDrives(); break;
+        case 8: _t->checkDrives(); break;
         default: ;
         }
     }
@@ -181,6 +191,13 @@ void DriveMonitor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 return;
             }
         }
+        {
+            using _q_method_type = void (DriveMonitor::*)(const QString & , const QString & , qint64 );
+            if (_q_method_type _q_method = &DriveMonitor::driveReconnected; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+                *result = 5;
+                return;
+            }
+        }
     }
 }
 
@@ -203,14 +220,14 @@ int DriveMonitor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
@@ -247,5 +264,12 @@ void DriveMonitor::driveRemoved(const QString & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void DriveMonitor::driveReconnected(const QString & _t1, const QString & _t2, qint64 _t3)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_WARNING_POP

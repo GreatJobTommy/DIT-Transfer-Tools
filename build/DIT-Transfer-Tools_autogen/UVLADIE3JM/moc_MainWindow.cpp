@@ -58,7 +58,11 @@ static constexpr auto qt_meta_stringdata_ZN10MainWindowE = QtMocHelpers::stringD
     "task",
     "onTaskFailed",
     "onTaskPaused",
-    "onDriveReconnected"
+    "onDriveReconnected",
+    "onProgressChanged",
+    "bytes",
+    "speed",
+    "eta"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -70,7 +74,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,19 +82,20 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   92,    2, 0x08,    1 /* Private */,
-       3,    0,   93,    2, 0x08,    2 /* Private */,
-       4,    1,   94,    2, 0x08,    3 /* Private */,
-       6,    0,   97,    2, 0x08,    5 /* Private */,
-       7,    0,   98,    2, 0x08,    6 /* Private */,
-       8,    0,   99,    2, 0x08,    7 /* Private */,
-       9,    0,  100,    2, 0x08,    8 /* Private */,
-      10,    0,  101,    2, 0x08,    9 /* Private */,
-      11,    2,  102,    2, 0x08,   10 /* Private */,
-      15,    1,  107,    2, 0x08,   13 /* Private */,
-      18,    1,  110,    2, 0x08,   15 /* Private */,
-      19,    1,  113,    2, 0x08,   17 /* Private */,
-      20,    0,  116,    2, 0x08,   19 /* Private */,
+       1,    0,   98,    2, 0x08,    1 /* Private */,
+       3,    0,   99,    2, 0x08,    2 /* Private */,
+       4,    1,  100,    2, 0x08,    3 /* Private */,
+       6,    0,  103,    2, 0x08,    5 /* Private */,
+       7,    0,  104,    2, 0x08,    6 /* Private */,
+       8,    0,  105,    2, 0x08,    7 /* Private */,
+       9,    0,  106,    2, 0x08,    8 /* Private */,
+      10,    0,  107,    2, 0x08,    9 /* Private */,
+      11,    2,  108,    2, 0x08,   10 /* Private */,
+      15,    1,  113,    2, 0x08,   13 /* Private */,
+      18,    1,  116,    2, 0x08,   15 /* Private */,
+      19,    1,  119,    2, 0x08,   17 /* Private */,
+      20,    0,  122,    2, 0x08,   19 /* Private */,
+      21,    3,  123,    2, 0x08,   20 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -106,6 +111,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
     QMetaType::Void, 0x80000000 | 16,   17,
     QMetaType::Void, 0x80000000 | 16,   17,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::LongLong, QMetaType::LongLong, QMetaType::LongLong,   22,   23,   24,
 
        0        // eod
 };
@@ -150,7 +156,12 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<TransferTask *, std::false_type>,
         // method 'onDriveReconnected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onProgressChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qint64, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qint64, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qint64, std::false_type>
     >,
     nullptr
 } };
@@ -173,6 +184,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->onTaskFailed((*reinterpret_cast< std::add_pointer_t<TransferTask*>>(_a[1]))); break;
         case 11: _t->onTaskPaused((*reinterpret_cast< std::add_pointer_t<TransferTask*>>(_a[1]))); break;
         case 12: _t->onDriveReconnected(); break;
+        case 13: _t->onProgressChanged((*reinterpret_cast< std::add_pointer_t<qint64>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qint64>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<qint64>>(_a[3]))); break;
         default: ;
         }
     }
@@ -223,14 +235,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

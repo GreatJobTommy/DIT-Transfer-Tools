@@ -15,10 +15,12 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/DriveMonitor.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/ErrorManager.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/MainWindow.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/MainWindow.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/NotificationManager.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/NotificationManager.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/ParallelManager.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/ProgressMonitor.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/QueueManager.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/SettingsManager.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SpeedHistory.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/SpeedHistory.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/SpeedHistory.cpp.o.d"
   "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp" "CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.o" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/src/TransferTask.cpp.o.d"
   "" "DIT-Transfer-Tools" "gcc" "CMakeFiles/DIT-Transfer-Tools.dir/link.d"
   )
