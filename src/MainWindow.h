@@ -32,6 +32,12 @@ public:
 private slots:
     void updateLists();
     void addTask();
+    void addMultiTask();
+    void startQueue();
+    void runSpeedtest();
+    void showQueueContextMenu(const QPoint& pos);
+    void showDrivesContextMenu(const QPoint& pos);
+    void changeTheme(const QString& theme);
     void onFilesDropped(const QStringList& files);
     void ejectDrive();
     void updateProgress();
@@ -48,6 +54,7 @@ private:
     void createDashboardTab();
     void createQueueTab();
     void createDrivesTab();
+    void createNodeTab();
     void createSettingsTab();
 
     QueueManager* m_queue;

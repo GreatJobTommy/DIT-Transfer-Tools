@@ -10,7 +10,7 @@
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
-      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0) {
+      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0), m_hash(""), m_hashVerified(false) {
     QFileInfo fi(m_source);
     m_totalBytes = fi.exists() ? fi.size() : 1000000;
     m_process = new QProcess(this);
@@ -19,6 +19,7 @@ TransferTask::TransferTask(const QString& source, const QString& destination, QO
     m_retryTimer = new QTimer(this);
     connect(m_retryTimer, &QTimer::timeout, this, &TransferTask::retryTransfer);
     m_speedTimer.start();
+    m_durationTimer.start();
 }
 
 TransferTask::~TransferTask() {
@@ -190,4 +191,32 @@ void TransferTask::onProcessError(QProcess::ProcessError error) {
 void TransferTask::retryTransfer() {
     m_retryTimer->stop();
     run(); // Retry the transfer
+}
+
+int TransferTask::progress() const {
+    if (m_totalBytes == 0) return 0;
+    return (m_bytesTransferred * 100) / m_totalBytes;
+}
+
+qint64 TransferTask::remainingSize() const {
+    return m_totalBytes - m_bytesTransferred;
+}
+
+qint64 TransferTask::eta() const {
+    if (m_speedTimer.elapsed() == 0) return 0;
+    qint64 speed = m_bytesTransferred / (m_speedTimer.elapsed() / 1000.0);
+    if (speed == 0) return 0;
+    return remainingSize() / speed;
+}
+
+QString TransferTask::hash() const {
+    return m_hash;
+}
+
+bool TransferTask::hashVerified() const {
+    return m_hashVerified;
+}
+
+qint64 TransferTask::duration() const {
+    return m_durationTimer.elapsed() / 1000;
 }

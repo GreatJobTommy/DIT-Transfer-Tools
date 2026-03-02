@@ -1,0 +1,5 @@
+# Hashes of file build rules.
+655195fc1b2c9446d68adbaca458037c CMakeFiles/DIT-Transfer-Tools_autogen
+655195fc1b2c9446d68adbaca458037c CMakeFiles/test_queuemanager_autogen
+5116a67194ea36c3b5b92b57e25c8d01 DIT-Transfer-Tools_autogen/timestamp
+7735512f8a868ec8a67af7ce2bc21ed0 test_queuemanager_autogen/timestamp

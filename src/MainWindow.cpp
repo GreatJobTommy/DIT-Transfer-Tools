@@ -20,6 +20,9 @@
 #include <QFileDialog>
 #include <QProcess>
 #include <QStandardPaths>
+#include <QComboBox>
+#include <QMenu>
+#include <QListWidget>
 //#include <QtCharts/QChartView>
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
@@ -55,22 +58,19 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
 MainWindow::~MainWindow() {}
 
 void MainWindow::setupUI() {
-    QWidget* central = new QWidget;
-    setCentralWidget(central);
-    QVBoxLayout* layout = new QVBoxLayout(central);
+    m_tabWidget = new QTabWidget;
+    setCentralWidget(m_tabWidget);
 
-    QLabel* title = new QLabel("DIT Transfer Tools v1.0");
-    title->setAlignment(Qt::AlignCenter);
-    layout->addWidget(title);
+    createDashboardTab();
+    createQueueTab();
+    createDrivesTab();
+    createSettingsTab();
 
-    m_waitingList = new QListWidget;
-    m_waitingList->setObjectName("waitingList");
-    layout->addWidget(new QLabel("Queue List:"));
-    layout->addWidget(m_waitingList);
+    // Remove Progress tab as per task
+    // createProgressTab(); // Not implemented, removing
 
-    QPushButton* addBtn = new QPushButton("Add Task");
-    connect(addBtn, &QPushButton::clicked, this, &MainWindow::addTask);
-    layout->addWidget(addBtn);
+    // Node tab
+    createNodeTab();
 }
 
 void MainWindow::setupHotkeys() {
@@ -99,6 +99,17 @@ void MainWindow::createDashboardTab() {
     QVBoxLayout* drivesLayout = new QVBoxLayout(drivesCard);
     m_drivesCountLabel = new QLabel("Connected: 0");
     drivesLayout->addWidget(m_drivesCountLabel);
+
+    // USB ports info
+    QLabel* usbLabel = new QLabel("USB Ports:");
+    QListWidget* usbList = new QListWidget;
+    usbList->setMaximumHeight(100);
+    // Populate with max speed, recommend, colors
+    // Placeholder
+    usbList->addItem("Port 1: USB 3.0 - Max 5Gbps - Recommended for fast drives");
+    usbList->addItem("Port 2: USB 2.0 - Max 480Mbps - Use for slow devices");
+    drivesLayout->addWidget(usbLabel);
+    drivesLayout->addWidget(usbList);
     layout->addWidget(drivesCard, 0, 1);
 
     // Progress card
@@ -124,17 +135,92 @@ void MainWindow::createDashboardTab() {
     m_tabWidget->addTab(dashboard, QIcon(":/icons/dashboard.png"), "Dashboard");
 }
 
+void MainWindow::createQueueTab() {
+    QWidget* queueTab = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(queueTab);
 
+    // Hash dropdown
+    QHBoxLayout* hashLayout = new QHBoxLayout;
+    QLabel* hashLabel = new QLabel("Hash:");
+    QComboBox* hashCombo = new QComboBox;
+    hashCombo->addItems({"MD5", "SHA256", "SHA512"});
+    hashLayout->addWidget(hashLabel);
+    hashLayout->addWidget(hashCombo);
+    hashLayout->addStretch();
+    layout->addLayout(hashLayout);
 
+    // Queue list
+    m_waitingList = new QListWidget;
+    m_waitingList->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_waitingList, &QListWidget::customContextMenuRequested, this, &MainWindow::showQueueContextMenu);
+    layout->addWidget(new QLabel("Active Queue Tasks:"));
+    layout->addWidget(m_waitingList);
 
+    // Buttons
+    QHBoxLayout* btnLayout = new QHBoxLayout;
+    QPushButton* addBtn = new QPushButton("Add");
+    QPushButton* multiAddBtn = new QPushButton("+Multi");
+    QPushButton* startBtn = new QPushButton("Start");
+    btnLayout->addWidget(addBtn);
+    btnLayout->addWidget(multiAddBtn);
+    btnLayout->addWidget(startBtn);
+    btnLayout->addStretch();
+    layout->addLayout(btnLayout);
 
+    connect(addBtn, &QPushButton::clicked, this, &MainWindow::addTask);
+    connect(multiAddBtn, &QPushButton::clicked, this, &MainWindow::addMultiTask);
+    connect(startBtn, &QPushButton::clicked, this, &MainWindow::startQueue);
 
+    m_tabWidget->addTab(queueTab, QIcon(":/icons/queue.png"), "Queue");
+}
 
+void MainWindow::createDrivesTab() {
+    QWidget* drivesTab = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(drivesTab);
 
+    m_drivesList = new QListWidget;
+    m_drivesList->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_drivesList, &QListWidget::customContextMenuRequested, this, &MainWindow::showDrivesContextMenu);
+    layout->addWidget(new QLabel("Drives:"));
+    layout->addWidget(m_drivesList);
+
+    // Speedtest button
+    QPushButton* speedtestBtn = new QPushButton("Speedtest");
+    speedtestBtn->setStyleSheet("QPushButton { background-color: green; color: white; }"); // Color as per task
+    connect(speedtestBtn, &QPushButton::clicked, this, &MainWindow::runSpeedtest);
+    layout->addWidget(speedtestBtn);
+
+    m_tabWidget->addTab(drivesTab, QIcon(":/icons/drives.png"), "Drives");
+}
+
+void MainWindow::createNodeTab() {
+    QWidget* nodeTab = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(nodeTab);
+
+    // Placeholder for graph flows to queue
+    QLabel* graphLabel = new QLabel("Node Graph Flows to Queue");
+    layout->addWidget(graphLabel);
+
+    // TODO: Implement graph
+
+    m_tabWidget->addTab(nodeTab, QIcon(":/icons/node.png"), "Node");
+}
 
 void MainWindow::createSettingsTab() {
     QWidget* settingsTab = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout(settingsTab);
+
+    // Theme
+    QHBoxLayout* themeLayout = new QHBoxLayout;
+    QLabel* themeLabel = new QLabel("Theme:");
+    QComboBox* themeCombo = new QComboBox;
+    themeCombo->addItems({"Light", "Dark"});
+    themeLayout->addWidget(themeLabel);
+    themeLayout->addWidget(themeCombo);
+    themeLayout->addStretch();
+    layout->addLayout(themeLayout);
+
+    connect(themeCombo, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::changeTheme);
 
     // Parallel transfers
     QLabel* parallelLabel = new QLabel("Max Parallel Transfers");
@@ -270,9 +356,31 @@ void MainWindow::createSettingsTab() {
 
 void MainWindow::updateLists() {
     m_waitingList->clear();
+
+    // Active tasks
+    for (auto task : m_queue->activeTasks()) {
+        QString progress = QString("%1%").arg(task->progress());
+        QString statusStr;
+        switch (task->status()) {
+        case TransferStatus::Pending: statusStr = "Pending"; break;
+        case TransferStatus::Active: statusStr = "Active"; break;
+        case TransferStatus::Paused: statusStr = "Paused"; break;
+        case TransferStatus::Completed: statusStr = "Completed"; break;
+        case TransferStatus::Failed: statusStr = "Failed"; break;
+        }
+        QString remaining = QString("%1 GB").arg(task->remainingSize() / 1e9, 0, 'f', 2);
+        QString eta = QString("%1s").arg(task->eta());
+        QString text = QString("%1 -> %2 | %3 | %4 | %5 | ETA: %6")
+                       .arg(task->source(), task->destination(), progress, statusStr, remaining, eta);
+        QListWidgetItem* item = new QListWidgetItem(text);
+        item->setData(Qt::UserRole, QVariant::fromValue(task)); // Store task pointer
+        m_waitingList->addItem(item);
+    }
+
+    // Waiting tasks
     for (auto task : m_queue->waitingTasks()) {
-        QListWidgetItem* item = new QListWidgetItem(task->source() + " -> " + task->destination());
-        item->setToolTip("Drag to reorder");
+        QListWidgetItem* item = new QListWidgetItem(task->source() + " -> " + task->destination() + " | Waiting");
+        item->setData(Qt::UserRole, QVariant::fromValue(task));
         m_waitingList->addItem(item);
     }
 }
@@ -333,6 +441,22 @@ void MainWindow::settingChanged(const QString& key, const QVariant& value) {
 void MainWindow::onTaskCompleted(TransferTask* task) {
     if (!task) return;
     qDebug() << "Task completed:" << task->source() << "to" << task->destination();
+
+    // Create log file per dest
+    QString logDir = task->destination() + "/logs";
+    QDir().mkpath(logDir);
+    QString logFile = QString("%1/%2_%3.txt").arg(logDir, QDateTime::currentDateTime().toString("yyyy-MM-dd"), task->hash());
+    QFile file(logFile);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << "Date: " << QDateTime::currentDateTime().toString() << "\n";
+        out << "Hash: " << task->hash() << "\n";
+        out << "Compare: " << (task->hashVerified() ? "OK" : "Failed") << "\n";
+        out << "Status: Completed\n";
+        out << "Duration: " << task->duration() << "s\n";
+        out << "Source: " << task->source() << "\n";
+        out << "Destination: " << task->destination() << "\n";
+    }
 }
 
 void MainWindow::onTaskFailed(TransferTask* task) {
@@ -347,4 +471,51 @@ void MainWindow::onTaskPaused(TransferTask* task) {
 
 void MainWindow::onDriveReconnected() {
     qDebug() << "Drive reconnected";
+}
+
+void MainWindow::addMultiTask() {
+    // TODO: Implement multi-add
+    qDebug() << "Add multi task";
+}
+
+void MainWindow::startQueue() {
+    // TODO: Start all waiting tasks
+    qDebug() << "Start queue";
+}
+
+void MainWindow::runSpeedtest() {
+    // TODO: Run speedtest on selected drive
+    qDebug() << "Run speedtest";
+}
+
+void MainWindow::showQueueContextMenu(const QPoint& pos) {
+    QListWidgetItem* item = m_waitingList->itemAt(pos);
+    if (!item) return;
+
+    QMenu* menu = new QMenu(this);
+    menu->addAction("Pause", this, [this]() { /* pause task */ });
+    menu->addAction("Resume", this, [this]() { /* resume task */ });
+    menu->addAction("Cancel", this, [this]() { /* cancel task */ });
+    menu->addAction("Remove", this, [this]() { /* remove task */ });
+    menu->addAction("Log", this, [this]() { /* show log */ });
+    menu->exec(m_waitingList->mapToGlobal(pos));
+}
+
+void MainWindow::showDrivesContextMenu(const QPoint& pos) {
+    QListWidgetItem* item = m_drivesList->itemAt(pos);
+    if (!item) return;
+
+    QMenu* menu = new QMenu(this);
+    menu->addAction("Speedtest Read", this, [this]() { /* speedtest read */ });
+    menu->addAction("Speedtest Write", this, [this]() { /* speedtest write */ });
+    menu->addAction("Cancel", this, [this]() { /* cancel */ });
+    menu->exec(m_drivesList->mapToGlobal(pos));
+}
+
+void MainWindow::changeTheme(const QString& theme) {
+    if (theme == "Dark") {
+        qApp->setStyleSheet("QMainWindow { background-color: #2b2b2b; color: #ffffff; }");
+    } else {
+        qApp->setStyleSheet("");
+    }
 }

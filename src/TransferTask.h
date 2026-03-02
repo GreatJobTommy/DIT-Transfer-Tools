@@ -32,6 +32,12 @@ public:
     bool success() const;
     qint64 totalBytes() const;
     qint64 bytesTransferred() const;
+    int progress() const;
+    qint64 remainingSize() const;
+    qint64 eta() const;
+    QString hash() const;
+    bool hashVerified() const;
+    qint64 duration() const;
 
     bool isRcloneRemote() const;
 
@@ -64,6 +70,9 @@ private:
     qint64 m_chunkSize;
     QElapsedTimer m_speedTimer;
     qint64 m_lastBytes;
+    QString m_hash;
+    bool m_hashVerified;
+    QElapsedTimer m_durationTimer;
 };
 
 #endif // TRANSFERTASK_H
