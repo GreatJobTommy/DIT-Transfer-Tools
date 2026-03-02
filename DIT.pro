@@ -37,6 +37,10 @@ test_ui_clarity.target = test_ui_clarity
 test_ui_clarity.commands = cd tests && $(QMAKE) test_ui_clarity.pro && $(MAKE) && ./test_ui_clarity
 QMAKE_EXTRA_TARGETS += test_ui_clarity
 
+test_multi_target.target = test_multi_target
+test_multi_target.commands = cd tests && $(QMAKE) test_multi_target.pro && $(MAKE) && ./test_multi_target
+QMAKE_EXTRA_TARGETS += test_multi_target
+
 # Logs
 LOG_FILES += transfer_log.txt detailed.log
 

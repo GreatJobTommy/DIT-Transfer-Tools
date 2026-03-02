@@ -62,7 +62,8 @@ public:
 
 private slots:
     void browseSource();
-    void browseDest();
+    void addDestination();
+    void removeDestination();
     void validatePaths();
     void addToQueue();
     void updatePreview();
@@ -75,8 +76,9 @@ private:
 
     QLineEdit* m_sourceEdit;
     QPushButton* m_sourceBrowseBtn;
-    QLineEdit* m_destEdit;
-    QPushButton* m_destBrowseBtn;
+    QListWidget* m_destList;
+    QPushButton* m_addDestBtn;
+    QPushButton* m_removeDestBtn;
     QComboBox* m_presetCombo;
     FileDropList* m_dragList; // For drag multi-folder
     QTextEdit* m_previewEdit;

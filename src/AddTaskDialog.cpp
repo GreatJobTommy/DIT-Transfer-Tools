@@ -30,12 +30,18 @@ void AddTaskDialog::setupUI() {
     sourceLayout->addWidget(m_sourceBrowseBtn);
     pathLayout->addRow("Source:", sourceLayout);
 
-    m_destEdit = new QLineEdit;
-    m_destBrowseBtn = new QPushButton("Browse...");
-    QHBoxLayout* destLayout = new QHBoxLayout;
-    destLayout->addWidget(m_destEdit);
-    destLayout->addWidget(m_destBrowseBtn);
-    pathLayout->addRow("Destination:", destLayout);
+    // Destinations list
+    QLabel* destLabel = new QLabel("Destinations:");
+    m_destList = new QListWidget;
+    m_destList->setMaximumHeight(100);
+    m_addDestBtn = new QPushButton("Add Dest...");
+    m_removeDestBtn = new QPushButton("Remove");
+    QHBoxLayout* destBtnLayout = new QHBoxLayout;
+    destBtnLayout->addWidget(m_addDestBtn);
+    destBtnLayout->addWidget(m_removeDestBtn);
+    pathLayout->addRow(destLabel);
+    pathLayout->addRow(m_destList);
+    pathLayout->addRow(destBtnLayout);
 
     mainLayout->addWidget(pathGroup);
 
@@ -81,9 +87,9 @@ void AddTaskDialog::setupUI() {
 
 void AddTaskDialog::setupConnections() {
     connect(m_sourceBrowseBtn, &QPushButton::clicked, this, &AddTaskDialog::browseSource);
-    connect(m_destBrowseBtn, &QPushButton::clicked, this, &AddTaskDialog::browseDest);
+    connect(m_addDestBtn, &QPushButton::clicked, this, &AddTaskDialog::addDestination);
+    connect(m_removeDestBtn, &QPushButton::clicked, this, &AddTaskDialog::removeDestination);
     connect(m_sourceEdit, &QLineEdit::textChanged, this, &AddTaskDialog::validatePaths);
-    connect(m_destEdit, &QLineEdit::textChanged, this, &AddTaskDialog::validatePaths);
     connect(m_addBtn, &QPushButton::clicked, this, &AddTaskDialog::addToQueue);
     connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
     connect(m_dragList, &FileDropList::pathsDropped, this, &AddTaskDialog::onPathsDropped);
@@ -96,10 +102,17 @@ void AddTaskDialog::browseSource() {
     }
 }
 
-void AddTaskDialog::browseDest() {
-    QString dir = QFileDialog::getExistingDirectory(this, "Select Destination Directory", m_destEdit->text());
+void AddTaskDialog::addDestination() {
+    QString dir = QFileDialog::getExistingDirectory(this, "Select Destination Directory");
     if (!dir.isEmpty()) {
-        m_destEdit->setText(dir);
+        m_destList->addItem(dir);
+    }
+}
+
+void AddTaskDialog::removeDestination() {
+    QList<QListWidgetItem*> selected = m_destList->selectedItems();
+    for (QListWidgetItem* item : selected) {
+        delete item;
     }
 }
 
@@ -110,11 +123,6 @@ void AddTaskDialog::validatePaths() {
     } else {
         m_sourceEdit->setStyleSheet(style.arg("red"));
     }
-    if (isValidPath(m_destEdit->text())) {
-        m_destEdit->setStyleSheet(style.arg("green"));
-    } else {
-        m_destEdit->setStyleSheet(style.arg("red"));
-    }
 }
 
 bool AddTaskDialog::isValidPath(const QString& path) const {
@@ -122,15 +130,20 @@ bool AddTaskDialog::isValidPath(const QString& path) const {
 }
 
 void AddTaskDialog::addToQueue() {
-    if (!isValidPath(m_sourceEdit->text()) || !isValidPath(m_destEdit->text())) {
-        QMessageBox::warning(this, "Invalid Paths", "Please select valid source and destination directories.");
+    if (!isValidPath(m_sourceEdit->text()) || m_destList->count() == 0) {
+        QMessageBox::warning(this, "Invalid Paths", "Please select valid source and at least one destination directory.");
         return;
     }
     accept();
 }
 
 TransferTask* AddTaskDialog::getTask() const {
-    return new TransferTask(m_sourceEdit->text(), m_destEdit->text());
+    QMap<QString, QString> dests;
+    for (int i = 0; i < m_destList->count(); ++i) {
+        QString dest = m_destList->item(i)->text();
+        dests[QString("dest%1").arg(i)] = dest; // Simple key
+    }
+    return new TransferTask(m_sourceEdit->text(), dests);
 }
 
 void AddTaskDialog::updatePreview() {

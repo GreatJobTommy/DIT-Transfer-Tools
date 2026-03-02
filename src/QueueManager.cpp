@@ -11,6 +11,7 @@ QueueManager::~QueueManager() {
 void QueueManager::addTask(TransferTask* task) {
     if (!task) return;
     connect(task, &TransferTask::statusChanged, this, &QueueManager::onTaskStatusChanged);
+    connect(task, &TransferTask::progressChanged, this, &QueueManager::onTaskProgressChanged);
     m_waiting.append(task);
     activateNext();
 }
@@ -57,6 +58,23 @@ void QueueManager::onTaskStatusChanged(TransferStatus status) {
         m_active.removeOne(task);
         activateNext();
     }
+}
+
+void QueueManager::onTaskProgressChanged(const QString& dest, qint64 bytes, qint64 speed, qint64 eta) {
+    emit progressChanged(dest, bytes, speed, eta);
+    // Calculate overall
+    qint64 totalBytes = 0;
+    qint64 totalTransferred = 0;
+    qint64 totalSpeed = 0;
+    for (TransferTask* task : m_active) {
+        totalBytes += task->totalBytes() * task->destinations().size();
+        for (qint64 b : task->bytesTransferredPerDest().values()) {
+            totalTransferred += b;
+        }
+        // Speed per dest, but approximate
+        totalSpeed += speed * task->destinations().size();
+    }
+    emit overallProgressChanged(totalBytes, totalTransferred, totalSpeed);
 }
 
 void QueueManager::activateNext() {

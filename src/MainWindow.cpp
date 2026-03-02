@@ -33,12 +33,19 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
     connect(m_driveMonitor, &DriveMonitor::driveConnected, this, &MainWindow::updateDrives);
     connect(m_driveMonitor, &DriveMonitor::driveDisconnected, this, &MainWindow::updateDrives);
+    connect(m_queue, &QueueManager::progressChanged, this, &MainWindow::onProgressChanged);
+    connect(m_queue, &QueueManager::overallProgressChanged, this, &MainWindow::onOverallProgressChanged);
 
     updateDrives();
 
     // For demo, add some tasks
-    TransferTask* t1 = new TransferTask("src1", "dst1");
-    TransferTask* t2 = new TransferTask("src2", "dst2");
+    QMap<QString, QString> dests1;
+    dests1["dest1"] = "/tmp/dst1";
+    dests1["dest2"] = "/tmp/dst1b";
+    TransferTask* t1 = new TransferTask("/tmp/src1", dests1);
+    QMap<QString, QString> dests2;
+    dests2["dest1"] = "/tmp/dst2";
+    TransferTask* t2 = new TransferTask("/tmp/src2", dests2);
     m_queue->addTask(t1);
     m_queue->addTask(t2);
     m_progressMonitor->addTask(t1);
@@ -125,7 +132,12 @@ void MainWindow::createQueueTab() {
             // Find task by matching text, simplistic
             QString text = m_waitingList->item(i)->text();
             for (auto task : m_queue->waitingTasks()) {
-                if (task->source() + " -> " + task->destination() == text) {
+                QString dests;
+                for (const QString& dest : task->destinations().values()) {
+                    if (!dests.isEmpty()) dests += ", ";
+                    dests += dest;
+                }
+                if (task->source() + " -> " + dests == text) {
                     newOrder.append(task);
                     break;
                 }
@@ -204,8 +216,22 @@ void MainWindow::createProgressTab() {
     m_overallProgress->setObjectName("overallProgress");
     layout->addWidget(m_overallProgress);
 
+    QLabel* perDestLabel = new QLabel("Per-Destination Progress");
+    layout->addWidget(perDestLabel);
+
+    m_progressScrollArea = new QScrollArea;
+    QWidget* progressWidget = new QWidget;
+    m_progressLayout = new QVBoxLayout(progressWidget);
+    m_progressScrollArea->setWidget(progressWidget);
+    m_progressScrollArea->setWidgetResizable(true);
+    layout->addWidget(m_progressScrollArea);
+
     QLabel* logLabel = new QLabel("Transfer Logs");
     layout->addWidget(logLabel);
+
+    m_logFilterCombo = new QComboBox;
+    m_logFilterCombo->addItem("All");
+    layout->addWidget(m_logFilterCombo);
 
     m_logView = new QTextEdit;
     m_logView->setReadOnly(true);
@@ -217,7 +243,12 @@ void MainWindow::createProgressTab() {
 void MainWindow::updateLists() {
     m_waitingList->clear();
     for (auto task : m_queue->waitingTasks()) {
-        QListWidgetItem* item = new QListWidgetItem(task->source() + " -> " + task->destination());
+        QString dests;
+        for (const QString& dest : task->destinations().values()) {
+            if (!dests.isEmpty()) dests += ", ";
+            dests += dest;
+        }
+        QListWidgetItem* item = new QListWidgetItem(task->source() + " -> " + dests);
         item->setToolTip("Drag to reorder");
         m_waitingList->addItem(item);
     }
@@ -237,7 +268,9 @@ void MainWindow::addTask() {
 void MainWindow::onFilesDropped(const QStringList& files) {
     for (const QString& file : files) {
         // Create task from dropped file
-        TransferTask* task = new TransferTask(file, "/tmp/dest"); // Placeholder dest
+        QMap<QString, QString> dests;
+        dests["drop"] = "/tmp/dest"; // Placeholder dest
+        TransferTask* task = new TransferTask(file, dests);
         m_queue->addTask(task);
         m_progressMonitor->addTask(task);
     }
@@ -293,6 +326,30 @@ void MainWindow::updateErrors() {
 
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
     if (key == "maxParallel") {
-        // Update parallel manager or something
+        m_queue->setMaxActive(value.toInt());
+        m_parallelSlider->setValue(value.toInt());
+        m_parallelLabel->setText(QString("Max Parallel: %1").arg(value.toInt()));
+    } else if (key == "autoStart") {
+        // Handle autostart
     }
+}
+
+void MainWindow::onProgressChanged(const QString& dest, qint64 bytes, qint64 speed, qint64 eta) {
+    if (!m_destProgressBars.contains(dest)) {
+        QProgressBar* bar = new QProgressBar;
+        bar->setMaximum(1000000); // Assume total
+        QLabel* label = new QLabel(dest);
+        QHBoxLayout* hlayout = new QHBoxLayout;
+        hlayout->addWidget(label);
+        hlayout->addWidget(bar);
+        m_progressLayout->addLayout(hlayout);
+        m_destProgressBars[dest] = bar;
+    }
+    QProgressBar* bar = m_destProgressBars[dest];
+    bar->setValue(bytes);
+}
+
+void MainWindow::onOverallProgressChanged(qint64 totalBytes, qint64 transferred, qint64 speed) {
+    m_overallProgress->setMaximum(totalBytes);
+    m_overallProgress->setValue(transferred);
 }

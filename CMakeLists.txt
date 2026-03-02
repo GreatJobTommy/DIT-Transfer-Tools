@@ -60,3 +60,7 @@ add_test(NAME TestErrorHandling COMMAND test_errorhandling)
 add_executable(test_ui_clarity tests/test_ui_clarity.cpp src/MainWindow.cpp src/QueueManager.cpp src/TransferTask.cpp src/DriveMonitor.cpp src/ProgressMonitor.cpp src/ErrorManager.cpp src/SettingsManager.cpp src/AddTaskDialog.cpp src/ParallelManager.cpp)
 target_link_libraries(test_ui_clarity Qt6::Core Qt6::Widgets Qt6::Test)
 add_test(NAME TestUIClarity COMMAND test_ui_clarity)
+
+add_executable(test_multi_target tests/test_multi_target.cpp src/TransferTask.cpp)
+target_link_libraries(test_multi_target Qt6::Core Qt6::Test)
+add_test(NAME TestMultiTarget COMMAND test_multi_target)

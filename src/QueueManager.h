@@ -25,6 +25,11 @@ public:
 
 private slots:
     void onTaskStatusChanged(TransferStatus status);
+    void onTaskProgressChanged(const QString& dest, qint64 bytes, qint64 speed, qint64 eta);
+
+signals:
+    void progressChanged(const QString& dest, qint64 bytes, qint64 speed, qint64 eta);
+    void overallProgressChanged(qint64 totalBytes, qint64 transferred, qint64 speed);
 
 private:
     void activateNext();

@@ -13,6 +13,8 @@
 #include <QSlider>
 #include <QLabel>
 #include <QAction>
+#include <QScrollArea>
+#include <QComboBox>
 #include "QueueManager.h"
 #include "AddTaskDialog.h"
 #include "DriveMonitor.h"
@@ -38,6 +40,8 @@ private slots:
     void updateProgress();
     void updateErrors();
     void settingChanged(const QString& key, const QVariant& value);
+    void onProgressChanged(const QString& dest, qint64 bytes, qint64 speed, qint64 eta);
+    void onOverallProgressChanged(qint64 totalBytes, qint64 transferred, qint64 speed);
 
 private:
     void setupUI();
@@ -75,6 +79,10 @@ private:
 
     // Progress
     QProgressBar* m_overallProgress;
+    QScrollArea* m_progressScrollArea;
+    QVBoxLayout* m_progressLayout;
+    QMap<QString, QProgressBar*> m_destProgressBars;
+    QComboBox* m_logFilterCombo;
     QTextEdit* m_logView;
 
     QAction* m_addTaskAction;
