@@ -1,0 +1,1 @@
+\"\"\"\nDIT Transfer Tools - Core package.\n\"\"\"\n\n__version__ = \"0.1.0\"
