@@ -13,12 +13,14 @@
 #include <QSlider>
 #include <QLabel>
 #include <QAction>
+#include <QSystemTrayIcon>
 #include "QueueManager.h"
 #include "AddTaskDialog.h"
 #include "DriveMonitor.h"
 #include "ProgressMonitor.h"
 #include "ErrorManager.h"
 #include "SettingsManager.h"
+#include "NotificationManager.h"
 #include "DragDropList.h"
 
 class MainWindow : public QMainWindow {
@@ -38,6 +40,10 @@ private slots:
     void updateProgress();
     void updateErrors();
     void settingChanged(const QString& key, const QVariant& value);
+    void onTaskCompleted(TransferTask* task);
+    void onTaskFailed(TransferTask* task);
+    void onTaskPaused(TransferTask* task);
+    void onDriveReconnected();
 
 private:
     void setupUI();
@@ -53,6 +59,7 @@ private:
     ProgressMonitor* m_progressMonitor;
     ErrorManager* m_errorManager;
     SettingsManager* m_settingsManager;
+    NotificationManager* m_notificationManager;
 
     QTabWidget* m_tabWidget;
 
@@ -78,6 +85,7 @@ private:
     QTextEdit* m_logView;
 
     QAction* m_addTaskAction;
+    QSystemTrayIcon* m_trayIcon;
 };
 
 #endif // MAINWINDOW_H

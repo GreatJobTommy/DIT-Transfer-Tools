@@ -1,18 +1,22 @@
-#include &lt;QTest&gt;
+#include <QtTest>
 #include "../src/ErrorManager.h"
 
 class TestErrorHandling : public QObject {
     Q_OBJECT
 
 private slots:
-    void testCategories() {
-        QCOMPARE(ErrorManager::categoryToString(ErrorCategory::DiskFull), QString("Disk Full"));
+    void testAddError() {
+        ErrorManager mgr;
+        mgr.addError("Test error");
+        QCOMPARE(mgr.getErrors().size(), 1);
+        QCOMPARE(mgr.getErrors().first(), QString("Test error"));
     }
 
-    void testRetryLogic() {
+    void testClearErrors() {
         ErrorManager mgr;
-        // Test would need mocking for full retry
-        QVERIFY(!mgr.retryLogic(3, 3));  // 4th attempt fails
+        mgr.addError("Test error");
+        mgr.clearErrors();
+        QVERIFY(mgr.getErrors().isEmpty());
     }
 };
 

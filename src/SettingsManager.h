@@ -22,6 +22,22 @@ public:
     bool getAutoStart() const;
     void setAutoStart(bool value);
 
+    QString getRcloneConfigPath() const;
+    void setRcloneConfigPath(const QString& path);
+
+    // Notification settings
+    bool getNotificationsEnabled() const;
+    void setNotificationsEnabled(bool value);
+
+    bool getNotificationSoundEnabled() const;
+    void setNotificationSoundEnabled(bool value);
+
+    QString getNotificationSoundFile() const;
+    void setNotificationSoundFile(const QString& file);
+
+    bool getUseSystemNotifications() const;
+    void setUseSystemNotifications(bool value);
+
     void setValue(const QString& key, const QVariant& value);
     QVariant value(const QString& key, const QVariant& defaultValue = QVariant());
 

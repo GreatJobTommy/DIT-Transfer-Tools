@@ -24,6 +24,7 @@ public:
 signals:
     void driveConnected(const QString& path);
     void driveDisconnected(const QString& path);
+    void driveReconnected();
     void driveAdded(const QString& drive);
     void driveRemoved(const QString& drive);
 

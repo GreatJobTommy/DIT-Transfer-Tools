@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QRunnable>
 #include <QFileInfo>
+#include <QProcess>
+#include <QTimer>
 
 enum class TransferStatus {
     Pending,
@@ -30,13 +32,18 @@ public:
     qint64 totalBytes() const;
     qint64 bytesTransferred() const;
 
-    // Other methods as needed, e.g., progress, etc.
+    bool isRcloneRemote() const;
 
     void run() override;
 
 signals:
     void statusChanged(TransferStatus status);
     void progressChanged(qint64 bytes, qint64 speed, qint64 eta);
+
+private slots:
+    void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void onProcessError(QProcess::ProcessError error);
+    void retryTransfer();
 
 private:
     QString m_source;
@@ -46,6 +53,12 @@ private:
     bool m_success;
     qint64 m_totalBytes;
     qint64 m_bytesTransferred;
+
+    QProcess* m_process;
+    QTimer* m_retryTimer;
+    int m_retryCount;
+    int m_maxRetries;
+    int m_backoffMs;
 };
 
 #endif // TRANSFERTASK_H

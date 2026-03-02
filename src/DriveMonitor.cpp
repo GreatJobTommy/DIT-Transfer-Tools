@@ -70,6 +70,7 @@ void DriveMonitor::pollDrives() {
         if (!currentPaths.contains(path)) {
             addDrive(path);
             emit driveConnected(path);
+            emit driveReconnected(); // Notify about reconnection
         }
     }
 

@@ -53,6 +53,22 @@ void QueueManager::setMaxActive(int max) {
 void QueueManager::onTaskStatusChanged(TransferStatus status) {
     TransferTask* task = qobject_cast<TransferTask*>(sender());
     if (!task) return;
+
+    // Emit notification signals
+    switch (status) {
+        case TransferStatus::Completed:
+            emit taskCompleted(task);
+            break;
+        case TransferStatus::Failed:
+            emit taskFailed(task);
+            break;
+        case TransferStatus::Paused:
+            emit taskPaused(task);
+            break;
+        default:
+            break;
+    }
+
     if (status == TransferStatus::Completed || status == TransferStatus::Failed) {
         m_active.removeOne(task);
         activateNext();

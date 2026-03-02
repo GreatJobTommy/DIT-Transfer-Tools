@@ -15,6 +15,9 @@
 #include <QProgressBar>
 #include <QStorageInfo>
 #include <QDebug>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
@@ -22,9 +25,18 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_errorManager = new ErrorManager(this);
     m_settingsManager = new SettingsManager(this);
+    m_notificationManager = new NotificationManager(this);
 
-    setWindowTitle("DIT Transfer Tools v2.2");
+    setWindowTitle("DIT Transfer Tools v3.3");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
+
+    // Setup tray icon
+    m_trayIcon = new QSystemTrayIcon(this);
+    m_trayIcon->setIcon(windowIcon());
+    m_trayIcon->setToolTip("DIT Transfer Tools v3.3");
+    m_trayIcon->show();
+
+    m_notificationManager->setTrayIcon(m_trayIcon);
 
     setupUI();
     setupHotkeys();
@@ -34,7 +46,19 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     connect(m_driveMonitor, &DriveMonitor::driveConnected, this, &MainWindow::updateDrives);
     connect(m_driveMonitor, &DriveMonitor::driveDisconnected, this, &MainWindow::updateDrives);
 
+    // Connect notification settings
+    m_notificationManager->setNotificationsEnabled(m_settingsManager->getNotificationsEnabled());
+    m_notificationManager->setSoundEnabled(m_settingsManager->getNotificationSoundEnabled());
+    m_notificationManager->setSoundFile(m_settingsManager->getNotificationSoundFile());
+    m_notificationManager->setUseSystemNotify(m_settingsManager->getUseSystemNotifications());
+
     updateDrives();
+
+    // Connect to queue for task notifications
+    connect(m_queue, &QueueManager::taskCompleted, this, &MainWindow::onTaskCompleted);
+    connect(m_queue, &QueueManager::taskFailed, this, &MainWindow::onTaskFailed);
+    connect(m_queue, &QueueManager::taskPaused, this, &MainWindow::onTaskPaused);
+    connect(m_driveMonitor, &DriveMonitor::driveReconnected, this, &MainWindow::onDriveReconnected);
 
     // For demo, add some tasks
     TransferTask* t1 = new TransferTask("src1", "dst1");
@@ -172,6 +196,7 @@ void MainWindow::createSettingsTab() {
     QWidget* settingsTab = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout(settingsTab);
 
+    // Parallel transfers
     QLabel* parallelLabel = new QLabel("Max Parallel Transfers");
     layout->addWidget(parallelLabel);
 
@@ -187,6 +212,63 @@ void MainWindow::createSettingsTab() {
 
     m_parallelLabel = new QLabel(QString("Max Parallel Transfers: %1").arg(m_parallelSlider->value()));
     layout->addWidget(m_parallelLabel);
+
+    layout->addSpacing(20);
+
+    // Notification settings
+    QGroupBox* notificationGroup = new QGroupBox("Notifications");
+    notificationGroup->setStyleSheet("QGroupBox { font-weight: bold; }");
+    QVBoxLayout* notificationLayout = new QVBoxLayout(notificationGroup);
+
+    // Enable notifications
+    QCheckBox* notificationsCheck = new QCheckBox("Enable notifications");
+    notificationsCheck->setChecked(m_settingsManager->getNotificationsEnabled());
+    connect(notificationsCheck, &QCheckBox::toggled, [this](bool checked) {
+        m_settingsManager->setNotificationsEnabled(checked);
+    });
+    notificationLayout->addWidget(notificationsCheck);
+
+    // Enable sound
+    QCheckBox* soundCheck = new QCheckBox("Enable notification sounds");
+    soundCheck->setChecked(m_settingsManager->getNotificationSoundEnabled());
+    connect(soundCheck, &QCheckBox::toggled, [this](bool checked) {
+        m_settingsManager->setNotificationSoundEnabled(checked);
+    });
+    notificationLayout->addWidget(soundCheck);
+
+    // Sound file
+    QHBoxLayout* soundFileLayout = new QHBoxLayout;
+    QLabel* soundFileLabel = new QLabel("Sound file:");
+    QLineEdit* soundFileEdit = new QLineEdit(m_settingsManager->getNotificationSoundFile());
+    QPushButton* soundFileButton = new QPushButton("Browse...");
+    soundFileLayout->addWidget(soundFileLabel);
+    soundFileLayout->addWidget(soundFileEdit);
+    soundFileLayout->addWidget(soundFileButton);
+
+    connect(soundFileEdit, &QLineEdit::textChanged, [this](const QString& text) {
+        m_settingsManager->setNotificationSoundFile(text);
+    });
+
+    connect(soundFileButton, &QPushButton::clicked, [soundFileEdit, this]() {
+        QString file = QFileDialog::getOpenFileName(nullptr, "Select Sound File",
+                                                   QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                   "Audio Files (*.wav *.ogg *.mp3 *.aiff);;All Files (*)");
+        if (!file.isEmpty()) {
+            soundFileEdit->setText(file);
+        }
+    });
+
+    notificationLayout->addLayout(soundFileLayout);
+
+    // Use system notifications
+    QCheckBox* systemNotifyCheck = new QCheckBox("Use system notifications (notify-send/DBUS)");
+    systemNotifyCheck->setChecked(m_settingsManager->getUseSystemNotifications());
+    connect(systemNotifyCheck, &QCheckBox::toggled, [this](bool checked) {
+        m_settingsManager->setUseSystemNotifications(checked);
+    });
+    notificationLayout->addWidget(systemNotifyCheck);
+
+    layout->addWidget(notificationGroup);
 
     layout->addStretch();
 
@@ -294,5 +376,41 @@ void MainWindow::updateErrors() {
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
     if (key == "maxParallel") {
         // Update parallel manager or something
+    } else if (key.startsWith("notifications/")) {
+        // Update notification settings
+        m_notificationManager->setNotificationsEnabled(m_settingsManager->getNotificationsEnabled());
+        m_notificationManager->setSoundEnabled(m_settingsManager->getNotificationSoundEnabled());
+        m_notificationManager->setSoundFile(m_settingsManager->getNotificationSoundFile());
+        m_notificationManager->setUseSystemNotify(m_settingsManager->getUseSystemNotifications());
     }
+}
+
+void MainWindow::onTaskCompleted(TransferTask* task) {
+    if (!task) return;
+    QString title = "Transfer Completed";
+    QString message = QString("Task '%1' to '%2' completed successfully.")
+                     .arg(task->source(), task->destination());
+    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Information);
+}
+
+void MainWindow::onTaskFailed(TransferTask* task) {
+    if (!task) return;
+    QString title = "Transfer Failed";
+    QString message = QString("Task '%1' to '%2' failed.")
+                     .arg(task->source(), task->destination());
+    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Critical);
+}
+
+void MainWindow::onTaskPaused(TransferTask* task) {
+    if (!task) return;
+    QString title = "Transfer Paused";
+    QString message = QString("Task '%1' to '%2' has been paused.")
+                     .arg(task->source(), task->destination());
+    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Warning);
+}
+
+void MainWindow::onDriveReconnected() {
+    QString title = "Drive Reconnected";
+    QString message = "A previously disconnected drive has been reconnected.";
+    m_notificationManager->showNotification(title, message, QSystemTrayIcon::Information);
 }

@@ -72,14 +72,17 @@ test_queuemanager_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/gnu/stubs.h \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QAbstractItemModel \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QDeadlineTimer \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QFileInfo \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QHash \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QList \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMap \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QMutex \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QObject \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QProcess \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QRunnable \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QString \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QVariant \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QtCore \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QtCoreDepends \

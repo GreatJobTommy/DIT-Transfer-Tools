@@ -44,7 +44,7 @@ void TestAddTask::testDialogAccept() {
 
 void TestAddTask::testDragDrop() {
     AddTaskDialog dialog;
-    DragDropList* list = dialog.findChild<DragDropList*>();
+    FileDropList* list = dialog.findChild<FileDropList*>();
     QVERIFY(list != nullptr);
     // Hard to simulate drop without QTest::mouseDrop
 }

@@ -23,6 +23,11 @@ public:
     int maxActive() const;
     void setMaxActive(int max);
 
+signals:
+    void taskCompleted(TransferTask* task);
+    void taskFailed(TransferTask* task);
+    void taskPaused(TransferTask* task);
+
 private slots:
     void onTaskStatusChanged(TransferStatus status);
 
