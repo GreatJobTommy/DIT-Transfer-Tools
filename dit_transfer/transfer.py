@@ -220,6 +220,9 @@ def transfer_sftp_to_local(
 def transfer_local(src: Path, dst: Path, verify=False):
     import shutil
 
+    if dst.exists() and dst.is_dir():
+        dst = dst / src.name
+
     if src.is_dir():
         shutil.copytree(src, dst, dirs_exist_ok=True, copy_function=shutil.copy2)
     else:
