@@ -39,9 +39,11 @@ public:
     bool hashVerified() const;
     qint64 duration() const;
 
+    bool isLTFS() const;
+
     bool isRcloneRemote() const;
 
-    void run() override;
+    void run();
 
 signals:
     void statusChanged(TransferStatus status);
@@ -51,6 +53,7 @@ private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void onProcessError(QProcess::ProcessError error);
     void retryTransfer();
+    void onReadyRead();
 
 private:
     QString m_source;
@@ -73,6 +76,7 @@ private:
     QString m_hash;
     bool m_hashVerified;
     QElapsedTimer m_durationTimer;
+    bool m_isLTFS{false};
 };
 
 #endif // TRANSFERTASK_H

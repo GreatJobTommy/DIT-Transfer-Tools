@@ -1,1 +1,1 @@
-test file
+"dummy test data for GUI CLI test"

@@ -1,11 +1,18 @@
 #include "QueueManager.h"
+#include <QThreadPool>
+#include <QCoreApplication>
+#include <QEventLoop>
 
 QueueManager::QueueManager(int maxActive, QObject* parent)
-    : QObject(parent), m_maxActive(maxActive) {}
+    : QObject(parent), m_maxActive(maxActive) {
+    m_threadPool.setMaxThreadCount(m_maxActive);
+}
 
 QueueManager::~QueueManager() {
-    qDeleteAll(m_active);
-    qDeleteAll(m_waiting);
+    m_threadPool.waitForDone();
+    QCoreApplication::processEvents();
+    m_waiting.clear();
+    m_active.clear();
 }
 
 void QueueManager::addTask(TransferTask* task) {
@@ -47,6 +54,7 @@ int QueueManager::maxActive() const {
 
 void QueueManager::setMaxActive(int max) {
     m_maxActive = max;
+    m_threadPool.setMaxThreadCount(m_maxActive);
     activateNext();
 }
 
@@ -80,5 +88,6 @@ void QueueManager::activateNext() {
         TransferTask* task = m_waiting.takeFirst();
         task->setStatus(TransferStatus::Active);
         m_active.append(task);
+        m_threadPool.start(task);
     }
 }

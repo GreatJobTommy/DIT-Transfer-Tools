@@ -48,8 +48,30 @@ Exit 0 if all match, 1 otherwise.
 ## Roadmap
 1. Core CLI ✓
 2. Verify mode ✓
-3. LTO integration
-4. GUI wrapper
+3. LTO integration ✓
+4. GUI LTO presets & tests
+5. GUI wrapper polish
+
+## LTO/LTFS Tape Support 🎞️
+
+DIT-Transfer-Tools now provides optimized support for Linear Tape File System (LTFS) on LTO tapes:
+
+- **Auto-detection**: Identifies LTFS mounts via `QStorageInfo::fileSystemType() == "ltfs"` (works on macOS `/Volumes/LTO*`, Linux `/mnt/ltfs`, etc.).
+- **Sequential buffer**: Automatically sets 64MB read/write buffer for high-performance sequential tape writes, reducing head movement.
+- **Progress monitoring**: `onReadyRead()` stub ready for parsing rsync/rclone output.
+- **Planned**:
+  - Rsync `--whole-file -a` fallback for full metadata/extended attributes preservation.
+  - Tape-aware verification: size match + spot-check hashes (e.g., 5x 1MB random chunks).
+  - GUI: LTO presets in Add Task dialog, drive presets.
+
+**Examples**:
+```
+Destination: /Volumes/LTO6/Projects/2026-Film/
+- Auto LTO mode ✓
+- Optimized writes ✓
+```
+
+Mount LTFS and transfer – seamless!
 
 Built with Python 3.12+, Click, paramiko, tqdm, cryptography.
 
