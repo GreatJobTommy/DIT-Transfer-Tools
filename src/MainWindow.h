@@ -72,7 +72,7 @@ private:
     QLabel* m_errorsCountLabel;
 
     // Queue
-    QListWidget* m_waitingList;
+    DragDropList* m_waitingList;
 
     // Drives
     QListWidget* m_drivesList;
@@ -85,6 +85,7 @@ private:
     QProgressBar* m_overallProgress;
 
     QAction* m_addTaskAction;
+    QAction* m_removeTaskAction;
     QSystemTrayIcon* m_trayIcon;
 };
 
