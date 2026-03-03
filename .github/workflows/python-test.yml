@@ -17,10 +17,8 @@ jobs:
     - name: Upgrade pip
       run: pip install --upgrade pip setuptools wheel
 
-    - name: Install dependencies
-      run: |
-        pip install hatchling
-        pip install -e .[dev]
+    - name: Install test dependencies
+      run: pip install pytest black ruff mypy
     - name: Test with pytest
       run: pytest tests/python -v
     - name: Lint with black
