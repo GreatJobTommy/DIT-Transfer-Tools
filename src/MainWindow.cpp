@@ -74,8 +74,8 @@ void MainWindow::setupUI() {
 }
 
 void MainWindow::setupHotkeys() {
-    m_addTaskAction = new QAction("Add Task", this);
-    m_addTaskAction->setShortcut(QKeySequence("Ctrl+A"));
+    m_addTaskAction = new QAction("Add Task (Ctrl+N)", this);
+    m_addTaskAction->setShortcut(QKeySequence("Ctrl+N"));
     connect(m_addTaskAction, &QAction::triggered, this, &MainWindow::addTask);
     addAction(m_addTaskAction);
 }
@@ -150,9 +150,9 @@ void MainWindow::createQueueTab() {
     layout->addLayout(hashLayout);
 
     // Queue list
-    m_waitingList = new QListWidget;
+    m_waitingList = new DragDropList(this);
     m_waitingList->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_waitingList, &QListWidget::customContextMenuRequested, this, &MainWindow::showQueueContextMenu);
+    connect(m_waitingList, &QListWidget::customContextMenuRequested, this, &MainWindow::showQueueContextMenu);\n    connect(m_waitingList, &DragDropList::filesDropped, this, &MainWindow::onFilesDropped);
     layout->addWidget(new QLabel("Active Queue Tasks:"));
     layout->addWidget(m_waitingList);
 

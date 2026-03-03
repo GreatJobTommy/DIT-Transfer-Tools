@@ -49,14 +49,24 @@ Exit 0 if all match, 1 otherwise.
 1. Core CLI ✓
 2. Verify mode ✓
 3. LTO integration ✓
-4. GUI LTO presets & tests
-5. GUI wrapper polish
+4. GUI LTO presets & tests ✓
+5. GUI wrapper polish ✓
+
+## Changelog
+
+**2026-03-03 - GUI Polish (roadmap #5)**  
+- Ctrl+N: add task  
+- Del: remove selected queue item  
+- Drag-drop files to waiting queue  
+- Theme toggle saves/loads  
+- Button tooltips  
+- Task failure QMessageBox  
 
 ## LTO/LTFS Tape Support 🎞️
 
 DIT-Transfer-Tools now provides optimized support for Linear Tape File System (LTFS) on LTO tapes:
 
-- **Auto-detection**: Identifies LTFS mounts via `QStorageInfo::fileSystemType() == "ltfs"` (works on macOS `/Volumes/LTO*`, Linux `/mnt/ltfs`, etc.).
+- **Auto-detection**: Identifies LTFS mounts via `QStorageInfo::fileSystemType() == &quot;ltfs&quot;` (works on macOS `/Volumes/LTO*`, Linux `/mnt/ltfs`, etc.).
 - **Sequential buffer**: Automatically sets 64MB read/write buffer for high-performance sequential tape writes, reducing head movement.
 - **Progress monitoring**: `onReadyRead()` stub ready for parsing rsync/rclone output.
 - **Planned**:

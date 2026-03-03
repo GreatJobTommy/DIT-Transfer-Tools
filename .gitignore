@@ -41,4 +41,7 @@
 *.dwo
 build/
 *.log
+moc_*.cpp
+Makefile
+DIT-Transfer-Tools
 Testing/
