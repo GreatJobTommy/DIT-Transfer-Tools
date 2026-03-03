@@ -8,12 +8,18 @@
 #include <QElapsedTimer>
 #include <QDebug>
 #include <QCoreApplication>\n#include <QRegularExpression>
+#include <QStorageInfo>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
       m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0), m_hash(""), m_hashVerified(false) {
     QFileInfo fi(m_source);
     m_totalBytes = fi.exists() ? fi.size() : 0;
+
+    QStorageInfo storageInfo(m_destination);
+    if (storageInfo.isValid()) {
+        m_isLTFS = storageInfo.fileSystemType().compare("ltfs", Qt::CaseInsensitive) == 0;
+    }
     m_process = new QProcess(this);
     connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &TransferTask::onProcessFinished);
     connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);\n    connect(m_process, &QProcess::readyReadStandardOutput, this, &TransferTask::onReadyRead);
@@ -89,6 +95,9 @@ void TransferTask::run() {
             return;
         }
         QDir().mkpath(QFileInfo(m_destination).absolutePath());
+        if (isLTFS()) {
+            m_chunkSize = 64LL * 1024 * 1024; // Large sequential buffer for LTFS tapes
+        }
         if (!destFile.open(QIODevice::WriteOnly)) {
             qWarning() << "Failed to open dest file:" << m_destination;
             sourceFile.close();
@@ -189,6 +198,13 @@ void TransferTask::onProcessError(QProcess::ProcessError error) {
     }
 }
 
+void TransferTask::onReadyRead() {
+    QByteArray data = m_process->readAllStandardOutput();
+    QString text = QString::fromUtf8(data);
+    qDebug() << "Process output:" << text;
+    // TODO: parse rsync/rclone progress JSON for progressChanged emit
+}
+
 void TransferTask::retryTransfer() {
     m_retryTimer->stop();
     run(); // Retry the transfer
@@ -220,4 +236,8 @@ bool TransferTask::hashVerified() const {
 
 qint64 TransferTask::duration() const {
     return m_durationTimer.elapsed() / 1000;
+}
+
+bool TransferTask::isLTFS() const {
+    return m_isLTFS;
 }

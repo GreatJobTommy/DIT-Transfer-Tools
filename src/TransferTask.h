@@ -39,6 +39,8 @@ public:
     bool hashVerified() const;
     qint64 duration() const;
 
+    bool isLTFS() const;
+
     bool isRcloneRemote() const;
 
     void run() override;
@@ -73,6 +75,7 @@ private:
     QString m_hash;
     bool m_hashVerified;
     QElapsedTimer m_durationTimer;
+    bool m_isLTFS{false};
 };
 
 #endif // TRANSFERTASK_H
