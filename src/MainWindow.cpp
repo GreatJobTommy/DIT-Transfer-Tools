@@ -152,7 +152,8 @@ void MainWindow::createQueueTab() {
     // Queue list
     m_waitingList = new DragDropList(this);
     m_waitingList->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_waitingList, &QListWidget::customContextMenuRequested, this, &MainWindow::showQueueContextMenu);\n    connect(m_waitingList, &DragDropList::filesDropped, this, &MainWindow::onFilesDropped);
+    connect(m_waitingList, &QListWidget::customContextMenuRequested, this, &MainWindow::showQueueContextMenu);
+    connect(m_waitingList, &DragDropList::filesDropped, this, &MainWindow::onFilesDropped);
     layout->addWidget(new QLabel("Active Queue Tasks:"));
     layout->addWidget(m_waitingList);
 
