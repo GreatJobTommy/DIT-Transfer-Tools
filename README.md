@@ -52,3 +52,18 @@ Exit 0 if all match, 1 otherwise.
 4. GUI wrapper
 
 Built with Python 3.12+, Click, paramiko, tqdm, cryptography.
+
+## LTO Support
+
+LTFS mount points fully supported as local paths.
+
+- Progress bars for slow random access
+- Copies file data/metadata (no hard links)
+- Verify by size (local) or hash compatible
+
+Example:
+```
+dit-transfer transfer ~/data /Volumes/LTO6/backup --verify
+```
+
+Closes #32: feat LTO integration.

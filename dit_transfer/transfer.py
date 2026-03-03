@@ -10,6 +10,16 @@ import configparser
 import uuid
 
 
+def get_dir_size(src_dir: Path) -> int:
+    total = 0
+    for p in src_dir.rglob('*'):
+        try:
+            if p.is_file():
+                total += p.stat().st_size
+        except OSError:
+            continue
+    return total
+
 class ProgressTracker:
     def __init__(self, pbar):
         self.pbar = pbar
@@ -217,17 +227,47 @@ def transfer_sftp_to_local(
                     raise RuntimeError("Checksum mismatch")
 
 
-def transfer_local(src: Path, dst: Path, verify=False):
-    import shutil
+def copy_file(src_path: str, dst_path: str, callback) -> None:
+    stat_src = os.stat(src_path)
+    total_size = stat_src.st_size
+    transferred = 0
+    os.makedirs(os.path.dirname(dst_path), exist_ok=True)
+    buf_size = 64 * 1024
+    with open(src_path, 'rb') as fsrc, open(dst_path, 'wb') as fdst:
+        while True:
+            chunk = fsrc.read(buf_size)
+            if not chunk:
+                break
+            fdst.write(chunk)
+            transferred += len(chunk)
+            callback(transferred, total_size)
+    os.utime(dst_path, ns=(stat_src.st_atime_ns, stat_src.st_mtime_ns))
+    os.chmod(dst_path, stat_src.st_mode)
 
+def transfer_local(src: Path, dst: Path, verify=False):
     if dst.exists() and dst.is_dir():
         dst = dst / src.name
 
-    if src.is_dir():
-        shutil.copytree(src, dst, dirs_exist_ok=True, copy_function=shutil.copy2)
-    else:
+    if src.is_file():
         dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dst)
+        total_size = src.stat().st_size
+        with tqdm(total=total_size, unit="B", unit_scale=True, desc=f"Copying {src.name}") as pbar:
+            tracker = ProgressTracker(pbar)
+            copy_file(str(src), str(dst), tracker.callback)
+    else:
+        total_size = get_dir_size(src)
+        with tqdm(total=total_size, unit="B", unit_scale=True, desc="Local transfer") as pbar:
+            def copy_tree(curr_src: Path, curr_dst: Path):
+                curr_dst.mkdir(parents=True, exist_ok=True)
+                for item in curr_src.iterdir():
+                    if item.is_symlink():
+                        continue
+                    if item.is_dir():
+                        copy_tree(item, curr_dst / item.name)
+                    else:
+                        tracker = ProgressTracker(pbar)
+                        copy_file(str(item), str(curr_dst / item.name), tracker.callback)
+            copy_tree(src, dst)
     if verify:
         if src.is_dir():
             for sfile in src.rglob("*"):
