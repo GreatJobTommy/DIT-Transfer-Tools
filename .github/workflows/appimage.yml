@@ -1,0 +1,69 @@
+name: Linux AppImage
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths: [ '&#39;**.cpp&#39;, '&#39;**.h&#39;, '&#39;**.ui&#39;, '&#39;CMakeLists.txt&#39;, &#39;.github/workflows/appimage.yml&#39; ]
+  pull_request:
+    branches: [ main ]
+    paths: [ '&#39;**.cpp&#39;, '&#39;**.h&#39;, '&#39;**.ui&#39;, &#39;CMakeLists.txt&#39;, &#39;.github/workflows/appimage.yml&#39; ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \\
+          build-essential \\
+          cmake \\
+          ninja-build \\
+          qt6-base-dev \\
+          qt6-tools-dev \\
+          qt6-tools-dev-tools
+
+    - name: Build
+      run: |
+        cmake -S . -B build -GNinja \\
+          -DCMAKE_BUILD_TYPE=Release \\
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
+        cmake --build build --config Release
+
+    - name: Download linuxdeploy
+      run: |
+        curl -sL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -o linuxdeploy-x86_64.AppImage
+        curl -sL https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage -o linuxdeploy-plugin-qt-x86_64.AppImage
+        chmod +x linuxdeploy-*.AppImage
+
+    - name: Package AppImage
+      run: |
+        mkdir -p AppDir/usr/{bin,share/applications}
+        cp build/DIT-Transfer-Tools AppDir/usr/bin/
+        cat &gt; AppDir/usr/share/applications/DIT-Transfer-Tools.desktop &lt;&lt; EOF
+        [Desktop Entry]
+        Name=DIT Transfer Tools
+        Comment=Transfer tools for DIT
+        Exec=DIT-Transfer-Tools
+        Icon=DIT-Transfer-Tools
+        Terminal=false
+        Type=Application
+        Categories=Utility;FileTools;
+        EOF
+        ./linuxdeploy-x86_64.AppImage \\
+          --appdir AppDir \\
+          --desktop-file AppDir/usr/share/applications/DIT-Transfer-Tools.desktop \\
+          --plugin qt \\
+          --output appimage
+
+    - name: Upload AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-Linux-AppImage
+        path: DIT-Transfer-Tools*.AppImage
+        retention-days: 30
