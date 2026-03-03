@@ -1,4 +1,5 @@
 #include "QueueManager.h"
+#include <QThreadPool>
 
 QueueManager::QueueManager(int maxActive, QObject* parent)
     : QObject(parent), m_maxActive(maxActive) {}
@@ -80,5 +81,6 @@ void QueueManager::activateNext() {
         TransferTask* task = m_waiting.takeFirst();
         task->setStatus(TransferStatus::Active);
         m_active.append(task);
+    QThreadPool::globalInstance()->start(task);
     }
 }

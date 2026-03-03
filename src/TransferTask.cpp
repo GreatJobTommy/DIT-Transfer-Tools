@@ -7,15 +7,16 @@
 #include <QFile>
 #include <QElapsedTimer>
 #include <QDebug>
+#include <QCoreApplication>\n#include <QRegularExpression>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
       m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0), m_hash(""), m_hashVerified(false) {
     QFileInfo fi(m_source);
-    m_totalBytes = fi.exists() ? fi.size() : 1000000;
+    m_totalBytes = fi.exists() ? fi.size() : 0;
     m_process = new QProcess(this);
     connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &TransferTask::onProcessFinished);
-    connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);
+    connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);\n    connect(m_process, &QProcess::readyReadStandardOutput, this, &TransferTask::onReadyRead);
     m_retryTimer = new QTimer(this);
     connect(m_retryTimer, &QTimer::timeout, this, &TransferTask::retryTransfer);
     m_speedTimer.start();

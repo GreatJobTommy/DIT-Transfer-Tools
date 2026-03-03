@@ -50,7 +50,7 @@ signals:
 private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void onProcessError(QProcess::ProcessError error);
-    void retryTransfer();
+    void retryTransfer();\n    void onReadyRead();
 
 private:
     QString m_source;
