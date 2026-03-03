@@ -83,6 +83,12 @@ private:
     QPushButton* m_addBtn;
     QPushButton* m_cancelBtn;
 
+    QGroupBox* m_ltoGroup;
+    QComboBox* m_ltoPresetCombo;
+    QSlider* m_bufferSlider;
+    QSpinBox* m_bufferSpinBox;
+    QCheckBox* m_verifyCheckBox;
+
     QStringList m_selectedPaths;
 };
 

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/dit-tools
+CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/dit-tools/build
+CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 
 # Utility rule file for DIT-Transfer-Tools_autogen.
 
@@ -71,9 +71,9 @@ CMakeFiles/DIT-Transfer-Tools_autogen: DIT-Transfer-Tools_autogen/timestamp
 DIT-Transfer-Tools_autogen/timestamp: /usr/lib/qt6/libexec/moc
 DIT-Transfer-Tools_autogen/timestamp: /usr/lib/qt6/libexec/uic
 DIT-Transfer-Tools_autogen/timestamp: CMakeFiles/DIT-Transfer-Tools_autogen.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target DIT-Transfer-Tools"
-	/usr/bin/cmake -E cmake_autogen /home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/AutogenInfo.json ""
-	/usr/bin/cmake -E touch /home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen/timestamp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target DIT-Transfer-Tools"
+	/usr/bin/cmake -E cmake_autogen /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/AutogenInfo.json ""
+	/usr/bin/cmake -E touch /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/timestamp
 
 CMakeFiles/DIT-Transfer-Tools_autogen.dir/codegen:
 .PHONY : CMakeFiles/DIT-Transfer-Tools_autogen.dir/codegen
@@ -92,6 +92,6 @@ CMakeFiles/DIT-Transfer-Tools_autogen.dir/clean:
 .PHONY : CMakeFiles/DIT-Transfer-Tools_autogen.dir/clean
 
 CMakeFiles/DIT-Transfer-Tools_autogen.dir/depend:
-	cd /home/openclaw/.openclaw/workspace/dit-tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/DIT-Transfer-Tools_autogen.dir/depend
 

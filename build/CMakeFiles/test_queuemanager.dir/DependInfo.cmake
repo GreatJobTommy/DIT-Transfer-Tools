@@ -9,10 +9,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "test_queuemanager_autogen/timestamp" "custom" "test_queuemanager_autogen/deps"
-  "/home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp" "CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o.d"
-  "/home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp" "CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o.d"
-  "/home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/mocs_compilation.cpp" "CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o.d"
-  "/home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp" "CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp" "CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp" "CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp" "CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o.d"
+  "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp" "CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o" "gcc" "CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o.d"
   "" "test_queuemanager" "gcc" "CMakeFiles/test_queuemanager.dir/link.d"
   )
 

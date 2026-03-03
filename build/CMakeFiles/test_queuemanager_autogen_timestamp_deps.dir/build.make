@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/dit-tools
+CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/dit-tools/build
+CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 
 # Utility rule file for test_queuemanager_autogen_timestamp_deps.
 
@@ -81,6 +81,6 @@ CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/clean:
 .PHONY : CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/clean
 
 CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/depend:
-	cd /home/openclaw/.openclaw/workspace/dit-tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir/depend
 
