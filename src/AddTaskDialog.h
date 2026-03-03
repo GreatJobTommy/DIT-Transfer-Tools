@@ -71,6 +71,10 @@ private slots:
     void addToQueue();
     void updatePreview();
     void onPathsDropped(const QStringList& paths);
+    void onDestChanged();
+    void refreshRemotes();
+    void updateDestFromRemote();
+    void parseRemotePath(const QString &url);
 
 private:
     void setupUI();
@@ -86,6 +90,12 @@ private:
     QTextEdit* m_previewEdit;
     QPushButton* m_addBtn;
     QPushButton* m_cancelBtn;
+
+    QGroupBox* m_rcloneGroup;
+    QComboBox* m_remoteCombo;
+    QPushButton* m_refreshRemotesBtn;
+    QLineEdit* m_remotePathEdit;
+    QPushButton* m_browseRemoteBtn;
 
     QGroupBox* m_ltoGroup;
     QComboBox* m_ltoPresetCombo;

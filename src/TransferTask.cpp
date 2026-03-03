@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QElapsedTimer>
 #include <QDebug>
+#include <QRegularExpression>
 #include <QCoreApplication>
 #include <QRegularExpression>
 #include <QStorageInfo>
@@ -72,19 +73,30 @@ qint64 TransferTask::bytesTransferred() const {
 }
 
 bool TransferTask::isRcloneRemote() const {
-    return m_destination.contains(':');
+    return m_source.startsWith("rclone://") || m_destination.startsWith("rclone://");
 }
 
 void TransferTask::run() {
     setStatus(TransferStatus::Active);
     if (isRcloneRemote()) {
         // Use rclone
-        QString rclonePath = "rclone"; // Assume in PATH, or get from settings
         QSettings settings;
         QString configPath = settings.value("rclone/configPath", QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/.config/rclone/rclone.conf").toString();
+        QString srcPath = m_source.startsWith("rclone://") ? m_source.mid(9) : m_source;
+        QString dstPath = m_destination.startsWith("rclone://") ? m_destination.mid(9) : m_destination;
         QStringList args;
-        args << "copy" << "--checksum" << "--config" << configPath << m_source << m_destination;
-        m_process->start(rclonePath, args);
+        args << "copy" << srcPath << dstPath << "--progress" << "--stats" << "1s" << "--retries" << "3" << "--low-level-retries" << "10" << "--transfers" << QString::number(QThread::idealThreadCount()) << "--checksum" << "--config" << configPath;
+        if (!m_preset.isEmpty()) {
+            if (m_preset == "S3 Fast") {
+                args << "--s3-upload-concurrency" << "8" << "--s3-chunk-size" << "5G";
+            } else if (m_preset == "GDrive") {
+                args << "--drive-use-trash" << "false" << "--drive-keep-revision-forever" << "true";
+            } else if (m_preset == "Safe Copy") {
+                args << "--checksum-mode" << "sha256";
+            }
+        }
+        m_process->setProcessChannelMode(QProcess::MergedChannels);
+        m_process->start("rclone", args);
     } else {
         // Real local file copy with dynamic chunking
         QFile sourceFile(m_source);
@@ -201,10 +213,21 @@ void TransferTask::onProcessError(QProcess::ProcessError error) {
 }
 
 void TransferTask::onReadyRead() {
-    QByteArray data = m_process->readAllStandardOutput();
-    QString text = QString::fromUtf8(data);
-    qDebug() << "Process output:" << text;
-    // TODO: parse rsync/rclone progress JSON for progressChanged emit
+    QString output = QString::fromUtf8(m_process->readAllStandardOutput());
+    qDebug() << "Process output:" << output;
+    QRegularExpression re(R"(Transferred:\\s+([\\d.]+)\\s+([KGTM]i?B)\\s*/\\s+([\\d.]+)\\s+([KGTM]i?B),\\s+(\\d+)%?,\\s+([\\d.]+)\\s+([KGTM]i?B)/s(?:,\\s+ETA\\s+(.+))?)");
+    QRegularExpressionMatch match = re.match(output);
+    if (match.hasMatch()) {
+        qint64 done = parseSize(match.captured(1) + match.captured(2));
+        qint64 total = parseSize(match.captured(3) + match.captured(4));
+        qint64 speed = parseSize(match.captured(6) + match.captured(7));
+        QString etaStr = match.captured(8);
+        qint64 eta = parseEta(etaStr);
+        if (total > 0) m_totalBytes = total;
+        m_bytesTransferred = done;
+        emit progressChanged(done, speed, eta);
+        qDebug() << "Parsed rclone:" << done << "/" << total << speed << eta;
+    }
 }
 
 void TransferTask::retryTransfer() {
@@ -242,4 +265,49 @@ qint64 TransferTask::duration() const {
 
 bool TransferTask::isLTFS() const {
     return m_isLTFS;
+}
+
+qint64 TransferTask::parseSize(const QString &sizeStr) {
+    QString s = sizeStr.trimmed();
+    if (s.isEmpty()) return 0;
+    QRegularExpression re(R"(^([\\d.]+)\\s*([KMBTG]i?b?)$)");
+    QRegularExpressionMatch m = re.match(s);
+    if (!m.hasMatch()) {
+        return s.replace(",","").toDouble();
+    }
+    double num = m.captured(1).toDouble();
+    QString unit = m.captured(2).toUpper();
+    qint64 mult = 1;
+    QChar first = unit[0];
+    if (first == 'K') mult = 1024LL;
+    else if (first == 'M') mult = 1024LL * 1024;
+    else if (first == 'G') mult = 1024LL * 1024 * 1024LL;
+    else if (first == 'T') mult = 1024LL * 1024 * 1024LL * 1024LL;
+    return qint64(num * mult);
+}
+
+qint64 TransferTask::parseEta(const QString &etaStr) {
+    if (etaStr.trimmed().isEmpty()) return 0;
+    QString s = etaStr.trimmed().toLower();
+    qint64 secs = 0;
+    int posH = s.indexOf('h');
+    if (posH != -1) {
+        secs += s.left(posH).toInt() * 3600;
+        s = s.mid(posH + 1);
+    }
+    int posM = s.indexOf('m');
+    if (posM != -1) {
+        secs += s.left(posM).toInt() * 60;
+        s = s.mid(posM + 1);
+    }
+    int posS = s.indexOf('s');
+    if (posS != -1) {
+        secs += s.left(posS).toInt();
+    } else {
+        secs += s.toInt();
+    }
+    return secs;
+}
+void TransferTask::setPreset(const QString& preset) {
+    m_preset = preset;
 }

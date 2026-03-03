@@ -4,6 +4,10 @@
 #include <QSplitter>
 #include <QApplication>
 #include <QUrl>
+#include <QProcess>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QMessageBox>
 
 AddTaskDialog::AddTaskDialog(QWidget* parent)
     : QDialog(parent), m_selectedPaths(QStringList()) {
@@ -46,10 +50,31 @@ void AddTaskDialog::setupUI() {
     m_presetCombo->addItem("Default");
     m_presetCombo->addItem("Fast Copy");
     m_presetCombo->addItem("Safe Copy");
+    m_presetCombo->addItem("S3 Fast");
+    m_presetCombo->addItem("GDrive");
     presetLayout->addWidget(new QLabel("Preset:"));
     presetLayout->addWidget(m_presetCombo);
     presetLayout->addStretch();
     mainLayout->addWidget(presetGroup);
+
+    // Rclone
+    m_rcloneGroup = new QGroupBox("Rclone Remote");
+    QFormLayout* rcloneLayout = new QFormLayout(m_rcloneGroup);
+    QHBoxLayout* remoteLayout = new QHBoxLayout();
+    m_remoteCombo = new QComboBox();
+    remoteLayout->addWidget(m_remoteCombo);
+    m_refreshRemotesBtn = new QPushButton("Refresh");
+    remoteLayout->addWidget(m_refreshRemotesBtn);
+    rcloneLayout->addRow("Remote:", remoteLayout);
+
+    QHBoxLayout* remotePathLayout = new QHBoxLayout();
+    m_remotePathEdit = new QLineEdit("/");
+    remotePathLayout->addWidget(m_remotePathEdit);
+    m_browseRemoteBtn = new QPushButton("Browse Path");
+    remotePathLayout->addWidget(m_browseRemoteBtn);
+    rcloneLayout->addRow("Path:", remotePathLayout);
+    mainLayout->addWidget(m_rcloneGroup);
+    m_rcloneGroup->hide();
 
     // Drag Multi-Folder and Preview
     QSplitter* splitter = new QSplitter(Qt::Horizontal);
@@ -87,6 +112,10 @@ void AddTaskDialog::setupConnections() {
     connect(m_addBtn, &QPushButton::clicked, this, &AddTaskDialog::addToQueue);
     connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
     connect(m_dragList, &FileDropList::pathsDropped, this, &AddTaskDialog::onPathsDropped);
+    connect(m_destEdit, &QLineEdit::textChanged, this, &AddTaskDialog::onDestChanged);
+    connect(m_refreshRemotesBtn, &QPushButton::clicked, this, &AddTaskDialog::refreshRemotes);
+    connect(m_remoteCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AddTaskDialog::updateDestFromRemote);
+    connect(m_remotePathEdit, &QLineEdit::textChanged, this, &AddTaskDialog::updateDestFromRemote);
 }
 
 void AddTaskDialog::browseSource() {
@@ -130,7 +159,9 @@ void AddTaskDialog::addToQueue() {
 }
 
 TransferTask* AddTaskDialog::getTask() const {
-    return new TransferTask(m_sourceEdit->text(), m_destEdit->text());
+    TransferTask* task = new TransferTask(m_sourceEdit->text(), m_destEdit->text());
+    task->setPreset(m_presetCombo->currentText());
+    return task;
 }
 
 void AddTaskDialog::updatePreview() {
@@ -146,4 +177,55 @@ void AddTaskDialog::updatePreview() {
 void AddTaskDialog::onPathsDropped(const QStringList& paths) {
     m_selectedPaths.append(paths);
     updatePreview();
+}
+
+void AddTaskDialog::onDestChanged() {
+    QString dest = m_destEdit->text().trimmed();
+    if (dest.startsWith("rclone://")) {
+        parseRemotePath(dest);
+        m_rcloneGroup->show();
+    } else {
+        m_rcloneGroup->hide();
+    }
+    validatePaths();
+}
+
+void AddTaskDialog::parseRemotePath(const QString &url) {
+    if (!url.startsWith("rclone://")) return;
+    QString raw = url.mid(9);
+    int colPos = raw.indexOf(':');
+    if (colPos == -1) return;
+    QString remote = raw.left(colPos + 1);
+    QString path = raw.mid(colPos + 1);
+    int idx = m_remoteCombo->findText(remote);
+    if (idx != -1) m_remoteCombo->setCurrentIndex(idx);
+    m_remotePathEdit->setText(path);
+}
+
+void AddTaskDialog::updateDestFromRemote() {
+    if (m_remoteCombo->currentIndex() == -1) return;
+    QString remote = m_remoteCombo->currentText();
+    QString path = m_remotePathEdit->text();
+    if (!path.isEmpty() && !path.startsWith("/")) path.prepend("/");
+    m_destEdit->setText("rclone://" + remote + path);
+}
+
+void AddTaskDialog::refreshRemotes() {
+    QProcess *proc = new QProcess(this);
+    QSettings settings;
+    QString configPath = settings.value("rclone/configPath", QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/.config/rclone/rclone.conf").toString();
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus status) {
+        if (exitCode == 0 && status == QProcess::NormalExit) {
+            QString output = QString::fromUtf8(proc->readAllStandardOutput()).trimmed();
+            QStringList remotes = output.split("\\n", Qt::SkipEmptyParts);
+            m_remoteCombo->clear();
+            for (const QString &r : remotes) {
+                m_remoteCombo->addItem(r.trimmed());
+            }
+        } else {
+            QMessageBox::warning(this, "Rclone Error", "Could not list remotes. Ensure rclone config exists.");
+        }
+        proc->deleteLater();
+    });
+    proc->start("rclone", QStringList() << "listremotes" << "--config" << configPath);
 }
