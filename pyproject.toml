@@ -27,6 +27,7 @@ dev = [
 
 [project.scripts]
 dit-transfer = "dit_transfer.cli:cli"
+dit-gui = "dit_transfer.gui:main"
 
 [tool.hatch.version]
 path = "dit_transfer/version.py"
