@@ -51,6 +51,8 @@ Exit 0 if all match, 1 otherwise.
 3. LTO integration ✓
 4. GUI LTO presets & tests ✓
 5. GUI wrapper polish ✓
+6. Advanced Verify GUI ✓
+7. Rclone Polish &amp; GUI Integration
 
 ## Changelog
 
