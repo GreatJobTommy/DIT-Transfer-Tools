@@ -67,12 +67,12 @@ void AddTaskDialog::setupUI() {
     remoteLayout->addWidget(m_refreshRemotesBtn);
     rcloneLayout->addRow("Remote:", remoteLayout);
 
-    QHBoxLayout* pathLayout = new QHBoxLayout();
+    QHBoxLayout* remotePathLayout = new QHBoxLayout();
     m_remotePathEdit = new QLineEdit("/");
-    pathLayout->addWidget(m_remotePathEdit);
+    remotePathLayout->addWidget(m_remotePathEdit);
     m_browseRemoteBtn = new QPushButton("Browse Path");
-    pathLayout->addWidget(m_browseRemoteBtn);
-    rcloneLayout->addRow("Path:", pathLayout);
+    remotePathLayout->addWidget(m_browseRemoteBtn);
+    rcloneLayout->addRow("Path:", remotePathLayout);
     mainLayout->addWidget(m_rcloneGroup);
     m_rcloneGroup->hide();
 

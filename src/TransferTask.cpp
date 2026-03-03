@@ -308,3 +308,6 @@ qint64 TransferTask::parseEta(const QString &etaStr) {
     }
     return secs;
 }
+void TransferTask::setPreset(const QString& preset) {
+    m_preset = preset;
+}
