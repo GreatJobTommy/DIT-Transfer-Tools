@@ -3,11 +3,22 @@ name: Linux AppImage
 on:
   push:
     branches: [ main, develop ]
-    paths: [ ''**.cpp', ''**.h', ''**.ui', ''CMakeLists.txt', '.github/workflows/appimage.yml' ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.h'
+      - '**/*.ui'
+      - 'CMakeLists.txt'
+      - '.github/workflows/appimage.yml'
   pull_request:
     branches: [ main ]
-    paths: [ ''**.cpp', ''**.h', ''**.ui', 'CMakeLists.txt', '.github/workflows/appimage.yml' ]
-
+    paths:
+      - '**/*.cpp'
+      - '**/*.h'
+      - '**/*.ui'
+      - 'CMakeLists.txt'
+      - '.github/workflows/appimage.yml'
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-24.04

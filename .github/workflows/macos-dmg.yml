@@ -17,7 +17,8 @@ on:
       - '**/*.ui'
       - 'CMakeLists.txt'
       - '.github/workflows/macos-dmg.yml'
-
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: macos-14

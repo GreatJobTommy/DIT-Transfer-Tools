@@ -4,7 +4,8 @@ on:
     branches: [ main, fix/* ]
   pull_request:
     branches: [ main ]
-
+permissions:
+  contents: read
 jobs:
   test:
     runs-on: ubuntu-latest
