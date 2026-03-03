@@ -1,0 +1,278 @@
+name: Release DIT-Transfer-Tools
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  linux-appimage:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          qt6-base-dev \
+          qt6-tools-dev \
+          qt6-tools-dev-tools
+
+    - name: Build
+      run: |
+        cmake -S . -B build -GNinja \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
+        cmake --build build --config Release
+
+    - name: Download linuxdeploy
+      run: |
+        curl -sL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -o linuxdeploy-x86_64.AppImage
+        curl -sL https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage -o linuxdeploy-plugin-qt-x86_64.AppImage
+        chmod +x linuxdeploy-*.AppImage
+
+    - name: Package AppImage
+      run: |
+        mkdir -p AppDir/usr/{bin,share/applications}
+        cp build/DIT-Transfer-Tools AppDir/usr/bin/
+        cat &gt; AppDir/usr/share/applications/DIT-Transfer-Tools.desktop &lt;&lt; EOF
+        [Desktop Entry]
+        Name=DIT Transfer Tools
+        Comment=Transfer tools for DIT
+        Exec=DIT-Transfer-Tools
+        Icon=DIT-Transfer-Tools
+        Terminal=false
+        Type=Application
+        Categories=Utility;FileTools;
+        EOF
+        ./linuxdeploy-x86_64.AppImage \
+          --appdir AppDir \
+          --desktop-file AppDir/usr/share/applications/DIT-Transfer-Tools.desktop \
+          --plugin qt \
+          --output appimage
+
+    - name: Signing Placeholder (Linux)
+      run: |
+        echo &quot;Linux AppImage signing optional - add if needed&quot;
+
+    - name: Upload AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-Linux-AppImage
+        path: DIT-Transfer-Tools*.AppImage
+        retention-days: 30
+
+  macos-dmg:
+    runs-on: macos-14
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        brew install cmake ninja qt@6 node
+
+    - name: Build
+      run: |
+        QT_PREFIX=$(brew --prefix qt@6)
+        cmake -S . -B build -G Ninja \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+          -DCMAKE_PREFIX_PATH=${QT_PREFIX}
+        cmake --build build --config Release
+
+    - name: Deploy Qt app bundle
+      run: |
+        mkdir -p DIT-Transfer-Tools.app/Contents/MacOS
+        cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
+        ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
+
+    - name: Install create-dmg
+      run: npm install -g create-dmg
+
+    - name: Create DMG
+      run: create-dmg &quot;DIT-Transfer-Tools.app&quot; &quot;DIT-Transfer-Tools-macos.dmg&quot;
+
+    - name: Notarization Placeholder
+      run: |
+        echo &quot;macOS notarization placeholder&quot;
+        # Uncomment and configure secrets when ready:
+        # xcrun notarytool submit DIT-Transfer-Tools-macos.dmg \
+        #   --apple-id &quot;${{ secrets.APPLE_ID }}&quot; \
+        #   --apple-id-password &quot;${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}&quot; \
+        #   --team-id &quot;${{ secrets.APPLE_TEAM_ID }}&quot; \
+        #   --wait
+        # xcrun stapler staple DIT-Transfer-Tools-macos.dmg
+
+    - name: Upload DMG
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-macos.dmg
+        path: DIT-Transfer-Tools-macos.dmg
+        retention-days: 30
+
+  windows-nsis:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.6.2'
+
+    - name: Configure CMake
+      shell: bash
+      run: |
+        rm -rf build
+        mkdir build
+        cd build
+        cmake .. -G &quot;Visual Studio 17 2022&quot; -A x64 -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      shell: bash
+      run: |
+        cd build
+        cmake --build . --config Release
+
+    - name: Deploy Qt app
+      shell: cmd
+      run: |
+        mkdir DIT-Transfer-Tools
+        copy &quot;build\\Release\\DIT-Transfer-Tools.exe&quot; &quot;DIT-Transfer-Tools\\DIT-Transfer-Tools.exe&quot;
+        windeployqt.exe &quot;DIT-Transfer-Tools&quot; --release --compiler-runtime --no-translations
+
+    - name: Install Chocolatey
+      shell: powershell
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+    - name: Install NSIS
+      shell: powershell
+      run: |
+        choco install nsis -y --force
+        echo &quot;C:\\Program Files (x86)\\NSIS&quot; | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
+    - name: Create installer.nsi
+      shell: bash
+      run: |
+        VERSION=${GITHUB_REF_NAME#v}
+        PRODVER=${VERSION}.0
+        cat &gt; installer.nsi &lt;&lt; 'EOF'
+!include &quot;MUI2.nsh&quot;
+!define MUI_ABORTWARNING
+!define APPNAME &quot;DIT Transfer Tools&quot;
+!define APPVERSION &quot;PLACEHOLDER_VERSION&quot;
+Name &quot;\${APPNAME} \${APPVERSION}&quot;
+OutFile &quot;DIT-Transfer-Tools-setup.exe&quot;
+InstallDirRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot;
+RequestExecutionLevel admin
+VIProductVersion &quot;PLACEHOLDER_PRODVER&quot;
+VIAddVersionKey &quot;ProductName&quot; &quot;\${APPNAME}&quot;
+VIAddVersionKey &quot;CompanyName&quot; &quot;GreatJobTommy&quot;
+VIAddVersionKey &quot;FileDescription&quot; &quot;\${APPNAME} Installer&quot;
+Page directory
+Page instfiles
+UninstPage instfiles
+Section &quot;Program&quot;
+  SetOutPath &quot;$INSTDIR&quot;
+  File /r &quot;DIT-Transfer-Tools\\*.*&quot;
+  CreateDirectory &quot;$SMPROGRAMS\\${APPNAME}&quot;
+  CreateShortcut &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
+  CreateShortcut &quot;$DESKTOP\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
+  WriteUninstaller &quot;$INSTDIR\\uninstall.exe&quot;
+  WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;DisplayName&quot; &quot;${APPNAME}&quot;
+  WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;UninstallString&quot; &quot;$INSTDIR\\uninstall.exe&quot;
+  WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot; &quot;$INSTDIR&quot;
+SectionEnd
+Section &quot;Uninstall&quot;
+  Delete &quot;$INSTDIR\\uninstall.exe&quot;
+  RMDir /r &quot;$INSTDIR&quot;
+  Delete &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot;
+  RMDir &quot;$SMPROGRAMS\\${APPNAME}&quot;
+  Delete &quot;$DESKTOP\\${APPNAME}.lnk&quot;
+  DeleteRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot;
+SectionEnd
+EOF
+        sed -i &quot;s|PLACEHOLDER_VERSION|${VERSION}|g&quot; installer.nsi
+        sed -i &quot;s|PLACEHOLDER_PRODVER|${PRODVER}|g&quot; installer.nsi
+
+    - name: Build NSIS installer
+      shell: cmd
+      run: makensis.exe installer.nsi
+
+    - name: Signing Placeholder (Windows)
+      shell: cmd
+      run: |
+        echo Signing placeholder - configure secrets
+        REM signtool sign /fd sha256 /tr http://timestamp.digicert.com /td sha256 /f &quot;%USERPROFILE%\.codesign\cert.pfx&quot; /p &quot;pass&quot; DIT-Transfer-Tools-setup.exe
+        REM Example: download PFX from secrets.CODE_SIGNING_PFX_BASE64 | base64 -d &gt; cert.pfx
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-windows-nsis
+        path: DIT-Transfer-Tools-setup.exe
+        retention-days: 30
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: [linux-appimage, macos-dmg, windows-nsis]
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: DIT-Transfer-Tools-*
+        merge-multiple: true
+
+    - name: Install dependencies
+      run: sudo apt-get update &amp;&amp; sudo apt-get install -y jq
+
+    - name: Create GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        # Create release
+        cat &gt; payload.json &lt;&lt; EOF
+        {
+          &quot;tag_name&quot;: &quot;${{ github.ref_name }}&quot;,
+          &quot;name&quot;: &quot;DIT Transfer Tools ${{ github.ref_name }}&quot;,
+          &quot;generate_release_notes&quot;: true
+        }
+        EOF
+        RELEASE_ID=$(curl -s -X POST \
+          -H &quot;Authorization: Bearer $GITHUB_TOKEN&quot; \
+          -H &quot;Accept: application/vnd.github+json&quot; \
+          https://api.github.com/repos/${{ github.repository }}/releases \
+          -d @payload.json | jq -r .id)
+
+        # Upload assets
+        for file in artifacts/*/*; do
+          if [ -f &quot;$file&quot; ]; then
+            echo &quot;Uploading $file...&quot;
+            curl -s -X POST \
+              -H &quot;Authorization: Bearer $GITHUB_TOKEN&quot; \
+              -H &quot;Accept: application/vnd.github+json&quot; \
+              -H &quot;Content-Type: application/octet-stream&quot; \
+              https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets \
+              --data-binary &quot;@$file&quot; \
+              -o /dev/null
+          fi
+        done
+        echo &quot;Release created with ID $RELEASE_ID&quot;
