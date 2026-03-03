@@ -95,6 +95,7 @@ jobs:
 
     - name: Deploy Qt app bundle
       run: |
+        QT_PREFIX=$(brew --prefix qt@6)
         mkdir -p DIT-Transfer-Tools.app/Contents/MacOS
         cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
         ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
