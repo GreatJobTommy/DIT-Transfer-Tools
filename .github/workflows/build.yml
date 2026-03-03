@@ -2,7 +2,7 @@ name: Build DIT-Transfer-Tools
 
 on:
   push:
-    branches: [ main, &#39;feature-*&#39; ]
+    branches: [ main, 'feature-*' ]
   pull_request:
     branches: [ main ]
 
@@ -19,7 +19,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: &#39;6.6.2&#39;
+        version: '6.6.2'
 
     - name: Configure CMake
       shell: bash
@@ -27,8 +27,8 @@ jobs:
         rm -rf build
         mkdir build
         cd build
-        if [ &quot;${{ runner.os }}&quot; = &quot;Windows&quot; ]; then
-          cmake .. -G &quot;Visual Studio 17 2022&quot; -A x64 -DCMAKE_BUILD_TYPE=Release
+        if [ "${{ runner.os }}" = "Windows" ]; then
+          cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
         else
           cmake .. -DCMAKE_BUILD_TYPE=Release
         fi
@@ -37,7 +37,7 @@ jobs:
       shell: bash
       run: |
         cd build
-        if [ &quot;${{ runner.os }}&quot; = &quot;Windows&quot; ]; then
+        if [ "${{ runner.os }}" = "Windows" ]; then
           cmake --build . --config Release
         else
           cmake --build . --parallel
@@ -47,7 +47,7 @@ jobs:
       shell: bash
       run: |
         cd build
-        if [ &quot;${{ runner.os }}&quot; = &quot;Windows&quot; ]; then
+        if [ "${{ runner.os }}" = "Windows" ]; then
           ctest -C Release -V
         else
           ctest -V
@@ -63,7 +63,7 @@ jobs:
         retention-days: 1
 
     - name: Package and Sign macOS DMG
-      if: matrix.os == &#39;macos-latest&#39;
+      if: matrix.os == 'macos-latest'
       env:
         MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE_P12_BASE64 }}
         MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
@@ -77,49 +77,49 @@ jobs:
       run: |
         # Create keychain
         security create-keychain \\
-          -p &quot;$KEYCHAIN_PASSWORD&quot; \\
+          -p "$KEYCHAIN_PASSWORD" \\
           build.keychain
         security default-keychain -s build.keychain
-        security unlock-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; build.keychain
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
         # Import certificate
-        echo &quot;$MACOS_CERTIFICATE&quot; | base64 --decode &gt; cert.p12
+        echo "$MACOS_CERTIFICATE" | base64 --decode > cert.p12
         security import cert.p12 \\
           -k build.keychain \\
-          -P &quot;$MACOS_CERTIFICATE_PASSWORD&quot; \\
+          -P "$MACOS_CERTIFICATE_PASSWORD" \\
           -T /usr/bin/codesign
         security set-key-partition-list \\
           -S apple-tool:,apple: \\
           -s \\
-          -k &quot;$KEYCHAIN_PASSWORD&quot; \\
+          -k "$KEYCHAIN_PASSWORD" \\
           build.keychain
         # Create entitlements
-        cat &gt; entitlements.plist &lt;&lt; &#39;EOF&#39;
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&lt;plist version=&quot;1.0&quot;&gt;
-&lt;dict&gt;
-  &lt;key&gt;com.apple.security.app-sandbox&lt;/key&gt;
-  &lt;false/&gt;
-  &lt;key&gt;com.apple.security.network.client&lt;/key&gt;
-  &lt;true/&gt;
-  &lt;key&gt;com.apple.security.network.server&lt;/key&gt;
-  &lt;true/&gt;
-  &lt;key&gt;com.apple.security.files.user-selected.read-only&lt;/key&gt;
-  &lt;true/&gt;
-&lt;/dict&gt;
-&lt;/plist&gt;
+        cat > entitlements.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>com.apple.security.app-sandbox</key>
+  <false/>
+  <key>com.apple.security.network.client</key>
+  <true/>
+  <key>com.apple.security.network.server</key>
+  <true/>
+  <key>com.apple.security.files.user-selected.read-only</key>
+  <true/>
+</dict>
+</plist>
 EOF
-        APP_PATH=&quot;build/DIT-Transfer-Tools.app&quot;
+        APP_PATH="build/DIT-Transfer-Tools.app"
         # Sign app
-        codesign --force --deep --options=runtime --entitlements entitlements.plist --sign &quot;$SIGNING_IDENTITY&quot; --timestamp &quot;$APP_PATH&quot;
+        codesign --force --deep --options=runtime --entitlements entitlements.plist --sign "$SIGNING_IDENTITY" --timestamp "$APP_PATH"
         # Create DMG
-        DMG_PATH=&quot;DIT-Transfer-Tools.dmg&quot;
-        hdiutil create -srcfolder &quot;$APP_PATH&quot; -volname &quot;DIT Transfer Tools&quot; -fs HFS+ -format UDZO &quot;$DMG_PATH&quot;
+        DMG_PATH="DIT-Transfer-Tools.dmg"
+        hdiutil create -srcfolder "$APP_PATH" -volname "DIT Transfer Tools" -fs HFS+ -format UDZO "$DMG_PATH"
         # Sign DMG
-        codesign --force --sign &quot;$SIGNING_IDENTITY&quot; --timestamp &quot;$DMG_PATH&quot;
+        codesign --force --sign "$SIGNING_IDENTITY" --timestamp "$DMG_PATH"
         # Notarize
         mkdir -p ~/.appstoreconnect/private_keys
-        echo &quot;$APPLE_P8_PRIVATE_KEY&quot; | base64 -d &gt; ~/.appstoreconnect/private_keys/AuthKey_${APPLE_KEY_ID}.p8
-        xcrun notarytool submit &quot;$DMG_PATH&quot; --apple-id &quot;$APPLE_ID&quot; --team-id &quot;$APPLE_TEAM_ID&quot; --key &quot;~/.appstoreconnect/private_keys/AuthKey_${APPLE_KEY_ID}.p8&quot; --key-id &quot;$APPLE_KEY_ID&quot; --issuing-ca &quot;$APPLE_ISSUING_CA&quot; --wait
+        echo "$APPLE_P8_PRIVATE_KEY" | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${APPLE_KEY_ID}.p8
+        xcrun notarytool submit "$DMG_PATH" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --key "~/.appstoreconnect/private_keys/AuthKey_${APPLE_KEY_ID}.p8" --key-id "$APPLE_KEY_ID" --issuing-ca "$APPLE_ISSUING_CA" --wait
         # Staple
-        xcrun stapler staple &quot;$DMG_PATH&quot;
+        xcrun stapler staple "$DMG_PATH"
