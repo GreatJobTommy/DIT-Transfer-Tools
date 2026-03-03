@@ -36,7 +36,7 @@ def cli():
 )
 def transfer(source, dest, verify, password, key_file, concurrency):
     """Transfer files or directories from SOURCE to DEST.
-Supports local (incl. LTFS mounts like /Volumes/LTO*), sftp://, rclone://."""
+    Supports local (incl. LTFS mounts like /Volumes/LTO*), sftp://, rclone://."""
     src_path = Path(source)
     dst_path = Path(dest)
     is_sftp_source = source.startswith("sftp://")
