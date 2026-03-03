@@ -47,7 +47,7 @@ public:
     void setVerifyEnabled(bool enabled) { m_verifyEnabled = enabled; }
     bool useWholeFileRsync() const { return m_useWholeFileRsync; }
     void setUseWholeFileRsync(bool use) { m_useWholeFileRsync = use; }
-    void setPreset(const QString&amp; preset);
+    void setPreset(const QString& preset);
 
     bool isRcloneRemote() const;
 
@@ -59,7 +59,6 @@ signals:
 
 private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
-    bool verifySpotHashes();
     void onProcessError(QProcess::ProcessError error);
     void retryTransfer();
     void onReadyRead();

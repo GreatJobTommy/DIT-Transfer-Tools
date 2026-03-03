@@ -18,6 +18,10 @@
 #include <QDir>
 #include <QMessageBox>
 #include "TransferTask.h"
+#include <QSpinBox>
+#include <QSlider>
+#include <QCheckBox>
+#include <QGroupBox>
 
 class FileDropList : public QListWidget {
     Q_OBJECT
