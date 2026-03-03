@@ -4,6 +4,7 @@
 #include <QList>
 #include <QObject>
 #include "TransferTask.h"
+#include <QThreadPool>
 
 class QueueManager : public QObject {
     Q_OBJECT
@@ -37,6 +38,7 @@ private:
     QList<TransferTask*> m_active;
     QList<TransferTask*> m_waiting;
     int m_maxActive;
+    QThreadPool m_threadPool;
 };
 
 #endif // QUEUEMANAGER_H
