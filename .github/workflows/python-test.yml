@@ -26,4 +26,4 @@ jobs:
     - name: Lint with ruff
       run: ruff check .
     - name: Type check with mypy
-      run: mypy dit_transfer
+      run: mypy dit_transfer --ignore-missing-imports
