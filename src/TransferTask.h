@@ -64,6 +64,8 @@ private slots:
     void onReadyRead();
 
 private:
+    static qint64 parseSize(const QString &sizeStr);
+    static qint64 parseEta(const QString &etaStr);
     QString m_source;
     QString m_destination;
     TransferStatus m_status;
