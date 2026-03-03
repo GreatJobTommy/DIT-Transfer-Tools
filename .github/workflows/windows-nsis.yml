@@ -4,19 +4,19 @@ on:
   push:
     branches: [ main, develop ]
     paths:
-      - &quot;**/*.cpp&quot;
-      - &quot;**/*.h&quot;
-      - &quot;**/*.ui&quot;
-      - &quot;CMakeLists.txt&quot;
-      - &quot;.github/workflows/windows-nsis.yml&quot;
+      - "**/*.cpp"
+      - "**/*.h"
+      - "**/*.ui"
+      - "CMakeLists.txt"
+      - ".github/workflows/windows-nsis.yml"
   pull_request:
     branches: [ main ]
     paths:
-      - &quot;**/*.cpp&quot;
-      - &quot;**/*.h&quot;
-      - &quot;**/*.ui&quot;
-      - &quot;CMakeLists.txt&quot;
-      - &quot;.github/workflows/windows-nsis.yml&quot;
+      - "**/*.cpp"
+      - "**/*.h"
+      - "**/*.ui"
+      - "CMakeLists.txt"
+      - ".github/workflows/windows-nsis.yml"
 
 jobs:
   package:
@@ -30,7 +30,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: &quot;6.6.2&quot;
+        version: "6.6.2"
 
     - name: Configure CMake
       shell: bash
@@ -38,7 +38,7 @@ jobs:
         rm -rf build
         mkdir build
         cd build
-        cmake .. -G &quot;Visual Studio 17 2022&quot; -A x64 -DCMAKE_BUILD_TYPE=Release
+        cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       shell: bash
@@ -50,57 +50,57 @@ jobs:
       shell: cmd
       run: |
         mkdir DIT-Transfer-Tools
-        copy &quot;build\\Release\\DIT-Transfer-Tools.exe&quot; &quot;DIT-Transfer-Tools\\DIT-Transfer-Tools.exe&quot;
-        windeployqt.exe &quot;DIT-Transfer-Tools&quot; --release --compiler-runtime --no-translations
+        copy "build\Release\DIT-Transfer-Tools.exe" "DIT-Transfer-Tools\DIT-Transfer-Tools.exe"
+        windeployqt.exe "DIT-Transfer-Tools" --release --compiler-runtime --no-translations
 
     - name: Install Chocolatey
       shell: powershell
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&quot;https://community.chocolatey.org/install.ps1&quot;))
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString("https://community.chocolatey.org/install.ps1"))
 
     - name: Install NSIS
       shell: powershell
       run: |
         choco install nsis -y --force
-        echo &quot;C:\Program Files (x86)\NSIS&quot; | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+        echo "C:\Program Files (x86)\NSIS" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
 
     - name: Create installer.nsi
       shell: bash
       run: |
-        cat &gt; installer.nsi &lt;&lt; &#39;EOF&#39;
-        !include &quot;MUI2.nsh&quot;
+        cat > installer.nsi << 'EOF'
+        !include "MUI2.nsh"
         !define MUI_ABORTWARNING
-        !define APPNAME &quot;DIT Transfer Tools&quot;
-        !define APPVERSION &quot;0.1-dev&quot;
-        Name &quot;${APPNAME} ${APPVERSION}&quot;
-        OutFile &quot;DIT-Transfer-Tools-setup.exe&quot;
-        InstallDirRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot;
+        !define APPNAME "DIT Transfer Tools"
+        !define APPVERSION "0.1-dev"
+        Name "${APPNAME} ${APPVERSION}"
+        OutFile "DIT-Transfer-Tools-setup.exe"
+        InstallDirRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation"
         RequestExecutionLevel admin
-        VIProductVersion &quot;0.1.0.0&quot;
-        VIAddVersionKey &quot;ProductName&quot; &quot;${APPNAME}&quot;
-        VIAddVersionKey &quot;CompanyName&quot; &quot;GreatJobTommy&quot;
-        VIAddVersionKey &quot;FileDescription&quot; &quot;${APPNAME} Installer&quot;
+        VIProductVersion "0.1.0.0"
+        VIAddVersionKey "ProductName" "${APPNAME}"
+        VIAddVersionKey "CompanyName" "GreatJobTommy"
+        VIAddVersionKey "FileDescription" "${APPNAME} Installer"
         Page directory
         Page instfiles
         UninstPage instfiles
-        Section &quot;Program&quot;
-          SetOutPath &quot;$INSTDIR&quot;
-          File /r &quot;DIT-Transfer-Tools\\*.*&quot;
-          CreateDirectory &quot;$SMPROGRAMS\\${APPNAME}&quot;
-          CreateShortcut &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
-          CreateShortcut &quot;$DESKTOP\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
-          WriteUninstaller &quot;$INSTDIR\\uninstall.exe&quot;
-          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;DisplayName&quot; &quot;${APPNAME}&quot;
-          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;UninstallString&quot; &quot;$INSTDIR\\uninstall.exe&quot;
-          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot; &quot;$INSTDIR&quot;
+        Section "Program"
+          SetOutPath "$INSTDIR"
+          File /r "DIT-Transfer-Tools\*.*"
+          CreateDirectory "$SMPROGRAMS\${APPNAME}"
+          CreateShortcut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
+          CreateShortcut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
+          WriteUninstaller "$INSTDIR\uninstall.exe"
+          WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
+          WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
+          WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$INSTDIR"
         SectionEnd
-        Section &quot;Uninstall&quot;
-          Delete &quot;$INSTDIR\\uninstall.exe&quot;
-          RMDir /r &quot;$INSTDIR&quot;
-          Delete &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot;
-          RMDir &quot;$SMPROGRAMS\\${APPNAME}&quot;
-          Delete &quot;$DESKTOP\\${APPNAME}.lnk&quot;
-          DeleteRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot;
+        Section "Uninstall"
+          Delete "$INSTDIR\uninstall.exe"
+          RMDir /r "$INSTDIR"
+          Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+          RMDir "$SMPROGRAMS\${APPNAME}"
+          Delete "$DESKTOP\${APPNAME}.lnk"
+          DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
         SectionEnd
         EOF
 
