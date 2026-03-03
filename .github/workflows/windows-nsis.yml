@@ -4,19 +4,19 @@ on:
   push:
     branches: [ main, develop ]
     paths:
-      - '&#x27;**/*.cpp&#x27;'
-      - '&#x27;**/*.h&#x27;'
-      - '&#x27;**/*.ui&#x27;'
-      - &#x27;CMakeLists.txt&#x27;
-      - &#x27;.github/workflows/windows-nsis.yml&#x27;
+      - &quot;**/*.cpp&quot;
+      - &quot;**/*.h&quot;
+      - &quot;**/*.ui&quot;
+      - &quot;CMakeLists.txt&quot;
+      - &quot;.github/workflows/windows-nsis.yml&quot;
   pull_request:
     branches: [ main ]
     paths:
-      - '&#x27;**/*.cpp&#x27;'
-      - '&#x27;**/*.h&#x27;'
-      - '&#x27;**/*.ui&#x27;'
-      - &#x27;CMakeLists.txt&#x27;
-      - &#x27;.github/workflows/windows-nsis.yml&#x27;
+      - &quot;**/*.cpp&quot;
+      - &quot;**/*.h&quot;
+      - &quot;**/*.ui&quot;
+      - &quot;CMakeLists.txt&quot;
+      - &quot;.github/workflows/windows-nsis.yml&quot;
 
 jobs:
   package:
@@ -30,7 +30,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: &#x27;6.6.2&#x27;
+        version: &quot;6.6.2&quot;
 
     - name: Configure CMake
       shell: bash
@@ -50,13 +50,13 @@ jobs:
       shell: cmd
       run: |
         mkdir DIT-Transfer-Tools
-        copy &quot;build\Release\DIT-Transfer-Tools.exe&quot; &quot;DIT-Transfer-Tools\DIT-Transfer-Tools.exe&quot;
+        copy &quot;build\\Release\\DIT-Transfer-Tools.exe&quot; &quot;DIT-Transfer-Tools\\DIT-Transfer-Tools.exe&quot;
         windeployqt.exe &quot;DIT-Transfer-Tools&quot; --release --compiler-runtime --no-translations
 
     - name: Install Chocolatey
       shell: powershell
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&#x27;https://community.chocolatey.org/install.ps1&#x27;))
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&quot;https://community.chocolatey.org/install.ps1&quot;))
 
     - name: Install NSIS
       shell: powershell
@@ -67,14 +67,14 @@ jobs:
     - name: Create installer.nsi
       shell: bash
       run: |
-        cat &gt; installer.nsi &lt;&lt; &#x27;EOF&#x27;
+        cat &gt; installer.nsi &lt;&lt; &#39;EOF&#39;
         !include &quot;MUI2.nsh&quot;
         !define MUI_ABORTWARNING
         !define APPNAME &quot;DIT Transfer Tools&quot;
         !define APPVERSION &quot;0.1-dev&quot;
         Name &quot;${APPNAME} ${APPVERSION}&quot;
         OutFile &quot;DIT-Transfer-Tools-setup.exe&quot;
-        InstallDirRegKey HKLM &quot;Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}&quot; &quot;InstallLocation&quot;
+        InstallDirRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot;
         RequestExecutionLevel admin
         VIProductVersion &quot;0.1.0.0&quot;
         VIAddVersionKey &quot;ProductName&quot; &quot;${APPNAME}&quot;
@@ -85,14 +85,14 @@ jobs:
         UninstPage instfiles
         Section &quot;Program&quot;
           SetOutPath &quot;$INSTDIR&quot;
-          File /r &quot;DIT-Transfer-Tools\*.*&quot;
+          File /r &quot;DIT-Transfer-Tools\\*.*&quot;
           CreateDirectory &quot;$SMPROGRAMS\\${APPNAME}&quot;
           CreateShortcut &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
           CreateShortcut &quot;$DESKTOP\\${APPNAME}.lnk&quot; &quot;$INSTDIR\\DIT-Transfer-Tools.exe&quot;
           WriteUninstaller &quot;$INSTDIR\\uninstall.exe&quot;
-          WriteRegStr HKLM &quot;Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}&quot; &quot;DisplayName&quot; &quot;${APPNAME}&quot;
-          WriteRegStr HKLM &quot;Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}&quot; &quot;UninstallString&quot; &quot;$INSTDIR\\uninstall.exe&quot;
-          WriteRegStr HKLM &quot;Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}&quot; &quot;InstallLocation&quot; &quot;$INSTDIR&quot;
+          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;DisplayName&quot; &quot;${APPNAME}&quot;
+          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;UninstallString&quot; &quot;$INSTDIR\\uninstall.exe&quot;
+          WriteRegStr HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot; &quot;InstallLocation&quot; &quot;$INSTDIR&quot;
         SectionEnd
         Section &quot;Uninstall&quot;
           Delete &quot;$INSTDIR\\uninstall.exe&quot;
@@ -100,7 +100,7 @@ jobs:
           Delete &quot;$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk&quot;
           RMDir &quot;$SMPROGRAMS\\${APPNAME}&quot;
           Delete &quot;$DESKTOP\\${APPNAME}.lnk&quot;
-          DeleteRegKey HKLM &quot;Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}&quot;
+          DeleteRegKey HKLM &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}&quot;
         SectionEnd
         EOF
 
