@@ -43,7 +43,7 @@ public:
 
     bool isRcloneRemote() const;
 
-    void run() override;
+    void run();
 
 signals:
     void statusChanged(TransferStatus status);
@@ -52,7 +52,8 @@ signals:
 private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void onProcessError(QProcess::ProcessError error);
-    void retryTransfer();\n    void onReadyRead();
+    void retryTransfer();
+    void onReadyRead();
 
 private:
     QString m_source;

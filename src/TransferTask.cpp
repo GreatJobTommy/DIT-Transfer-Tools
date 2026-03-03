@@ -7,7 +7,8 @@
 #include <QFile>
 #include <QElapsedTimer>
 #include <QDebug>
-#include <QCoreApplication>\n#include <QRegularExpression>
+#include <QCoreApplication>
+#include <QRegularExpression>
 #include <QStorageInfo>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
@@ -22,7 +23,8 @@ TransferTask::TransferTask(const QString& source, const QString& destination, QO
     }
     m_process = new QProcess(this);
     connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &TransferTask::onProcessFinished);
-    connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);\n    connect(m_process, &QProcess::readyReadStandardOutput, this, &TransferTask::onReadyRead);
+    connect(m_process, &QProcess::errorOccurred, this, &TransferTask::onProcessError);
+    connect(m_process, &QProcess::readyReadStandardOutput, this, &TransferTask::onReadyRead);
     m_retryTimer = new QTimer(this);
     connect(m_retryTimer, &QTimer::timeout, this, &TransferTask::retryTransfer);
     m_speedTimer.start();
