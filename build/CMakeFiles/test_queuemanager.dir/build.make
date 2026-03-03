@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/dit-tools
+CMAKE_SOURCE_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/dit-tools/build
+CMAKE_BINARY_DIR = /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test_queuemanager.dir/depend.make
@@ -72,9 +72,9 @@ include CMakeFiles/test_queuemanager.dir/flags.make
 test_queuemanager_autogen/timestamp: /usr/lib/qt6/libexec/moc
 test_queuemanager_autogen/timestamp: /usr/lib/qt6/libexec/uic
 test_queuemanager_autogen/timestamp: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target test_queuemanager"
-	/usr/bin/cmake -E cmake_autogen /home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/test_queuemanager_autogen.dir/AutogenInfo.json ""
-	/usr/bin/cmake -E touch /home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/timestamp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target test_queuemanager"
+	/usr/bin/cmake -E cmake_autogen /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager_autogen.dir/AutogenInfo.json ""
+	/usr/bin/cmake -E touch /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/timestamp
 
 CMakeFiles/test_queuemanager.dir/codegen:
 .PHONY : CMakeFiles/test_queuemanager.dir/codegen
@@ -82,58 +82,58 @@ CMakeFiles/test_queuemanager.dir/codegen:
 CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o: CMakeFiles/test_queuemanager.dir/flags.make
 CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o: test_queuemanager_autogen/mocs_compilation.cpp
 CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o -MF CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o -c /home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o -MF CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp
 
 CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/mocs_compilation.cpp > CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp > CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.i
 
 CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/mocs_compilation.cpp -o CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/mocs_compilation.cpp -o CMakeFiles/test_queuemanager.dir/test_queuemanager_autogen/mocs_compilation.cpp.s
 
 CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o: CMakeFiles/test_queuemanager.dir/flags.make
-CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o: /home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp
+CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp
 CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o -MF CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o.d -o CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o -c /home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o -MF CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o.d -o CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp
 
 CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp > CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp > CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.i
 
 CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp -o CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp -o CMakeFiles/test_queuemanager.dir/tests/test_queuemanager.cpp.s
 
 CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o: CMakeFiles/test_queuemanager.dir/flags.make
-CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o: /home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp
+CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp
 CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o -MF CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o.d -o CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o -c /home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o -MF CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o.d -o CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp
 
 CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp > CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp > CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.i
 
 CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp -o CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp -o CMakeFiles/test_queuemanager.dir/src/TransferTask.cpp.s
 
 CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o: CMakeFiles/test_queuemanager.dir/flags.make
-CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o: /home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp
+CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o: /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp
 CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o -MF CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o.d -o CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o -c /home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o -MF CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o.d -o CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.o -c /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp
 
 CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp > CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp > CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.i
 
 CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp -o CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp -o CMakeFiles/test_queuemanager.dir/src/QueueManager.cpp.s
 
 # Object files for target test_queuemanager
 test_queuemanager_OBJECTS = \
@@ -154,7 +154,7 @@ test_queuemanager: CMakeFiles/test_queuemanager.dir/compiler_depend.ts
 test_queuemanager: /usr/lib/aarch64-linux-gnu/libQt6Test.so.6.8.2
 test_queuemanager: /usr/lib/aarch64-linux-gnu/libQt6Core.so.6.8.2
 test_queuemanager: CMakeFiles/test_queuemanager.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable test_queuemanager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable test_queuemanager"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_queuemanager.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -166,6 +166,6 @@ CMakeFiles/test_queuemanager.dir/clean:
 .PHONY : CMakeFiles/test_queuemanager.dir/clean
 
 CMakeFiles/test_queuemanager.dir/depend: test_queuemanager_autogen/timestamp
-	cd /home/openclaw/.openclaw/workspace/dit-tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build /home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/test_queuemanager.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build /home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/test_queuemanager.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/test_queuemanager.dir/depend
 

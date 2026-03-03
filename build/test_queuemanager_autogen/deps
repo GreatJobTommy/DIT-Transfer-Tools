@@ -1,13 +1,13 @@
 test_queuemanager_autogen/timestamp: \
-	/home/openclaw/.openclaw/workspace/dit-tools/CMakeLists.txt \
-	/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake \
-	/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/3.31.6/CMakeSystem.cmake \
-	/home/openclaw/.openclaw/workspace/dit-tools/build/test_queuemanager_autogen/moc_predefs.h \
-	/home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp \
-	/home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.h \
-	/home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp \
-	/home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.h \
-	/home/openclaw/.openclaw/workspace/dit-tools/tests/test_queuemanager.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/CMakeLists.txt \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeSystem.cmake \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/test_queuemanager_autogen/moc_predefs.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h \
+	/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/tests/test_queuemanager.cpp \
 	/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h \
 	/usr/include/aarch64-linux-gnu/bits/cpu-set.h \
 	/usr/include/aarch64-linux-gnu/bits/endian.h \
@@ -83,6 +83,7 @@ test_queuemanager_autogen/timestamp: \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QRunnable \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QString \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QStringList \
+	/usr/include/aarch64-linux-gnu/qt6/QtCore/QThreadPool \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QTimer \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QVariant \
 	/usr/include/aarch64-linux-gnu/qt6/QtCore/QtCore \

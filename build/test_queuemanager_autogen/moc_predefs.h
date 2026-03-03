@@ -104,7 +104,7 @@
 #define __FLT64X_EPSILON__ 1.92592994438723585305597794258492732e-34F64x
 #define __STDC_HOSTED__ 1
 #define __DEC64_MIN_EXP__ (-382)
-#define QT_TESTCASE_BUILDDIR "/home/openclaw/.openclaw/workspace/dit-tools/build"
+#define QT_TESTCASE_BUILDDIR "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build"
 #define __cpp_decltype_auto 201304L
 #define __DBL_DIG__ 15
 #define __FLT_EPSILON__ 1.19209289550781250000000000000000000e-7F
@@ -186,7 +186,7 @@
 #define __BFLT16_HAS_INFINITY__ 1
 #define __SIZEOF_WINT_T__ 4
 #define __LONG_LONG_WIDTH__ 64
-#define QT_TESTCASE_SOURCEDIR "/home/openclaw/.openclaw/workspace/dit-tools"
+#define QT_TESTCASE_SOURCEDIR "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools"
 #define __cpp_initializer_lists 200806L
 #define __WCHAR_UNSIGNED__ 1
 #define __FLT32_MAX_EXP__ 128

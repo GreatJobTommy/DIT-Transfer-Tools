@@ -1,15 +1,15 @@
 {
-	"BUILD_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen",
-	"CMAKE_BINARY_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools/build",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools",
+	"BUILD_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen",
+	"CMAKE_BINARY_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/home/openclaw/.openclaw/workspace/dit-tools/CMakeLists.txt",
+		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/CMakeLists.txt",
 		"/usr/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeSystem.cmake.in",
-		"/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/3.31.6/CMakeSystem.cmake",
+		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeSystem.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeUnixFindMake.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake",
 		"/usr/share/cmake-3.31/Modules/Platform/Linux-Initialize.cmake",
@@ -63,7 +63,7 @@
 		"/usr/share/cmake-3.31/Modules/CMakeFindBinUtils.cmake",
 		"/usr/share/cmake-3.31/Modules/Compiler/GNU-FindBinUtils.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in",
-		"/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake",
+		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeGenericSystem.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake",
@@ -89,7 +89,7 @@
 		"/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake",
 		"/usr/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake",
 		"/usr/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in",
-		"/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake",
+		"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake",
 		"/usr/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake",
 		"/usr/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake",
 		"/usr/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake",
@@ -299,88 +299,88 @@
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Test/Qt6TestAdditionalTargetInfo.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Test/Qt6TestVersionlessAliasTargets.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools",
+	"CMAKE_SOURCE_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "/home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen/deps",
+	"DEP_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "DIT-Transfer-Tools_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/AddTaskDialog.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.h",
 			"MU",
 			"UVLADIE3JM/moc_AddTaskDialog.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/DragDropList.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DragDropList.h",
 			"MU",
 			"UVLADIE3JM/moc_DragDropList.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/DriveMonitor.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.h",
 			"MU",
 			"UVLADIE3JM/moc_DriveMonitor.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ErrorManager.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.h",
 			"MU",
 			"UVLADIE3JM/moc_ErrorManager.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/LogsDockWidget.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/LogsDockWidget.h",
 			"MU",
 			"UVLADIE3JM/moc_LogsDockWidget.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/MainWindow.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.h",
 			"MU",
 			"UVLADIE3JM/moc_MainWindow.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/NotificationManager.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.h",
 			"MU",
 			"UVLADIE3JM/moc_NotificationManager.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ParallelManager.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.h",
 			"MU",
 			"UVLADIE3JM/moc_ParallelManager.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ProgressMonitor.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.h",
 			"MU",
 			"UVLADIE3JM/moc_ProgressMonitor.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.h",
 			"MU",
 			"UVLADIE3JM/moc_QueueManager.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/SettingsManager.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.h",
 			"MU",
 			"UVLADIE3JM/moc_SettingsManager.cpp",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.h",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.h",
 			"MU",
 			"UVLADIE3JM/moc_TransferTask.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen/include",
-	"MOC_COMPILATION_FILE" : "/home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
@@ -424,72 +424,76 @@
 		"-c",
 		"/usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/home/openclaw/.openclaw/workspace/dit-tools/build/DIT-Transfer-Tools_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/DIT-Transfer-Tools_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 1,
-	"PARSE_CACHE_FILE" : "/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib/qt6/libexec/moc",
 	"QT_UIC_EXECUTABLE" : "/usr/lib/qt6/libexec/uic",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 8,
-	"SETTINGS_FILE" : "/home/openclaw/.openclaw/workspace/dit-tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build/CMakeFiles/DIT-Transfer-Tools_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "/home/openclaw/.openclaw/workspace/dit-tools/main.cpp", "MU", null ],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/AddTaskDialog.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/main.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/DriveMonitor.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/AddTaskDialog.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ErrorManager.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/DriveMonitor.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/LogsDockWidget.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ErrorManager.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/MainWindow.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/LogsDockWidget.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/NotificationManager.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/MainWindow.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ParallelManager.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/NotificationManager.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/ProgressMonitor.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ParallelManager.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/QueueManager.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/ProgressMonitor.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/SettingsManager.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/QueueManager.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/openclaw/.openclaw/workspace/dit-tools/src/TransferTask.cpp",
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/SettingsManager.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/src/TransferTask.cpp",
 			"MU",
 			null
 		]

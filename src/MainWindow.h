@@ -21,6 +21,7 @@
 #include "SettingsManager.h"
 #include "DragDropList.h"
 #include "LogsDockWidget.h"
+#include <QDateTime>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

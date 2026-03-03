@@ -18,6 +18,10 @@
 #include <QDir>
 #include <QMessageBox>
 #include "TransferTask.h"
+#include <QSpinBox>
+#include <QSlider>
+#include <QCheckBox>
+#include <QGroupBox>
 
 class FileDropList : public QListWidget {
     Q_OBJECT
@@ -82,6 +86,12 @@ private:
     QTextEdit* m_previewEdit;
     QPushButton* m_addBtn;
     QPushButton* m_cancelBtn;
+
+    QGroupBox* m_ltoGroup;
+    QComboBox* m_ltoPresetCombo;
+    QSlider* m_bufferSlider;
+    QSpinBox* m_bufferSpinBox;
+    QCheckBox* m_verifyCheckBox;
 
     QStringList m_selectedPaths;
 };
