@@ -1,0 +1,60 @@
+name: macOS DMG
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.h'
+      - '**/*.ui'
+      - 'CMakeLists.txt'
+      - '.github/workflows/macos-dmg.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.h'
+      - '**/*.ui'
+      - 'CMakeLists.txt'
+      - '.github/workflows/macos-dmg.yml'
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        brew install cmake ninja qt@6 node
+
+    - name: Build
+      run: |
+        QT_PREFIX=$(brew --prefix qt@6)
+        cmake -S . -B build -G Ninja \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+          -DCMAKE_PREFIX_PATH=${QT_PREFIX}
+        cmake --build build --config Release
+
+    - name: Deploy Qt app bundle
+      run: |
+        mkdir -p DIT-Transfer-Tools.app/Contents/MacOS
+        cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
+        ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
+
+    - name: Install create-dmg
+      run: npm install -g create-dmg
+
+    - name: Create DMG
+      run: create-dmg "DIT-Transfer-Tools.app" "DIT-Transfer-Tools-macos.dmg"
+
+    - name: Upload DMG
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-macos.dmg
+        path: DIT-Transfer-Tools-macos.dmg
+        retention-days: 30
