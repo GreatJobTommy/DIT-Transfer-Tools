@@ -5,22 +5,13 @@ from pathlib import Path
 from typing import Optional
 import os
 
-try:
-    from .transfer import (
-        parse_sftp_uri,
-        sftp_connect,
-        transfer_local_to_sftp,
-        transfer_sftp_to_local,
-        transfer_local,
-    )
-except ImportError:
-    from transfer import (
-        parse_sftp_uri,
-        sftp_connect,
-        transfer_local_to_sftp,
-        transfer_sftp_to_local,
-        transfer_local,
-    )
+from .transfer import (
+    parse_sftp_uri,
+    sftp_connect,
+    transfer_local_to_sftp,
+    transfer_sftp_to_local,
+    transfer_local,
+)
 
 
 def main():
