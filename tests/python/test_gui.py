@@ -4,21 +4,18 @@ from unittest.mock import patch, MagicMock
 from dit_transfer.gui import main
 
 
-@pytest.fixture
-def mock_root():
-    with patch("tkinter.Tk") as mock_tk:
+def test_gui_main():
+    """Test that GUI main function runs without crashing."""
+    with (
+        patch("dit_transfer.gui.tkinter.Tk") as mock_Tk,
+        patch("dit_transfer.gui.tkinter.filedialog.askopenfilename"),
+        patch("dit_transfer.gui.tkinter.filedialog.askdirectory"),
+        patch("dit_transfer.gui.tkinter.simpledialog.askstring", return_value=None),
+        patch("dit_transfer.gui.threading.Thread") as mock_thread,
+    ):
         mock_root = MagicMock()
         mock_root.mainloop.return_value = None
-        mock_tk.return_value = mock_root
-        return mock_root
-
-
-def test_gui_main(mock_root):
-    """Test that GUI main function runs without crashing."""
-    with patch("tkinter.filedialog.askopenfilename"), \
-         patch("tkinter.filedialog.askdirectory"), \
-         patch("tkinter.simpledialog.askstring", return_value=None), \
-         patch("threading.Thread") as mock_thread:
+        mock_Tk.return_value = mock_root
         mock_thread.return_value = MagicMock()
         main()
-    assert mock_root.mainloop.called
+        mock_root.mainloop.assert_called_once()
