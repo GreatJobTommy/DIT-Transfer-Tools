@@ -8,7 +8,6 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 import subprocess
 import configparser
 import uuid
-import subprocess
 
 
 def get_dir_size(src_dir: Path) -> int:
@@ -167,6 +166,7 @@ def spot_check_verify(
     except:
         large_files = []  # too large dir
     import random
+
     if len(large_files) > num_chunks:
         large_files = random.sample(large_files, num_chunks)
     num_to_check = min(num_chunks, len(large_files))
