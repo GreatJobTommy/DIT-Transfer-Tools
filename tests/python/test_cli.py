@@ -1,5 +1,6 @@
 from click.testing import CliRunner
 from dit_transfer.cli import cli
+import os
 
 
 def test_cli_help():
@@ -43,6 +44,34 @@ def test_transfer_verify(tmp_path):
     dst_dir.mkdir()
     result = runner.invoke(cli, ["transfer", str(src), str(dst_dir), "--verify"])
     assert result.exit_code == 0
+
+
+def test_transfer_rsync_fallback(tmp_path):
+    runner = CliRunner()
+    src = tmp_path / "rsync.txt"
+    src.write_text("rsync test")
+    dst_dir = tmp_path / "dst_rsync"
+    dst_dir.mkdir()
+    result = runner.invoke(
+        cli, ["transfer", str(src), str(dst_dir), "--rsync-fallback"]
+    )
+    assert result.exit_code == 0
+    dst_file = dst_dir / "rsync.txt"
+    assert dst_file.exists()
+
+
+def test_transfer_spot_check(tmp_path):
+    runner = CliRunner()
+    src = tmp_path / "spot.txt"
+    src.write_bytes(os.urandom(10 * 1024 * 1024))  # 10MB for chunks
+    dst_dir = tmp_path / "dst_spot"
+    dst_dir.mkdir()
+    result = runner.invoke(
+        cli, ["transfer", str(src), str(dst_dir), "--spot-check-hashes"]
+    )
+    assert result.exit_code == 0
+    dst_file = dst_dir / "spot.txt"
+    assert dst_file.exists()
 
 
 def test_transfer_concurrency(tmp_path):

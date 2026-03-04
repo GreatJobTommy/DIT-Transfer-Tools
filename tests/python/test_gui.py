@@ -5,7 +5,6 @@ from dit_transfer.gui import main
 
 
 import os
-import pytest
 
 
 @pytest.mark.skipif("CI" in os.environ, reason="Headless, no Tk root")

@@ -34,7 +34,30 @@ def cli():
     default=4,
     help="Number of parallel transfers for rclone (default: 4)",
 )
-def transfer(source, dest, verify, password, key_file, concurrency):
+@click.option(
+    "--rsync-fallback",
+    is_flag=True,
+    help="Use rsync --whole-file -a fallback for full metadata/attributes (auto for LTFS)",
+)
+@click.option(
+    "--spot-check-hashes",
+    is_flag=True,
+    help="Spot-check hashes (size + N random chunks, auto for LTFS verify)",
+)
+@click.option("--num-chunks", type=int, default=5, help="Number of spot-check chunks")
+@click.option("--chunk-mb", type=int, default=1, help="Spot-check chunk size MB")
+def transfer(
+    source,
+    dest,
+    verify,
+    password,
+    key_file,
+    concurrency,
+    rsync_fallback,
+    spot_check_hashes,
+    num_chunks,
+    chunk_mb,
+):
     """Transfer files or directories from SOURCE to DEST.
     Supports local (incl. LTFS mounts like /Volumes/LTO*), sftp://, rclone://."""
     src_path = Path(source)
@@ -101,7 +124,15 @@ def transfer(source, dest, verify, password, key_file, concurrency):
                 sftp, client = sftp_connect(user, host, port, password, key_file)
                 transfer_local_to_sftp(src_path, remote_dest, sftp, verify)
         else:
-            transfer_local(src_path, dst_path, verify)
+            transfer_local(
+                src_path,
+                dst_path,
+                verify=verify,
+                rsync_fallback=rsync_fallback,
+                spot_check=spot_check_hashes,
+                num_chunks=num_chunks,
+                chunk_mb=chunk_mb,
+            )
         click.echo("Transfer completed successfully.")
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
