@@ -45,3 +45,4 @@ moc_*.cpp
 Makefile
 DIT-Transfer-Tools
 Testing/
+**/__pycache__/**
