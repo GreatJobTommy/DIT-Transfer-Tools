@@ -1,0 +1,117 @@
+name: Windows NSIS Installer
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "**/*.cpp"
+      - "**/*.h"
+      - "**/*.ui"
+      - "CMakeLists.txt"
+      - ".github/workflows/windows-nsis.yml"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "**/*.cpp"
+      - "**/*.h"
+      - "**/*.ui"
+      - "CMakeLists.txt"
+      - ".github/workflows/windows-nsis.yml"
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: "6.6.2"
+
+    - name: Configure CMake
+      shell: bash
+      run: |
+        rm -rf build
+        mkdir build
+        cd build
+        cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      shell: bash
+      run: |
+        cd build
+        cmake --build . --config Release
+
+    - name: Deploy Qt app
+      shell: cmd
+      run: |
+        mkdir DIT-Transfer-Tools
+        copy "build\\Release\\DIT-Transfer-Tools.exe" "DIT-Transfer-Tools\\DIT-Transfer-Tools.exe"
+        windeployqt.exe "DIT-Transfer-Tools" --release --compiler-runtime --no-translations
+
+    - name: Install Chocolatey
+      shell: powershell
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+    - name: Install NSIS
+      shell: powershell
+      run: |
+        choco install nsis -y --force
+        echo "C:\\Program Files (x86)\\NSIS" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
+    - name: Create installer.nsi
+      shell: bash
+      run: |
+        cat > installer.nsi << 'EOF'
+        !include "MUI2.nsh"
+        !define MUI_ABORTWARNING
+        !define APPNAME "DIT Transfer Tools"
+        !define APPVERSION "0.1-dev"
+        Name "${APPNAME} ${APPVERSION}"
+        OutFile "DIT-Transfer-Tools-setup.exe"
+        InstallDirRegKey HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}" "InstallLocation"
+        RequestExecutionLevel admin
+        VIProductVersion "0.1.0.0"
+        VIAddVersionKey "ProductName" "${APPNAME}"
+        VIAddVersionKey "CompanyName" "GreatJobTommy"
+        VIAddVersionKey "FileDescription" "${APPNAME} Installer"
+        Page directory
+        Page instfiles
+        UninstPage instfiles
+        Section "Program"
+          SetOutPath "$INSTDIR"
+          File /r "DIT-Transfer-Tools\\*"
+          CreateDirectory "$SMPROGRAMS\\${APPNAME}"
+          CreateShortcut "$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk" "$INSTDIR\\DIT-Transfer-Tools.exe"
+          CreateShortcut "$DESKTOP\\${APPNAME}.lnk" "$INSTDIR\\DIT-Transfer-Tools.exe"
+          WriteUninstaller "$INSTDIR\\uninstall.exe"
+          WriteRegStr HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}" "DisplayName" "${APPNAME}"
+          WriteRegStr HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}" "UninstallString" "$INSTDIR\\uninstall.exe"
+          WriteRegStr HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}" "InstallLocation" "$INSTDIR"
+        SectionEnd
+        Section "Uninstall"
+          Delete "$INSTDIR\\uninstall.exe"
+          RMDir /r "$INSTDIR"
+          Delete "$SMPROGRAMS\\${APPNAME}\\${APPNAME}.lnk"
+          RMDir "$SMPROGRAMS\\${APPNAME}"
+          Delete "$DESKTOP\\${APPNAME}.lnk"
+          DeleteRegKey HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${APPNAME}"
+        SectionEnd
+        EOF
+
+    - name: Build NSIS installer
+      shell: cmd
+      run: makensis.exe installer.nsi
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: DIT-Transfer-Tools-windows-nsis
+        path: DIT-Transfer-Tools-setup.exe
+        retention-days: 30
