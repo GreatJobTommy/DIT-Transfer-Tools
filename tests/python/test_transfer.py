@@ -2,6 +2,7 @@ import hashlib
 import os
 from unittest.mock import patch, MagicMock
 from pathlib import Path
+import shutil
 from dit_transfer.transfer import (
     parse_sftp_uri,
     parse_rclone_uri,
@@ -91,15 +92,16 @@ def test_spot_check_verify(tmp_path):
     large_file.write_bytes(os.urandom(10 * 1024 * 1024))
     dst_dir = tmp_path / "dst_spot"
     dst_dir.mkdir()
-    large_file.copy(dst_dir / "large.bin")
+    shutil.copy2(large_file, dst_dir / "large.bin")
     spot_check_verify(src_dir, dst_dir)
 
 
 @patch("dit_transfer.transfer.subprocess")
 def test_is_ltfs_mount_true(mock_subprocess, tmp_path):
     mock_result = MagicMock()
-    mock_result.stdout = "ltfs on /mnt/ltfs"
+    mock_result.stdout = f'ltfs\\ton\\t{tmp_path}'
     mock_result.stderr = ""
+    mock_result.returncode = 0
     mock_subprocess.run.return_value = mock_result
     assert is_ltfs_mount(tmp_path) is True
 
