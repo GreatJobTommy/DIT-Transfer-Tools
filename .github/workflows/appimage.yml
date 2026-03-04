@@ -67,7 +67,6 @@ jobs:
         Name=DIT Transfer Tools
         Comment=Transfer tools for DIT
         Exec=DIT-Transfer-Tools
-        Icon=DIT-Transfer-Tools
         Terminal=false
         Type=Application
         Categories=Utility;FileTools;
