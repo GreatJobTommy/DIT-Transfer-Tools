@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## Unreleased
+## v4.1.0 (2026-03-04)
 ### Added
+- Basic tkinter GUI prototype (roadmap #4-5) (#45)
 - rclone:// backend support for LTO/rclone integration per README roadmap #1
 - Parse rclone://[user:pass@]remote:path URIs
 - Auto-create SFTP rclone remotes from URI credentials using rclone obscure

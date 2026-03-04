@@ -46,13 +46,9 @@ Reports:
 Exit 0 if all match, 1 otherwise.
 
 ## Roadmap
-1. Core CLI ✓
-2. Verify mode ✓
-3. LTO integration ✓
-4. GUI LTO presets & tests ✓
-5. GUI wrapper polish ✓
-6. Advanced Verify GUI ✓
-7. Rclone Polish & GUI Integration ✓
+1-8. Complete ✓
+
+Packaging & releases complete up to v4.1.0.
 
 ## Changelog
 
