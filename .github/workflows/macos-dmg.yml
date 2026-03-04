@@ -4,62 +4,75 @@ on:
   push:
     branches: [ main, develop ]
     paths:
-      - '**/*.cpp'
-      - '**/*.h'
-      - '**/*.ui'
-      - 'CMakeLists.txt'
-      - '.github/workflows/macos-dmg.yml'
+      - '&#x27;&#x2F;&#x2F;*.cpp&#x27;
+      - '&#x27;&#x2F;&#x2F;*.h&#x27;
+      - '&#x27;&#x2F;&#x2F;*.ui&#x27;
+      - &#x27;CMakeLists.txt&#x27;
+      - &#x27;.github&#x2F;workflows&#x2F;macos-dmg.yml&#x27;
   pull_request:
     branches: [ main ]
     paths:
-      - '**/*.cpp'
-      - '**/*.h'
-      - '**/*.ui'
-      - 'CMakeLists.txt'
-      - '.github/workflows/macos-dmg.yml'
+      - '&#x27;&#x2F;&#x2F;*.cpp&#x27;
+      - '&#x27;&#x2F;&#x2F;*.h&#x27;
+      - '&#x27;&#x2F;&#x2F;*.ui&#x27;
+      - &#x27;CMakeLists.txt&#x27;
+      - &#x27;.github&#x2F;workflows&#x2F;macos-dmg.yml&#x27;
 
 jobs:
   build:
     runs-on: macos-14
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions&#x2F;checkout@v4
       with:
         submodules: recursive
 
+    - name: Install Qt
+      id: install-qt
+      uses: jurplel&#x2F;install-qt-action@v4
+      with:
+        version: &#x27;6.6.2&#x27;
+
+    - name: Setup Node.js 20
+      uses: actions&#x2F;setup-node@v4
+      with:
+        node-version: 20
+
     - name: Install dependencies
       run: |
-        brew install cmake ninja qt@6 node
+        brew install cmake ninja
 
     - name: Build
       run: |
-        QT_PREFIX=$(brew --prefix qt@6)
         cmake -S . -B build -G Ninja \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-          -DCMAKE_PREFIX_PATH=${QT_PREFIX}
+          -DCMAKE_PREFIX_PATH=${{ steps.install-qt.outputs.dir }}
         cmake --build build --config Release
 
     - name: Deploy Qt app bundle
       run: |
-        QT_PREFIX=$(brew --prefix qt@6)
-        mkdir -p DIT-Transfer-Tools.app/Contents/MacOS
-        cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
-        ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
+        mkdir -p DIT-Transfer-Tools.app&#x2F;Contents&#x2F;MacOS
+        cp build&#x2F;DIT-Transfer-Tools DIT-Transfer-Tools.app&#x2F;Contents&#x2F;MacOS&#x2F;
+        macdeployqt DIT-Transfer-Tools.app -verbose=2
 
-    - name: Setup Node.js 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+    - name: Validate bundle
+      run: |
+        ls -la DIT-*.app
+        if [[ ! -d DIT-Transfer-Tools.app ]]; then
+          echo &quot;No app bundle created&quot;
+          exit 1
+        fi
+        ls -la DIT-Transfer-Tools.app&#x2F;Contents&#x2F;
 
     - name: Install create-dmg
       run: npm install -g create-dmg
 
     - name: Create DMG
-      run: create-dmg "DIT-Transfer-Tools.app" "DIT-Transfer-Tools-macos.dmg"
+      run: create-dmg &quot;DIT-Transfer-Tools.app&quot; &quot;DIT-Transfer-Tools-macos.dmg&quot;
 
     - name: Upload DMG
-      uses: actions/upload-artifact@v4
+      uses: actions&#x2F;upload-artifact@v4
       with:
         name: DIT-Transfer-Tools-macos.dmg
         path: DIT-Transfer-Tools-macos.dmg
