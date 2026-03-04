@@ -45,8 +45,6 @@ moc_*.cpp
 Makefile
 DIT-Transfer-Tools
 Testing/
-<<<<<<< HEAD
-__pycache__/
-=======
 **/__pycache__/**
->>>>>>> origin/main
+dist/
+__pycache__/
