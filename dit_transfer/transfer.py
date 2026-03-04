@@ -8,6 +8,7 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 import subprocess
 import configparser
 import uuid
+import subprocess
 
 
 def get_dir_size(src_dir: Path) -> int:
@@ -186,8 +187,6 @@ def spot_check_verify(
 
 
 def is_ltfs_mount(path: Path) -> bool:
-    import subprocess
-
     try:
         result = subprocess.run(
             ["df", "-T", str(path)], capture_output=True, text=True, timeout=10
