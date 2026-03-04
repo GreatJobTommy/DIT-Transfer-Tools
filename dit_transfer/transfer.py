@@ -165,9 +165,8 @@ def spot_check_verify(
                     continue
     except:
         large_files = []  # too large dir
+    import random
     if len(large_files) > num_chunks:
-        import random
-
         large_files = random.sample(large_files, num_chunks)
     num_to_check = min(num_chunks, len(large_files))
     for i in range(num_to_check):
