@@ -19,6 +19,7 @@ on:
       - '.github/workflows/macos-dmg.yml'
 permissions:
   contents: read
+
 jobs:
   build:
     runs-on: macos-14
@@ -28,24 +29,43 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install Qt
+      id: install-qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.6.2'
+
+    - name: Setup Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
     - name: Install dependencies
       run: |
-        brew install cmake ninja qt@6 node
+        brew install cmake ninja
 
     - name: Build
       run: |
-        QT_PREFIX=$(brew --prefix qt@6)
         cmake -S . -B build -G Ninja \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-          -DCMAKE_PREFIX_PATH=${QT_PREFIX}
+          -DCMAKE_PREFIX_PATH=${{ steps.install-qt.outputs.dir }}
         cmake --build build --config Release
 
     - name: Deploy Qt app bundle
       run: |
         mkdir -p DIT-Transfer-Tools.app/Contents/MacOS
-        cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
-        ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
+        cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/
+        macdeployqt DIT-Transfer-Tools.app -verbose=2
+
+    - name: Validate bundle
+      run: |
+        ls -la DIT-*.app
+        if [[ ! -d DIT-Transfer-Tools.app ]]; then
+          echo "No app bundle created"
+          exit 1
+        fi
+        ls -la DIT-Transfer-Tools.app/Contents/
 
     - name: Install create-dmg
       run: npm install -g create-dmg
