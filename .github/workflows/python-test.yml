@@ -19,6 +19,8 @@ jobs:
 
     - name: Install test dependencies
       run: pip install pytest black ruff mypy
+    - name: Install package editable
+      run: pip install -e .
     - name: Test with pytest
       run: pytest tests/python -v
     - name: Lint with black
