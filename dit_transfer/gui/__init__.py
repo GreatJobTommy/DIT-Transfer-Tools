@@ -150,12 +150,12 @@ def main():
                     text="Local transfer completed successfully!", fg="green"
                 )
             root.after(0, lambda: progress.stop())
-        except Exception:
+        except Exception as exc:
             root.after(0, lambda: progress.stop())
             root.after(
-                0, lambda: status_label.config(text=f"Error: {str(e)}", fg="red")
+                0, lambda: status_label.config(text=f"Error: {str(exc)}", fg="red")
             )
-            root.after(0, lambda: messagebox.showerror("Transfer Error", str(e)))
+            root.after(0, lambda: messagebox.showerror("Transfer Error", str(exc)))
 
     tk.Button(root, text="Start Transfer", command=do_transfer, bg="lightgreen").grid(
         row=5, column=1, pady=10

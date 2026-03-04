@@ -161,9 +161,9 @@ def spot_check_verify(
                         large_files.append(f)
                         if len(large_files) >= num_chunks * 20:
                             break
-                except:
+                except Exception:
                     continue
-    except:
+    except Exception:
         large_files = []  # too large dir
     import random
 
@@ -193,7 +193,7 @@ def is_ltfs_mount(path: Path) -> bool:
         )
         if "ltfs" in result.stdout.lower() or "ltfs" in result.stderr.lower():
             return True
-    except:
+    except Exception:
         pass
     if str(path).startswith("/Volumes/LTO"):
         return True
