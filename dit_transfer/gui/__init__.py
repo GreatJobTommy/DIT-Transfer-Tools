@@ -1,11 +1,12 @@
 import tkinter as tk
+tkinter = tk
 from tkinter import filedialog, ttk, messagebox, simpledialog
 import threading
 from pathlib import Path
 from typing import Optional
 import os
 
-from .transfer import (
+from dit_transfer.transfer import (
     parse_sftp_uri,
     sftp_connect,
     transfer_local_to_sftp,
