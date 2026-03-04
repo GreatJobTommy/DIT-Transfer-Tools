@@ -47,6 +47,11 @@ jobs:
         cp build/DIT-Transfer-Tools DIT-Transfer-Tools.app/Contents/MacOS/DIT-Transfer-Tools
         ${QT_PREFIX}/bin/macdeployqt DIT-Transfer-Tools.app -verbose=1
 
+    - name: Setup Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
     - name: Install create-dmg
       run: npm install -g create-dmg
 
