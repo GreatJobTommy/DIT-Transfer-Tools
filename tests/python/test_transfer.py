@@ -99,7 +99,7 @@ def test_spot_check_verify(tmp_path):
 @patch("dit_transfer.transfer.subprocess")
 def test_is_ltfs_mount_true(mock_subprocess, tmp_path):
     mock_result = MagicMock()
-    mock_result.stdout = f'ltfs\\ton\\t{tmp_path}'
+    mock_result.stdout = 'ltfs filesystem\\n'
     mock_result.stderr = ""
     mock_result.returncode = 0
     mock_subprocess.run.return_value = mock_result
