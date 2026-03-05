@@ -22,7 +22,9 @@ dev = [
   "black",
   "ruff",
   "pytest",
+  "pytest-cov",
   "mypy",
+  "pytest-mock",
 ]
 
 [project.scripts]
@@ -34,3 +36,6 @@ path = "dit_transfer/version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["dit_transfer"]
+
+[tool.coverage.run]
+omit = ["dit_transfer/gui/*"]

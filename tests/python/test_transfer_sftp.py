@@ -107,12 +107,12 @@ class TestSFTP:
     @patch("pathlib.Path.is_dir")
     def test_transfer_sftp_to_local_dir(self, mock_tqdm, mock_is_dir):
         mock_sftp = MagicMock()
-        mock_is_dir.return_value = True
         mock_st = MagicMock()
+        mock_st.st_mode = stat.S_IFDIR
         mock_sftp.stat.return_value = mock_st
+        mock_sftp.listdir_attr.return_value = []
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
-        mock_sftp = MagicMock()
         dt.transfer_sftp_to_local('/remote', Path('/local'), mock_sftp)
         mock_tqdm.assert_called_once()
 
