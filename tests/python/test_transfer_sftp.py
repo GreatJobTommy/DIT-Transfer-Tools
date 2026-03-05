@@ -3,6 +3,7 @@ import pytest
 from unittest.mock import patch, MagicMock, call
 from pathlib import Path
 import dit_transfer.transfer as dt
+import stat
 
 class TestSFTP:
     @patch('dit_transfer.transfer.os.path.exists')
@@ -85,15 +86,18 @@ class TestSFTP:
         local_path.is_dir.return_value = True
         mock_file1 = MagicMock()
         mock_file1.path = '/fake/file1'
+        mock_file1.name = 'file1'
         mock_file1.is_dir.return_value = False
         mock_file1.is_file.return_value = True
         mock_file1.stat.return_value.st_size = 100
         mock_file2 = MagicMock()
         mock_file2.path = '/fake/file2'
+        mock_file2.name = 'file2'
         mock_file2.is_dir.return_value = False
         mock_file2.is_file.return_value = True
         mock_file2.stat.return_value.st_size = 200
         mock_scandir.return_value = iter([mock_file1, mock_file2])
+        local_path.rglob.return_value = iter([mock_file1, mock_file2])
         dt.transfer_local_to_sftp(local_path, '/remote', mock_sftp)
         mock_tqdm.assert_called_once_with(total=300, unit='B', unit_scale=True, desc='Uploading')
 
