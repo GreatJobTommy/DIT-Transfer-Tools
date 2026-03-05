@@ -1,6 +1,6 @@
 """Tests for SFTP transfer functions."""
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 from pathlib import Path
 import dit_transfer.transfer as dt
 
@@ -95,10 +95,10 @@ class TestSFTP:
     @patch('dit_transfer.transfer.tqdm')
     
     
-    def test_transfer_sftp_to_local_dir(self, mock_is_dir, mock_tqdm):
+    def test_transfer_sftp_to_local_dir(self, mock_tqdm, mock_is_dir):
         mock_is_dir.return_value = True
         mock_st = MagicMock()
-        mock_sftp_stat.return_value = mock_st
+        mock_sftp.stat.return_value = mock_st
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
         mock_sftp = MagicMock()
