@@ -50,6 +50,6 @@ def test_transfer_local_to_sftp_file(mock_tqdm, mock_tracker, mock_makedirs):
 
 
 @patch('dit_transfer.transfer.subprocess.run')
-def test_transfer_with_rclone(mock_run):
+def test_transfer_with_rclone(mock_run, mock_spot_check_verify, mock_directory_size_verify):
     transfer_with_rclone('src:', 'dst:')
     mock_run.assert_called()
