@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v4.2.1 (2026-03-05)
+### Fixed
+- PyPI version bump for patch release readiness
+- Reference upcoming CI release fixes (#49)
+
 ## v4.2.0 (2026-03-05)
 ### Added
 - LTFS enhancements (#47)

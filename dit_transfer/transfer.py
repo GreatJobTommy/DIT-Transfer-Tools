@@ -202,7 +202,7 @@ def is_ltfs_mount(path: Path) -> bool:
         mount_info = result.stdout
         if "ltfs" in mount_info and str(path) in mount_info:
             return True
-    except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
+    except Exception:
         pass
     return False
 
