@@ -153,9 +153,9 @@ def main():
         except Exception as exc:
             root.after(0, lambda: progress.stop())
             root.after(
-                0, lambda: status_label.config(text=f"Error: {str(exc)}", fg="red")
+                0, lambda exc=exc: status_label.config(text=f"Error: {str(exc)}", fg="red")
             )
-            root.after(0, lambda: messagebox.showerror("Transfer Error", str(exc)))
+            root.after(0, lambda exc=exc: messagebox.showerror("Transfer Error", str(exc)))
 
     tk.Button(root, text="Start Transfer", command=do_transfer, bg="lightgreen").grid(
         row=5, column=1, pady=10
