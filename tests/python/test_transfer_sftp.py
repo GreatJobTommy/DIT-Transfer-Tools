@@ -107,8 +107,8 @@ class TestSFTP:
         dt.transfer_sftp_to_local('/remote', Path('/local'), mock_sftp)
         mock_tqdm.assert_called_once()
 
-        @pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,100)])
-    def test_progress_tracker_callback(transferred, total, expected_update):
+@pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,100)])
+    def test_progress_tracker_callback(self, transferred, total, expected_update):
         pbar = MagicMock()
         tracker = dt.ProgressTracker(pbar)
         tracker.callback(transferred, total)
