@@ -14,7 +14,7 @@ void MainWindow::refreshRcloneRemotes() {
             QStringList remotes = output.split('\n', Qt::SkipEmptyParts);
             m_rcloneRemotesList->clear();
             for (const QString& remote : remotes) {
-                m_rcloneRemotesList->addItem(remote.replace(QRegularExpression(":$"), ""));
+                m_rcloneRemotesList->addItem(remote.replaced(QRegularExpression(":$"), ""));
             }
         } else {
             QMessageBox::warning(this, "Rclone Error", "Failed to list remotes: " + QString::fromUtf8(proc->readAllStandardError()));

@@ -31,7 +31,7 @@ class TestSFTP:
         mock_sftp = MagicMock()
         mock_sftp.stat.side_effect = IOError
         dt.sftp_makedirs(mock_sftp, '/remote/dir')
-        mock_sftp.mkdir.assert_called_once_with('/remote/dir')
+        mock_sftp.mkdir.assert_has_calls([call('/remote'), call('/remote/dir')])
 
     
     def test_sftp_makedirs_exists(self):
@@ -43,7 +43,7 @@ class TestSFTP:
     
     def test_sftp_makedirs_recursive(self):
         mock_sftp = MagicMock()
-        mock_sftp.stat.side_effect = [IOError, IOError]
+        mock_sftp.stat.side_effect = [IOError] * 3
         dt.sftp_makedirs(mock_sftp, '/remote/a/b')
         mock_sftp.mkdir.assert_has_calls([call('/remote/a'), call('/remote/a/b')])
 
@@ -95,7 +95,7 @@ class TestSFTP:
     @patch('dit_transfer.transfer.tqdm')
     
     
-    def test_transfer_sftp_to_local_dir(self, mock_sftp_stat, mock_is_dir, mock_tqdm):
+    def test_transfer_sftp_to_local_dir(self, mock_is_dir, mock_tqdm):
         mock_is_dir.return_value = True
         mock_st = MagicMock()
         mock_sftp_stat.return_value = mock_st
