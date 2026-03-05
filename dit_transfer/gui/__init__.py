@@ -1,6 +1,4 @@
 import tkinter as tk
-
-tkinter = tk
 from tkinter import filedialog, ttk, messagebox, simpledialog
 import threading
 from pathlib import Path
@@ -61,6 +59,13 @@ def main():
     verify_var = tk.BooleanVar()
     tk.Checkbutton(
         root, text="Verify checksums after transfer", variable=verify_var
+    ).grid(row=2, column=0, sticky="w", padx=5, pady=5)
+
+    lto_var = tk.BooleanVar()
+    tk.Checkbutton(
+        root,
+        text="LTO Mode (64MB buffer, rsync fallback, spot-check verify)",
+        variable=lto_var,
     ).grid(row=2, column=1, sticky="w", padx=5, pady=5)
 
     # Progress
@@ -89,7 +94,16 @@ def main():
         root.update()
         thread = threading.Thread(
             target=transfer_worker,
-            args=(source, dest, verify, password, status_label, progress, root),
+            args=(
+                source,
+                dest,
+                verify,
+                lto_var.get(),
+                password,
+                status_label,
+                progress,
+                root,
+            ),
         )
         thread.daemon = True
         thread.start()
@@ -98,6 +112,7 @@ def main():
         source: str,
         dest: str,
         verify: bool,
+        lto_mode: bool,
         password: Optional[str],
         status_label,
         progress,
@@ -124,17 +139,28 @@ def main():
                 status_label.config(text="Download completed successfully!", fg="green")
             else:
                 # local to local
-                transfer_local(src_path, dst_path, verify=verify)
+                transfer_local(
+                    src_path,
+                    dst_path,
+                    verify=verify,
+                    rsync_fallback=lto_mode,
+                    spot_check=lto_mode,
+                )
                 status_label.config(
                     text="Local transfer completed successfully!", fg="green"
                 )
             root.after(0, lambda: progress.stop())
-        except Exception:
+        except Exception as exc:
             root.after(0, lambda: progress.stop())
             root.after(
-                0, lambda: status_label.config(text=f"Error: {str(e)}", fg="red")
+                0,
+                lambda exc=exc: status_label.config(
+                    text=f"Error: {str(exc)}", fg="red"
+                ),
             )
-            root.after(0, lambda: messagebox.showerror("Transfer Error", str(e)))
+            root.after(
+                0, lambda exc=exc: messagebox.showerror("Transfer Error", str(exc))
+            )
 
     tk.Button(root, text="Start Transfer", command=do_transfer, bg="lightgreen").grid(
         row=5, column=1, pady=10

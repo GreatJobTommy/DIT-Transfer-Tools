@@ -1,9 +1,15 @@
 import hashlib
+import os
+from unittest.mock import patch, MagicMock
+from pathlib import Path
+import shutil
 from dit_transfer.transfer import (
     parse_sftp_uri,
     parse_rclone_uri,
     file_checksum,
     transfer_local,
+    is_ltfs_mount,
+    spot_check_verify,
 )
 
 
@@ -66,3 +72,41 @@ def test_transfer_local_verify(tmp_path):
     dst = tmp_path / "v_dst.txt"
     transfer_local(src, dst, verify=True)
     # Should not raise
+
+
+def test_transfer_rsync_fallback(tmp_path, monkeypatch):
+    monkeypatch.setenv("PATH", os.environ.get("PATH", "") + ":")
+    src = tmp_path / "rsync_src.txt"
+    src.write_text("rsync")
+    dst_dir = tmp_path / "dst_rsync"
+    dst_dir.mkdir()
+    with patch("subprocess.run") as mock_run:
+        transfer_local(src, dst_dir, rsync_fallback=True)
+        mock_run.assert_called()
+
+
+def test_spot_check_verify(tmp_path):
+    src_dir = tmp_path / "src_spot"
+    src_dir.mkdir()
+    large_file = src_dir / "large.bin"
+    large_file.write_bytes(os.urandom(10 * 1024 * 1024))
+    dst_dir = tmp_path / "dst_spot"
+    dst_dir.mkdir()
+    shutil.copy2(large_file, dst_dir / "large.bin")
+    spot_check_verify(src_dir, dst_dir)
+
+
+@patch("dit_transfer.transfer.subprocess")
+def test_is_ltfs_mount_true(mock_subprocess, tmp_path):
+    mock_result = MagicMock()
+    mock_result.stdout = "ltfs filesystem\\n"
+    mock_result.stderr = ""
+    mock_result.returncode = 0
+    mock_subprocess.run.return_value = mock_result
+    assert is_ltfs_mount(tmp_path) is True
+
+
+@patch("dit_transfer.transfer.subprocess")
+def test_is_ltfs_mount_volumes(mock_subprocess, tmp_path):
+    tmp_path = Path("/Volumes/LTO1")
+    assert is_ltfs_mount(tmp_path) is True
