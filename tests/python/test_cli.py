@@ -177,8 +177,9 @@ def test_transfer_rclone(mock_rclone, tmp_path):
     mock_rclone.assert_called_once()
 
 
+@patch('dit_transfer.cli.ensure_rclone_remote')
 @patch('dit_transfer.cli.transfer_with_rclone')
-def test_transfer_sftp_rclone(mock_rclone, tmp_path):
+def test_transfer_sftp_rclone(mock_rclone, mock_ensure, tmp_path):
     runner = CliRunner()
     result = runner.invoke(cli, ["transfer", "sftp://user@host:/remote", "rclone://remote2:/path", "--password", "pass"])
     assert result.exit_code == 0
