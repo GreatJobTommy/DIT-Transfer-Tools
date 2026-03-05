@@ -102,7 +102,7 @@ class TestSFTP:
     
     @patch("pathlib.Path.is_dir")
     def test_transfer_sftp_to_local_dir(self, mock_tqdm, mock_is_dir):
-mock_sftp = MagicMock()
+        mock_sftp = MagicMock()
         mock_is_dir.return_value = True
         mock_st = MagicMock()
         mock_sftp.stat.return_value = mock_st
