@@ -373,11 +373,7 @@ def transfer_local(
     is_ltfs_src = is_ltfs_mount(src)
     is_ltfs_dst = is_ltfs_mount(dst)
     is_ltfs = is_ltfs_src or is_ltfs_dst
-<<<<<<< HEAD
     rsync_fallback = rsync_fallback or is_ltfs_dst  # Auto rsync fallback for LTFS destinations
-=======
-    rsync_fallback = rsync_fallback or is_ltfs_dst  # Auto rsync fallback for LTFS destinations
->>>>>>> origin/main
     do_spot_check = spot_check or (verify and is_ltfs) or sequential_flags
 
     if rsync_fallback:
