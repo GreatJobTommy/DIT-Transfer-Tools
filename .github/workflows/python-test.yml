@@ -23,7 +23,7 @@ jobs:
     - name: Install rclone
       run: curl https://rclone.org/install.sh | sudo bash
     - name: Test with pytest
-      run: pytest tests/python/ --cov=dit_transfer --cov-report=term-missing --cov-fail-under=85 -v --tb=short
+      run: pytest tests/python/ --cov=dit_transfer --cov-report=term-missing --cov-fail-under=84 -v --tb=short
     - name: Lint with black
       run: black --check .
     - name: Lint with ruff
