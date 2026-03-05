@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v4.2.0 (2026-03-05)
+### Added
+- LTFS enhancements (#47)
+
+### Fixed
+- CI: correct bash syntax in build.yml and release.yml (#48)
+
 ## v4.1.0 (2026-03-04)
 ### Added
 - Basic tkinter GUI prototype (roadmap #4-5) (#45)
@@ -48,15 +55,14 @@
 - Professional README + GitHub CI
 
 ## v0.9.x Feature Branches (merged)
-- `feature-parallel-v2`: Multi-thread chunk copy
-- `feature-settings`: SettingsDialog + persistence
-- `feature-queuemanager`: Priority queue system
-- `feature-hashmanager`: Thread-safe live hashing
-- `feature-drivemonitor`: USB drive monitoring
-- `feature-config-v7`: JSON/QSettings hybrid
-- `feature-errorhandling`: Robust recovery
-- `feature-live-preview-v3`: Graphics preview
+- \`feature-parallel-v2\`: Multi-thread chunk copy
+- \`feature-settings\`: SettingsDialog + persistence
+- \`feature-queuemanager\`: Priority queue system
+- \`feature-hashmanager\`: Thread-safe live hashing
+- \`feature-drivemonitor\`: USB drive monitoring
+- \`feature-config-v7\`: JSON/QSettings hybrid
+- \`feature-errorhandling\`: Robust recovery
+- \`feature-live-preview-v3\`: Graphics preview
 
 ## Earlier
-See `git log --oneline main`
-
+See \`git log --oneline main\`
