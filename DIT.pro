@@ -30,7 +30,7 @@ HEADERS += \
     src/AddTaskDialog.h \
     src/ProgressMonitor.h \
     src/SettingsManager.h \
-    src/LogsDockWidget.h
+    src/LogsDockWidget.h \\\n    src/DragDropList.h \\\n    src/DragDropList.h
 
 FORMS += \
     src/AddTaskDialog.ui

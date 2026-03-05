@@ -69,8 +69,12 @@ def main():
     buffer_entry = tk.Entry(settings_frame, textvariable=buffer_var, width=10)
     buffer_entry.grid(row=0, column=1, padx=5)
     seq_var = tk.BooleanVar()
-    seq_check = tk.Checkbutton(settings_frame, text="Sequential Flags (LTFS --inplace rsync)", variable=seq_var)
+    seq_check = tk.Checkbutton(settings_frame, text="Sequential (--inplace)", variable=seq_var)
     seq_check.grid(row=0, column=2, sticky="w", padx=10)
+
+    rsync_var = tk.BooleanVar(value=True)  # LTO preset: rsync mode
+    rsync_check = tk.Checkbutton(settings_frame, text="Rsync Fallback (metadata/xattrs for LTFS)", variable=rsync_var)
+    rsync_check.grid(row=1, column=0, columnspan=2, sticky="w", padx=10, pady=5)
 
     # Progress
     progress = ttk.Progressbar(root, mode="indeterminate", length=500)
@@ -108,7 +112,9 @@ def main():
             source,
             dest,
             verify,
+            buffer_size,
             seq_var.get(),
+            rsync_var.get(),
             password,
             status_label,
             progress,
@@ -124,6 +130,7 @@ def main():
     verify: bool,
     buffer_size: int,
     sequential_flags: bool,
+    rsync_fallback: bool,
     password: Optional[str],
     status_label,
     progress,
@@ -154,6 +161,7 @@ def main():
                 src_path,
                 dst_path,
                 verify=verify,
+                rsync_fallback=rsync_fallback,
                 buffer_size=buffer_size,
                 sequential_flags=sequential_flags,
             )
