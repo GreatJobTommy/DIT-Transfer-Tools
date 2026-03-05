@@ -5,6 +5,7 @@ from dit_transfer.gui import main
 
 import os
 
+
 @pytest.mark.skipif("CI" in os.environ, reason="Headless, no Tk root")
 def test_gui_main():
     """Test that GUI main function runs without crashing."""
