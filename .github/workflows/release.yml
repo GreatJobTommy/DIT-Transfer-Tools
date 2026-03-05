@@ -174,41 +174,40 @@ jobs:
       run: |
         VERSION=${GITHUB_REF_NAME#v}
         PRODVER=${VERSION}.0
-        cat > installer.nsi << 'EOF'
-!include "MUI2.nsh"
-!define MUI_ABORTWARNING
-!define APPNAME "DIT Transfer Tools"
-!define APPVERSION "PLACEHOLDER_VERSION"
-Name "\${APPNAME} \${APPVERSION}"
-OutFile "DIT-Transfer-Tools-setup.exe"
-InstallDirRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation"
-RequestExecutionLevel admin
-VIProductVersion "PLACEHOLDER_PRODVER"
-VIAddVersionKey "ProductName" "\${APPNAME}"
-VIAddVersionKey "CompanyName" "GreatJobTommy"
-VIAddVersionKey "FileDescription" "\${APPNAME} Installer"
-Page directory
-Page instfiles
-UninstPage instfiles
-Section "Program"
-  SetOutPath "$INSTDIR"
-  File /r "DIT-Transfer-Tools\*.*"
-  CreateDirectory "$SMPROGRAMS\${APPNAME}"
-  CreateShortcut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
-  CreateShortcut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
-  WriteUninstaller "$INSTDIR\uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$INSTDIR"
-SectionEnd
-Section "Uninstall"
-  Delete "$INSTDIR\uninstall.exe"
-  RMDir /r "$INSTDIR"
-  Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
-  RMDir "$SMPROGRAMS\${APPNAME}"
-  Delete "$DESKTOP\${APPNAME}.lnk"
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
-SectionEnd
+    !include "MUI2.nsh"
+    !define MUI_ABORTWARNING
+    !define APPNAME "DIT Transfer Tools"
+    !define APPVERSION "PLACEHOLDER_VERSION"
+    Name "\${APPNAME} \${APPVERSION}"
+    OutFile "DIT-Transfer-Tools-setup.exe"
+    InstallDirRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation"
+    RequestExecutionLevel admin
+    VIProductVersion "PLACEHOLDER_PRODVER"
+    VIAddVersionKey "ProductName" "\${APPNAME}"
+    VIAddVersionKey "CompanyName" "GreatJobTommy"
+    VIAddVersionKey "FileDescription" "\${APPNAME} Installer"
+    Page directory
+    Page instfiles
+    UninstPage instfiles
+    Section "Program"
+      SetOutPath "$INSTDIR"
+      File /r "DIT-Transfer-Tools\*.*"
+      CreateDirectory "$SMPROGRAMS\${APPNAME}"
+      CreateShortcut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
+      CreateShortcut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\DIT-Transfer-Tools.exe"
+      WriteUninstaller "$INSTDIR\uninstall.exe"
+      WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
+      WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
+      WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$INSTDIR"
+    SectionEnd
+    Section "Uninstall"
+      Delete "$INSTDIR\uninstall.exe"
+      RMDir /r "$INSTDIR"
+      Delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+      RMDir "$SMPROGRAMS\${APPNAME}"
+      Delete "$DESKTOP\${APPNAME}.lnk"
+      DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+    SectionEnd
 EOF
         sed -i "s|PLACEHOLDER_VERSION|${VERSION}|g" installer.nsi
         sed -i "s|PLACEHOLDER_PRODVER|${PRODVER}|g" installer.nsi
