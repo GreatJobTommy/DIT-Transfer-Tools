@@ -41,7 +41,5 @@ packages = ["dit_transfer"]
 omit = ["dit_transfer/gui/*"]
 
 [tool.black]
-target-version = ['py39']
-extend-exclude = '''
-dit_transfer/gui/__init__.py
-'''
+target-version = ["py312"]
+
