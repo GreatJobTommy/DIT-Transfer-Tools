@@ -68,7 +68,7 @@ class TestSFTP:
         mock_file_cs.return_value = 'hash'
         mock_remote_cs.return_value = 'hash'
         mock_sftp = MagicMock()
-        local_path = MagicMock(spec=Path)
+        local_path = MagicMock()
         local_path.is_dir.return_value = False
         local_path.name = 'file'
         local_path.stat.return_value.st_size = 100
@@ -81,12 +81,16 @@ class TestSFTP:
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
         mock_sftp = MagicMock()
-        local_path = MagicMock(spec=Path)
+        local_path = MagicMock()
         local_path.is_dir.return_value = True
-        mock_file1 = MagicMock(spec=Path)
+        mock_file1 = MagicMock()
+        mock_file1.path = '/fake/file1'
+        mock_file1.is_dir.return_value = False
         mock_file1.is_file.return_value = True
         mock_file1.stat.return_value.st_size = 100
-        mock_file2 = MagicMock(spec=Path)
+        mock_file2 = MagicMock()
+        mock_file2.path = '/fake/file2'
+        mock_file2.is_dir.return_value = False
         mock_file2.is_file.return_value = True
         mock_file2.stat.return_value.st_size = 200
         mock_scandir.return_value = iter([mock_file1, mock_file2])
@@ -98,6 +102,7 @@ class TestSFTP:
     
     @patch("pathlib.Path.is_dir")
     def test_transfer_sftp_to_local_dir(self, mock_tqdm, mock_is_dir):
+mock_sftp = MagicMock()
         mock_is_dir.return_value = True
         mock_st = MagicMock()
         mock_sftp.stat.return_value = mock_st
