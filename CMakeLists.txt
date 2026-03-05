@@ -37,6 +37,9 @@ add_executable(DIT-Transfer-Tools
     src/NotificationManager.cpp
     src/NotificationManager.h
     src/DragDropList.h
+    src/MainWindow_slots_rclone.cpp
+    src/RcloneRemoteDialog.cpp
+    src/RcloneRemoteDialog.h
 )
 
 target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
