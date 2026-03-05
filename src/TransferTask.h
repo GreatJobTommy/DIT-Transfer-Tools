@@ -91,6 +91,10 @@ private:
     bool m_verifyEnabled{false};
     bool m_useWholeFileRsync{false};
     QString m_preset;
+
+private:
+    bool verifyTransfer();
+    void spotCheck(int numChecks = 5, qint64 chunkSize = 1048576);
 };
 
 #endif // TRANSFERTASK_H
