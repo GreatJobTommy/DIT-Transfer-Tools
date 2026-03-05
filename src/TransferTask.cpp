@@ -101,9 +101,9 @@ void TransferTask::run() {
         QFileInfo srcInfo(m_source);
         if (srcInfo.isDir() || m_isLTFS) {
             QStringList args;
-            args &lt;&lt; &quot;--archive&quot; &lt;&lt; &quot;--verbose&quot; &lt;&lt; &quot;--progress&quot; &lt;&lt; &quot;--whole-file&quot; &lt;&lt; m_source &lt;&lt; m_destination;
-            m_process-&gt;setProcessChannelMode(QProcess::MergedChannels);
-            m_process-&gt;start(&quot;rsync&quot;, args);
+            args << "--archive" << "--verbose" << "--progress" << "--whole-file" << m_source << m_destination;
+            m_process->setProcessChannelMode(QProcess::MergedChannels);
+            m_process->start("rsync", args);
             return;
         }
         // Real local file copy with dynamic chunking
