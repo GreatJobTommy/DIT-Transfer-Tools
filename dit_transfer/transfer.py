@@ -365,20 +365,24 @@ def transfer_local(
     spot_check=False,
     num_chunks=5,
     chunk_mb=1,
+    buffer_size: int = 64 * 1024 * 1024,
+    sequential_flags: bool = False,
 ):
     copy_dst = dst / src.name if dst.exists() and dst.is_dir() else dst
 
     is_ltfs_src = is_ltfs_mount(src)
     is_ltfs_dst = is_ltfs_mount(dst)
     is_ltfs = is_ltfs_src or is_ltfs_dst
-    buffer_size = 64 * 1024 * 1024 if is_ltfs else 64 * 1024
-    rsync_fallback = rsync_fallback or is_ltfs
-    do_spot_check = spot_check or (verify and is_ltfs)
+    buffer_size
+    rsync_fallback = rsync_fallback or (sequential_flags and is_ltfs_dst)
+    do_spot_check = spot_check or (verify and is_ltfs) or sequential_flags
 
     if rsync_fallback:
         src_str = f"{str(src)}/" if src.is_dir() else str(src)
         dst_str = f"{str(copy_dst)}/" if src.is_dir() else str(copy_dst)
         cmd = ["rsync", "-a", "--whole-file", "--progress", src_str, dst_str]
+        if sequential_flags:
+            cmd.insert(3, "--inplace")
         subprocess.run(cmd, check=True)
     else:
         if src.is_file():
