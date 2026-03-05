@@ -39,3 +39,6 @@ packages = ["dit_transfer"]
 
 [tool.coverage.run]
 omit = ["dit_transfer/gui/*"]
+
+[tool.black]
+target-version = ["py312"]
