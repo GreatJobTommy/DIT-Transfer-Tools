@@ -77,7 +77,7 @@ class TestSFTP:
 
     @patch('dit_transfer.transfer.tqdm')
     @patch("os.scandir")
-    def test_transfer_local_to_sftp_dir(self, mock_tqdm):
+    def test_transfer_local_to_sftp_dir(self, mock_scandir, mock_tqdm):
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
         mock_sftp = MagicMock()

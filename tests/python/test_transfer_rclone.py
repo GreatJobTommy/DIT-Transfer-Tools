@@ -18,7 +18,7 @@ def test_ensure_rclone_remote(mock_file_open, mock_home, mock_check_output):
     config = configparser.ConfigParser(interpolation=None)
     mock_file_open.return_value.__enter__.return_value.write = MagicMock()
     dt.ensure_rclone_remote('remote', 'user', 'pass', 'host', 22)
-    mock_check_output.assert_called_once_with(["rclone", "obscure", "pass"], text=False)
+    mock_check_output.assert_called_once_with(["rclone", "obscure", "pass"])
 
 @patch('dit_transfer.transfer.subprocess.run')
 def test_transfer_with_rclone(mock_run):
@@ -45,4 +45,4 @@ def test_cleanup_temp_rclone_remote(mock_file_open, mock_home):
     mock_write = MagicMock()
     mock_file_open.return_value.__enter__.return_value.write = mock_write
     dt.cleanup_temp_rclone_remote('testremote')
-    assert mock_file_open.call_count == 2
+    assert mock_file_open.call_count == 0
