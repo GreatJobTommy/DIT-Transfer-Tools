@@ -11,10 +11,10 @@ import os
 def test_gui_main():
     """Test that GUI main function runs without crashing."""
     with (
-        patch("dit_transfer.gui.tkinter.Tk") as mock_Tk,
-        patch("dit_transfer.gui.tkinter.filedialog.askopenfilename"),
-        patch("dit_transfer.gui.tkinter.filedialog.askdirectory"),
-        patch("dit_transfer.gui.tkinter.simpledialog.askstring", return_value=None),
+        patch("dit_transfer.gui.tk.Tk") as mock_Tk,
+        patch("dit_transfer.gui.filedialog.askopenfilename"),
+        patch("dit_transfer.gui.filedialog.askdirectory"),
+        patch("dit_transfer.gui.simpledialog.askstring", return_value=None),
         patch("dit_transfer.gui.threading.Thread") as mock_thread,
     ):
         mock_root = MagicMock()
