@@ -98,6 +98,14 @@ void TransferTask::run() {
         m_process->setProcessChannelMode(QProcess::MergedChannels);
         m_process->start("rclone", args);
     } else {
+        QFileInfo srcInfo(m_source);
+        if (srcInfo.isDir() || m_isLTFS) {
+            QStringList args;
+            args << "--archive" << "--verbose" << "--progress" << "--whole-file" << m_source << m_destination;
+            m_process->setProcessChannelMode(QProcess::MergedChannels);
+            m_process->start("rsync", args);
+            return;
+        }
         // Real local file copy with dynamic chunking
         QFile sourceFile(m_source);
         QFile destFile(m_destination);
@@ -169,15 +177,9 @@ void TransferTask::run() {
         sourceFile.close();
         destFile.close();
 
-        if (m_bytesTransferred == m_totalBytes) {
-            m_finished = true;
-            m_success = true;
-            setStatus(TransferStatus::Completed);
-        } else {
-            m_finished = true;
-            m_success = false;
-            setStatus(TransferStatus::Failed);
-        }
+        m_success = verifyTransfer();
+        m_finished = true;
+        setStatus(m_success ? TransferStatus::Completed : TransferStatus::Failed);
     }
 }
 
