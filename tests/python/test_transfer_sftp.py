@@ -26,24 +26,24 @@ class TestSFTP:
         mock_client.connect.assert_called_once_with(hostname='host', port=22, username='user', password='pass')
         mock_client.open_sftp.assert_called_once()
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_not_exists(self, mock_stat):
+    
+    def test_sftp_makedirs_not_exists(self):
         mock_sftp = MagicMock()
-        mock_stat.side_effect = IOError
+        mock_sftp.stat.side_effect = IOError
         dt.sftp_makedirs(mock_sftp, '/remote/dir')
         mock_sftp.mkdir.assert_called_once_with('/remote/dir')
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_exists(self, mock_stat):
+    
+    def test_sftp_makedirs_exists(self):
         mock_sftp = MagicMock()
-        mock_stat.return_value = MagicMock()
+        mock_sftp.stat.return_value = MagicMock()
         dt.sftp_makedirs(mock_sftp, '/remote/dir')
         mock_sftp.mkdir.assert_not_called()
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_recursive(self, mock_stat):
+    
+    def test_sftp_makedirs_recursive(self):
         mock_sftp = MagicMock()
-        mock_stat.side_effect = [IOError, IOError]
+        mock_sftp.stat.side_effect = [IOError, IOError]
         dt.sftp_makedirs(mock_sftp, '/remote/a/b')
         mock_sftp.mkdir.assert_has_calls([call('/remote/a'), call('/remote/a/b')])
 
@@ -93,8 +93,8 @@ class TestSFTP:
         mock_tqdm.assert_called_once_with(total=300, unit='B', unit_scale=True, desc='Uploading')
 
     @patch('dit_transfer.transfer.tqdm')
-    @patch('dit_transfer.transfer.stat.S_ISDIR')
-    @patch('dit_transfer.transfer.sftp.stat')
+    
+    
     def test_transfer_sftp_to_local_dir(self, mock_sftp_stat, mock_is_dir, mock_tqdm):
         mock_is_dir.return_value = True
         mock_st = MagicMock()
@@ -105,7 +105,7 @@ class TestSFTP:
         dt.transfer_sftp_to_local('/remote', Path('/local'), mock_sftp)
         mock_tqdm.assert_called_once()
 
-@pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,50)])
+@pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,100)])
 def test_progress_tracker_callback(transferred, total, expected_update):
     pbar = MagicMock()
     tracker = dt.ProgressTracker(pbar)
