@@ -48,6 +48,7 @@ private slots:
     void onTaskPaused(TransferTask* task);
     void onDriveReconnected();
     void onProgressChanged(qint64 bytes, qint64 speed, qint64 eta);
+void createRcloneTab();
 
 void refreshRcloneRemotes();
 void addRcloneRemote();
