@@ -1,5 +1,6 @@
 import hashlib
 import os
+import pytest
 from unittest.mock import patch, MagicMock
 from pathlib import Path
 import shutil
@@ -10,6 +11,7 @@ from dit_transfer.transfer import (
     transfer_local,
     is_ltfs_mount,
     spot_check_verify,
+    directory_size_verify,
 )
 
 
@@ -107,6 +109,68 @@ def test_is_ltfs_mount_true(mock_subprocess, tmp_path):
 
 
 @patch("dit_transfer.transfer.subprocess")
-def test_is_ltfs_mount_volumes(mock_subprocess, tmp_path):
-    tmp_path = Path("/Volumes/LTO1")
-    assert is_ltfs_mount(tmp_path) is True
+def test_is_ltfs_mount_false(mock_subprocess, tmp_path):
+    mock_result = MagicMock()
+    mock_result.stdout = "ext4 filesystem\\n"
+    mock_result.stderr = ""
+    mock_result.returncode = 0
+    mock_subprocess.run.return_value = mock_result
+    assert is_ltfs_mount(tmp_path) is False
+
+
+@patch("dit_transfer.transfer.subprocess")
+def test_is_ltfs_mount_exception(mock_subprocess, tmp_path):
+    mock_subprocess.run.side_effect = Exception("subprocess fail")
+    assert is_ltfs_mount(tmp_path) is False
+
+
+def test_is_ltfs_mount_volumes(tmp_path):
+    # On Linux, /Volumes/LTO heuristic
+    assert is_ltfs_mount(Path("/Volumes/LTO1")) is True
+
+
+@patch("dit_transfer.transfer.subprocess")
+def test_is_ltfs_mount_non_ltfs_volumes(mock_subprocess, tmp_path):
+    # Mock to override subprocess, test non-LTFS path
+    mock_result = MagicMock()
+    mock_result.stdout = ""
+    mock_result.returncode = 1
+    mock_subprocess.run.return_value = mock_result
+    assert is_ltfs_mount(Path("/not-volumes")) is False
+
+
+def test_spot_check_verify_mismatch(tmp_path):
+    src_dir = tmp_path / "src_spot_mismatch"
+    dst_dir = tmp_path / "dst_spot_mismatch"
+    src_dir.mkdir()
+    dst_dir.mkdir()
+    size = 2 * 1024 * 1024  # 2MB
+    large_file = src_dir / "large.bin"
+    large_file.write_bytes(b"a" * size)
+    dst_file = dst_dir / "large.bin"
+    dst_file.write_bytes(b"b" * size)
+    with pytest.raises(RuntimeError, match="Spot-check chunk mismatch"):
+        spot_check_verify(src_dir, dst_dir, num_chunks=1)
+
+
+def test_directory_size_verify_missing(tmp_path):
+    src_dir = tmp_path / "src_missing"
+    dst_dir = tmp_path / "dst_missing"
+    src_dir.mkdir()
+    dst_dir.mkdir()
+    (src_dir / "missing.txt").write_text("content")
+    with pytest.raises(RuntimeError, match="File lists differ"):
+        directory_size_verify(src_dir, dst_dir)
+
+
+def test_directory_size_verify_size_mismatch(tmp_path):
+    src_dir = tmp_path / "src_size"
+    dst_dir = tmp_path / "dst_size"
+    src_dir.mkdir()
+    dst_dir.mkdir()
+    f = src_dir / "mismatch.txt"
+    f.write_text("abc")
+    dst_f = dst_dir / "mismatch.txt"
+    dst_f.write_text("ab")  # shorter
+    with pytest.raises(RuntimeError, match="Size mismatches"):
+        directory_size_verify(src_dir, dst_dir)
