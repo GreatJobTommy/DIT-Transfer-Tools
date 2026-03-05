@@ -68,7 +68,9 @@ def transfer(
     is_rclone_dest = dest.startswith("rclone://")
     client = None
     try:
-        if (is_sftp_source or is_sftp_dest) and (is_rclone_source or is_rclone_dest):
+        if is_sftp_source and is_sftp_dest:
+            raise NotImplementedError("Direct SFTP to SFTP transfer not supported yet.")
+        elif (is_sftp_source or is_sftp_dest) and (is_rclone_source or is_rclone_dest):
             password = password or click.prompt("Enter SFTP password", hide_input=True)
             if is_sftp_source:
                 rem_s, path_s = create_temp_rclone_sftp_remote(source, password)
@@ -84,10 +86,7 @@ def transfer(
                 r_dst = f"{rem_d}:{path_d}"
                 transfer_with_rclone(r_src, r_dst, verify, concurrency)
                 cleanup_temp_rclone_remote(rem_d)
-            click.echo("Transfer completed successfully.")
-        if is_sftp_source and is_sftp_dest:
-            raise NotImplementedError("Direct SFTP to SFTP transfer not supported yet.")
-        if is_rclone_source or is_rclone_dest:
+        elif is_rclone_source or is_rclone_dest:
             if is_rclone_source:
                 remote_name, host, user, passwd, port, remote_path = parse_rclone_uri(
                     source
@@ -119,7 +118,7 @@ def transfer(
                 user, host, port, remote_src = parse_sftp_uri(source)
                 sftp, client = sftp_connect(user, host, port, password, key_file)
                 transfer_sftp_to_local(remote_src, dst_path, sftp, verify)
-            elif is_sftp_dest:
+            else:
                 user, host, port, remote_dest = parse_sftp_uri(dest)
                 sftp, client = sftp_connect(user, host, port, password, key_file)
                 transfer_local_to_sftp(src_path, remote_dest, sftp, verify)

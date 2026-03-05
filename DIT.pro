@@ -8,6 +8,7 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     src/MainWindow.cpp \
+    src/RcloneRemoteDialog.cpp \
     src/TransferTask.cpp \
     src/QueueManager.cpp \
     src/DriveMonitor.cpp \
@@ -15,10 +16,13 @@ SOURCES += \
     src/AddTaskDialog.cpp \
     src/ProgressMonitor.cpp \
     src/SettingsManager.cpp \
-    src/LogsDockWidget.cpp
+    src/LogsDockWidget.cpp \
+    src/MainWindow_slots_rclone.cpp \
+    src/RcloneRemoteDialog.cpp
 
 HEADERS += \
     src/MainWindow.h \
+    src/RcloneRemoteDialog.h \
     src/TransferTask.h \
     src/QueueManager.h \
     src/DriveMonitor.h \

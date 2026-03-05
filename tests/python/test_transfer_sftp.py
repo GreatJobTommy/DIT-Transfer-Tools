@@ -1,8 +1,9 @@
 """Tests for SFTP transfer functions."""
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 from pathlib import Path
 import dit_transfer.transfer as dt
+import stat
 
 class TestSFTP:
     @patch('dit_transfer.transfer.os.path.exists')
@@ -26,24 +27,24 @@ class TestSFTP:
         mock_client.connect.assert_called_once_with(hostname='host', port=22, username='user', password='pass')
         mock_client.open_sftp.assert_called_once()
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_not_exists(self, mock_stat):
-        mock_sftp = MagicMock()
-        mock_stat.side_effect = IOError
-        dt.sftp_makedirs(mock_sftp, '/remote/dir')
-        mock_sftp.mkdir.assert_called_once_with('/remote/dir')
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_exists(self, mock_stat):
+    def test_sftp_makedirs_not_exists(self):
         mock_sftp = MagicMock()
-        mock_stat.return_value = MagicMock()
+        mock_sftp.stat.side_effect = IOError
+        dt.sftp_makedirs(mock_sftp, '/remote/dir')
+        mock_sftp.mkdir.assert_has_calls([call('/remote'), call('/remote/dir')])
+
+
+    def test_sftp_makedirs_exists(self):
+        mock_sftp = MagicMock()
+        mock_sftp.stat.return_value = MagicMock()
         dt.sftp_makedirs(mock_sftp, '/remote/dir')
         mock_sftp.mkdir.assert_not_called()
 
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_sftp_makedirs_recursive(self, mock_stat):
+
+    def test_sftp_makedirs_recursive(self):
         mock_sftp = MagicMock()
-        mock_stat.side_effect = [IOError, IOError]
+        mock_sftp.stat.side_effect = [IOError] * 3
         dt.sftp_makedirs(mock_sftp, '/remote/a/b')
         mock_sftp.mkdir.assert_has_calls([call('/remote/a'), call('/remote/a/b')])
 
@@ -68,7 +69,7 @@ class TestSFTP:
         mock_file_cs.return_value = 'hash'
         mock_remote_cs.return_value = 'hash'
         mock_sftp = MagicMock()
-        local_path = MagicMock(spec=Path)
+        local_path = MagicMock()
         local_path.is_dir.return_value = False
         local_path.name = 'file'
         local_path.stat.return_value.st_size = 100
@@ -76,38 +77,48 @@ class TestSFTP:
         mock_sftp.put.assert_called_once()
 
     @patch('dit_transfer.transfer.tqdm')
-    def test_transfer_local_to_sftp_dir(self, mock_tqdm):
+    @patch("os.scandir")
+    def test_transfer_local_to_sftp_dir(self, mock_scandir, mock_tqdm):
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
         mock_sftp = MagicMock()
-        local_path = MagicMock(spec=Path)
+        local_path = MagicMock()
         local_path.is_dir.return_value = True
-        mock_file1 = MagicMock(spec=Path)
+        mock_file1 = MagicMock()
+        mock_file1.path = '/fake/file1'
+        mock_file1.name = 'file1'
+        mock_file1.is_dir.return_value = False
         mock_file1.is_file.return_value = True
         mock_file1.stat.return_value.st_size = 100
-        mock_file2 = MagicMock(spec=Path)
+        mock_file2 = MagicMock()
+        mock_file2.path = '/fake/file2'
+        mock_file2.name = 'file2'
+        mock_file2.is_dir.return_value = False
         mock_file2.is_file.return_value = True
         mock_file2.stat.return_value.st_size = 200
+        mock_scandir.return_value = iter([mock_file1, mock_file2])
         local_path.rglob.return_value = iter([mock_file1, mock_file2])
         dt.transfer_local_to_sftp(local_path, '/remote', mock_sftp)
         mock_tqdm.assert_called_once_with(total=300, unit='B', unit_scale=True, desc='Uploading')
 
     @patch('dit_transfer.transfer.tqdm')
-    @patch('dit_transfer.transfer.stat.S_ISDIR')
-    @patch('dit_transfer.transfer.sftp.stat')
-    def test_transfer_sftp_to_local_dir(self, mock_sftp_stat, mock_is_dir, mock_tqdm):
-        mock_is_dir.return_value = True
+    
+    
+    @patch("pathlib.Path.is_dir")
+    def test_transfer_sftp_to_local_dir(self, mock_tqdm, mock_is_dir):
+        mock_sftp = MagicMock()
         mock_st = MagicMock()
-        mock_sftp_stat.return_value = mock_st
+        mock_st.st_mode = stat.S_IFDIR
+        mock_sftp.stat.return_value = mock_st
+        mock_sftp.listdir_attr.return_value = []
         mock_pbar = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_pbar
-        mock_sftp = MagicMock()
         dt.transfer_sftp_to_local('/remote', Path('/local'), mock_sftp)
         mock_tqdm.assert_called_once()
 
-@pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,50)])
-def test_progress_tracker_callback(transferred, total, expected_update):
-    pbar = MagicMock()
-    tracker = dt.ProgressTracker(pbar)
-    tracker.callback(transferred, total)
-    pbar.update.assert_called_once_with(expected_update)
+    @pytest.mark.parametrize('transferred,total,expected_update', [(50,100,50), (100,200,100)])
+    def test_progress_tracker_callback(self, transferred, total, expected_update):
+        pbar = MagicMock()
+        tracker = dt.ProgressTracker(pbar)
+        tracker.callback(transferred, total)
+        pbar.update.assert_called_once_with(expected_update)

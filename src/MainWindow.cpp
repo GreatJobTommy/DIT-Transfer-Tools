@@ -25,19 +25,21 @@
 #include <QListWidget>
 //#include <QtCharts/QChartView>
 
+#include "RcloneRemoteDialog.h"
+
 MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     : QMainWindow(parent), m_queue(queue) {
     m_driveMonitor = new DriveMonitor(this);
     m_progressMonitor = new ProgressMonitor(this);
     m_settingsManager = new SettingsManager(this);
 
-    setWindowTitle("DIT Transfer Tools v4.0");
+    setWindowTitle("DIT Transfer Tools v4.4.0-dev");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
 
     // Setup tray icon
     m_trayIcon = new QSystemTrayIcon(this);
     m_trayIcon->setIcon(windowIcon());
-    m_trayIcon->setToolTip("DIT Transfer Tools v4.0");
+    m_trayIcon->setToolTip("DIT Transfer Tools v4.4.0-dev");
     m_trayIcon->show();
 
     setupUI();
@@ -45,6 +47,11 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
 
     // Connect signals
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
+
+    connect(m_refreshRcloneBtn, &QPushButton::clicked, this, &MainWindow::refreshRcloneRemotes);
+    connect(m_addRcloneBtn, &QPushButton::clicked, this, &MainWindow::addRcloneRemote);
+    connect(m_editRcloneBtn, &QPushButton::clicked, this, &MainWindow::editRcloneRemote);
+    connect(m_deleteRcloneBtn, &QPushButton::clicked, this, &MainWindow::deleteRcloneRemote);
 
     // Connect to queue for task notifications
     connect(m_queue, &QueueManager::taskCompleted, this, &MainWindow::onTaskCompleted);
@@ -64,6 +71,7 @@ void MainWindow::setupUI() {
     createDashboardTab();
     createQueueTab();
     createDrivesTab();
+    createRcloneTab();
     createSettingsTab();
 
     // Remove Progress tab as per task
@@ -205,6 +213,31 @@ void MainWindow::createNodeTab() {
     // TODO: Implement graph
 
     m_tabWidget->addTab(nodeTab, QIcon(":/icons/node.png"), "Node");
+}
+
+void MainWindow::createRcloneTab() {
+    QWidget* rcloneTab = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout(rcloneTab);
+
+    QLabel* label = new QLabel("Rclone Remotes:");
+    layout->addWidget(label);
+
+    m_rcloneRemotesList = new QListWidget;
+    m_rcloneRemotesList->setContextMenuPolicy(Qt::CustomContextMenu);
+    layout->addWidget(m_rcloneRemotesList);
+
+    QHBoxLayout* btnLayout = new QHBoxLayout;
+    m_refreshRcloneBtn = new QPushButton("Refresh");
+    m_addRcloneBtn = new QPushButton("Add");
+    m_editRcloneBtn = new QPushButton("Edit");
+    m_deleteRcloneBtn = new QPushButton("Delete");
+    btnLayout->addWidget(m_refreshRcloneBtn);
+    btnLayout->addWidget(m_addRcloneBtn);
+    btnLayout->addWidget(m_editRcloneBtn);
+    btnLayout->addWidget(m_deleteRcloneBtn);
+    layout->addLayout(btnLayout);
+
+    m_tabWidget->addTab(rcloneTab, QIcon(":/icons/rclone.png"), "Rclone");
 }
 
 void MainWindow::createSettingsTab() {
@@ -351,6 +384,8 @@ void MainWindow::createSettingsTab() {
     layout->addStretch();
 
     m_tabWidget->addTab(settingsTab, QIcon(":/icons/settings.png"), "Settings");
+
+    refreshRcloneRemotes();
 }
 
 

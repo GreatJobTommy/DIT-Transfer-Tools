@@ -1,6 +1,9 @@
 from click.testing import CliRunner
 from dit_transfer.cli import cli
 import os
+import pytest
+from unittest.mock import patch, MagicMock
+import stat
 
 
 def test_cli_help():
@@ -133,3 +136,131 @@ def test_verify_not_dir(tmp_path):
     result = runner.invoke(cli, ["verify", str(src_file), str(dst_dir)])
     assert result.exit_code == 1
     assert "Error" in result.output
+
+
+@patch('dit_transfer.cli.sftp_connect')
+def test_transfer_local_to_sftp(mock_connect, tmp_path):
+    mock_sftp = MagicMock()
+    mock_client = MagicMock()
+    mock_connect.return_value = (mock_sftp, mock_client)
+    runner = CliRunner()
+    src = tmp_path / "file.txt"
+    src.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src), "sftp://user@host:/remote", "--password", "pass"])
+    assert result.exit_code == 0
+    mock_connect.assert_called_once()
+
+
+@patch('dit_transfer.cli.sftp_connect')
+def test_transfer_sftp_to_local(mock_connect, tmp_path):
+    mock_sftp = MagicMock()
+    mock_client = MagicMock()
+    mock_connect.return_value = (mock_sftp, mock_client)
+    mock_st = MagicMock()
+    mock_st.st_mode = stat.S_IFDIR
+    mock_sftp.stat.return_value = mock_st
+    mock_sftp.listdir_attr.return_value = []
+    runner = CliRunner()
+    dst = tmp_path / "dir"
+    result = runner.invoke(cli, ["transfer", "sftp://user@host:/remote", str(dst), "--password", "pass"])
+    assert result.exit_code == 0
+    mock_connect.assert_called_once()
+
+
+@patch('dit_transfer.cli.transfer_with_rclone')
+def test_transfer_rclone(mock_rclone, tmp_path):
+    runner = CliRunner()
+    src = tmp_path / "file.txt"
+    src.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src), "rclone://remote:/path"])
+    assert result.exit_code == 0
+    mock_rclone.assert_called_once()
+
+
+@patch('dit_transfer.cli.ensure_rclone_remote')
+@patch('dit_transfer.cli.transfer_with_rclone')
+def test_transfer_sftp_rclone(mock_rclone, mock_ensure, tmp_path):
+    runner = CliRunner()
+    result = runner.invoke(cli, ["transfer", "sftp://user@host:/remote", "rclone://remote2:/path", "--password", "pass"])
+    assert result.exit_code == 0
+    mock_rclone.assert_called_once()
+    assert "temp_sftp" in str(mock_rclone.call_args[0][0])
+
+def test_transfer_invalid_sftp_uri(tmp_path):
+    runner = CliRunner()
+    dst_dir = tmp_path / "dst"
+    dst_dir.mkdir()
+    result = runner.invoke(cli, ["transfer", "sftp:///remote", str(dst_dir), "--password", "dummy"])
+    assert result.exit_code != 0
+    assert "Error" in result.output
+
+def test_transfer_invalid_rclone_uri(tmp_path):
+    runner = CliRunner()
+    src_file = tmp_path / "test.txt"
+    src_file.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src_file), "rclone:///bad", ])
+    assert result.exit_code != 0
+    assert "Error" in result.output
+
+def test_transfer_sftp_sftp_notimpl(tmp_path):
+    runner = CliRunner()
+    result = runner.invoke(cli, ["transfer", "sftp://user@host:/a", "sftp://user2@host:/b", "--password", "pass"])
+    assert result.exit_code != 0
+    assert "Direct SFTP to SFTP transfer not supported yet." in result.output
+
+@patch('dit_transfer.cli.sftp_connect')
+@patch('click.prompt')
+def test_transfer_sftp_prompt(mock_prompt, mock_connect, tmp_path):
+    mock_prompt.return_value = "secret"
+    mock_sftp = MagicMock()
+    mock_client = MagicMock()
+    mock_connect.return_value = (mock_sftp, mock_client)
+    mock_st = MagicMock()
+    mock_st.st_mode = stat.S_IFDIR
+    mock_sftp.stat.return_value = mock_st
+    mock_sftp.listdir_attr.return_value = []
+    runner = CliRunner()
+    dst_dir = tmp_path / "dst"
+    dst_dir.mkdir()
+    result = runner.invoke(cli, ["transfer", "sftp://user@host:/remote", str(dst_dir)])
+    assert result.exit_code == 0
+    mock_prompt.assert_called_once_with("Enter SFTP password", hide_input=True)
+
+@patch('dit_transfer.cli.sftp_connect')
+@patch('click.prompt')
+def test_transfer_key_file(mock_prompt, mock_connect, tmp_path):
+    mock_prompt.return_value = "pass"
+    mock_sftp = MagicMock()
+    mock_client = MagicMock()
+    mock_connect.return_value = (mock_sftp, mock_client)
+    mock_st_dir = MagicMock()
+    mock_st_dir.st_mode = stat.S_IFDIR
+    mock_sftp.stat.return_value = mock_st_dir
+    runner = CliRunner()
+    src_file = tmp_path / "test.txt"
+    src_file.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src_file), "sftp://user@host:/remote", "--key-file", "/path/to/key"])
+    assert result.exit_code == 0
+    args = mock_connect.call_args[0]
+    assert args[4] == "/path/to/key"
+    mock_prompt.assert_called_once()
+
+@patch('dit_transfer.cli.transfer_with_rclone')
+@patch('dit_transfer.cli.ensure_rclone_remote')
+def test_transfer_rclone_dest_auth(mock_ensure, mock_rclone, tmp_path):
+    runner = CliRunner()
+    src_file = tmp_path / "test.txt"
+    src_file.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src_file), "rclone://user:pass@remote:/path"])
+    assert result.exit_code == 0
+    mock_ensure.assert_called_once()
+
+@patch('dit_transfer.cli.transfer_with_rclone')
+@patch('dit_transfer.cli.ensure_rclone_remote')
+def test_transfer_rclone_source_auth(mock_ensure, mock_rclone, tmp_path):
+    runner = CliRunner()
+    dst_dir = tmp_path / "dst"
+    dst_dir.mkdir()
+    result = runner.invoke(cli, ["transfer", "rclone://user:pass@remote:/path", str(dst_dir)])
+    assert result.exit_code == 0
+    mock_ensure.assert_called_once()

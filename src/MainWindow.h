@@ -48,6 +48,12 @@ private slots:
     void onTaskPaused(TransferTask* task);
     void onDriveReconnected();
     void onProgressChanged(qint64 bytes, qint64 speed, qint64 eta);
+void createRcloneTab();
+
+void refreshRcloneRemotes();
+void addRcloneRemote();
+void editRcloneRemote();
+void deleteRcloneRemote();
 
 private:
     void setupUI();
@@ -87,6 +93,13 @@ private:
     QAction* m_addTaskAction;
     QAction* m_removeTaskAction;
     QSystemTrayIcon* m_trayIcon;
+
+// Rclone
+QListWidget* m_rcloneRemotesList;
+QPushButton* m_refreshRcloneBtn;
+QPushButton* m_addRcloneBtn;
+QPushButton* m_editRcloneBtn;
+QPushButton* m_deleteRcloneBtn;
 };
 
 #endif // MAINWINDOW_H
