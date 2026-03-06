@@ -1,5 +1,6 @@
 from .utils import get_dir_size
 
+
 def test_get_dir_size(tmp_path):
     d = tmp_path / "d"
     d.mkdir()
