@@ -1,6 +1,5 @@
 """Tests for rclone transfer functions."""
 
-import pytest
 from unittest.mock import patch, MagicMock, call, mock_open
 from pathlib import Path
 import configparser
@@ -18,7 +17,6 @@ def test_parse_rclone_uri():
 def test_ensure_rclone_remote(mock_file_open, mock_home, mock_check_output):
     mock_home.return_value = Path("/tmp")
     mock_check_output.return_value = b"obscuredpass\n"
-    config = configparser.ConfigParser(interpolation=None)
     mock_file_open.return_value.__enter__.return_value.write = MagicMock()
     dt.ensure_rclone_remote("remote", "user", "pass", "host", 22)
     mock_check_output.assert_called_once_with(["rclone", "obscure", "pass"])
@@ -60,7 +58,6 @@ def test_create_temp_rclone_sftp_remote(mock_parse, mock_check_output):
 @patch("builtins.open", new_callable=mock_open)
 def test_cleanup_temp_rclone_remote(mock_file_open, mock_home):
     mock_home.return_value = Path("/tmp")
-    conf_path = Path.home() / ".config" / "rclone" / "rclone.conf"
     config = configparser.ConfigParser(interpolation=None)
     config["testremote"] = {"type": "sftp"}
     mock_write = MagicMock()

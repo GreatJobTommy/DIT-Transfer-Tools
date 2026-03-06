@@ -1,7 +1,6 @@
 from click.testing import CliRunner
 from dit_transfer.cli import cli
 import os
-import pytest
 from unittest.mock import patch, MagicMock
 import stat
 
