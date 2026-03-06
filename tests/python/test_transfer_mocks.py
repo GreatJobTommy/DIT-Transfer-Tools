@@ -1,13 +1,9 @@
-import pytest
 from unittest.mock import Mock, patch, MagicMock
-import paramiko
-from pathlib import Path
 from dit_transfer.transfer import (
     parse_sftp_uri,
     sftp_connect,
     transfer_local_to_sftp,
-    transfer_sftp_to_local,
-    transfer_local,
+
     parse_rclone_uri,
     ensure_rclone_remote,
     transfer_with_rclone,
