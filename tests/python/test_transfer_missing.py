@@ -10,5 +10,5 @@ def test_spot_check_verify_missing(tmp_path):
     dst_dir = tmp_path / "dst"
     dst_dir.mkdir()
     # dst missing the file
-    with pytest.raises((ValueError, AssertionError)):
+    with pytest.raises(RuntimeError):
         spot_check_verify(src_dir, dst_dir, num_chunks=1, chunk_mb=1)
