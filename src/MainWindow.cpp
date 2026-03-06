@@ -508,7 +508,7 @@ void MainWindow::onDriveReconnected() {
 
 void MainWindow::addMultiTask() {
     AddTaskDialog dialog(this);
-    dialog.m_dragList->show(); // Emphasize multi
+    // dialog.m_dragList->show(); // Emphasize multi (private, WIP stub)
     if (dialog.exec() == QDialog::Accepted) {
         addMultiTasks(dialog.getTasks());
     }
