@@ -1,4 +1,5 @@
 #include "DragDropList.h"
+#include <QMimeData>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QUrl>
