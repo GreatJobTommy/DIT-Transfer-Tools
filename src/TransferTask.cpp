@@ -361,7 +361,7 @@ bool TransferTask::verifyTransfer() {
             const FileInfo& fi = largeFiles[idx];
             QString srcPath = QDir(m_source).filePath(fi.relPath);
             QString destPath = QDir(m_destination).filePath(fi.relPath);
-            if (!spotCheckFile(srcPath, destPath, 1, 5)) {
+            if (!TransferTask::spotCheckFile(srcPath, destPath, 1, 5)) {
                 qWarning() << "Spot-check failed:" << fi.relPath;
                 return false;
             }
@@ -392,11 +392,17 @@ bool TransferTask::spotCheckFile(const QString &srcPath, const QString &dstPath,
         return false;
     }
     qint64 fileSize = srcFile.size();
-    if (fileSize != destFile.size() || fileSize < chunkSize) {
+    if (fileSize != destFile.size()) {
         srcFile.close();
         destFile.close();
         return false;
     }
+    if (fileSize < minSizeMB * 1024LL * 1024) {
+        srcFile.close();
+        destFile.close();
+        return true;
+    }
+    qint64 chunkSize = fileSize / std::max(1, numChunks);
     QRandomGenerator* rng = QRandomGenerator::global();
     for (int i = 0; i < numChunks; ++i) {
         qint64 offset = rng->bounded(static_cast<quint64>(fileSize - chunkSize + 1));

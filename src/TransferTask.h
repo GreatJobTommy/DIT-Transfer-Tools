@@ -98,7 +98,7 @@ private:
         qint64 size;
     };
     static QList<FileInfo> getAllFiles(const QString &root);
-    static bool spotCheckFile(const QString &amp; srcPath, const QString &amp; dstPath, int numChunks = 5, qint64 minSizeMB = 5);
+    static bool spotCheckFile(const QString & srcPath, const QString & dstPath, int numChunks = 5, qint64 minSizeMB = 5);
     bool verifyTransfer();
 
 };
