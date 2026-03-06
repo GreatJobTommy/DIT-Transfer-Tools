@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v4.9.0 (2026-03-06)
+### Fixed
+- Test coverage improvements to 87%+ pytest-cov (#67)
+- CI pipeline fixes and enhancements (#68)
+- GUI polish (Qt deprecation updates, etc.)
+
 ## v4.7.0 (2026-03-06)
 ### Added
 - Full tape-aware verification: size check all files + 5x random 1MB SHA256 spot-checks (large files) [PR #57](https://github.com/GreatJobTommy/DIT-Transfer-Tools/pull/57)

@@ -53,8 +53,10 @@ def test_sftp_connect_key_file(mock_ssh, mock_exists, mock_rsa):
     mock_client.open_sftp.assert_called_once()
 
 
+@patch("pathlib.Path.home")
 @patch("subprocess.check_output")
-def test_ensure_rclone_remote_obscure(mock_check_output):
+def test_ensure_rclone_remote_obscure(mock_check_output, mock_home):
+    mock_home.return_value = Path("/tmp/nonexistent")
     mock_check_output.return_value = b"***Obf***\n"
     ensure_rclone_remote("testrem", "u", "pass", "h", 22)
     mock_check_output.assert_called_once_with(["rclone", "obscure", "pass"])
