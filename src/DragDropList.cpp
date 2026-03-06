@@ -3,38 +3,38 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QUrl>
-#include <QDebug>
+#include <QDir>
 
 DragDropList::DragDropList(QWidget *parent)
-    : QListWidget(parent) {
+    : QListWidget(parent)
+{
     setAcceptDrops(true);
-    setDragEnabled(true);
-    setDefaultDropAction(Qt::MoveAction);
-    viewport()->setAcceptDrops(true);
 }
 
-void DragDropList::dragEnterEvent(QDragEnterEvent *event) {
+void DragDropList::dragEnterEvent(QDragEnterEvent *event)
+{
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
-    } else {
-        QListWidget::dragEnterEvent(event);
     }
 }
 
-void DragDropList::dropEvent(QDropEvent *event) {
-    if (event->mimeData()->hasUrls()) {
+void DragDropList::dropEvent(QDropEvent *event)
+{
+    const QMimeData *mimeData = event->mimeData();
+    if (mimeData->hasUrls()) {
         QStringList paths;
-        for (const QUrl &url : event->mimeData()->urls()) {
-            QString path = url.toLocalFile();
-            if (!path.isEmpty()) {
-                paths << path;
+        QList<QUrl> urls = mimeData->urls();
+        for (const QUrl &url : urls) {
+            if (url.isLocalFile()) {
+                QString path = url.toLocalFile();
+                if (QDir(path).exists()) {
+                    paths << path;
+                }
             }
         }
         if (!paths.isEmpty()) {
             emit filesDropped(paths);
+            event->acceptProposedAction();
         }
-        event->acceptProposedAction();
-    } else {
-        QListWidget::dropEvent(event);
     }
 }
