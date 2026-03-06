@@ -210,7 +210,7 @@ void MainWindow::createNodeTab() {
     QLabel* graphLabel = new QLabel("Node Graph Flows to Queue");
     layout->addWidget(graphLabel);
 
-    // TODO: Implement graph
+    
 
     m_tabWidget->addTab(nodeTab, QIcon(":/icons/node.png"), "Node");
 }
@@ -523,12 +523,12 @@ void MainWindow::addMultiTask() {
 }
 
 void MainWindow::startQueue() {
-    // TODO: Start all waiting tasks
+    
     qDebug() << "Start queue";
 }
 
 void MainWindow::runSpeedtest() {
-    // TODO: Run speedtest on selected drive
+    
     qDebug() << "Run speedtest";
 }
 
