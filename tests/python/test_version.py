@@ -1,6 +1,3 @@
-import dit_transfer.version
-
-
 def test_version():
     from dit_transfer.version import __version__
 
