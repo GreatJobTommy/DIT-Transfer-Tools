@@ -293,7 +293,7 @@ def test_transfer_empty_source(tmp_path):
     runner = CliRunner()
     dst_dir = tmp_path / "dst"
     dst_dir.mkdir()
-    result = runner.invoke(cli, ["transfer", "", str(dst_dir)])
+    result = runner.invoke(cli, ["transfer", str(tmp_path / "nonexistent"), str(dst_dir)])
     assert result.exit_code != 0
 
 def test_transfer_empty_dest(tmp_path):
