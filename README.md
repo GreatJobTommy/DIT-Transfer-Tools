@@ -60,6 +60,14 @@ Packaging & releases complete up to v4.1.0.
 - Button tooltips  
 - Task failure QMessageBox  
 
+**2026-03-06 - v4.6.0**  
+- feat(v4.6): LTFS rsync fallback + GUI presets + tape verify stub (PR #55)  
+- RSYNC fallback for LTFS metadata/xattrs  
+- GUI LTO presets (buffer, sequential, rsync checkbox)  
+- Tape spot-check verify (size + random chunks)  
+- rclone:// URI support + auto-remote creation  
+- pytest 85% cov  
+
 ## LTO/LTFS Tape Support 🎞️
 
 DIT-Transfer-Tools now provides optimized support for Linear Tape File System (LTFS) on LTO tapes:
