@@ -13,6 +13,7 @@
 #include <QStorageInfo>
 #include <QCryptographicHash>
 #include <QDirIterator>
+#include "HashManager.h"
 #include <QRandomGenerator>
 #include <algorithm>
 
@@ -365,6 +366,16 @@ bool TransferTask::verifyTransfer() {
                 qWarning() << "Spot-check failed:" << fi.relPath;
                 return false;
             }
+        }
+    }
+
+    if (m_fullHashVerify) {
+        HashManager hm;
+        QString srcHash = hm.computeDirectoryHash(m_source);
+        QString dstHash = hm.computeDirectoryHash(m_destination);
+        if (srcHash != dstHash) {
+            qWarning() << "Full recursive hash mismatch";
+            return false;
         }
     }
 
