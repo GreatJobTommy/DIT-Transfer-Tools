@@ -1,10 +1,8 @@
 import hashlib
 import os
 import pytest
-import paramiko
 from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
-import shutil
 from subprocess import TimeoutExpired
 from dit_transfer.transfer import (
     parse_sftp_uri,
@@ -19,10 +17,6 @@ from dit_transfer.transfer import (
     hash_chunk,
     sftp_makedirs,
     remote_file_checksum,
-    transfer_local_to_sftp,
-    transfer_sftp_to_local,
-    copy_file,
-    transfer_with_rclone,
     ensure_rclone_remote,
     sftp_connect,
     get_dir_sizes,
@@ -140,12 +134,12 @@ def test_is_ltfs_mount_df(mock_run):
     mock_result = MagicMock()
     mock_result.stdout = "ltfs\\n"
     mock_run.return_value = mock_result
-    assert is_ltfs_mount(Path('/fake')) == True
+    assert is_ltfs_mount(Path('/fake'))
 
 @patch('subprocess.run')
 def test_is_ltfs_mount_timeout(mock_run):
     mock_run.side_effect = TimeoutExpired('df -T /fake', timeout=10)
-    assert is_ltfs_mount(Path('/fake')) == False
+    assert not is_ltfs_mount(Path('/fake'))
 
 def test_sftp_makedirs_root():
     mock_sftp = MagicMock()

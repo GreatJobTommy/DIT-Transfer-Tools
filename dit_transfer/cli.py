@@ -60,6 +60,13 @@ def transfer(
 ):
     """Transfer files or directories from SOURCE to DEST.
     Supports local (incl. LTFS mounts like /Volumes/LTO*), sftp://, rclone://."""
+    if not source.strip():
+        click.echo(click.style("Error: SOURCE cannot be empty.", fg="red"), err=True)
+        sys.exit(1)
+    if not dest.strip():
+        click.echo(click.style("Error: DEST cannot be empty.", fg="red"), err=True)
+        sys.exit(1)
+
     src_path = Path(source)
     dst_path = Path(dest)
     is_sftp_source = source.startswith("sftp://")
