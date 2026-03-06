@@ -428,6 +428,14 @@ void MainWindow::addTask() {
     }
 }
 
+void MainWindow::addMultiTasks(const QList<TransferTask*>& tasks) {
+    for (TransferTask* task : tasks) {
+        m_queue->addTask(task);
+        m_progressMonitor->addTask(task);
+    }
+    updateLists();
+}
+
 void MainWindow::onFilesDropped(const QStringList& files) {
     for (const QString& file : files) {
         // Create task from dropped file
@@ -508,7 +516,7 @@ void MainWindow::onDriveReconnected() {
 
 void MainWindow::addMultiTask() {
     AddTaskDialog dialog(this);
-    dialog.m_dragList->show(); // Emphasize multi
+    // dialog.m_dragList->show(); // Emphasize multi (private, WIP stub)
     if (dialog.exec() == QDialog::Accepted) {
         addMultiTasks(dialog.getTasks());
     }

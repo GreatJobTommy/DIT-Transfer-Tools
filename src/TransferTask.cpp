@@ -406,7 +406,8 @@ bool TransferTask::spotCheckFile(const QString &srcPath, const QString &dstPath,
     qint64 chunkSize = fileSize / std::max(1, numChunks);
     QRandomGenerator* rng = QRandomGenerator::global();
     for (int i = 0; i < numChunks; ++i) {
-        qint64 offset = rng->bounded(static_cast<quint64>(fileSize - chunkSize + 1));
+        quint64 upper = static_cast<quint64>(fileSize - chunkSize + 1);
+        qint64 offset = upper > 0 ? static_cast<qint64>(rng->generate64() % upper) : 0;
         srcFile.seek(offset);
         destFile.seek(offset);
         QByteArray srcChunk = srcFile.read(chunkSize);
