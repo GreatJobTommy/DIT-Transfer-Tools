@@ -4,7 +4,7 @@ project(DIT-Transfer-Tools VERSION 4.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts Test)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -40,11 +40,9 @@ add_executable(DIT-Transfer-Tools
     src/MainWindow_slots_rclone.cpp
     src/RcloneRemoteDialog.cpp
     src/RcloneRemoteDialog.h
-    src/SpeedHistory.cpp
-    src/SpeedHistory.h
 )
 
-target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets Qt6::Charts)
+target_link_libraries(DIT-Transfer-Tools Qt6::Core Qt6::Widgets)
 
 # Tests
 enable_testing()
