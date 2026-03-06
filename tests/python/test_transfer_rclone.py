@@ -1,5 +1,6 @@
 """Tests for rclone transfer functions."""
 
+
 from unittest.mock import patch, MagicMock, call, mock_open
 from pathlib import Path
 import configparser
