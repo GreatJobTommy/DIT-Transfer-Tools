@@ -1,4 +1,3 @@
-
 class MockPath:
     def __init__(self, is_dir=False, size=0):
         self.is_dir = is_dir
@@ -7,6 +6,7 @@ class MockPath:
     def stat(self):
         class Stat:
             st_size = self._size
+
         return Stat()
 
     @property
@@ -28,4 +28,4 @@ class MockPath:
     def relative_to(self, other):
         return self
 
-    name = 'testfile.txt'
+    name = "testfile.txt"

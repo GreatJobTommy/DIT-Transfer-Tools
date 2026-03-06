@@ -1,5 +1,6 @@
 import os
 
+
 def get_dir_size(path):
     total = 0
     for root, dirs, files in os.walk(path):
