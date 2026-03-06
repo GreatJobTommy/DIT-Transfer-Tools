@@ -11,6 +11,10 @@
 #include <QCoreApplication>
 #include <QRegularExpression>
 #include <QStorageInfo>
+#include <QCryptographicHash>
+#include <QDirIterator>
+#include <QRandomGenerator>
+#include <algorithm>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
@@ -101,7 +105,7 @@ void TransferTask::run() {
         QFileInfo srcInfo(m_source);
         if (srcInfo.isDir() || m_isLTFS) {
             QStringList args;
-            args << "--archive" << "--verbose" << "--progress" << "--whole-file" << m_source << m_destination;
+            args << "-a" << "--whole-file" << "--info=progress2" << m_source << m_destination;
             m_process->setProcessChannelMode(QProcess::MergedChannels);
             m_process->start("rsync", args);
             return;
@@ -185,9 +189,9 @@ void TransferTask::run() {
 
 void TransferTask::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus) {
     if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
+        m_success = verifyTransfer();
         m_finished = true;
-        m_success = true;
-        setStatus(TransferStatus::Completed);
+        setStatus(m_success ? TransferStatus::Completed : TransferStatus::Failed);
     } else {
         if (m_retryCount < m_maxRetries) {
             m_retryCount++;
@@ -310,6 +314,121 @@ qint64 TransferTask::parseEta(const QString &etaStr) {
     }
     return secs;
 }
+bool TransferTask::verifyTransfer() {
+    if (!m_verifyEnabled) return true;
+
+    QFileInfo srcInfo(m_source);
+    if (!srcInfo.isDir()) {
+        // Single file copy already does basic check
+        return true;
+    }
+
+    QList<FileInfo> srcFiles = getAllFiles(m_source);
+    QList<FileInfo> destFiles = getAllFiles(m_destination);
+
+    if (srcFiles.size() != destFiles.size()) {
+        qWarning() << "File count mismatch:" << srcFiles.size() << "/" << destFiles.size();
+        return false;
+    }
+
+    // Sort by relPath
+    std::sort(srcFiles.begin(), srcFiles.end(), [](const FileInfo& a, const FileInfo& b){
+        return a.relPath < b.relPath;
+    });
+    std::sort(destFiles.begin(), destFiles.end(), [](const FileInfo& a, const FileInfo& b){
+        return a.relPath < b.relPath;
+    });
+
+    // Size checks
+    for (int i = 0; i < srcFiles.size(); ++i) {
+        if (srcFiles[i].relPath != destFiles[i].relPath || srcFiles[i].size != destFiles[i].size) {
+            qWarning() << "Mismatch:" << srcFiles[i].relPath << srcFiles[i].size << destFiles[i].size;
+            return false;
+        }
+    }
+
+    // Spot-check 5 random large files (>5MB)
+    QList<FileInfo> largeFiles;
+    for (const auto& f : srcFiles) {
+        if (f.size > 5LL * 1024 * 1024) largeFiles.append(f);
+    }
+
+    if (!largeFiles.isEmpty()) {
+        QRandomGenerator* rng = QRandomGenerator::global();
+        int numChecks = qMin(5, largeFiles.size());
+        for (int k = 0; k < numChecks; ++k) {
+            int idx = rng->bounded(largeFiles.size());
+            const FileInfo& fi = largeFiles[idx];
+            QString srcPath = QDir(m_source).filePath(fi.relPath);
+            QString destPath = QDir(m_destination).filePath(fi.relPath);
+            if (!TransferTask::spotCheckFile(srcPath, destPath, 1, 5)) {
+                qWarning() << "Spot-check failed:" << fi.relPath;
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+QList<TransferTask::FileInfo> TransferTask::getAllFiles(const QString& root) {
+    QList<FileInfo> files;
+    QDir rootDir(root);
+    if (!rootDir.exists()) return files;
+    QDirIterator it(root, QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        it.next();
+        QFileInfo fi(it.filePath());
+        QString relPath = rootDir.relativeFilePath(fi.absoluteFilePath());
+        files.append({relPath, fi.size()});
+    }
+    return files;
+}
+
+bool TransferTask::spotCheckFile(const QString &srcPath, const QString &dstPath, int numChunks, qint64 minSizeMB) {
+    QFile srcFile(srcPath);
+    QFile destFile(dstPath);
+    if (!srcFile.open(QIODevice::ReadOnly) || !destFile.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+    qint64 fileSize = srcFile.size();
+    if (fileSize != destFile.size()) {
+        srcFile.close();
+        destFile.close();
+        return false;
+    }
+    if (fileSize < minSizeMB * 1024LL * 1024) {
+        srcFile.close();
+        destFile.close();
+        return true;
+    }
+    qint64 chunkSize = fileSize / std::max(1, numChunks);
+    QRandomGenerator* rng = QRandomGenerator::global();
+    for (int i = 0; i < numChunks; ++i) {
+        qint64 offset = rng->bounded(static_cast<quint64>(fileSize - chunkSize + 1));
+        srcFile.seek(offset);
+        destFile.seek(offset);
+        QByteArray srcChunk = srcFile.read(chunkSize);
+        QByteArray destChunk = destFile.read(chunkSize);
+        if (srcChunk.size() != chunkSize || destChunk.size() != chunkSize || srcChunk.size() != destChunk.size()) {
+            srcFile.close();
+            destFile.close();
+            return false;
+        }
+        if (QCryptographicHash::hash(srcChunk, QCryptographicHash::Sha256) != QCryptographicHash::hash(destChunk, QCryptographicHash::Sha256)) {
+            srcFile.close();
+            destFile.close();
+            return false;
+        }
+    }
+    srcFile.close();
+    destFile.close();
+    return true;
+}
+
 void TransferTask::setPreset(const QString& preset) {
     m_preset = preset;
+    if (preset == "LTO Tape") {
+        m_verifyEnabled = true;
+    }
 }

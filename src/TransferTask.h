@@ -93,8 +93,14 @@ private:
     QString m_preset;
 
 private:
+    struct FileInfo {
+        QString relPath;
+        qint64 size;
+    };
+    static QList<FileInfo> getAllFiles(const QString &root);
+    static bool spotCheckFile(const QString & srcPath, const QString & dstPath, int numChunks = 5, qint64 minSizeMB = 5);
     bool verifyTransfer();
-    void spotCheck(int numChecks = 5, qint64 chunkSize = 1048576);
+
 };
 
 #endif // TRANSFERTASK_H
