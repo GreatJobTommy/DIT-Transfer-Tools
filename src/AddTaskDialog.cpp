@@ -52,6 +52,7 @@ void AddTaskDialog::setupUI() {
     m_presetCombo->addItem("Safe Copy");
     m_presetCombo->addItem("S3 Fast");
     m_presetCombo->addItem("GDrive");
+    m_presetCombo->addItem("LTO Tape");
     presetLayout->addWidget(new QLabel("Preset:"));
     presetLayout->addWidget(m_presetCombo);
     presetLayout->addStretch();
@@ -161,6 +162,7 @@ void AddTaskDialog::addToQueue() {
 TransferTask* AddTaskDialog::getTask() const {
     TransferTask* task = new TransferTask(m_sourceEdit->text(), m_destEdit->text());
     task->setPreset(m_presetCombo->currentText());
+    task->setVerifyEnabled(m_verifyCheckBox->isChecked());
     return task;
 }
 
