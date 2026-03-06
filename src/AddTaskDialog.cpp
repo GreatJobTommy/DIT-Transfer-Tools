@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QMessageBox>
+#include <QList>
 
 AddTaskDialog::AddTaskDialog(QWidget* parent)
     : QDialog(parent), m_selectedPaths(QStringList()) {
@@ -159,11 +160,21 @@ void AddTaskDialog::addToQueue() {
     accept();
 }
 
-TransferTask* AddTaskDialog::getTask() const {
-    TransferTask* task = new TransferTask(m_sourceEdit->text(), m_destEdit->text());
-    task->setPreset(m_presetCombo->currentText());
-    task->setVerifyEnabled(m_verifyCheckBox->isChecked());
-    return task;
+QList<TransferTask*> AddTaskDialog::getTasks() const {
+    QList<TransferTask*> tasks;
+    for (const QString& path : m_selectedPaths) {
+        TransferTask* task = new TransferTask(path, m_destEdit->text());
+        task->setPreset(m_presetCombo->currentText());
+        task->setVerifyEnabled(m_verifyCheckBox ? m_verifyCheckBox->isChecked() : false);
+        tasks.append(task);
+    }
+    if (tasks.isEmpty()) {
+        TransferTask* task = new TransferTask(m_sourceEdit->text(), m_destEdit->text());
+        task->setPreset(m_presetCombo->currentText());
+        task->setVerifyEnabled(m_verifyCheckBox ? m_verifyCheckBox->isChecked() : false);
+        tasks.append(task);
+    }
+    return tasks;
 }
 
 void AddTaskDialog::updatePreview() {
