@@ -83,7 +83,7 @@ void AddTaskDialog::setupUI() {
 
     QGroupBox* dragGroup = new QGroupBox("Drag Folders Here");
     QVBoxLayout* dragLayout = new QVBoxLayout(dragGroup);
-    m_dragList = new FileDropList;
+    m_dragList = new DragDropList;
     dragLayout->addWidget(m_dragList);
     splitter->addWidget(dragGroup);
 

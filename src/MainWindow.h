@@ -33,6 +33,7 @@ public:
 private slots:
     void updateLists();
     void addTask();
+    void addMultiTask();
     void addMultiTasks(const QList<TransferTask*>& tasks);
     void startQueue();
     void runSpeedtest();
