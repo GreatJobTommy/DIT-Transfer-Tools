@@ -37,6 +37,7 @@ public:
     qint64 eta() const;
     QString hash() const;
     bool hashVerified() const;
+    QString verifyReport() const;
     qint64 duration() const;
 
     bool isLTFS() const;
@@ -91,6 +92,7 @@ private:
     bool m_verifyEnabled{false};
     bool m_useWholeFileRsync{false};
     QString m_preset;
+    QString m_verifyReport;
 
 private:
     struct FileInfo {
