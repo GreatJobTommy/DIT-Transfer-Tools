@@ -48,3 +48,4 @@ Testing/
 **/__pycache__/**
 dist/
 __pycache__/
+.coverage\nhtmlcov/\n.vscode/\nvenv/\n.pytest_cache/

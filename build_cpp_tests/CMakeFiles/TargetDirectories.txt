@@ -1,0 +1,9 @@
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/DIT-Transfer-Tools.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/test_queuemanager.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/test.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/edit_cache.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/rebuild_cache.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/DIT-Transfer-Tools_autogen_timestamp_deps.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/DIT-Transfer-Tools_autogen.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/test_queuemanager_autogen_timestamp_deps.dir
+/home/openclaw/.openclaw/workspace/DIT-Transfer-Tools/build_cpp_tests/CMakeFiles/test_queuemanager_autogen.dir
