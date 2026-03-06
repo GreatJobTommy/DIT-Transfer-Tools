@@ -1,10 +1,8 @@
 import hashlib
 import os
 import pytest
-import paramiko
 from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
-import shutil
 from subprocess import TimeoutExpired
 from dit_transfer.transfer import (
     parse_sftp_uri,
@@ -19,10 +17,6 @@ from dit_transfer.transfer import (
     hash_chunk,
     sftp_makedirs,
     remote_file_checksum,
-    transfer_local_to_sftp,
-    transfer_sftp_to_local,
-    copy_file,
-    transfer_with_rclone,
     ensure_rclone_remote,
     sftp_connect,
     get_dir_sizes,
