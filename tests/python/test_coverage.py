@@ -1,6 +1,6 @@
 import pytest
 import os
-import subprocess
+
 import configparser
 from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
@@ -47,7 +47,9 @@ def test_sftp_connect_key_file(mock_ssh, mock_exists, mock_rsa):
     mock_client.open_sftp.return_value = mock_sftp
     mock_ssh.return_value = mock_client
     sftp, client = sftp_connect("user", "host", 22, key_file="/fakekey")
-    mock_client.connect.assert_called_once_with(hostname="host", port=22, username="user", pkey=mock_pkey)
+    mock_client.connect.assert_called_once_with(
+        hostname="host", port=22, username="user", pkey=mock_pkey
+    )
     mock_client.open_sftp.assert_called_once()
 
 
