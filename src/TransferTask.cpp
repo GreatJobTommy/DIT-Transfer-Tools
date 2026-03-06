@@ -361,7 +361,7 @@ bool TransferTask::verifyTransfer() {
             const FileInfo& fi = largeFiles[idx];
             QString srcPath = QDir(m_source).filePath(fi.relPath);
             QString destPath = QDir(m_destination).filePath(fi.relPath);
-            if (!spotCheckFile(srcPath, destPath, 1, 1024*1024)) {
+            if (!spotCheckFile(srcPath, destPath, 1, 5)) {
                 qWarning() << "Spot-check failed:" << fi.relPath;
                 return false;
             }
@@ -385,9 +385,9 @@ QList<TransferTask::FileInfo> TransferTask::getAllFiles(const QString& root) {
     return files;
 }
 
-bool TransferTask::spotCheckFile(const QString& srcPath, const QString& destPath, int numChecks, qint64 chunkSize) {
+bool TransferTask::spotCheckFile(const QString &srcPath, const QString &dstPath, int numChunks, qint64 minSizeMB) {
     QFile srcFile(srcPath);
-    QFile destFile(destPath);
+    QFile destFile(dstPath);
     if (!srcFile.open(QIODevice::ReadOnly) || !destFile.open(QIODevice::ReadOnly)) {
         return false;
     }
@@ -398,7 +398,7 @@ bool TransferTask::spotCheckFile(const QString& srcPath, const QString& destPath
         return false;
     }
     QRandomGenerator* rng = QRandomGenerator::global();
-    for (int i = 0; i < numChecks; ++i) {
+    for (int i = 0; i < numChunks; ++i) {
         qint64 offset = rng->bounded(static_cast<quint64>(fileSize - chunkSize + 1));
         srcFile.seek(offset);
         destFile.seek(offset);
