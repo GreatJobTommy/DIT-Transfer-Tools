@@ -289,6 +289,56 @@ def test_transfer_key_file(mock_prompt, mock_connect, tmp_path):
     assert args[4] == "/path/to/key"
     mock_prompt.assert_called_once()
 
+def test_transfer_empty_source(tmp_path):
+    runner = CliRunner()
+    dst_dir = tmp_path / "dst"
+    dst_dir.mkdir()
+    result = runner.invoke(cli, ["transfer", "", str(dst_dir)])
+    assert result.exit_code != 0
+
+def test_transfer_empty_dest(tmp_path):
+    runner = CliRunner()
+    src = tmp_path / "src.txt"
+    src.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src), ""])
+    assert result.exit_code != 0
+
+@patch("dit_transfer.cli.transfer_with_rclone")
+def test_transfer_concurrency_zero(mock_rclone, tmp_path):
+    runner = CliRunner()
+    src = tmp_path / "test.txt"
+    src.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src), "rclone://remote:/path", "--concurrency", "0"])
+    assert result.exit_code == 0
+    args = mock_rclone.call_args[0]
+    assert args[3] == 0
+
+@patch("click.prompt")
+@patch("dit_transfer.cli.transfer_local_to_sftp")
+@patch("dit_transfer.cli.sftp_connect")
+def test_sftp_transfer_exception(mock_connect, mock_transfer, mock_prompt, tmp_path):
+    mock_prompt.return_value = "pass"
+    mock_sftp, mock_client = MagicMock(), MagicMock()
+    mock_connect.return_value = (mock_sftp, mock_client)
+    mock_transfer.side_effect = Exception("transfer error")
+    runner = CliRunner()
+    src = tmp_path / "error.txt"
+    src.write_text("test")
+    result = runner.invoke(cli, ["transfer", str(src), "sftp://user@host:/remote"])
+    assert result.exit_code != 0
+    mock_client.close.assert_called_once()
+
+def test_verify_dry_run_fail(tmp_path):
+    runner = CliRunner()
+    src_dir = tmp_path / "src_fail"
+    src_dir.mkdir()
+    (src_dir / "file.txt").write_text("test")
+    dst_dir = tmp_path / "dst_fail"
+    dst_dir.mkdir()
+    # missing file
+    result = runner.invoke(cli, ["verify", str(src_dir), str(dst_dir), "--dry-run"])
+    assert "(dry-run: no actions taken)" in result.stdout
+
 
 @patch("dit_transfer.cli.transfer_with_rclone")
 @patch("dit_transfer.cli.ensure_rclone_remote")
