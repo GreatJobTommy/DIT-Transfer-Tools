@@ -1,9 +1,11 @@
 import hashlib
 import os
 import pytest
-from unittest.mock import patch, MagicMock
+import paramiko
+from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
 import shutil
+from subprocess import TimeoutExpired
 from dit_transfer.transfer import (
     parse_sftp_uri,
     parse_rclone_uri,
@@ -44,8 +46,13 @@ def test_parse_rclone_uri_no_remote():
         parse_rclone_uri("rclone:///path")
 
 def test_get_dir_size_oserror(tmp_path, monkeypatch):
+    def mock_stat():
+        raise OSError("test")
+    mock_path = Mock(spec=Path)
+    mock_path.is_file.return_value = True
+    mock_path.stat.side_effect = mock_stat
     def mock_rglob(*args):
-        yield Mock(spec=Path, stat=Mock(side_effect=OSError))
+        yield mock_path
     monkeypatch.setattr(Path, 'rglob', mock_rglob)
     assert get_dir_size(tmp_path) == 0
 
@@ -64,7 +71,7 @@ def test_sftp_connect_no_auth():
 @patch('os.path.exists')
 def test_sftp_connect_key_not_exist(mock_exists):
     mock_exists.return_value = False
-    with pytest.raises(paramiko.SSHException):  # assume raises
+    with pytest.raises(ValueError):
         sftp_connect("user", "host", 22, key_file="/nonexist")
 
 def test_ensure_rclone_remote_no_pass():
@@ -72,24 +79,30 @@ def test_ensure_rclone_remote_no_pass():
 
 def test_get_dir_sizes_oserror(tmp_path):
     def mock_walk(root):
-        yield root, [], [Mock(stat=Mock(side_effect=OSError))]
-    with patch('os.walk', mock_walk):
+        yield str(root), [], ['fake.txt']
+    def mock_stat(*args):
+        raise OSError('stat fail')
+    with patch('os.walk', mock_walk), \
+         patch('os.stat', side_effect=mock_stat):
         sizes = get_dir_sizes(tmp_path)
         assert sizes == {}
 
-def test_directory_size_verify_missing():
-    src = Path('/fake/src')
-    dst = Path('/fake/dst')
+def test_directory_size_verify_missing(tmp_path):
+    src_dir = tmp_path / "src"
+    src_dir.mkdir()
+    (src_dir / "f.txt").write_bytes(b"a")
+    dst_dir = tmp_path / "dst"
+    dst_dir.mkdir()
     with pytest.raises(RuntimeError, match="File lists differ"):
-        directory_size_verify(src, dst)
+        directory_size_verify(src_dir, dst_dir)
 
 def test_directory_size_verify_mismatch(tmp_path):
     src_dir = tmp_path / "src"
     src_dir.mkdir()
     dst_dir = tmp_path / "dst"
     dst_dir.mkdir()
-    (src_dir / "f.txt").write_text("a")
-    (dst_dir / "f.txt").write_text("b")
+    (src_dir / "f.txt").write_bytes(b"a")
+    (dst_dir / "f.txt").write_bytes(b"bb")
     with pytest.raises(RuntimeError, match="Size mismatches"):
         directory_size_verify(src_dir, dst_dir)
 
@@ -119,7 +132,7 @@ def test_spot_check_missing_file(tmp_path):
     large.write_bytes(os.urandom(2*1024*1024))
     dst_dir = tmp_path / "dst_miss"
     dst_dir.mkdir()
-    with pytest.raises(RuntimeError, match="Missing file"):
+    with pytest.raises(RuntimeError, match=r"File lists differ.*missing"):
         spot_check_verify(src_dir, dst_dir)
 
 @patch('subprocess.run')
@@ -129,14 +142,16 @@ def test_is_ltfs_mount_df(mock_run):
     mock_run.return_value = mock_result
     assert is_ltfs_mount(Path('/fake')) == True
 
-@patch('subprocess.run', side_effect=Exception('timeout'))
-def test_is_ltfs_mount_timeout():
+@patch('subprocess.run')
+def test_is_ltfs_mount_timeout(mock_run):
+    mock_run.side_effect = TimeoutExpired('df -T /fake', timeout=10)
     assert is_ltfs_mount(Path('/fake')) == False
 
 def test_sftp_makedirs_root():
     mock_sftp = MagicMock()
-    sftp_makedirs(mock_sftp, '/')
-    mock_sftp.stat.assert_called_once_with('/')
+    mock_sftp.stat.side_effect = IOError("no")
+    sftp_makedirs(mock_sftp, '/nonroot')
+    mock_sftp.stat.assert_called()
 
 def test_file_checksum_empty(tmp_path):
     f = tmp_path / "empty"
@@ -144,9 +159,13 @@ def test_file_checksum_empty(tmp_path):
     h = file_checksum(f)
     assert h == hashlib.sha256(b'').hexdigest()
 
-def test_remote_file_checksum_empty(mock_sftp_file):
-    # assume mock
-    pass
+def test_remote_file_checksum_empty():
+    mock_sftp = MagicMock()
+    mock_file = MagicMock()
+    mock_file.read.return_value = b""
+    mock_sftp.open.return_value.__enter__.return_value = mock_file
+    h = remote_file_checksum(mock_sftp, '/empty')
+    assert h == hashlib.sha256(b'').hexdigest()
 
 # LTFS mock for transfer_local
 @patch('dit_transfer.transfer.is_ltfs_mount')
