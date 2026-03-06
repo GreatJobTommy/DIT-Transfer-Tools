@@ -60,6 +60,14 @@ Packaging & releases complete up to v4.1.0.
 - Button tooltips  
 - Task failure QMessageBox  
 
+**2026-03-06 - v4.7.0**  
+- feat(v4.7.0): Full tape-aware verification + rsync whole-file fallback [PR #57](https://github.com/GreatJobTommy/DIT-Transfer-Tools/pull/57)  
+- Tape verify: size check all files + 5x random 1MB SHA256 spot-checks (large files)  
+- Rsync LTFS dest fallback: --whole-file -a --info=progress2  
+- GUI presets/LTO options + verify checkbox  
+- Tests/build verified  
+Closes [#56](https://github.com/GreatJobTommy/DIT-Transfer-Tools/issues/56)
+
 **2026-03-06 - v4.6.0**  
 - feat(v4.6): LTFS rsync fallback + GUI presets + tape verify stub (PR #55)  
 - RSYNC fallback for LTFS metadata/xattrs  

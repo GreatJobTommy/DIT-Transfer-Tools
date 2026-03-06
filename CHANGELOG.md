@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v4.7.0 (2026-03-06)
+### Added
+- Full tape-aware verification: size check all files + 5x random 1MB SHA256 spot-checks (large files) [PR #57](https://github.com/GreatJobTommy/DIT-Transfer-Tools/pull/57)
+- Rsync LTFS dest fallback: `--whole-file -a --info=progress2`
+- GUI presets/LTO options + verify checkbox
+- Tests/build verified
+
+Closes [#56](https://github.com/GreatJobTommy/DIT-Transfer-Tools/issues/56)
+
 ## v4.4.0 (2026-03-05)
 ### Added
 - Rclone Remotes tab in MainWindow: QListWidget remotes, refresh/add/edit/delete buttons using RcloneRemoteDialog (SFTP focus, obscure pass)
