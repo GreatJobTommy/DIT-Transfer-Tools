@@ -1,4 +1,7 @@
 #include "AddTaskDialog.h"
+#include <QLabel>
+#include <QFileDialog>
+#include <QDir>
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QSplitter>
@@ -9,6 +12,7 @@
 #include <QStandardPaths>
 #include <QMessageBox>
 #include <QList>
+#include <QCheckBox>
 
 AddTaskDialog::AddTaskDialog(QWidget* parent)
     : QDialog(parent), m_selectedPaths(QStringList()) {
@@ -58,6 +62,10 @@ void AddTaskDialog::setupUI() {
     presetLayout->addWidget(m_presetCombo);
     presetLayout->addStretch();
     mainLayout->addWidget(presetGroup);
+
+    // Verify checkbox
+    m_verifyCheckBox = new QCheckBox("Verify hash after transfer");
+    mainLayout->addWidget(m_verifyCheckBox);
 
     // Rclone
     m_rcloneGroup = new QGroupBox("Rclone Remote");
@@ -113,7 +121,7 @@ void AddTaskDialog::setupConnections() {
     connect(m_destEdit, &QLineEdit::textChanged, this, &AddTaskDialog::validatePaths);
     connect(m_addBtn, &QPushButton::clicked, this, &AddTaskDialog::addToQueue);
     connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
-    connect(m_dragList, &FileDropList::pathsDropped, this, &AddTaskDialog::onPathsDropped);
+    connect(m_dragList, &DragDropList::filesDropped, this, &AddTaskDialog::onPathsDropped);
     connect(m_destEdit, &QLineEdit::textChanged, this, &AddTaskDialog::onDestChanged);
     connect(m_refreshRemotesBtn, &QPushButton::clicked, this, &AddTaskDialog::refreshRemotes);
     connect(m_remoteCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AddTaskDialog::updateDestFromRemote);

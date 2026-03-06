@@ -18,7 +18,7 @@ SOURCES += \
     src/SettingsManager.cpp \
     src/LogsDockWidget.cpp \
     src/MainWindow_slots_rclone.cpp \
-    src/RcloneRemoteDialog.cpp
+    src/DragDropList.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -30,7 +30,8 @@ HEADERS += \
     src/AddTaskDialog.h \
     src/ProgressMonitor.h \
     src/SettingsManager.h \
-    src/LogsDockWidget.h \\\n    src/DragDropList.h \\\n    src/DragDropList.h
+    src/LogsDockWidget.h \
+    src/DragDropList.h
 
 FORMS += \
     src/AddTaskDialog.ui

@@ -52,6 +52,7 @@ private:
     QTextEdit *m_previewEdit;
     QPushButton *m_addBtn;
     QPushButton *m_cancelBtn;
+    QCheckBox *m_verifyCheckBox;
     QStringList m_selectedPaths;
 };
 
