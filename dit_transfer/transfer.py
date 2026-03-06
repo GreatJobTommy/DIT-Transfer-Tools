@@ -20,6 +20,7 @@ def get_dir_size(src_dir: Path) -> int:
             continue
     return total
 
+
 def get_dir_size_raise(src_dir):  # dummy for test cov
     raise ValueError("test")
 

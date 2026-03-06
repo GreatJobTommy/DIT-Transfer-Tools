@@ -1,1 +1,35 @@
-from unittest.mock import Mock\nclass MockPath:\n    def __init__(self, is_dir=False, size=0):\n        self.is_dir = is_dir\n        self._size = size\n    def stat(self):\n        class Stat:\n            st_size = self._size\n        return Stat()\n    is_file = property(lambda self: not self.is_dir)\n    is_dir = property(lambda self: self.is_dir)\n    exists = lambda self: True\n    rglob = lambda self, pat: [] if not self.is_dir else [MockPath(True)]\n    relative_to = lambda self, other: self\n    name = 'testfile.txt'
+from unittest.mock import Mock
+
+
+class MockPath:
+    def __init__(self, is_dir=False, size=0):
+        self.is_dir = is_dir
+        self._size = size
+
+    def stat(self):
+        stat = Mock()
+        stat.st_size = self._size
+        return stat
+
+    @property
+    def is_file(self):
+        return not self.is_dir
+
+    @property
+    def is_dir(self):
+        return self.is_dir
+
+    def exists(self):
+        return True
+
+    def rglob(self, pat):
+        if not self.is_dir:
+            return []
+        return [MockPath(is_dir=True)]
+
+    def relative_to(self, other):
+        return self
+
+    @property
+    def name(self):
+        return "testfile.txt"

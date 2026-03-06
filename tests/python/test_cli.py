@@ -289,12 +289,16 @@ def test_transfer_key_file(mock_prompt, mock_connect, tmp_path):
     assert args[4] == "/path/to/key"
     mock_prompt.assert_called_once()
 
+
 def test_transfer_empty_source(tmp_path):
     runner = CliRunner()
     dst_dir = tmp_path / "dst"
     dst_dir.mkdir()
-    result = runner.invoke(cli, ["transfer", str(tmp_path / "nonexistent"), str(dst_dir)])
+    result = runner.invoke(
+        cli, ["transfer", str(tmp_path / "nonexistent"), str(dst_dir)]
+    )
     assert result.exit_code != 0
+
 
 def test_transfer_empty_dest(tmp_path):
     runner = CliRunner()
@@ -303,15 +307,19 @@ def test_transfer_empty_dest(tmp_path):
     result = runner.invoke(cli, ["transfer", str(src), ""])
     assert result.exit_code != 0
 
+
 @patch("dit_transfer.cli.transfer_with_rclone")
 def test_transfer_concurrency_zero(mock_rclone, tmp_path):
     runner = CliRunner()
     src = tmp_path / "test.txt"
     src.write_text("test")
-    result = runner.invoke(cli, ["transfer", str(src), "rclone://remote:/path", "--concurrency", "0"])
+    result = runner.invoke(
+        cli, ["transfer", str(src), "rclone://remote:/path", "--concurrency", "0"]
+    )
     assert result.exit_code == 0
     args = mock_rclone.call_args[0]
     assert args[3] == 0
+
 
 @patch("click.prompt")
 @patch("dit_transfer.cli.transfer_local_to_sftp")
@@ -327,6 +335,7 @@ def test_sftp_transfer_exception(mock_connect, mock_transfer, mock_prompt, tmp_p
     result = runner.invoke(cli, ["transfer", str(src), "sftp://user@host:/remote"])
     assert result.exit_code != 0
     mock_client.close.assert_called_once()
+
 
 def test_verify_dry_run_fail(tmp_path):
     runner = CliRunner()
@@ -365,6 +374,7 @@ def test_transfer_rclone_source_auth(mock_ensure, mock_rclone, tmp_path):
     assert result.exit_code == 0
     mock_ensure.assert_called_once()
 
+
 @patch("dit_transfer.cli.transfer_with_rclone")
 def test_transfer_rclone_source_no_auth(mock_rclone, tmp_path):
     runner = CliRunner()
@@ -374,17 +384,29 @@ def test_transfer_rclone_source_no_auth(mock_rclone, tmp_path):
     assert result.exit_code == 0
     mock_rclone.assert_called_once()
 
+
 @patch("dit_transfer.cli.transfer_with_rclone")
 @patch("dit_transfer.cli.cleanup_temp_rclone_remote")
 @patch("dit_transfer.cli.create_temp_rclone_sftp_remote")
 @patch("dit_transfer.cli.parse_rclone_uri")
-def test_transfer_rclone_to_sftp(mock_parse_rclone, mock_create_temp, mock_cleanup, mock_rclone, tmp_path):
+def test_transfer_rclone_to_sftp(
+    mock_parse_rclone, mock_create_temp, mock_cleanup, mock_rclone, tmp_path
+):
     mock_parse_rclone.return_value = ("rem", "host", None, None, 22, "/path")
     mock_create_temp.return_value = ("tempd", "/remote")
     runner = CliRunner()
     src_file = tmp_path / "file.txt"
     src_file.write_text("test")
-    result = runner.invoke(cli, ["transfer", "rclone://rem:/path", "sftp://user@host:/remote", "--password", "pass"])
+    result = runner.invoke(
+        cli,
+        [
+            "transfer",
+            "rclone://rem:/path",
+            "sftp://user@host:/remote",
+            "--password",
+            "pass",
+        ],
+    )
     assert result.exit_code == 0
     mock_rclone.assert_called_once()
     mock_cleanup.assert_called_once_with("tempd")
