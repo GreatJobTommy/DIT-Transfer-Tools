@@ -12,13 +12,14 @@
 #include <QRegularExpression>
 #include <QStorageInfo>
 #include <QCryptographicHash>
+#include "HashManager.h"
 #include <QDirIterator>
 #include <QRandomGenerator>
 #include <algorithm>
 
 TransferTask::TransferTask(const QString& source, const QString& destination, QObject* parent)
     : QObject(parent), QRunnable(), m_source(source), m_destination(destination), m_status(TransferStatus::Pending), m_finished(false), m_success(false), m_totalBytes(0), m_bytesTransferred(0),
-      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0), m_hash(""), m_hashVerified(false) {
+      m_process(nullptr), m_retryTimer(nullptr), m_retryCount(0), m_maxRetries(5), m_backoffMs(1000), m_chunkSize(4096), m_lastBytes(0), m_hash(""), m_hashVerified(false), m_verifyReport("") {
     QFileInfo fi(m_source);
     m_totalBytes = fi.exists() ? fi.size() : 0;
 
