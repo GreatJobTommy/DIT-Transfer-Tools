@@ -422,13 +422,10 @@ void MainWindow::updateLists() {
 }
 
 void MainWindow::addTask() {
-    // For minimal test, add a dummy task
-    static int count = 1;
-    TransferTask* task = new TransferTask(QString("test_src_%1").arg(count), QString("test_dst_%1").arg(count));
-    count++;
-    m_queue->addTask(task);
-    m_progressMonitor->addTask(task);
-    updateLists();
+    AddTaskDialog dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        addMultiTasks(dialog.getTasks());
+    }
 }
 
 void MainWindow::onFilesDropped(const QStringList& files) {
@@ -510,8 +507,11 @@ void MainWindow::onDriveReconnected() {
 }
 
 void MainWindow::addMultiTask() {
-    // TODO: Implement multi-add
-    qDebug() << "Add multi task";
+    AddTaskDialog dialog(this);
+    dialog.m_dragList->show(); // Emphasize multi
+    if (dialog.exec() == QDialog::Accepted) {
+        addMultiTasks(dialog.getTasks());
+    }
 }
 
 void MainWindow::startQueue() {

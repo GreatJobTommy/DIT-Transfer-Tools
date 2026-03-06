@@ -62,7 +62,7 @@ public:
     AddTaskDialog(QWidget* parent = nullptr);
     ~AddTaskDialog();
 
-    TransferTask* getTask() const;
+    QList&lt;TransferTask*&gt; getTasks() const;
 
 private slots:
     void browseSource();
