@@ -31,6 +31,8 @@ private slots:
     void parseRemotePath(const QString &url);
     void updateDestFromRemote();
     void refreshRemotes();
+    void onPresetChanged(int index);
+    void onLtfsDriveChanged(int index);
     void updatePreview();
 
 private:
@@ -53,6 +55,9 @@ private:
     QPushButton *m_addBtn;
     QPushButton *m_cancelBtn;
     QCheckBox *m_verifyCheckBox;
+    QGroupBox *m_ltfsGroup;
+    QLabel *m_ltfsLabel;
+    QComboBox *m_ltfsCombo;
     QStringList m_selectedPaths;
 };
 

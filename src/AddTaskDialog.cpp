@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QList>
 #include <QCheckBox>
+#include <QStorageInfo>
 
 AddTaskDialog::AddTaskDialog(QWidget* parent)
     : QDialog(parent), m_selectedPaths(QStringList()) {
@@ -66,6 +67,17 @@ void AddTaskDialog::setupUI() {
     // Verify checkbox
     m_verifyCheckBox = new QCheckBox("Verify hash after transfer");
     mainLayout->addWidget(m_verifyCheckBox);
+
+    // LTFS Tape Drives group
+    m_ltfsGroup = new QGroupBox("LTFS Tape Drives");
+    QHBoxLayout* ltfsLayout = new QHBoxLayout(m_ltfsGroup);
+    m_ltfsLabel = new QLabel("Select Drive:");
+    m_ltfsCombo = new QComboBox();
+    ltfsLayout->addWidget(m_ltfsLabel);
+    ltfsLayout->addWidget(m_ltfsCombo);
+    ltfsLayout->addStretch();
+    mainLayout->addWidget(m_ltfsGroup);
+    m_ltfsGroup->hide(); // Initially hidden
 
     // Rclone
     m_rcloneGroup = new QGroupBox("Rclone Remote");
@@ -126,6 +138,43 @@ void AddTaskDialog::setupConnections() {
     connect(m_refreshRemotesBtn, &QPushButton::clicked, this, &AddTaskDialog::refreshRemotes);
     connect(m_remoteCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AddTaskDialog::updateDestFromRemote);
     connect(m_remotePathEdit, &QLineEdit::textChanged, this, &AddTaskDialog::updateDestFromRemote);
+    connect(m_presetCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AddTaskDialog::onPresetChanged);
+    connect(m_ltfsCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &AddTaskDialog::onLtfsDriveChanged);
+}
+
+void AddTaskDialog::onPresetChanged(int index) {
+    QString preset = m_presetCombo->currentText();
+    if (preset == "LTO Tape") {
+        refreshLtfsDrives();
+        m_ltfsGroup->show();
+        if (m_destEdit->text().isEmpty() && m_ltfsCombo->count() > 0) {
+            m_destEdit->setText(m_ltfsCombo->currentData().toString());
+        }
+    } else {
+        m_ltfsGroup->hide();
+    }
+}
+
+void AddTaskDialog::refreshLtfsDrives() {
+    m_ltfsCombo->clear();
+    QList<QStorageInfo> volumes = QStorageInfo::mountedVolumes();
+    for (const QStorageInfo &volume : volumes) {
+        if (volume.isValid() && volume.isReady() && volume.fileSystemType().compare("ltfs", Qt::CaseInsensitive) == 0) {
+            m_ltfsCombo->addItem(volume.displayName().isEmpty() ? volume.rootPath() : volume.displayName(), volume.rootPath());
+        }
+    }
+    if (m_ltfsCombo->count() == 0) {
+        m_ltfsCombo->addItem("No LTFS drives found", "");
+    }
+}
+
+void AddTaskDialog::onLtfsDriveChanged(int index) {
+    if (index >= 0 && m_ltfsCombo->count() > 0) {
+        QVariant data = m_ltfsCombo->itemData(index);
+        if (!data.toString().isEmpty()) {
+            m_destEdit->setText(data.toString());
+        }
+    }
 }
 
 void AddTaskDialog::browseSource() {
