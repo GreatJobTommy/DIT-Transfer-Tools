@@ -46,6 +46,9 @@ public:
     void setBufferSize(qint64 size) { m_bufferSize = size; }
     bool verifyEnabled() const { return m_verifyEnabled; }
     void setVerifyEnabled(bool enabled) { m_verifyEnabled = enabled; }
+
+    QString verifyLevel() const { return m_verifyLevel; }
+    void setVerifyLevel(const QString&amp; level) { m_verifyLevel = level; }
     bool useWholeFileRsync() const { return m_useWholeFileRsync; }
     void setUseWholeFileRsync(bool use) { m_useWholeFileRsync = use; }
     void setPreset(const QString& preset);
@@ -90,6 +93,7 @@ private:
     bool m_isLTFS{false};
     qint64 m_bufferSize{0};
     bool m_verifyEnabled{false};
+    QString m_verifyLevel{"None"};
     bool m_useWholeFileRsync{false};
     QString m_preset;
     QString m_verifyReport;
