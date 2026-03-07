@@ -1,0 +1,25 @@
+{
+  "S3-Fast": {
+    "type": "s3",
+    "description": "Pre-defined S3-Fast profile for quick off-site backups. Enter AWS access key ID, secret access key, bucket name, and adjust region if needed. Auto-adds STANDARD storage class and us-east-1 region.",
+    "params": {
+      "region": "us-east-1",
+      "storage_class": "STANDARD",
+      "acl": "private"
+    }
+  },
+  "B2-Archive": {
+    "type": "b2",
+    "description": "Pre-defined B2-Archive profile for cost-effective long-term storage. Enter B2 account ID (access_key_id), application key (secret), and bucket name.",
+    "params": {
+      "hard_delete": false
+    }
+  },
+  "GDrive-Share": {
+    "type": "drive",
+    "description": "Pre-defined Google Drive profile for shared folders. Create the remote, then run `rclone config` to authorize with OAuth and set root_folder_id.",
+    "params": {
+      "scope": "drive"
+    }
+  }
+}
