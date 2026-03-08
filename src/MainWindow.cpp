@@ -33,6 +33,9 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
     m_progressMonitor = new ProgressMonitor(this);
     m_settingsManager = new SettingsManager(this);
 
+    // Load watchdog config
+    m_driveMonitor->loadWatchdogConfig(m_settingsManager);
+
     setWindowTitle("DIT Transfer Tools v4.4.0-dev");
     setWindowIcon(QIcon(":/icons/app.png")); // Assuming icons
 
@@ -47,6 +50,7 @@ MainWindow::MainWindow(QueueManager* queue, QWidget* parent)
 
     // Connect signals
     connect(m_settingsManager, &SettingsManager::settingChanged, this, &MainWindow::settingChanged);
+    connect(m_driveMonitor, &DriveMonitor::newWatchdogFile, this, &MainWindow::onNewWatchdogFile);
 
     connect(m_refreshRcloneBtn, &QPushButton::clicked, this, &MainWindow::refreshRcloneRemotes);
     connect(m_addRcloneBtn, &QPushButton::clicked, this, &MainWindow::addRcloneRemote);
@@ -473,9 +477,21 @@ void MainWindow::onProgressChanged(qint64 bytes, qint64 speed, qint64 eta) {
 
 
 
+void MainWindow::onNewWatchdogFile(const QString& folder, const QString& file, const QString& preset) {
+    QString dest = m_settingsManager->getWatchdogDefaultDest();
+    TransferTask* task = new TransferTask(file, dest, this);
+    task->setPreset(preset);
+    m_queue->addTask(task);
+    m_progressMonitor->addTask(task);
+    updateLists();
+    qDebug() << "Watchdog added task:" << file << "->" << dest;
+}
+
 void MainWindow::settingChanged(const QString& key, const QVariant& value) {
     if (key == "maxParallel") {
-        // Update parallel manager or something
+        m_queue->setMaxActive(value.toInt());
+    } else if (key.startsWith("watchdog/")) {
+        m_driveMonitor->loadWatchdogConfig(m_settingsManager);
     }
 }
 

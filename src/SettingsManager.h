@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSettings>
 #include <QVariant>
+#include <QStringList>
 
 class SettingsManager : public QObject {
     Q_OBJECT
@@ -24,6 +25,23 @@ public:
 
     QString getRcloneConfigPath() const;
     void setRcloneConfigPath(const QString& path);
+
+    // Watchdog settings
+    bool getWatchdogEnabled() const;
+    void setWatchdogEnabled(bool value);
+    QStringList getWatchedFolders() const;
+    void setWatchedFolders(const QStringList& folders);
+    int getWatchdogPollInterval() const;
+    void setWatchdogPollInterval(int ms);
+    QStringList getWatchdogFileFilters() const;
+    void setWatchdogFileFilters(const QStringList& filters);
+    qint64 getWatchdogMinFileSize() const;
+    void setWatchdogMinFileSize(qint64 bytes);
+    QString getWatchdogPreset() const;
+    void setWatchdogPreset(const QString& preset);
+
+    QString getWatchdogDefaultDest() const;
+    void setWatchdogDefaultDest(const QString& dest);
 
     // Notification settings
     bool getNotificationsEnabled() const;
