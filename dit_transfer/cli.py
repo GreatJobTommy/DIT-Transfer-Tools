@@ -2,6 +2,8 @@ import click
 import os
 import sys
 from pathlib import Path
+import time
+from fnmatch import fnmatch
 from .transfer import (
     parse_sftp_uri,
     sftp_connect,
@@ -13,6 +15,7 @@ from .transfer import (
     transfer_with_rclone,
     create_temp_rclone_sftp_remote,
     cleanup_temp_rclone_remote,
+    transfer_file,
 )
 
 
@@ -225,6 +228,57 @@ def verify(src, dest, dry_run):
 
     if has_issues:
         sys.exit(1)
+
+
+@cli.command()
+@click.option("--path", "-p", required=True, help="Folder to watch for new files")
+@click.option("--dest", "-d", required=True, help="Destination URI (local, sftp://user@host/path/, rclone://...)")
+@click.option("--filters", "-f", multiple=True, default=["*.dpx"], help="Glob file filters (case-insensitive)")
+@click.option("--min-size", type=int, default=1000000000, help="Minimum file size in bytes (default 1GB)")
+@click.option("--interval", type=float, default=5.0, help="Polling interval in seconds (default 5)")
+@click.option("--verify", is_flag=True, help="Verify transfer with checksums/spot-checks")
+@click.option("--rsync-fallback", is_flag=True, help="Use rsync fallback (good for LTFS)")
+@click.option("--password", help="SFTP password (prompts if sftp:// and not provided)")
+@click.option("--key-file", type=click.Path(exists=True), help="SFTP private key file")
+@click.option("--concurrency", type=int, default=4, help="Rclone concurrency")
+def watch(path, dest, filters, min_size, interval, verify, rsync_fallback, password, key_file, concurrency):
+    \"\"\"Folder Watchdog: Monitor folder, auto-transfer matching new files to dest.\"\"\"
+    import os
+    from pathlib import Path
+    if dest.startswith(\"sftp://\") and password is None:
+        password = click.prompt(\"SFTP Password\", hide_input=True)
+    seen = set()
+    click.echo(click.style(f\"🚀 Watchdog started: {path} → {dest}\", fg=\"green\"))
+    click.echo(f\"Filters: {list(filters)}, min_size: {min_size:,} bytes, interval: {interval}s\\nPress Ctrl+C to stop.\")
+    try:
+        while True:
+            # Poll
+            try:
+                real_path = os.path.abspath(path)
+                if not os.path.isdir(real_path):
+                    click.echo(click.style(f\"⚠️  {real_path} is not a directory\", fg=\"yellow\"))
+                    time.sleep(interval)
+                    continue
+                for entry in os.listdir(real_path):
+                    fpath = os.path.join(real_path, entry)
+                    if os.path.isfile(fpath):
+                        try:
+                            st = os.stat(fpath)
+                            if st.st_size >= min_size:
+                                name_lower = entry.lower()
+                                if any(fnmatch(name_lower, filt.lower()) for filt in filters):
+                                    if fpath not in seen:
+                                        click.echo(click.style(f\"📁 New file: {entry} ({st.st_size:,} bytes)\", fg=\"cyan\"))
+                                        src_file = Path(fpath)
+                                        transfer_file(src_file, dest, verify=verify, password=password, key_file=key_file, rsync_fallback=rsync_fallback, concurrency=concurrency)
+                                        seen.add(fpath)
+                        except OSError:
+                            pass  # ignore unreadable
+            except OSError as e:
+                click.echo(click.style(f\"❌ Poll error: {e}\", fg=\"red\"))
+            time.sleep(interval)
+    except KeyboardInterrupt:
+        click.echo(click.style(\"\\n🛑 Watchdog stopped.\", fg=\"yellow\"))
 
 
 if __name__ == "__main__":

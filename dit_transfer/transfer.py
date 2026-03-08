@@ -468,3 +468,34 @@ def cleanup_temp_rclone_remote(remote_name: str):
             conf_path.parent.mkdir(parents=True, exist_ok=True)
             with open(conf_path, "w") as f:
                 config.write(f)
+def transfer_file(src_file, dest_uri, verify=False, password=None, key_file=None, rsync_fallback=False, concurrency=4, **kwargs):
+    """Transfer a single file to dest_uri (local path, sftp://, or rclone://)."""
+    from pathlib import Path
+    import os
+    src_path = Path(src_file)
+    if not src_path.is_file():
+        raise ValueError(f"Not a file: {src_file}")
+    if not dest_uri.startswith("sftp://") and not dest_uri.startswith("rclone://"):
+        # local copy
+        dest_dir = Path(dest_uri)
+        dest_file = dest_dir / src_path.name
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        transfer_local(src_path, dest_file, verify=verify, rsync_fallback=rsync_fallback, **kwargs)
+    elif dest_uri.startswith("sftp://"):
+        if password is None:
+            raise ValueError("Password required for SFTP")
+        user, host, port, remote_base = parse_sftp_uri(dest_uri)
+        sftp, client = sftp_connect(user, host, port, password, key_file)
+        try:
+            remote_file = remote_base.rstrip("/") + "/" + src_path.name
+            transfer_local_to_sftp(src_path, remote_file, sftp, verify=verify)
+        finally:
+            if client:
+                client.close()
+    elif dest_uri.startswith("rclone://"):
+        remote_name, host, user, passwd, port, remote_path = parse_rclone_uri(dest_uri)
+        r_dest = f"{remote_name}:{remote_path.rstrip('/')}/{src_path.name}"
+        ensure_rclone_remote(remote_name, user or os.getenv("USER"), passwd, host, port)
+        transfer_with_rclone(str(src_path), r_dest, verify=verify, concurrency=concurrency)
+    else:
+        raise ValueError(f"Unsupported dest_uri: {dest_uri}")
