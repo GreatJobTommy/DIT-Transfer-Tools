@@ -1,118 +1,39 @@
-#include "DriveMonitor.h"
-#include <QDir>
-#include <QDebug>
-#include <QStorageInfo>
-#include <QTimer>
-
-DriveMonitor::DriveMonitor(QObject* parent)
-    : QObject(parent), m_watcher(new QFileSystemWatcher(this)), m_pollTimer(new QTimer(this)) {
-    connect(m_watcher, &QFileSystemWatcher::directoryChanged, this, &DriveMonitor::onDirectoryChanged);
-    connect(m_pollTimer, &QTimer::timeout, this, &DriveMonitor::pollDrives);
-
-    // Start polling every 5 seconds
-    m_pollTimer->start(5000);
-
-    scanDrives();
-}
-
-DriveMonitor::~DriveMonitor() {
-    m_pollTimer->stop();
-}
-
-QList<QStorageInfo> DriveMonitor::getCurrentDrives() const {
-    return m_currentDrives;
-}
-
-bool DriveMonitor::isRemovableDrive(const QStorageInfo& info) const {
-    return info.isReady() && (info.device().startsWith("/dev/sd") || info.device().startsWith("/dev/mmc") || info.rootPath() != "/");
-}
-
-void DriveMonitor::addDrive(const QString& path) {
-    if (!m_watcher->directories().contains(path)) {
-        m_watcher->addPath(path);
-        m_lastFiles[path] = !QDir(path).entryList(QDir::Files | QDir::NoDotAndDotDot).isEmpty();
-    }
-}
-
-void DriveMonitor::removeDrive(const QString& path) {
-    m_watcher->removePath(path);
-    m_lastFiles.remove(path);
-    m_removedDrives.insert(path);
-}
-
-void DriveMonitor::setResumeOffset(const QString& path, const QString& lastFile, qint64 offset) {
-    m_resumeOffsets[path] = {lastFile, offset};
-}
-
-void DriveMonitor::onDirectoryChanged(const QString& path) {
-    bool hasFiles = !QDir(path).entryList(QDir::Files | QDir::NoDotAndDotDot).isEmpty();
-    if (hasFiles != m_lastFiles.value(path, false)) {
-        if (hasFiles) {
-            emit driveConnected(path);
-        } else {
-            emit driveDisconnected(path);
-        }
-        m_lastFiles[path] = hasFiles;
-    }
-}
-
-void DriveMonitor::pollDrives() {
-    QList<QStorageInfo> newDrives = QStorageInfo::mountedVolumes();
-    QList<QString> newPaths;
-    for (const QStorageInfo& info : newDrives) {
-        if (info.isReady()) {
-            newPaths.append(info.rootPath());
-        }
-    }
-
-    QList<QString> currentPaths;
-    for (const QStorageInfo& info : m_currentDrives) {
-        currentPaths.append(info.rootPath());
-    }
-
-    // Check for new drives
-    for (const QString& path : newPaths) {
-        if (!currentPaths.contains(path)) {
-            addDrive(path);
-            emit driveConnected(path);
-            if (m_removedDrives.contains(path)) {
-                emit driveReconnected();
-                m_removedDrives.remove(path);
+void DriveMonitor::pollWatchdog() {
+    if (m_paused) return;
+    for (const QString& folder : m_watchedFolders) {
+        QStringList newFiles = getMatchingFiles(folder);
+        QSet<QString> currentSeen = m_seenFiles.value(folder);
+        for (const QString& file : newFiles) {
+            if (!currentSeen.contains(file)) {
+                emit newWatchdogFile(folder, file, m_preset);
+                currentSeen.insert(file);
             }
         }
+        m_seenFiles[folder] = currentSeen;
     }
-
-    // Check for removed drives
-    for (const QString& path : currentPaths) {
-        if (!newPaths.contains(path)) {
-            removeDrive(path);
-            emit driveDisconnected(path);
-        }
-    }
-
-    m_currentDrives = newDrives;
 }
 
-void DriveMonitor::scanDrives() {
-    m_currentDrives = QStorageInfo::mountedVolumes();
-    QDir mediaMnt("/media/mnt");
-    if (mediaMnt.exists()) {
-        QStringList entries = mediaMnt.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-        for (const QString& entry : entries) {
-            QString path = "/media/mnt/" + entry;
-            QStorageInfo info(path);
-            if (info.isReady() && (info.device().contains("sd") || info.device().contains("mmc") || info.device().contains("usb"))) {
-                m_currentDrives.append(info);
-                addDrive(path);
-                emit driveConnected(path);
-            }
+QStringList DriveMonitor::getMatchingFiles(const QString& folder) {
+    QStringList files;
+    QDir dir(folder);
+    if (!dir.exists()) return files;
+    QFileInfoList entries = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
+    for (const QFileInfo& info : entries) {
+        if (matchesFilters(info.absoluteFilePath()) && info.size() >= m_minFileSize) {
+            files << info.absoluteFilePath();
         }
     }
-    // Also scan other removable drives
-    for (const QStorageInfo& info : QStorageInfo::mountedVolumes()) {
-        if (info.isReady() && isRemovableDrive(info) && !info.rootPath().startsWith("/media/mnt")) {
-            addDrive(info.rootPath());
-            emit driveConnected(info.rootPath());
+    return files;
+}
+
+bool DriveMonitor::matchesFilters(const QString& filePath) {
+    QFileInfo info(filePath);
+    QString nameLower = info.fileName().toLower();
+    for (const QString& filter : m_fileFilters) {
+        QRegExp rx(filter, Qt::CaseInsensitive, QRegExp::Wildcard);
+        if (rx.exactMatch(nameLower)) {
+            return true;
         }
     }
+    return m_fileFilters.isEmpty(); // If no filters, match all
 }

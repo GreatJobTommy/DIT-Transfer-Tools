@@ -9,6 +9,7 @@
 #include <QSet>
 #include <QStringList>
 #include <QString>
+#include <QHash>
 
 struct ResumeInfo {
     QString lastFile;
@@ -29,25 +30,41 @@ public:
     void removeDrive(const QString& path);
     void setResumeOffset(const QString& path, const QString& lastFile, qint64 offset);
 
+    // Folder Watchdog
+    void loadWatchdogConfig(SettingsManager* settings);
+    void setPaused(bool paused);
+    bool isPaused() const;
+
 signals:
     void driveConnected(const QString& path);
     void driveDisconnected(const QString& path);
     void driveReconnected();
     void driveAdded(const QString& drive);
     void driveRemoved(const QString& drive);
+    void newWatchdogFile(const QString& folder, const QString& file, const QString& preset);
 
 private slots:
     void onDirectoryChanged(const QString& path);
+    void pollWatchdog();
     void pollDrives();
 
 private:
     void scanDrives();
+    QStringList getMatchingFiles(const QString& folder);
+    bool matchesFilters(const QString& filePath);
 
     QFileSystemWatcher* m_watcher;
     QTimer* m_pollTimer;
     QList<QStorageInfo> m_currentDrives;
     QStringList m_currentDrivesList;
     QSet<QString> m_removedDrives;
+    QTimer* m_watchdogTimer;
+    QHash<QString, QSet<QString>> m_seenFiles;
+    QStringList m_watchedFolders;
+    QStringList m_fileFilters;
+    qint64 m_minFileSize;
+    QString m_preset;
+    bool m_paused;
 public:
     QMap<QString, bool> m_lastFiles; // For resume check, public for test
     QMap<QString, ResumeInfo> m_resumeOffsets;

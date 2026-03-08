@@ -49,6 +49,7 @@ private slots:
     void onTaskPaused(TransferTask* task);
     void onDriveReconnected();
     void onProgressChanged(qint64 bytes, qint64 speed, qint64 eta);
+void onNewWatchdogFile(const QString& folder, const QString& file, const QString& preset);
 void createRcloneTab();
 
 void refreshRcloneRemotes();

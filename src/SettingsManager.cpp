@@ -39,6 +39,63 @@ void SettingsManager::setRcloneConfigPath(const QString& path) {
     setSetting("rclone/configPath", path);
 }
 
+// Watchdog settings
+bool SettingsManager::getWatchdogEnabled() const {
+    return getSetting("watchdog/enabled", false).toBool();
+}
+
+void SettingsManager::setWatchdogEnabled(bool value) {
+    setSetting("watchdog/enabled", value);
+}
+
+QStringList SettingsManager::getWatchedFolders() const {
+    return getSetting("watchdog/folders", QStringList()).toStringList();
+}
+
+void SettingsManager::setWatchedFolders(const QStringList& folders) {
+    setSetting("watchdog/folders", folders);
+}
+
+int SettingsManager::getWatchdogPollInterval() const {
+    return getSetting("watchdog/pollInterval", 5000).toInt();
+}
+
+void SettingsManager::setWatchdogPollInterval(int ms) {
+    setSetting("watchdog/pollInterval", ms);
+}
+
+QStringList SettingsManager::getWatchdogFileFilters() const {
+    return getSetting("watchdog/fileFilters", QStringList{"*.dpx"}).toStringList();
+}
+
+void SettingsManager::setWatchdogFileFilters(const QStringList& filters) {
+    setSetting("watchdog/fileFilters", filters);
+}
+
+qint64 SettingsManager::getWatchdogMinFileSize() const {
+    return getSetting("watchdog/minFileSize", 1000000000LL).toLongLong(); // 1GB
+}
+
+void SettingsManager::setWatchdogMinFileSize(qint64 bytes) {
+    setSetting("watchdog/minFileSize", bytes);
+}
+
+QString SettingsManager::getWatchdogPreset() const {
+    return getSetting("watchdog/preset", "default").toString();
+}
+
+void SettingsManager::setWatchdogPreset(const QString& preset) {
+    setSetting("watchdog/preset", preset);
+}
+
+QString SettingsManager::getWatchdogDefaultDest() const {
+    return getSetting("watchdog/defaultDest", QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/DIT_Ingest").toString();
+}
+
+void SettingsManager::setWatchdogDefaultDest(const QString& dest) {
+    setSetting("watchdog/defaultDest", dest);
+}
+
 // Notification settings
 bool SettingsManager::getNotificationsEnabled() const {
     return getSetting("notifications/enabled", true).toBool();
