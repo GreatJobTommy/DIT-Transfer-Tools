@@ -40,6 +40,9 @@ public:
     QString verifyReport() const;
     qint64 duration() const;
 
+    QString getSimpleReportJSON() const;
+    void exportReport(const QString&amp; path);
+
     bool isLTFS() const;
 
     qint64 bufferSize() const { return m_bufferSize; }
@@ -57,6 +60,7 @@ public:
 signals:
     void statusChanged(TransferStatus status);
     void progressChanged(qint64 bytes, qint64 speed, qint64 eta);
+    void reportAvailable(const QString&amp; jsonReport);
 
 private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
@@ -93,6 +97,10 @@ private:
     bool m_useWholeFileRsync{false};
     QString m_preset;
     QString m_verifyReport;
+    QDateTime m_startTime;
+    qint64 m_avgSpeed {0};
+    int m_fileCount {1};
+    int m_errorCount {0};
 
 private:
     struct FileInfo {
