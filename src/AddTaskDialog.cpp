@@ -13,6 +13,10 @@
 #include <QMessageBox>
 #include <QList>
 #include <QCheckBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QVariant>
+#include <QDir>
 #include <QStorageInfo>
 
 AddTaskDialog::AddTaskDialog(QWidget* parent)

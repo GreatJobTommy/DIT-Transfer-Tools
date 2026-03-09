@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QComboBox>
+#include <QLabel>
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QTextEdit>
@@ -38,6 +39,7 @@ private slots:
 private:
     void setupUI();
     void setupConnections();
+void refreshLtfsDrives();
     bool isValidPath(const QString& path) const;
 
     QLineEdit *m_sourceEdit;
