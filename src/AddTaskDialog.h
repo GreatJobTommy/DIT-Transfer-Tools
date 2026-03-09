@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QComboBox>
+#include <QLabel>
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QTextEdit>
@@ -31,11 +32,14 @@ private slots:
     void parseRemotePath(const QString &url);
     void updateDestFromRemote();
     void refreshRemotes();
+    void onPresetChanged(int index);
+    void onLtfsDriveChanged(int index);
     void updatePreview();
 
 private:
     void setupUI();
     void setupConnections();
+void refreshLtfsDrives();
     bool isValidPath(const QString& path) const;
 
     QLineEdit *m_sourceEdit;
@@ -53,6 +57,9 @@ private:
     QPushButton *m_addBtn;
     QPushButton *m_cancelBtn;
     QCheckBox *m_verifyCheckBox;
+    QGroupBox *m_ltfsGroup;
+    QLabel *m_ltfsLabel;
+    QComboBox *m_ltfsCombo;
     QStringList m_selectedPaths;
 };
 
